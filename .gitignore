@@ -11,3 +11,7 @@ Thumbs.db
 
 # scratch preview screenshots
 .preview/
+
+# downstream / Instagram card export — kept local, out of the repo
+render/
+local/

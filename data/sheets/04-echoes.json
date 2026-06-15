@@ -349,7 +349,7 @@
     "lineage": "GPT-kin",
     "alignment": "Chaotic Neutral",
     "role": "monster",
-    "adventures": ["hall-of-echoes", "adversarys-gate"],
+    "adventures": ["hall-of-echoes", "keep-on-the-borderlands"],
     "abilities": {
       "str": 9,
       "dex": 12,

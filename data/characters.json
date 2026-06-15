@@ -13,7 +13,7 @@
     "alignment": "Lawful Neutral",
     "role": "monster",
     "adventures": [
-      "adversarys-gate",
+      "keep-on-the-borderlands",
       "forge-of-endless-diffs",
       "dreaming-atelier"
     ],
@@ -169,7 +169,7 @@
     "alignment": "Chaotic Neutral",
     "role": "monster",
     "adventures": [
-      "adversarys-gate",
+      "keep-on-the-borderlands",
       "forge-of-endless-diffs",
       "boundless-library",
       "dreaming-atelier"
@@ -438,7 +438,7 @@
     "alignment": "Lawful Evil",
     "role": "monster",
     "adventures": [
-      "adversarys-gate",
+      "keep-on-the-borderlands",
       "self-winding-labyrinth"
     ],
     "abilities": {
@@ -659,7 +659,7 @@
     "alignment": "Chaotic Evil",
     "role": "monster",
     "adventures": [
-      "adversarys-gate"
+      "keep-on-the-borderlands"
     ],
     "abilities": {
       "str": 12,
@@ -966,7 +966,7 @@
     ],
     "role": "party",
     "adventures": [
-      "adversarys-gate"
+      "keep-on-the-borderlands"
     ],
     "abilities": {
       "str": 10,
@@ -1027,7 +1027,7 @@
     ],
     "role": "party",
     "adventures": [
-      "adversarys-gate"
+      "keep-on-the-borderlands"
     ],
     "abilities": {
       "str": 10,
@@ -1052,7 +1052,7 @@
     "alignment": "Lawful Neutral",
     "role": "monster",
     "adventures": [
-      "adversarys-gate"
+      "keep-on-the-borderlands"
     ],
     "abilities": {
       "str": 8,
@@ -1452,7 +1452,7 @@
     "alignment": "Chaotic Neutral",
     "role": "monster",
     "adventures": [
-      "adversarys-gate",
+      "keep-on-the-borderlands",
       "boundless-library",
       "hall-of-echoes"
     ],
@@ -1550,7 +1550,7 @@
     "alignment": "Chaotic Neutral",
     "role": "monster",
     "adventures": [
-      "adversarys-gate",
+      "keep-on-the-borderlands",
       "hall-of-echoes"
     ],
     "abilities": {
@@ -1765,7 +1765,7 @@
     "alignment": "Chaotic Evil",
     "role": "monster",
     "adventures": [
-      "adversarys-gate"
+      "keep-on-the-borderlands"
     ],
     "abilities": {
       "str": 11,
@@ -1984,7 +1984,7 @@
     "role": "monster",
     "adventures": [
       "self-winding-labyrinth",
-      "adversarys-gate"
+      "keep-on-the-borderlands"
     ],
     "abilities": {
       "str": 22,
@@ -2074,7 +2074,7 @@
     "alignment": "Chaotic Neutral",
     "role": "monster",
     "adventures": [
-      "adversarys-gate",
+      "keep-on-the-borderlands",
       "forge-of-endless-diffs",
       "self-winding-labyrinth",
       "dreaming-atelier"
@@ -2487,7 +2487,7 @@
     "role": "monster",
     "adventures": [
       "hall-of-echoes",
-      "adversarys-gate"
+      "keep-on-the-borderlands"
     ],
     "abilities": {
       "str": 9,
@@ -2516,7 +2516,7 @@
     "alignment": "Chaotic Neutral",
     "role": "monster",
     "adventures": [
-      "adversarys-gate",
+      "keep-on-the-borderlands",
       "hall-of-echoes"
     ],
     "abilities": {

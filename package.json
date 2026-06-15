@@ -6,13 +6,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bigbrownjeff/jeffpinto-site.git",
-    "directory": "character-sheets"
+    "url": "https://github.com/bigbrownjeff/agentic-character-sheets.git"
   },
   "scripts": {
     "build": "node scripts/build.mjs",
     "validate": "node scripts/build.mjs",
-    "render": "node render/render.mjs",
     "serve": "node scripts/serve.mjs"
   }
 }

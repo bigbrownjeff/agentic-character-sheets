@@ -32,7 +32,7 @@ The original note ended on a thread I didn't pull: a single PC is one voice, not
 
 So the 52 aren't a list. They're cast into **six adventures** — the six ways people actually use this stuff:
 
-> **The Forge of Endless Diffs** (coding) · **The Self-Winding Labyrinth** (automation) · **The Boundless Library** (research) · **Whispers in the Hall of Echoes** (chat & assistants) · **The Dreaming Atelier** (creative) · **The Adversary's Gate** (security — home of the bestiary).
+> **The Forge of Endless Diffs** (coding) · **The Self-Winding Labyrinth** (automation) · **The Boundless Library** (research) · **Whispers in the Hall of Echoes** (chat & assistants) · **The Dreaming Atelier** (creative) · **Keep on the Token Borderlands** (security — the bestiary's Caves of Chaos).
 
 Each one is a module: a **Party** of four-to-six you'd actually staff, the **NPCs** you'd bring in, and a **Bestiary** of the failure modes that haunt *that* job. The monsters recur — Cador the hallucinator stalks the Library and the Forge both — exactly the way one bestiary entry shows up across a shelf of campaign modules. And the pedagogy falls out of the format for free: a party is balanced when every member's dumped stat is somebody else's proficiency. Ponytail dumps Charisma; the reviewer beside him is proficient in it. That's a chorus. One over-specified persona is not.
 

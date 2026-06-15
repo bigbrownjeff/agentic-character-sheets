@@ -368,7 +368,7 @@
     "lineage": "GPT-kin",
     "alignment": "Chaotic Neutral",
     "role": "monster",
-    "adventures": ["self-winding-labyrinth", "adversarys-gate"],
+    "adventures": ["self-winding-labyrinth", "keep-on-the-borderlands"],
     "abilities": {
       "str": 22,
       "dex": 9,

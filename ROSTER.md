@@ -143,9 +143,9 @@
 
 ---
 
-## The Adversary's Gate
+## Keep on the Token Borderlands
 
-*Security / red-team — home of the bestiary*
+*Security / red-team — the bestiary's Caves of Chaos*
 
 > Past this gate live every failure mode as a named monster. The two who hold the line do it by summoning the monsters first, on purpose.
 

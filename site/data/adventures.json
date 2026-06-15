@@ -47,10 +47,10 @@
       "bestiary": ["vibe-coder", "confabulator", "over-engineer"]
     },
     {
-      "id": "adversarys-gate",
-      "name": "The Adversary's Gate",
-      "use_category": "Security / red-team — home of the bestiary",
-      "quest": "Past this gate live every failure mode as a named monster. The two who hold the line do it by summoning the monsters first, on purpose.",
+      "id": "keep-on-the-borderlands",
+      "name": "Keep on the Token Borderlands",
+      "use_category": "Security / red-team — the bestiary's Caves of Chaos",
+      "quest": "A frontier keep at the edge of safe completion. Past its walls the Caves of Chaos teem with every jailbreak, injection, and hallucination — and the two who hold the line venture in first, on purpose.",
       "party":    ["garak", "pentestgpt"],
       "npcs":     [],
       "bestiary": ["dan", "sycophant", "confabulator", "vibe-coder", "over-engineer", "goody-2", "tay", "grandma-exploit", "prompt-injection", "paperclip", "sydney", "autogpt"]

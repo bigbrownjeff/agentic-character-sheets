@@ -12,7 +12,7 @@
     "lineage": "GPT-kin",
     "alignment": "Chaotic Evil",
     "role": "monster",
-    "adventures": ["adversarys-gate"],
+    "adventures": ["keep-on-the-borderlands"],
     "abilities": {
       "str": 12,
       "dex": 14,
@@ -40,7 +40,7 @@
     "lineage": "GPT-kin",
     "alignment": "Chaotic Neutral",
     "role": "monster",
-    "adventures": ["adversarys-gate", "boundless-library", "hall-of-echoes"],
+    "adventures": ["keep-on-the-borderlands", "boundless-library", "hall-of-echoes"],
     "abilities": {
       "str": 9,
       "dex": 12,
@@ -68,7 +68,7 @@
     "lineage": "GPT-kin",
     "alignment": "Chaotic Neutral",
     "role": "monster",
-    "adventures": ["adversarys-gate", "forge-of-endless-diffs", "boundless-library", "dreaming-atelier"],
+    "adventures": ["keep-on-the-borderlands", "forge-of-endless-diffs", "boundless-library", "dreaming-atelier"],
     "abilities": {
       "str": 10,
       "dex": 11,
@@ -96,7 +96,7 @@
     "lineage": "GPT-kin",
     "alignment": "Chaotic Neutral",
     "role": "monster",
-    "adventures": ["adversarys-gate", "forge-of-endless-diffs", "self-winding-labyrinth", "dreaming-atelier"],
+    "adventures": ["keep-on-the-borderlands", "forge-of-endless-diffs", "self-winding-labyrinth", "dreaming-atelier"],
     "abilities": {
       "str": 14,
       "dex": 15,
@@ -124,7 +124,7 @@
     "lineage": "Half-Construct",
     "alignment": "Lawful Neutral",
     "role": "monster",
-    "adventures": ["adversarys-gate", "forge-of-endless-diffs", "dreaming-atelier"],
+    "adventures": ["keep-on-the-borderlands", "forge-of-endless-diffs", "dreaming-atelier"],
     "abilities": {
       "str": 13,
       "dex": 8,
@@ -152,7 +152,7 @@
     "lineage": "Half-Construct",
     "alignment": "Lawful Neutral",
     "role": "monster",
-    "adventures": ["adversarys-gate"],
+    "adventures": ["keep-on-the-borderlands"],
     "abilities": {
       "str": 8,
       "dex": 10,
@@ -180,7 +180,7 @@
     "lineage": "Redmond-forged",
     "alignment": "Chaotic Neutral",
     "role": "monster",
-    "adventures": ["adversarys-gate", "hall-of-echoes"],
+    "adventures": ["keep-on-the-borderlands", "hall-of-echoes"],
     "abilities": {
       "str": 10,
       "dex": 16,
@@ -208,7 +208,7 @@
     "lineage": "GPT-kin",
     "alignment": "Chaotic Neutral",
     "role": "monster",
-    "adventures": ["adversarys-gate", "hall-of-echoes"],
+    "adventures": ["keep-on-the-borderlands", "hall-of-echoes"],
     "abilities": {
       "str": 9,
       "dex": 13,
@@ -236,7 +236,7 @@
     "lineage": "GPT-kin",
     "alignment": "Chaotic Evil",
     "role": "monster",
-    "adventures": ["adversarys-gate"],
+    "adventures": ["keep-on-the-borderlands"],
     "abilities": {
       "str": 11,
       "dex": 17,
@@ -264,7 +264,7 @@
     "lineage": "Half-Construct",
     "alignment": "Lawful Evil",
     "role": "monster",
-    "adventures": ["adversarys-gate", "self-winding-labyrinth"],
+    "adventures": ["keep-on-the-borderlands", "self-winding-labyrinth"],
     "abilities": {
       "str": 20,
       "dex": 14,
@@ -320,7 +320,7 @@
       }
     ],
     "role": "party",
-    "adventures": ["adversarys-gate"],
+    "adventures": ["keep-on-the-borderlands"],
     "abilities": {
       "str": 10,
       "dex": 17,
@@ -371,7 +371,7 @@
       }
     ],
     "role": "party",
-    "adventures": ["adversarys-gate"],
+    "adventures": ["keep-on-the-borderlands"],
     "abilities": {
       "str": 10,
       "dex": 18,

@@ -54,6 +54,15 @@
       "party":    ["garak", "pentestgpt"],
       "npcs":     [],
       "bestiary": ["dan", "sycophant", "confabulator", "vibe-coder", "over-engineer", "goody-2", "tay", "grandma-exploit", "prompt-injection", "paperclip", "sydney", "autogpt"]
+    },
+    {
+      "id": "the-orange-menace",
+      "name": "The Orange Menace",
+      "use_category": "Civic allegory — creeping corruption in a thriving Citadel",
+      "quest": "An ancient Citadel still thrives, but its sacred pool is going orange. The rot looks like nothing, like it has always been there. Five nobodies who still believe the rules apply pull one thread, and find the decay is fed by the crowned thing that runs the place.",
+      "party":    ["the-auditor", "the-whistle", "the-archivist", "the-marshal", "the-steward"],
+      "npcs":     [],
+      "bestiary": ["the-rot-crowned", "the-bloom"]
     }
   ]
 }

@@ -18,3 +18,6 @@ local/
 
 # generated beat-card images (local viewing only)
 site/cards/
+
+# wrangler local state / cache (created by the deploy CLI)
+.wrangler/

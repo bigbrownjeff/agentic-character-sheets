@@ -55,6 +55,55 @@ function initHamburger() {
 }
 
 /* ============================================================
+   STYLE TOGGLE HELPERS
+   ============================================================ */
+
+const STYLE_LABELS = { A: 'Painterly', B: 'Graphic Novel', C: 'Trend' };
+
+/** Fetch the style-C name for a beat. Falls back to "Trend" silently. */
+async function fetchStyleCName(beatId) {
+  try {
+    const res = await fetch(`./data/style-c/${encodeURIComponent(beatId)}.json`,
+      { signal: AbortSignal.timeout(3000) });
+    if (!res.ok) return 'Trend';
+    const data = await res.json();
+    return (data && typeof data.name === 'string' && data.name.trim()) ? data.name.trim() : 'Trend';
+  } catch {
+    return 'Trend';
+  }
+}
+
+/** Reload all images in a slide set to use the given style key (A/B/C). */
+function applyStyleToSlides(slides, cards, beatId, styleKey) {
+  slides.forEach((slide, i) => {
+    const img = slide.querySelector('.carousel-img');
+    const textCard = slide.querySelector('.carousel-text-card');
+    if (!img) return;
+
+    // Reset fallback state
+    img.style.display = '';
+    textCard.style.display = '';
+    textCard.setAttribute('aria-hidden', 'true');
+    slide.classList.remove('carousel-slide-text-fallback');
+
+    const newSrc = `./cards/beats/${beatId}-${styleKey}-${i + 1}.png`;
+
+    // Reattach error handler for new src
+    const errorHandler = () => {
+      img.style.display = 'none';
+      textCard.style.display = 'flex';
+      textCard.removeAttribute('aria-hidden');
+      slide.classList.add('carousel-slide-text-fallback');
+    };
+    img.removeEventListener('error', img._styleErrorHandler);
+    img._styleErrorHandler = errorHandler;
+    img.addEventListener('error', errorHandler);
+
+    img.src = newSrc;
+  });
+}
+
+/* ============================================================
    CAROUSEL
    ============================================================ */
 
@@ -62,6 +111,7 @@ function buildCarousel(beat, beatIndex) {
   const cards = beat.cards;
   const total = cards.length;
   let current = 0;
+  let currentStyle = 'A';
   let timer = null;
   const INTERVAL = 3000;
   const reduced = prefersReducedMotion();
@@ -81,6 +131,43 @@ function buildCarousel(beat, beatIndex) {
     <p class="beat-caption">${escHtml(beat.caption)}</p>
   `;
   section.appendChild(header);
+
+  // Style toggle bar
+  const styleToggleBar = document.createElement('div');
+  styleToggleBar.className = 'beat-style-toggle';
+  styleToggleBar.setAttribute('role', 'group');
+  styleToggleBar.setAttribute('aria-label', 'Illustration style');
+
+  const styleButtons = {};
+  ['A', 'B', 'C'].forEach(key => {
+    const btn = document.createElement('button');
+    btn.className = 'beat-style-btn' + (key === 'A' ? ' active' : '');
+    btn.dataset.style = key;
+    btn.setAttribute('aria-pressed', key === 'A' ? 'true' : 'false');
+    btn.textContent = key === 'C' ? STYLE_LABELS.C : STYLE_LABELS[key];
+    btn.addEventListener('click', () => {
+      if (currentStyle === key) return;
+      currentStyle = key;
+      // Update button states
+      ['A', 'B', 'C'].forEach(k => {
+        styleButtons[k].classList.toggle('active', k === key);
+        styleButtons[k].setAttribute('aria-pressed', k === key ? 'true' : 'false');
+      });
+      // Reload carousel images for new style
+      applyStyleToSlides(slides, cards, beat.id, key);
+    });
+    styleButtons[key] = btn;
+    styleToggleBar.appendChild(btn);
+  });
+
+  section.appendChild(styleToggleBar);
+
+  // Async: update style-C button label if a JSON name is available
+  fetchStyleCName(beat.id).then(name => {
+    if (name !== STYLE_LABELS.C) {
+      styleButtons['C'].textContent = name;
+    }
+  });
 
   // Carousel wrapper (receives keyboard focus)
   const carouselEl = document.createElement('div');
@@ -103,8 +190,8 @@ function buildCarousel(beat, beatIndex) {
     slide.setAttribute('aria-label', `${i + 1} of ${total}`);
     if (i !== 0) slide.setAttribute('aria-hidden', 'true');
 
-    // Image path: ./cards/beats/<beat.id>-<n>.png (1-indexed)
-    const imgSrc = `./cards/beats/${beat.id}-${i + 1}.png`;
+    // Image path: ./cards/beats/<beat.id>-<style>-<n>.png (1-indexed, default style A)
+    const imgSrc = `./cards/beats/${beat.id}-A-${i + 1}.png`;
 
     // Image element
     const img = document.createElement('img');
@@ -125,12 +212,14 @@ function buildCarousel(beat, beatIndex) {
     captionBanner.innerHTML = `<span>${escHtml(card.caption)}</span>`;
 
     // On error: hide img, reveal text card, reposition caption banner
-    img.addEventListener('error', () => {
+    const errorHandler = () => {
       img.style.display = 'none';
       textCard.style.display = 'flex';
       textCard.removeAttribute('aria-hidden');
       slide.classList.add('carousel-slide-text-fallback');
-    });
+    };
+    img._styleErrorHandler = errorHandler;
+    img.addEventListener('error', errorHandler);
 
     // Begin loading after handler is attached
     img.src = imgSrc;
@@ -236,9 +325,7 @@ function buildCarousel(beat, beatIndex) {
   /* --- Auto-advance --------------------------------------- */
 
   function startAuto() {
-    if (reduced) return; // respect prefers-reduced-motion
-    if (timer) return;
-    timer = setInterval(next, INTERVAL);
+    return; // auto-advance disabled by request — navigation is manual (prev/next/dots/keys)
   }
 
   function stopAuto() {
@@ -293,6 +380,11 @@ function buildCarousel(beat, beatIndex) {
   updateUI();
   startAuto();
 
+  // Comment widget per beat
+  if (window.CS && window.CS.mountBeatComments) {
+    window.CS.mountBeatComments(section, beat.id, beatIndex);
+  }
+
   return section;
 }
 
@@ -314,6 +406,10 @@ async function initBeatsPage() {
       container.innerHTML = '<p class="beats-error">No beats found in data.</p>';
       return;
     }
+
+    // Eyebrow count is data-driven so it can't drift as adventures are added.
+    const eyebrowEl = document.querySelector('.page-eyebrow');
+    if (eyebrowEl) eyebrowEl.textContent = `${beats.length} Adventures · Illustrated`;
 
     beats.forEach((beat, i) => {
       const section = buildCarousel(beat, i);

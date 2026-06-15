@@ -381,9 +381,9 @@ img {
 .card-name {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: 1.125rem;
+  font-size: 1.6rem;
   color: var(--ink);
-  line-height: 1.2;
+  line-height: 1.15;
   margin-top: 2px;
 }
 
@@ -478,6 +478,22 @@ img {
   color: var(--ink);
 }
 
+/* Sheet image — primary visual on card, 4:5 portrait ratio */
+.card-sheet-img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+/* Stat fallback — shown only when sheet image fails to load */
+.card-stat-fallback {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
 /* Card badges */
 .card-badges {
   display: flex;
@@ -523,6 +539,41 @@ img {
   color: var(--accent);
   border-color: var(--accent);
 }
+
+/* Clickable source pill — where the inspo came from */
+.source-pill {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  padding: 2px 7px;
+  color: var(--accent);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.source-pill:hover { background: var(--accent); color: var(--paper); }
+.card-inspired {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 7px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.modal-source-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); margin-right: 4px;
+}
+.modal-source-rep { font-size: 0.8rem; color: var(--muted); margin-left: 8px; font-style: italic; }
 
 /* --- MODAL ----------------------------------------------- */
 
@@ -571,6 +622,14 @@ img {
 
 .modal-close:hover {
   color: var(--ink);
+}
+
+/* Sheet image at top of modal — 4:5 portrait, full container width */
+.modal-sheet-img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
 }
 
 .modal-body {
@@ -966,6 +1025,68 @@ img {
   color: var(--muted);
   letter-spacing: 0.03em;
   line-height: 1.5;
+}
+
+/* --- ADVENTURE COVER IMAGE + STYLE TOGGLE ---------------- */
+
+.adv-cover-wrap {
+  margin-bottom: 28px;
+}
+
+.adv-style-toggle {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.adv-style-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--ruleSoft);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s, background 0.12s;
+  white-space: nowrap;
+}
+
+.adv-style-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.adv-style-btn.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+.adv-style-btn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Cover image: 4:5 portrait, max ~480px wide so it reads as a module cover
+   alongside the text rather than dominating the full-width layout */
+.adv-cover-img {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+@media (max-width: 480px) {
+  .adv-cover-img {
+    max-width: 100%;
+  }
 }
 
 /* --- INDEX / ESSAY --------------------------------------- */

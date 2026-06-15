@@ -64,6 +64,20 @@ function viralityBadgeClass(virality) {
   return 'badge'; // idiomatic / niche → muted default
 }
 
+// Shortened, clickable "where the inspo came from" pill
+function srcLabel(c) {
+  const u = c.source_url || '';
+  const gh = u.match(/github\.com\/[^/]+\/([^/?#]+)/);
+  if (gh) return gh[1];
+  let s = (c.represents || '').split(/\s*[(/]/)[0].trim();
+  if (!s) { try { s = new URL(u).hostname.replace(/^www\./, ''); } catch { s = c.source_kind || 'source'; } }
+  return s.length > 22 ? s.slice(0, 20).trim() + '…' : s;
+}
+function sourcePill(c) {
+  if (!c.source_url) return '';
+  return `<a class="source-pill" href="${escAttr(c.source_url)}" target="_blank" rel="noopener noreferrer" title="${escAttr(c.represents || c.source_url)}" onclick="event.stopPropagation()">↗&nbsp;${escHtml(srcLabel(c))}</a>`;
+}
+
 /* --- ABILITY GRID (card size) ---------------------------- */
 
 function renderAbilityGridCard(abilities) {
@@ -153,14 +167,29 @@ function renderCard(char) {
     badges.push(`<span class="badge badge-ancestor">ancestor</span>`);
   }
 
+  // Sheet image — shown as primary visual when available; on error, hide and reveal stat fallback
+  const sheetImgId = `sheet-img-${char.id}`;
+  const statFallbackId = `stat-fallback-${char.id}`;
+
   el.innerHTML = `
     <div>
       <div class="card-eyebrow">${escHtml(eyebrow)}</div>
       <div class="card-name">${escHtml(char.name)}</div>
       <div class="card-title">${escHtml(char.title || '')}</div>
+      ${char.source_url ? `<div class="card-inspired">Inspired by ${sourcePill(char)}</div>` : ''}
     </div>
-    ${char.abilities ? renderAbilityGridCard(char.abilities) : ''}
-    ${statBarHtml}
+    <img
+      id="${sheetImgId}"
+      class="card-sheet-img"
+      src="./cards/sheets/${escAttr(char.id)}.png"
+      loading="lazy"
+      alt="${escAttr(char.name)} character sheet"
+      onerror="this.style.display='none';var f=document.getElementById('${statFallbackId}');if(f)f.style.display='';"
+    >
+    <div id="${statFallbackId}" class="card-stat-fallback" style="display:none;">
+      ${char.abilities ? renderAbilityGridCard(char.abilities) : ''}
+      ${statBarHtml}
+    </div>
     <div class="card-badges">${badges.join('')}</div>
   `;
 
@@ -303,7 +332,7 @@ function renderModal(char) {
 
   // Source
   const sourceHtml = char.source_url
-    ? `<div class="modal-source">Source: <a href="${escAttr(char.source_url)}" target="_blank" rel="noopener noreferrer">${escHtml(char.source_url)}</a></div>`
+    ? `<div class="modal-source"><span class="modal-source-label">Inspired by</span> ${sourcePill(char)} <span class="modal-source-rep">${escHtml(char.represents || '')}</span></div>`
     : '';
 
   // Ancestor note
@@ -313,6 +342,12 @@ function renderModal(char) {
 
   container.innerHTML = `
     <button class="modal-close" id="modal-close-btn" aria-label="Close character sheet">[ESC] CLOSE</button>
+    <img
+      class="modal-sheet-img"
+      src="./cards/sheets/${escAttr(char.id)}.png"
+      alt="${escAttr(char.name)} character sheet"
+      onerror="this.style.display='none';"
+    >
     <div class="modal-body">
       ${ancestorNote}
       <div class="modal-eyebrow">${escHtml(eyebrow)}</div>
@@ -333,6 +368,11 @@ function renderModal(char) {
 
   // Wire close button
   document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+
+  // Comment widget (after modal DOM is ready)
+  if (window.CS && window.CS.mountCharComments) {
+    window.CS.mountCharComments(char);
+  }
 }
 
 function openModal(id) {
@@ -479,6 +519,10 @@ function initCharactersPage(characters, adventures) {
   const countEl = document.getElementById('count-display');
   if (!grid) return;
 
+  // Eyebrow total is data-driven so it can't drift as the deck grows.
+  const eyebrowEl = document.querySelector('.page-eyebrow');
+  if (eyebrowEl) eyebrowEl.textContent = `${characters.length} Sheets`;
+
   // Filter state
   const state = {
     role: 'all',
@@ -589,11 +633,28 @@ function initCharactersPage(characters, adventures) {
    ADVENTURES PAGE
    ============================================================ */
 
+/** Fetch the style-C name for an adventure. Falls back to "Trend" on 404 or error. */
+async function fetchAdvStyleCName(advId) {
+  try {
+    const res = await fetch(`./data/style-c/${encodeURIComponent(advId)}.json`,
+      { signal: AbortSignal.timeout(3000) });
+    if (!res.ok) return 'Trend';
+    const data = await res.json();
+    return (data && typeof data.name === 'string' && data.name.trim()) ? data.name.trim() : 'Trend';
+  } catch {
+    return 'Trend';
+  }
+}
+
 function initAdventuresPage(characters, adventures) {
   _characters = characters;
 
   const container = document.getElementById('adventures-container');
   if (!container) return;
+
+  // Eyebrow count is data-driven so it can't drift when adventures are added.
+  const eyebrowEl = document.querySelector('.page-eyebrow');
+  if (eyebrowEl) eyebrowEl.textContent = `${adventures.length} Adventures`;
 
   const charMap = {};
   characters.forEach(c => { charMap[c.id] = c; });
@@ -601,6 +662,79 @@ function initAdventuresPage(characters, adventures) {
   adventures.forEach(adv => {
     const block = document.createElement('div');
     block.className = 'adventure-block';
+
+    /* --- Cover image + style toggle ------------------------- */
+
+    const coverWrap = document.createElement('div');
+    coverWrap.className = 'adv-cover-wrap';
+
+    // Style toggle bar (A / B / C)
+    const styleToggleBar = document.createElement('div');
+    styleToggleBar.className = 'adv-style-toggle';
+    styleToggleBar.setAttribute('role', 'group');
+    styleToggleBar.setAttribute('aria-label', 'Module cover style');
+
+    const ADV_STYLE_LABELS = { A: 'Module', B: 'Graphic Novel', C: 'Trend' };
+    let currentCoverStyle = 'A';
+    const styleBtns = {};
+
+    // Cover image
+    const coverImg = document.createElement('img');
+    coverImg.className = 'adv-cover-img';
+    coverImg.src = `./cards/covers/${escAttr(adv.id)}-A.png`;
+    coverImg.alt = `${escAttr(adv.name)} module cover`;
+    coverImg.setAttribute('loading', 'lazy');
+
+    // Hide cover area on image load error; show again when toggling to a
+    // style that may exist. Track per-style error state.
+    const styleErrors = { A: false, B: false, C: false };
+
+    function setCoverStyle(key) {
+      if (currentCoverStyle === key) return;
+      currentCoverStyle = key;
+
+      // Update button states
+      ['A', 'B', 'C'].forEach(k => {
+        styleBtns[k].classList.toggle('active', k === key);
+        styleBtns[k].setAttribute('aria-pressed', k === key ? 'true' : 'false');
+      });
+
+      // Reset img visibility optimistically; error handler will hide again if needed
+      coverImg.style.display = '';
+      coverWrap.style.display = '';
+      coverImg.src = `./cards/covers/${escAttr(adv.id)}-${key}.png`;
+    }
+
+    coverImg.addEventListener('error', () => {
+      styleErrors[currentCoverStyle] = true;
+      coverImg.style.display = 'none';
+      // Hide the whole cover wrap (img + toggle) if image is missing
+      coverWrap.style.display = 'none';
+    });
+
+    ['A', 'B', 'C'].forEach(key => {
+      const btn = document.createElement('button');
+      btn.className = 'adv-style-btn' + (key === 'A' ? ' active' : '');
+      btn.dataset.style = key;
+      btn.setAttribute('aria-pressed', key === 'A' ? 'true' : 'false');
+      btn.textContent = ADV_STYLE_LABELS[key];
+      btn.addEventListener('click', () => setCoverStyle(key));
+      styleBtns[key] = btn;
+      styleToggleBar.appendChild(btn);
+    });
+
+    // Async: update style-C button label
+    fetchAdvStyleCName(adv.id).then(name => {
+      if (name !== ADV_STYLE_LABELS.C) {
+        styleBtns['C'].textContent = name;
+      }
+    });
+
+    coverWrap.appendChild(styleToggleBar);
+    coverWrap.appendChild(coverImg);
+    block.appendChild(coverWrap);
+
+    /* --- Header + quest text -------------------------------- */
 
     function renderSection(label, ids) {
       if (!ids || ids.length === 0) return null;
@@ -631,11 +765,13 @@ function initAdventuresPage(characters, adventures) {
       return sectionEl;
     }
 
-    block.innerHTML = `
+    const headerDiv = document.createElement('div');
+    headerDiv.innerHTML = `
       <div class="adventure-eyebrow">${escHtml(adv.use_category)}</div>
       <div class="adventure-name">${escHtml(adv.name)}</div>
       <div class="adventure-quest">${escHtml(adv.quest)}</div>
     `;
+    block.appendChild(headerDiv);
 
     const partySec = renderSection('Party', adv.party);
     const npcSec = renderSection('NPCs', adv.npcs);
@@ -646,6 +782,11 @@ function initAdventuresPage(characters, adventures) {
     if (bestiarySec) block.appendChild(bestiarySec);
 
     container.appendChild(block);
+
+    // Comment widget per adventure
+    if (window.CS && window.CS.mountAdvComments) {
+      window.CS.mountAdvComments(block, adv.id);
+    }
   });
 }
 

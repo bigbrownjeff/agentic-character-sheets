@@ -1,0 +1,6 @@
+{
+  "adventure": "forge",
+  "name": "Terminal Brutalism",
+  "rationale": "Renders the forge as a glitching monochrome CRT dungeon — chunky pixel-grid floors, phosphor-green error cascades, and a single clean green CI line cutting through the noise — speaking the visual language of devs who've lived inside a terminal at 2am and will immediately feel this in their chest.",
+  "preamble": "Retro-brutalist digital illustration, monochrome phosphor-green on black with selective amber and red error-glow accents; thick bitmap pixel-grid aesthetic inspired by 1980s CRT terminals, ASCII-art dungeon maps, and demoscene graphics; flat heavy-blocky shapes with no gradients except scanline overlay and chromatic-aberration edge fringe; environmental detail rendered as glitching tile-map sprites — chunky anvil icons, cascading diff-output waterfalls, blinking cursor artifacts; mood: claustrophobic underground server room meets classic roguelike dungeon; era and references: Dwarf Fortress tileset, ZZT, Ultima Underworld wireframe, demoscene 64k intros; composition uses high horizontal contrast — chaos on the left half dissolving into a single clean bright-green status line on the right half."
+}

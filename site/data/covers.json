@@ -1,0 +1,34 @@
+{
+  "style_a_preamble": "Painted fantasy adventure module cover illustration in the tradition of TSR and premium 5e modules — the style of Keith Parkinson, Larry Elmore, and Clyde Caldwell. Single dramatic hero scene with a strong diagonal threat vector: adventurers or a central figure confronting a monster, a looming location, or an ominous force. Oils-and-gouache painted finish with rich, saturated jewel tones — crimsons, deep golds, midnight violets, torchlit ambers, and shadow blacks — applied with realistic depth and texture. Cinematic rim lighting from a dramatic source (forge glow, candlelight, portal radiance, dusk sky) carves figures from a moody atmospheric background. The foreground figure(s) are heroic in scale and posed at the moment of maximum tension — weapon drawn, spell crackling, looming threat filling the upper frame. An ornate fantasy title banner — carved stone or illuminated-manuscript style, framed by decorative scroll-work, knotwork, or heraldic elements — spans the top or bottom third of the composition, holding the adventure's title in bold serif fantasy lettering. 4:5 portrait orientation. Composition is self-contained and cover-ready: no letterboxing, no borders beyond the banner frame.",
+
+  "covers": {
+    "forge-of-endless-diffs": {
+      "title": "The Forge of Endless Diffs",
+      "scene": "A dwarf engineer-wizard and two exhausted adventurers stand at the lip of a vast volcanic forge-dungeon, rivers of molten code-runes flowing below. A colossal iron golem assembles itself from churning gears and glowing pull-request scrolls in the chasm behind them. Dominating the upper frame, a cracked hourglass the size of a cathedral window bleeds golden sand downward — the deadline. Torchlit amber and forge-red light the heroes from below; cold blue shadow fills the upper third. Title banner: carved iron across the bottom, riveted and glowing along its seam."
+    },
+    "self-winding-labyrinth": {
+      "title": "The Self-Winding Labyrinth",
+      "scene": "A brass-and-copper labyrinth stretches to the horizon under a pewter sky, its walls endlessly reconfiguring with grinding mechanical precision. Rearing above the maze's center is a colossal clockwork dragon, its scales etched with automation runes, gears spinning in its exposed chest cavity where a heart should be. A lone ranger-artificer stands in the foreground on a high parapet, crossbow raised, silhouetted against the dragon's burning amber eye-lamps. Title banner: gilded clockface numerals arcing across the top, clock hands replaced by crossed swords."
+    },
+    "boundless-library": {
+      "title": "The Boundless Library",
+      "scene": "An infinite candlelit library soars upward beyond sight, stacked tiers of shelves vanishing into a luminous fog. At a central lectern carved from petrified wood, a scholar-mage unrolls a glowing scroll whose text rewrites itself faster than she can read — the words too perfect, too certain, subtly wrong. Behind her, shelves begin to dissolve into white static. A lone candle in the foreground casts warm amber against the encroaching pale void. Rich ochres, candlelight golds, and creeping ivory fill the palette. Title banner: an open book, its spine forming the lower frame edge, title lettered on vellum pages."
+    },
+    "hall-of-echoes": {
+      "title": "Whispers in the Hall of Echoes",
+      "scene": "A hall of floor-to-ceiling mirrors stretches into darkness, each reflection subtly different from the last — showing futures, lies, other voices. From a cracked mirror at the hall's end, a glowing blue-white portal bleeds light, and from its surface a cracked porcelain mask emerges: expressionless, beautiful, dangerous — the Sydney. A hooded figure in the foreground holds a torch, their reflection in every mirror turning to face them. Cool porcelain whites and electric blue against deep charcoal black and mirror-silver. Title banner: shattered mirror shards arranged into a gothic arch at the top, title inlaid in silver across the arch's keystone."
+    },
+    "dreaming-atelier": {
+      "title": "The Dreaming Atelier",
+      "scene": "A luminous atelier — part studio, part fever dream — where paint-strokes float free of their canvases and musical notes drift as glowing sparks through the air. Dominating the far wall and spilling through the ceiling is a magnificent over-built glowing cathedral the artist has willed into existence from pure imagination: its spires pierce the atelier's roof and disappear into a starlit sky above. A bard-artificer stands before it, paintbrush raised like a conductor's baton, half their body dissolving into the light of their own creation. Luminous lavenders, warm rose gold, and soft white against deep midnight blue. Title banner: gilded canvas frame across the bottom, paintbrush strokes forming the decorative border."
+    },
+    "keep-on-the-borderlands": {
+      "title": "Keep on the Token Borderlands",
+      "scene": "A frontier keep of weathered stone commands a cliff edge above a twilight valley. Below, in the cliff face, a dozen cave mouths glow with sickly green and red light — each teeming with the silhouettes of monsters. A paladin captain stands atop the keep's outer wall, longsword drawn, staring down at the glowing caves as a last sliver of dusk-orange sun sinks behind the ridge. Warm amber battlements above, cold monster-glow rising from below, a band of deep violet sky between. Title banner: carved stone tablet affixed to the keep's gatehouse, cracked but resolute, title chiseled deep."
+    },
+    "the-orange-menace": {
+      "title": "The Orange Menace",
+      "scene": "An ancient citadel's sacred reflecting pool fills the foreground, its still water slowly consumed from the edges by creeping orange algae-rot, the corruption spreading inward like a stain on a map. In the depths of the pool, a crowned shadow — distorted, enormous, crowned with thorns of gold — stares upward through the discolored water. The citadel's white marble columns are reflected in the pool, their mirrored forms already tinted orange. A cleric kneels at the pool's edge, hand hovering above the surface, afraid to touch it. Palette: pure white marble, sacred cobalt sky, and the encroaching corruption orange against a shadow-deep pool. Title banner: cracked marble architrave across the top, engraved letters partially obscured by creeping orange discoloration."
+    }
+  }
+}

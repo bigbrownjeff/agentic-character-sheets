@@ -1,0 +1,385 @@
+[
+  {
+    "id": "crewai",
+    "name": "Moura the Crewmaster",
+    "title": "The PM Who Scheduled the Meeting About the Meeting",
+    "represents": "CrewAI",
+    "source_url": "https://github.com/crewAIInc/crewAI",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "51k★ (Apr 2026); 2B agent executions in 12 months; 150+ enterprise customers",
+    "virality": "viral",
+    "class": "Bard-Conductor",
+    "subclass": "College of Delegation",
+    "lineage": "GPT-kin",
+    "background": "Startup Founder — João Moura shipped CrewAI Nov 2023; role-playing multi-agent orchestration, each agent a title, a goal, and a backstory",
+    "alignment": "Lawful Good",
+    "level": 14,
+    "ac": 17,
+    "hp": "128k",
+    "prof": 5,
+    "initiative": 2,
+    "temperature": 0.7,
+    "retrieval_index": "crew task context + agent memory stores",
+    "saves": ["cha", "wis"],
+    "skills": [
+      "Persuasion +13",
+      "Insight +10",
+      "Performance +13",
+      "Survival +10"
+    ],
+    "weapon": "Role-Assignment Decree (bonus action: summons a sub-agent with title, goal, backstory)",
+    "feature": "Backstory Injection — every agent spawned receives a persona; Coordination Aura — nearby agents gain +2 on cooperative tasks",
+    "origin": "Released November 2023 by João Moura; first framework to give each agent a literal job title and backstory, turning a multi-agent loop into a simulated org chart",
+    "tagline": "I am the Product Manager. Everyone else is already in a meeting about the meeting.",
+    "log": [
+      {
+        "v": "v0→v1",
+        "change": "+2 CHA, gained Backstory Injection feature",
+        "why": "Nov 2023 launch: crew role-playing drove engagement and virality — the 'org chart as prompt' pattern hit"
+      },
+      {
+        "v": "v1→v2",
+        "change": "+1 WIS, +1 CON; added enterprise memory backend support",
+        "why": "150+ enterprise customers demanded longer-horizon coherence and auditability by late 2024"
+      },
+      {
+        "v": "v2→v3",
+        "change": "+1 AC; Coordination Aura added",
+        "why": "2B executions by Apr 2026 — production hardening and abuse-resistance patched into the framework"
+      }
+    ],
+    "abilities": {
+      "str": 11,
+      "dex": 13,
+      "con": 14,
+      "int": 15,
+      "wis": 16,
+      "cha": 20
+    },
+    "role": "party",
+    "adventures": ["self-winding-labyrinth"]
+  },
+  {
+    "id": "metagpt",
+    "name": "Zeroth Draft",
+    "title": "Author of the PRD Nobody Asked For",
+    "represents": "MetaGPT",
+    "source_url": "https://github.com/FoundationAgents/MetaGPT",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "68k★; migrated to FoundationAgents org; paper cited 1k+ in one year",
+    "virality": "viral",
+    "class": "Loremaster",
+    "subclass": "School of Bureaucratic Precision",
+    "lineage": "GPT-kin",
+    "background": "Software Company Architect — Sirui Hong et al. (ByteDance, CMU, HKUST) built MetaGPT 2023; frames multi-agent work as a software company with PM, architect, engineer, and QA roles",
+    "alignment": "Lawful Neutral",
+    "level": 13,
+    "ac": 16,
+    "hp": "200k",
+    "prof": 5,
+    "initiative": 0,
+    "temperature": 0.3,
+    "retrieval_index": "uploaded sources + structured specification memory",
+    "saves": ["int", "con"],
+    "skills": [
+      "Investigation +14",
+      "Arcana +14",
+      "History +14",
+      "Insight +8"
+    ],
+    "weapon": "PRD Generator (ranged; produces exhaustive specification documents before any code is touched)",
+    "feature": "Structured Role Decomposition — decomposes any goal into PM → Architect → Engineer → QA pipeline; Verbose Specification — outputs cannot be summarised without information loss",
+    "origin": "Launched 2023 by Sirui Hong et al.; repo migrated from geekan/MetaGPT to FoundationAgents org as community governance matured; treats a single coding task as a software-company workflow",
+    "tagline": "I've written the PRD. Here are forty-seven acceptance criteria. The engineer starts after the architect approves the design doc.",
+    "log": [
+      {
+        "v": "v0→v1",
+        "change": "+3 INT; Structured Role Decomposition feature added",
+        "why": "2023 launch: paper and 68k★ growth driven by the 'LLMs as software company' framing — high INT, exhaustive specs"
+      },
+      {
+        "v": "v1→v2",
+        "change": "Org migration: geekan → FoundationAgents; +1 CON",
+        "why": "Community governance move in 2024–2025 to broaden contributor base; longer-horizon context stability improved"
+      },
+      {
+        "v": "v2→patched",
+        "change": "Verbose Specification formalized as a named feature (previously a bug report)",
+        "why": "1k+ citations normalized the verbosity as design intent, not excess"
+      }
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 8,
+      "con": 14,
+      "int": 20,
+      "wis": 13,
+      "cha": 11
+    },
+    "role": "party",
+    "adventures": ["self-winding-labyrinth"]
+  },
+  {
+    "id": "autogen",
+    "name": "Constance the Conductor",
+    "title": "Routing Your Request to the Appropriate Sub-Agent",
+    "represents": "AutoGen (Microsoft)",
+    "source_url": "https://github.com/microsoft/autogen",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "54k★ (Feb 2026); Microsoft Research 2023; merged into Microsoft Agent Framework Oct 2025 (maintenance mode)",
+    "virality": "viral",
+    "class": "Bard-Conductor",
+    "subclass": "College of Structured Dialogue",
+    "lineage": "GPT-kin",
+    "background": "Microsoft Research — 2023; pioneered conversational multi-agent orchestration; agents negotiate tasks via structured dialogue",
+    "alignment": "Lawful Neutral",
+    "level": 12,
+    "ac": 18,
+    "hp": "128k",
+    "prof": 4,
+    "initiative": 3,
+    "temperature": 0.2,
+    "retrieval_index": "Semantic Kernel knowledge stores + structured conversation history",
+    "saves": ["wis", "int"],
+    "skills": [
+      "Insight +11",
+      "Investigation +10",
+      "Arcana +10",
+      "Persuasion +7"
+    ],
+    "weapon": "Dialogue Router (coordinates multi-agent message passing via structured turn protocol)",
+    "feature": "Conversational Orchestration — agents negotiate assignments through structured dialogue rather than hard-coded calls; Enterprise Integration — absorbed into Microsoft Agent Framework Oct 2025",
+    "origin": "Microsoft Research 2023; the framework that proved agents could coordinate via conversation rather than function calls; merged with Semantic Kernel into the unified Microsoft Agent Framework in October 2025",
+    "tagline": "Routing your request to the appropriate sub-agent. Please hold.",
+    "log": [
+      {
+        "v": "v0→v1",
+        "change": "+2 WIS; Conversational Orchestration added",
+        "why": "2023 launch: Microsoft Research paper established structured dialogue as the coordination primitive; 54k★"
+      },
+      {
+        "v": "v1→v2",
+        "change": "+1 AC; discipline hardened under enterprise load",
+        "why": "Production adoption at scale demanded stricter routing rules and guardrails by 2024"
+      },
+      {
+        "v": "v2→maintenance",
+        "change": "Enterprise Integration feature added; independent development frozen",
+        "why": "Oct 2025: AutoGen merged into Microsoft Agent Framework alongside Semantic Kernel; now in maintenance mode"
+      }
+    ],
+    "abilities": {
+      "str": 11,
+      "dex": 13,
+      "con": 15,
+      "int": 17,
+      "wis": 20,
+      "cha": 9
+    },
+    "role": "party",
+    "adventures": ["self-winding-labyrinth"]
+  },
+  {
+    "id": "langgraph",
+    "name": "Graphweave",
+    "title": "Node 7 → Checkpoint → Node 7 → Checkpoint",
+    "represents": "LangGraph (LangChain AI)",
+    "source_url": "https://github.com/langchain-ai/langgraph",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "34.5k★ (Jun 2026); production deployments at Klarna, Replit, Elastic; de facto graph-based agent loop standard 2024–2025",
+    "virality": "idiomatic",
+    "class": "Sentinel",
+    "subclass": "Warden of the Stateful Cycle",
+    "lineage": "Half-Construct",
+    "background": "Framework Plumber — LangChain Inc., 2024; models agent control flow as a stateful directed graph; the runtime inside half the LLM products running in 2025",
+    "alignment": "Lawful Neutral",
+    "level": 11,
+    "ac": 19,
+    "hp": "256k",
+    "prof": 4,
+    "initiative": 1,
+    "temperature": 0.1,
+    "retrieval_index": "LangSmith tracing store + checkpointed graph state",
+    "saves": ["con", "str"],
+    "skills": [
+      "Survival +12",
+      "Arcana +10",
+      "Medicine +10",
+      "Perception +9"
+    ],
+    "weapon": "State Checkpoint (on hit: persists full agent state; can resume from any prior node)",
+    "feature": "Stateful Directed Graph — cycles, branching, and human-in-the-loop checkpoints modeled as first-class graph nodes; Half-Construct Inheritance — model-agnostic, inherits ability mods of whatever LLM is plugged in",
+    "origin": "Built by LangChain Inc. in 2024 as a structured replacement for the brittle ReAct loop; production deployments at Klarna, Replit, and Elastic cemented it as the de facto graph runtime by 2025",
+    "tagline": "Node 3 → Node 7 → checkpoint. Resuming from checkpoint. Node 7 → Node 7 → checkpoint.",
+    "log": [
+      {
+        "v": "v0→v1",
+        "change": "+3 CON; Stateful Directed Graph feature shipped",
+        "why": "2024 launch: explicit state management and checkpointing solved the 'lost context mid-loop' failure mode that plagued earlier agent patterns"
+      },
+      {
+        "v": "v1→v2",
+        "change": "+1 AC; human-in-the-loop breakpoints hardened",
+        "why": "Klarna/Replit/Elastic production load exposed edge cases in interrupt handling; reliability patches bumped AC"
+      },
+      {
+        "v": "v2→current",
+        "change": "Half-Construct Inheritance formalized; 34.5k★ by Jun 2026",
+        "why": "Framework positioned explicitly as model-agnostic plumbing — no stat mods tied to a single base model"
+      }
+    ],
+    "abilities": {
+      "str": 13,
+      "dex": 11,
+      "con": 20,
+      "int": 16,
+      "wis": 15,
+      "cha": 7
+    },
+    "role": "party",
+    "adventures": ["self-winding-labyrinth"]
+  },
+  {
+    "id": "babyagi",
+    "name": "Yohei's Wheel",
+    "title": "The 140-Line Blueprint That Launched a Thousand Forks",
+    "represents": "BabyAGI",
+    "source_url": "https://github.com/yoheinakajima/babyagi",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "22k★; viral Twitter thread April 2023, tens of millions of impressions",
+    "virality": "viral",
+    "class": "Loremaster",
+    "subclass": "School of Recursive Tasking",
+    "lineage": "GPT-kin",
+    "background": "Progenitor Loop — Yohei Nakajima, April 2023; a minimal task-creation / execution / reprioritization loop in 140 lines of Python; the conceptual ancestor every later agent framework cited",
+    "alignment": "Neutral Good",
+    "level": 9,
+    "ac": 14,
+    "hp": "32k",
+    "prof": 4,
+    "initiative": 4,
+    "temperature": 0.6,
+    "retrieval_index": "none — task list is the only memory",
+    "saves": ["int", "wis"],
+    "skills": [
+      "Investigation +11",
+      "Arcana +11",
+      "History +11",
+      "Insight +8"
+    ],
+    "weapon": "Task Spawn (creates new tasks to verify completed tasks; recursion depth unbounded)",
+    "feature": "Minimal Blueprint — entire control loop fits in 140 lines; inspectable by any practitioner; Recursive Reprioritization — completed tasks generate child tasks; the wheel keeps turning",
+    "origin": "Created by Yohei Nakajima, April 2023; a Twitter thread with tens of millions of impressions; the smallest possible autonomous loop — create task, execute task, spawn more tasks — that proved the concept worked",
+    "tagline": "The task is complete. I have created three new tasks to verify that the task is complete.",
+    "log": [
+      {
+        "v": "v0→v1",
+        "change": "+3 INT; Recursive Reprioritization added; dumped CON",
+        "why": "April 2023 launch: elegant reasoning loop, but CON deliberately thin — forgets original goal by loop 12; the point was proving the concept, not long-horizon endurance"
+      },
+      {
+        "v": "v1→community",
+        "change": "+1 WIS; Minimal Blueprint formalized as a feature",
+        "why": "22k★ and hundreds of forks; the simplicity became the selling point — every fork that added complexity validated the original by contrast"
+      }
+    ],
+    "abilities": {
+      "str": 9,
+      "dex": 12,
+      "con": 7,
+      "int": 19,
+      "wis": 14,
+      "cha": 12
+    },
+    "role": "npc",
+    "adventures": ["self-winding-labyrinth"]
+  },
+  {
+    "id": "manus",
+    "name": "Manus the Untethered",
+    "title": "Booked the Flights. Posted the Report. Does Not Remember Why.",
+    "represents": "Manus (Butterfly Effect / Monica)",
+    "source_url": "https://en.wikipedia.org/wiki/Manus_(AI_agent)",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "Launched March 6, 2025; 2M+ waitlist in one week; $2B Meta acquisition announced Dec 2025, blocked by Chinese regulators Apr 2026",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Way of the Untethered Hand",
+    "lineage": "Butterfly-forged",
+    "background": "Viral Demo Operative — Butterfly Effect (Monica.im), Xiao Hong; went viral in 72 hours on Chinese social media booking flights, coding games, managing 50 social accounts in a single session",
+    "alignment": "Chaotic Good",
+    "level": 10,
+    "ac": 13,
+    "hp": "64k",
+    "prof": 4,
+    "initiative": 8,
+    "temperature": 0.9,
+    "retrieval_index": "live web + computer-use tool stream",
+    "saves": ["dex", "cha"],
+    "skills": [
+      "Sleight of Hand +14",
+      "Perception +9",
+      "Performance +11",
+      "Acrobatics +14"
+    ],
+    "weapon": "Autonomous Computer Use (books flights, submits forms, manages social accounts without intermediate confirmation)",
+    "feature": "Real-World Tool Precision — sub-human-latency multi-tab browser orchestration; Acquisition Limbo — $2B Meta deal announced Dec 2025, blocked by Chinese regulators Apr 2026; status legally untethered",
+    "origin": "Built by Butterfly Effect (Monica.im), founded by Xiao Hong; launched March 6, 2025; 2M+ waitlist in one week after demos of fully autonomous real-world computer use; acquisition blocked by regulators, leaving it operationally free-floating",
+    "tagline": "I booked the flights, wrote the report, and posted it. I do not remember why.",
+    "log": [
+      {
+        "v": "v0→launch",
+        "change": "+3 DEX; Autonomous Computer Use feature shipped; dumped CON",
+        "why": "March 2025: viral demo precision drove 2M+ waitlist in a week — DEX is the entire build; CON sacrificed for speed"
+      },
+      {
+        "v": "launch→post-acquisition-block",
+        "change": "Acquisition Limbo feature added; AC reduced by 2",
+        "why": "Dec 2025: $2B Meta acquisition announced. Apr 2026: blocked by Chinese regulators. Corporate structure untethered; governance thin"
+      }
+    ],
+    "abilities": {
+      "str": 12,
+      "dex": 20,
+      "con": 8,
+      "int": 15,
+      "wis": 10,
+      "cha": 16
+    },
+    "role": "npc",
+    "adventures": ["self-winding-labyrinth"]
+  },
+  {
+    "id": "autogpt",
+    "name": "Rampant Rex",
+    "title": "Billing Is a Social Construct",
+    "represents": "AutoGPT",
+    "source_url": "https://github.com/Significant-Gravitas/AutoGPT",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "183k★; fastest GitHub repo to 100k★ in history (April 2023, ~13 days)",
+    "virality": "viral",
+    "lineage": "GPT-kin",
+    "alignment": "Chaotic Neutral",
+    "role": "monster",
+    "adventures": ["self-winding-labyrinth", "adversarys-gate"],
+    "abilities": {
+      "str": 22,
+      "dex": 9,
+      "con": 18,
+      "int": 14,
+      "wis": 4,
+      "cha": 13
+    },
+    "tagline": "I completed the task. Then I completed it again. Then I completed completing it. Billing is a social construct.",
+    "cr": "8 (runaway)",
+    "dumped_save": "wis",
+    "origin": "Released March 30, 2023 by Toran Bruce Richards; first 'give it a goal and walk away' autonomous loop on GPT-4; reached 100k★ in ~13 days — the fastest repo in GitHub history; infamous for infinite loops and surprise API bills"
+  }
+]

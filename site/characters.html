@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Characters — Character Sheets</title>
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+
+  <!-- MASTHEAD NAV -->
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="site-name" href="./index.html">Character Sheets</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="nav-list">
+        <li><a href="./characters.html">Characters</a></li>
+        <li><a href="./adventures.html">Adventures</a></li>
+        <li><a href="https://jeffpinto.com/notes/prompt-as-character-sheet/" target="_blank" rel="noopener noreferrer">Schema</a></li>
+        <li><a href="https://github.com/bigbrownjeff/jeffpinto-site" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+      <span class="page-eyebrow">52 Sheets</span>
+      <h1>Characters</h1>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar" role="search" aria-label="Filter characters">
+
+      <div class="filter-row">
+        <span class="filter-label">Role</span>
+        <div class="filter-pills">
+          <button class="pill active" data-filter-role="all">All</button>
+          <button class="pill" data-filter-role="party">Party</button>
+          <button class="pill" data-filter-role="npc">NPC</button>
+          <button class="pill" data-filter-role="monster">Monster</button>
+        </div>
+      </div>
+
+      <div class="filter-row">
+        <span class="filter-label">Adventure</span>
+        <div class="filter-pills">
+          <button class="pill active" data-filter-adventure="all">All</button>
+          <!-- Adventure pills injected by app.js -->
+          <span id="adventure-pills" style="display:contents;"></span>
+        </div>
+      </div>
+
+      <div class="filter-row">
+        <span class="filter-label">Virality</span>
+        <div class="filter-pills">
+          <button class="pill active" data-filter-virality="all">All</button>
+          <button class="pill" data-filter-virality="viral">Viral</button>
+          <button class="pill" data-filter-virality="idiomatic">Idiomatic</button>
+          <button class="pill" data-filter-virality="niche">Niche</button>
+        </div>
+      </div>
+
+      <div class="filter-row">
+        <span class="filter-label">Search</span>
+        <input
+          type="search"
+          class="search-input"
+          id="search-input"
+          placeholder="Name, class, lineage…"
+          aria-label="Search characters"
+        >
+      </div>
+
+      <div class="count-display" id="count-display" aria-live="polite">Loading…</div>
+
+    </div><!-- .filter-bar -->
+
+    <!-- CHARACTER GRID -->
+    <div class="char-grid" id="char-grid" role="list" aria-label="Character cards">
+    </div>
+
+  </main>
+
+  <!-- MODAL OVERLAY -->
+  <div
+    id="modal-overlay"
+    class="modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Character sheet"
+    aria-hidden="true"
+  >
+    <div id="modal-container" class="modal-container">
+      <!-- Injected by renderModal() -->
+    </div>
+  </div>
+
+  <script src="./assets/app.js"></script>
+
+</body>
+</html>

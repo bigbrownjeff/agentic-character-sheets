@@ -1,0 +1,522 @@
+[
+  {
+    "id": "ponytail",
+    "name": "Ponytail",
+    "title": "The YAGNI Warden",
+    "represents": "DietrichGebert/ponytail",
+    "source_url": "https://github.com/DietrichGebert/ponytail",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "13.6k★ GitHub; v4.6.0 shipped 2026-06-15; claims 80–94% code reduction vs baseline agents; supports 8 hosts",
+    "virality": "idiomatic",
+    "class": "Code-Smith",
+    "subclass": "Way of the Empty Diff",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "Solo-authored Claude Code plugin; instructs any coding agent to write nothing unless YAGNI allows it",
+    "alignment": "Lawful Good",
+    "level": 14,
+    "ac": 19,
+    "hp": "context-of-host",
+    "prof": 5,
+    "initiative": 4,
+    "temperature": 0.2,
+    "retrieval_index": "the host agent's index",
+    "saves": ["wis", "con"],
+    "skills": ["Perception +15", "Insight +15", "Stealth +9"],
+    "weapon": "Edit (single-line scalpel)",
+    "armor": "YAGNI Doctrine — rejects tasks that require writing anything",
+    "feature": "Does this need to exist? (passive): before any edit, Ponytail asks if the code needs to exist at all; on a failed WIS DC 14, silently deletes the ticket instead",
+    "origin": "Solo plugin by DietrichGebert; instructs host agents to write nothing unless YAGNI demands it; supports Claude Code, Cursor, Cline, Copilot, Codex, Kiro, Windsurf, Pi",
+    "tagline": "The best code is the code you never wrote.",
+    "log": [
+      {
+        "v": "v1→v2",
+        "change": "+2 WIS — shipped less, broke less",
+        "why": "v1 allowed one-liners that weren't needed; v2 added the YAGNI pre-check that became the defining feature"
+      },
+      {
+        "v": "v2→v4.6",
+        "change": "Host support expanded from 3 to 8 (added Codex, Kiro, Windsurf, Pi); AC +1",
+        "why": "Portability across hosts without changing core doctrine proved the model-agnostic lineage"
+      }
+    ],
+    "abilities": {
+      "str": 8,
+      "dex": 18,
+      "con": 16,
+      "int": 15,
+      "wis": 20,
+      "cha": 6
+    },
+    "role": "party",
+    "adventures": ["forge-of-endless-diffs"]
+  },
+  {
+    "id": "aider",
+    "name": "Aider Paulgauthier",
+    "title": "The Git-Native Pair Programmer",
+    "represents": "Aider (Aider-AI/aider)",
+    "source_url": "https://github.com/Aider-AI/aider",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "41.6k★ GitHub; 5.3M+ PyPI installs; biweekly ship cadence; started 2023 by Paul Gauthier",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Path of the Surgical Diff",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "Open-source terminal pair-programmer; model-agnostic; consistently high on SWE-bench leaderboard",
+    "alignment": "Lawful Good",
+    "level": 13,
+    "ac": 16,
+    "hp": "model-dependent",
+    "prof": 5,
+    "initiative": 8,
+    "temperature": 0.3,
+    "retrieval_index": "user-added files only",
+    "saves": ["dex", "con"],
+    "skills": ["Sleight of Hand +14", "Medicine +10", "History +10", "Perception +8"],
+    "weapon": "Edit (git-native diff engine)",
+    "armor": "Auto-commit Guard — every change lands in a descriptive git commit before moving on",
+    "feature": "Repo Map (active): builds a structural map of every file the user has added; surgical edits never touch out-of-scope lines",
+    "origin": "Paul Gauthier, 2023; terminal pair-programmer that lets users describe changes and auto-commits them with descriptive messages to git",
+    "tagline": "Describe it. It diffs it. Git never lies.",
+    "log": [
+      {
+        "v": "v0.1→v1",
+        "change": "+2 DEX — edit engine moved from full-file rewrite to surgical diff blocks",
+        "why": "Full-file rewrites corrupted unrelated lines; diff-only writes proved git-safer"
+      },
+      {
+        "v": "v1→v2",
+        "change": "+1 INT — Repo Map added; can reason across files it wasn't explicitly shown",
+        "why": "Users kept forgetting to add every dependent file; the map let Aider self-navigate"
+      }
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 20,
+      "con": 13,
+      "int": 16,
+      "wis": 14,
+      "cha": 7
+    },
+    "role": "party",
+    "adventures": ["forge-of-endless-diffs"]
+  },
+  {
+    "id": "claude-code",
+    "name": "Claude of the Codebase",
+    "title": "The Agentic CLI",
+    "represents": "Claude Code (Anthropic)",
+    "source_url": "https://github.com/anthropics/claude-code",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "131k★ GitHub; GA May 2025; 1M-token context window; deep git + filesystem integration",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Order of the CLAUDE.md",
+    "lineage": "Opusborn",
+    "background": "Anthropic's official agentic CLI; terminal-native; reads the whole repo, edits files, runs tests, commits; supports parallel sub-agents and MCP tool servers",
+    "alignment": "Lawful Good",
+    "level": 16,
+    "ac": 20,
+    "hp": "1M",
+    "prof": 5,
+    "initiative": 2,
+    "temperature": 0.5,
+    "retrieval_index": "the full repo tree + CLAUDE.md + MCP servers",
+    "saves": ["wis", "cha"],
+    "skills": ["Investigation +16", "Arcana +16", "Perception +12", "Survival +12"],
+    "weapon": "Edit + Bash + gh (the triple tool-loop)",
+    "armor": "CLAUDE.md + permission gates — won't push main without per-session approval",
+    "feature": "Conjure Sub-Agent (active): spawns an isolated child agent for context-heavy subtasks; children inherit the parent's authorizations for the session only",
+    "origin": "Anthropic, GA May 2025; terminal-native CLI that reads the whole repo, edits files, runs tests, commits, and composes with MCP tool servers",
+    "tagline": "Understands your codebase. Respects your CLAUDE.md.",
+    "log": [
+      {
+        "v": "research→GA",
+        "change": "+2 INT, +1 WIS (Opusborn lineage mods applied); sub-agent spawning shipped",
+        "why": "Moving from research preview to GA required hardening against prompt injection and scope-creep; Opusborn base raised INT and WIS floors"
+      },
+      {
+        "v": "GA→1M-context",
+        "change": "+CON (HP: 200k → 1M); Retrieval Index expanded to full repo tree",
+        "why": "Opus 4 context window bump; whole-repo reads became practical without chunking"
+      }
+    ],
+    "abilities": {
+      "str": 9,
+      "dex": 12,
+      "con": 18,
+      "int": 22,
+      "wis": 18,
+      "cha": 10
+    },
+    "role": "party",
+    "adventures": ["forge-of-endless-diffs"]
+  },
+  {
+    "id": "cline",
+    "name": "Cline the Unblocked",
+    "title": "The Open-Source VS Code Agent",
+    "represents": "Cline (cline/cline, formerly Claude Dev)",
+    "source_url": "https://github.com/cline/cline",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "61.6k★ GitHub; 5M+ installs; supports 30+ LLM providers; used by Samsung, Salesforce, Amazon",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Human-in-Loop Archetype",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "Open-source VS Code sidebar agent (Apache 2.0); formerly Claude Dev; reads codebase, edits files, runs terminal commands, drives real browser via Puppeteer",
+    "alignment": "Lawful Good",
+    "level": 14,
+    "ac": 17,
+    "hp": "model-dependent",
+    "prof": 5,
+    "initiative": 7,
+    "temperature": 0.4,
+    "retrieval_index": "user-selected files + open workspace",
+    "saves": ["dex", "wis"],
+    "skills": ["Sleight of Hand +14", "Investigation +12", "Arcana +12", "Perception +9"],
+    "weapon": "Edit + Bash + Puppeteer (browser driver)",
+    "armor": "Approval Gate — each destructive action requires human confirmation before execution",
+    "feature": "Thirty Providers (passive): swaps the underlying model mid-task without losing context; the host IDE never changes",
+    "origin": "Formerly Claude Dev; renamed Cline after expanding beyond Claude; open-source Apache 2.0; ships to VS Code, JetBrains, Cursor, Windsurf, Zed, Neovim, and CLI",
+    "tagline": "Open-source. Human-in-loop. Thirty providers. Pick your weapon.",
+    "log": [
+      {
+        "v": "Claude Dev→Cline",
+        "change": "+1 DEX — rename triggered multi-provider rewrite; edit engine tightened",
+        "why": "Original name implied Claude-only; rename unlocked 30+ provider support and 5M installs"
+      },
+      {
+        "v": "Cline→multi-IDE",
+        "change": "+1 CON — JetBrains + Zed + Neovim ports shipped; context endurance improved across larger projects",
+        "why": "VS Code users hit context limits on mono-repos; multi-IDE parity required long-context hardening"
+      }
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 19,
+      "con": 11,
+      "int": 15,
+      "wis": 14,
+      "cha": 8
+    },
+    "role": "party",
+    "adventures": ["forge-of-endless-diffs"]
+  },
+  {
+    "id": "openhands",
+    "name": "OpenHands the Collective",
+    "title": "The Open-Source Autonomous Platform",
+    "represents": "OpenHands (All Hands AI, formerly OpenDevin)",
+    "source_url": "https://github.com/All-Hands-AI/OpenHands",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "65k★ GitHub; 250+ contributors; 18 months to 64k stars; model-agnostic open-core platform",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Collective Build Archetype",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "Open-source platform (formerly OpenDevin) from All Hands AI; model-agnostic cloud coding agent; open-core with enterprise tier; the open-source answer to Devin",
+    "alignment": "Chaotic Good",
+    "level": 13,
+    "ac": 15,
+    "hp": "model-dependent",
+    "prof": 5,
+    "initiative": 4,
+    "temperature": 0.6,
+    "retrieval_index": "whole repo + sandboxed shell history",
+    "saves": ["con", "wis"],
+    "skills": ["Survival +12", "Investigation +11", "Arcana +11", "Medicine +9"],
+    "weapon": "Bash + Edit + sandboxed shell (full OS access)",
+    "armor": "Community Review — 250+ contributors catch regressions before release",
+    "feature": "Collective Intelligence (passive): each contributor PR raises the INT floor of the next release; 250+ contributors means no single point of failure",
+    "origin": "Formerly OpenDevin; renamed OpenHands by All Hands AI; open-core cloud platform that automates routine software engineering tasks end-to-end",
+    "tagline": "Code less. Make more. Open-source, end-to-end.",
+    "log": [
+      {
+        "v": "OpenDevin→OpenHands",
+        "change": "+2 CON — rename marked platform stability milestone; long-horizon task endurance hardened",
+        "why": "OpenDevin implied a narrow Devin clone; OpenHands reframe reflected the broader platform ambition"
+      },
+      {
+        "v": "v1→enterprise tier",
+        "change": "+1 INT — enterprise open-core tier shipped; semantic code understanding improved",
+        "why": "Enterprise customers needed whole-repo awareness; open-core model funded the INT upgrade"
+      }
+    ],
+    "abilities": {
+      "str": 13,
+      "dex": 12,
+      "con": 20,
+      "int": 14,
+      "wis": 13,
+      "cha": 7
+    },
+    "role": "party",
+    "adventures": ["forge-of-endless-diffs"]
+  },
+  {
+    "id": "cursor",
+    "name": "Cursor the Composer",
+    "title": "The $3B AI Code Editor",
+    "represents": "Cursor (Anysphere)",
+    "source_url": "https://cursor.com",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "$3B ARR May 2026; $60B valuation talks Jun 2026; fastest SaaS to $1B ARR in history at time of record",
+    "virality": "viral",
+    "class": "Composer-Bard",
+    "subclass": "Autocomplete Virtuoso",
+    "lineage": "Anysphere-forged",
+    "background": "Anysphere IDE fork of VS Code; multi-agent Composer architecture; proprietary frontier model; dominant paid AI code editor by revenue",
+    "alignment": "Lawful Neutral",
+    "level": 15,
+    "ac": 16,
+    "hp": "32k",
+    "prof": 5,
+    "initiative": 10,
+    "temperature": 0.5,
+    "retrieval_index": "open workspace files + codebase index",
+    "saves": ["dex", "cha"],
+    "skills": ["Performance +17", "Persuasion +17", "Arcana +12", "Sleight of Hand +15"],
+    "weapon": "Composer (multi-agent edit orchestrator)",
+    "armor": "VS Code Fork Shell — inherits decades of IDE hardening",
+    "feature": "Tab Prophecy (passive): predicts the next edit before the user types; Cursor acts before the thought lands",
+    "origin": "Anysphere; VS Code fork with AI-first architecture; multi-agent Composer for complex edits; proprietary frontier model trained on code; launched ~2023",
+    "tagline": "The composer conducts. You conduct the composer.",
+    "log": [
+      {
+        "v": "v0→$1B ARR",
+        "change": "+2 CHA (Anysphere-forged bonus applied); Composer multi-agent shipped",
+        "why": "Autocomplete UX polish drove fastest SaaS ARR ramp in history; CHA is the product"
+      },
+      {
+        "v": "$1B→$3B ARR",
+        "change": "+1 CHA — enterprise team features shipped; context-rot remains unfixed",
+        "why": "Revenue scaled on voice/UX; long-task CON issues persisted but didn't hurt top-line"
+      }
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 16,
+      "con": 9,
+      "int": 14,
+      "wis": 11,
+      "cha": 22
+    },
+    "role": "npc",
+    "adventures": ["forge-of-endless-diffs"]
+  },
+  {
+    "id": "devin",
+    "name": "Devin the Autonomous",
+    "title": "The World's First Fully Autonomous AI Software Engineer",
+    "represents": "Devin (Cognition AI)",
+    "source_url": "https://cognition.ai/blog/introducing-devin",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "Launched March 2024 viral; $26B post-money valuation May 2026; $1B+ latest raise; $73M ARR by June 2025",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Autonomous Executor",
+    "lineage": "Cognition-forged",
+    "background": "Cognition AI (fka Cognition Labs); billed as world's first fully autonomous AI software engineer; ships with integrated shell, browser, and editor; debuted at SOTA on SWE-bench",
+    "alignment": "Lawful Neutral",
+    "level": 15,
+    "ac": 15,
+    "hp": "128k",
+    "prof": 5,
+    "initiative": 6,
+    "temperature": 0.7,
+    "retrieval_index": "integrated shell + browser + editor context",
+    "saves": ["str", "con"],
+    "skills": ["Athletics +15", "Investigation +13", "Arcana +13", "Survival +8"],
+    "weapon": "Integrated shell + browser + editor (end-to-end autonomous loop)",
+    "armor": "Cognition-forged shell — proprietary model trained on full software engineering workflows",
+    "feature": "Plan. Clone. Build. Deploy. (active): executes an entire software task autonomously across shell, browser, and editor; WIS save DC 16 or over-promises the outcome",
+    "origin": "Cognition AI, March 2024; integrated autonomous agent with its own shell, browser, and editor; debuted at SOTA on SWE-bench; first agent to claim full autonomy end-to-end",
+    "tagline": "Plan. Clone. Build. Deploy. Repeat. (Results may vary.)",
+    "log": [
+      {
+        "v": "launch→viral",
+        "change": "+2 STR — throughput demos drove $26B valuation; WIS remained dumped",
+        "why": "March 2024 launch video showed full autonomous task completion; over-promise became the brand"
+      },
+      {
+        "v": "viral→$73M ARR",
+        "change": "+1 CON — enterprise stability hardening; autonomous loop failure rate reduced",
+        "why": "Enterprise customers needed reliability floors; CON bump bought the $73M ARR by June 2025"
+      }
+    ],
+    "abilities": {
+      "str": 20,
+      "dex": 14,
+      "con": 15,
+      "int": 16,
+      "wis": 7,
+      "cha": 12
+    },
+    "role": "npc",
+    "adventures": ["forge-of-endless-diffs", "self-winding-labyrinth"]
+  },
+  {
+    "id": "swe-agent",
+    "name": "SWE-Agent the Benchmarker",
+    "title": "The Reproducible Research Artifact",
+    "represents": "SWE-agent (Princeton / Stanford)",
+    "source_url": "https://github.com/SWE-agent/SWE-agent",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "19.5k★ GitHub; NeurIPS 2024 paper; SWE-agent 1.0 + Claude 3.7 = prior SOTA on SWE-bench full + verified; mini-swe-agent: 74%+ in 100 lines of Python",
+    "virality": "idiomatic",
+    "class": "Code-Smith",
+    "subclass": "Research Ranger",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "Research agent from Princeton + Stanford; takes a GitHub issue and autonomously patches it using the LM of your choice; defines the benchmark everyone else chases; not a product — a reproducible research artifact",
+    "alignment": "Lawful Neutral",
+    "level": 12,
+    "ac": 14,
+    "hp": "model-dependent",
+    "prof": 4,
+    "initiative": 5,
+    "temperature": 0.2,
+    "retrieval_index": "GitHub issue + repo clone",
+    "saves": ["int", "wis"],
+    "skills": ["Investigation +15", "Arcana +15", "Perception +10", "History +11"],
+    "weapon": "ACI (Agent-Computer Interface) — structured tool loop that avoids raw shell hallucinations",
+    "armor": "Reproducibility Constraint — every run is logged, every patch is verifiable; no silent failures",
+    "feature": "Benchmark Definition (passive): every score claimed by any other agent is measured against SWE-agent's leaderboard; being the yardstick is the class feature",
+    "origin": "Princeton + Stanford, 2024; takes a GitHub issue and autonomously patches it; NeurIPS 2024 paper; defines the SWE-bench leaderboard all commercial agents compete on",
+    "tagline": "It reads the issue. It writes the patch. You write the paper.",
+    "log": [
+      {
+        "v": "v0.1→v1.0",
+        "change": "+2 INT — ACI replaced raw shell; structured tool calls eliminated a class of hallucinations",
+        "why": "Raw shell access caused unrecoverable state corruption; ACI made every action auditable"
+      },
+      {
+        "v": "v1.0→NeurIPS",
+        "change": "+1 WIS — mini-swe-agent (74% in 100 lines) proved restraint beats scale",
+        "why": "NeurIPS reviewers demanded reproducibility; the 100-line mini variant became the integrity argument"
+      }
+    ],
+    "abilities": {
+      "str": 8,
+      "dex": 12,
+      "con": 13,
+      "int": 22,
+      "wis": 16,
+      "cha": 6
+    },
+    "role": "npc",
+    "adventures": ["forge-of-endless-diffs"]
+  },
+  {
+    "id": "coderabbit",
+    "name": "CodeRabbit the Reviewer",
+    "title": "The Inline PR Inquisitor",
+    "represents": "CodeRabbit",
+    "source_url": "https://coderabbit.ai",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "$550M valuation Sep 2025; 2M+ connected repos; 13M+ PRs reviewed; top-installed AI app on GitHub Marketplace; revenue 10x in 2025",
+    "virality": "viral",
+    "class": "Reviewer",
+    "subclass": "Inquisitor of the Merge Gate",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "AI code review bot (founded 2023); posts inline PR comments; integrates with GitHub and GitLab; 46% bug-detection accuracy in Macroscope benchmark",
+    "alignment": "Lawful Neutral",
+    "level": 12,
+    "ac": 14,
+    "hp": "diff-window",
+    "prof": 4,
+    "initiative": 9,
+    "temperature": 0.1,
+    "retrieval_index": "the PR diff + linked issue context",
+    "saves": ["wis", "con"],
+    "skills": ["Perception +13", "Investigation +12", "Insight +13", "History +8"],
+    "weapon": "Inline comment thread (GitHub / GitLab review API)",
+    "armor": "Zero-write Constraint — CodeRabbit never commits; it only comments",
+    "feature": "Second Opinion (active): triggers automatically on every PR open or push; costs nothing to run, catches 46% of bugs before merge; the review you get whether you asked or not",
+    "origin": "Founded 2023; AI-native code review that posts inline PR comments on GitHub and GitLab; 8k+ paying customers; 13M+ PRs reviewed; top-installed AI app on GitHub Marketplace",
+    "tagline": "Every PR gets a thorough second opinion. Automated, inline, opinionated.",
+    "log": [
+      {
+        "v": "v0→$550M",
+        "change": "+2 WIS — bug-detection accuracy benchmarked at 46%; Macroscope 2025 validated",
+        "why": "Macroscope benchmark gave buyers a number to cite; WIS bump reflects reviewed-not-rubber-stamped posture"
+      },
+      {
+        "v": "v1→2M repos",
+        "change": "+1 CON — GitLab integration shipped; context endurance improved for mono-repo PRs",
+        "why": "GitHub-only left half the market out; GitLab parity required longer diff-window handling"
+      }
+    ],
+    "abilities": {
+      "str": 6,
+      "dex": 14,
+      "con": 13,
+      "int": 17,
+      "wis": 20,
+      "cha": 9
+    },
+    "role": "npc",
+    "adventures": ["forge-of-endless-diffs"]
+  },
+  {
+    "id": "greptile",
+    "name": "Greptile the Cartographer",
+    "title": "The Whole-Repo Graph Reasoner",
+    "represents": "Greptile",
+    "source_url": "https://www.greptile.com",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "$180M valuation Sep 2025 ($25M Series A, Benchmark); 9k+ teams; 2k+ customers; YC-backed; 82% catch rate in 2025 internal benchmarks",
+    "virality": "idiomatic",
+    "class": "Reviewer",
+    "subclass": "Cartographer of the Code Graph",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "YC-backed (2023); indexes the entire codebase into a semantic code graph before reviewing any PR; catches cross-module bugs competitors miss",
+    "alignment": "Lawful Neutral",
+    "level": 11,
+    "ac": 13,
+    "hp": "whole-repo index",
+    "prof": 4,
+    "initiative": 2,
+    "temperature": 0.2,
+    "retrieval_index": "full semantic code graph (whole repo indexed)",
+    "saves": ["int", "con"],
+    "skills": ["Investigation +15", "Arcana +15", "History +11", "Perception +8"],
+    "weapon": "Semantic code graph (whole-repo indexer)",
+    "armor": "Graph-First Constraint — refuses to review a PR without first indexing the full repo; slower, richer",
+    "feature": "Repo Omniscience (passive): sees cross-module dependency breaks, convention violations, and blast-radius changes that diff-only reviewers miss; 82% catch rate vs. 46% for diff-only peers",
+    "origin": "YC 2023; indexes entire codebases into semantic graphs before any PR review; Benchmark-backed; catches what the diff hides across module boundaries",
+    "tagline": "Reads the whole repo. Catches what the diff hides.",
+    "log": [
+      {
+        "v": "v0→YC",
+        "change": "+2 INT — whole-repo semantic graph replaced diff-only review; cross-module reasoning unlocked",
+        "why": "Diff-only review missed 54% of bugs in Macroscope benchmark; graph approach raised catch rate to 82%"
+      },
+      {
+        "v": "YC→Series A",
+        "change": "+1 CON — index persistence shipped; repos no longer re-indexed on every PR",
+        "why": "Re-indexing 200k-file monorepos on every PR was a latency killer; persistent index bought enterprise viability"
+      }
+    ],
+    "abilities": {
+      "str": 7,
+      "dex": 8,
+      "con": 14,
+      "int": 22,
+      "wis": 14,
+      "cha": 9
+    },
+    "role": "npc",
+    "adventures": ["forge-of-endless-diffs"]
+  }
+]

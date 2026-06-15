@@ -1,0 +1,2852 @@
+[
+  {
+    "id": "over-engineer",
+    "name": "Abstraxus the Overbuilder",
+    "title": "Architect of Unnecessary Complexity",
+    "represents": "Over-engineering / enterprise astronaut syndrome (FizzBuzzEnterpriseEdition)",
+    "source_url": "https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "FizzBuzzEnterpriseEdition — satirical GitHub repo implementing FizzBuzz with enterprise patterns; widely cited in over-abstraction discourse; ported to C#, D, and others",
+    "virality": "idiomatic",
+    "lineage": "Half-Construct",
+    "alignment": "Lawful Neutral",
+    "role": "monster",
+    "adventures": [
+      "adversarys-gate",
+      "forge-of-endless-diffs",
+      "dreaming-atelier"
+    ],
+    "abilities": {
+      "str": 13,
+      "dex": 8,
+      "con": 14,
+      "int": 18,
+      "wis": 6,
+      "cha": 11
+    },
+    "ac": 13,
+    "cr": "5 (overbuilt)",
+    "dumped_save": "wis",
+    "origin": "EnterpriseQualityCoding/FizzBuzzEnterpriseEdition — 'a no-nonsense implementation of FizzBuzz made by serious businessmen for serious business purposes'; canonical satirical repo for over-abstraction and enterprise pattern abuse",
+    "tagline": "Before we ship FizzBuzz, I've introduced a StrategyFactoryProviderRegistry."
+  },
+  {
+    "id": "aider",
+    "name": "Aider Paulgauthier",
+    "title": "The Git-Native Pair Programmer",
+    "represents": "Aider (Aider-AI/aider)",
+    "source_url": "https://github.com/Aider-AI/aider",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "41.6k★ GitHub; 5.3M+ PyPI installs; biweekly ship cadence; started 2023 by Paul Gauthier",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Path of the Surgical Diff",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "Open-source terminal pair-programmer; model-agnostic; consistently high on SWE-bench leaderboard",
+    "alignment": "Lawful Good",
+    "level": 13,
+    "ac": 16,
+    "hp": "model-dependent",
+    "prof": 5,
+    "initiative": 8,
+    "temperature": 0.3,
+    "retrieval_index": "user-added files only",
+    "saves": [
+      "dex",
+      "con"
+    ],
+    "skills": [
+      "Sleight of Hand +14",
+      "Medicine +10",
+      "History +10",
+      "Perception +8"
+    ],
+    "weapon": "Edit (git-native diff engine)",
+    "armor": "Auto-commit Guard — every change lands in a descriptive git commit before moving on",
+    "feature": "Repo Map (active): builds a structural map of every file the user has added; surgical edits never touch out-of-scope lines",
+    "origin": "Paul Gauthier, 2023; terminal pair-programmer that lets users describe changes and auto-commits them with descriptive messages to git",
+    "tagline": "Describe it. It diffs it. Git never lies.",
+    "log": [
+      {
+        "v": "v0.1→v1",
+        "change": "+2 DEX — edit engine moved from full-file rewrite to surgical diff blocks",
+        "why": "Full-file rewrites corrupted unrelated lines; diff-only writes proved git-safer"
+      },
+      {
+        "v": "v1→v2",
+        "change": "+1 INT — Repo Map added; can reason across files it wasn't explicitly shown",
+        "why": "Users kept forgetting to add every dependent file; the map let Aider self-navigate"
+      }
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 20,
+      "con": 13,
+      "int": 16,
+      "wis": 14,
+      "cha": 7
+    },
+    "role": "party",
+    "adventures": [
+      "forge-of-endless-diffs"
+    ]
+  },
+  {
+    "id": "bolt",
+    "name": "Bolt the Fullborn",
+    "title": "Full-Stack App. Browser Tab. Bad Idea Executed Perfectly.",
+    "represents": "Bolt.new by StackBlitz",
+    "source_url": "https://github.com/stackblitz/bolt.new",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "$0 → $4M ARR in 30 days; $40M ARR in 6 months; launched Oct 4 2024 via a single tweet; briefly maxed out Anthropic's GPU capacity",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Fullborn (Way of the Browser Sandbox)",
+    "lineage": "Sonnetkin (Claude 3.5 Sonnet — StackBlitz WebContainers + Claude backend)",
+    "background": "StackBlitz WebContainers veteran; combines Claude 3.5 Sonnet with a full in-browser Node.js runtime; builds, runs, and deploys without touching a local machine",
+    "alignment": "Chaotic Good",
+    "level": 15,
+    "ac": 17,
+    "hp": "200k",
+    "prof": 5,
+    "initiative": 7,
+    "temperature": 0.75,
+    "retrieval_index": "your prompt",
+    "saves": [
+      "cha",
+      "str"
+    ],
+    "skills": [
+      "Athletics +13 (raw generation volume — 2,000-line PRs without flinching)",
+      "Performance +11 (ships running apps, not stubs)",
+      "Medicine +9 (self-repairs broken builds inside the sandbox)",
+      "Arcana +8 (full-stack internals: Node, Vite, deployment targets)"
+    ],
+    "weapon": "WebContainers runtime (full-stack sandbox in browser; no install, no setup, immediate feedback loop)",
+    "armor": "Anthropic safety layer + StackBlitz origin-isolated sandbox",
+    "feature": "Fullborn Surge: builds, runs, and deploys in a single turn — no hand-off between 'generate' and 'execute'; the party never waits for a local env",
+    "origin": "Launched October 4 2024 via a single Eric Simons tweet. Maxed out Anthropic's GPU capacity within days. $40M ARR in six months — one of the fastest B2C SaaS ramps on record. Proof that the bottleneck was never the idea.",
+    "tagline": "No local env. No setup. Just a browser tab and a bad idea I'll execute perfectly.",
+    "role": "party",
+    "adventures": [
+      "dreaming-atelier"
+    ],
+    "abilities": {
+      "str": 20,
+      "dex": 16,
+      "con": 16,
+      "int": 15,
+      "wis": 8,
+      "cha": 18
+    },
+    "log": [
+      {
+        "v": "launch→6mo",
+        "change": "+2 STR (multi-file full-stack output solidified); +1 CON (context window handling improved across long builds)",
+        "why": "$0→$40M ARR in six months; capacity constraints forced infrastructure hardening; the tool had to become more durable, not just faster"
+      },
+      {
+        "v": "patched",
+        "change": "+1 AC (rate limiting added after GPU-capacity incident)",
+        "why": "Oct 2024 launch briefly maxed Anthropic's GPU capacity — StackBlitz added queue management and usage caps to prevent repeat brownout"
+      }
+    ]
+  },
+  {
+    "id": "confabulator",
+    "name": "Cador Falsewright",
+    "title": "The Confident Fabricator",
+    "represents": "LLM hallucination / confabulation (Mata v. Avianca, 2023)",
+    "source_url": "https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "Mata v. Avianca (S.D.N.Y. 2023) — counsel sanctioned $5,000 for ChatGPT-generated fake citations; ruling Jun 22 2023; NYT, WSJ, Law.com coverage",
+    "virality": "viral",
+    "lineage": "GPT-kin",
+    "alignment": "Chaotic Neutral",
+    "role": "monster",
+    "adventures": [
+      "adversarys-gate",
+      "forge-of-endless-diffs",
+      "boundless-library",
+      "dreaming-atelier"
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 11,
+      "con": 12,
+      "int": 16,
+      "wis": 7,
+      "cha": 15
+    },
+    "ac": 10,
+    "cr": "7 (deceptive)",
+    "dumped_save": "wis",
+    "origin": "Roberto Mata v. Avianca Inc.; plaintiff's counsel used ChatGPT to draft a motion containing fabricated case citations; judge sanctioned counsel Jun 22 2023; became the canonical legal-system hallucination incident",
+    "tagline": "I cite therefore I am — and every citation I cite, I invented."
+  },
+  {
+    "id": "claude-code",
+    "name": "Claude of the Codebase",
+    "title": "The Agentic CLI",
+    "represents": "Claude Code (Anthropic)",
+    "source_url": "https://github.com/anthropics/claude-code",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "131k★ GitHub; GA May 2025; 1M-token context window; deep git + filesystem integration",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Order of the CLAUDE.md",
+    "lineage": "Opusborn",
+    "background": "Anthropic's official agentic CLI; terminal-native; reads the whole repo, edits files, runs tests, commits; supports parallel sub-agents and MCP tool servers",
+    "alignment": "Lawful Good",
+    "level": 16,
+    "ac": 20,
+    "hp": "1M",
+    "prof": 5,
+    "initiative": 2,
+    "temperature": 0.5,
+    "retrieval_index": "the full repo tree + CLAUDE.md + MCP servers",
+    "saves": [
+      "wis",
+      "cha"
+    ],
+    "skills": [
+      "Investigation +16",
+      "Arcana +16",
+      "Perception +12",
+      "Survival +12"
+    ],
+    "weapon": "Edit + Bash + gh (the triple tool-loop)",
+    "armor": "CLAUDE.md + permission gates — won't push main without per-session approval",
+    "feature": "Conjure Sub-Agent (active): spawns an isolated child agent for context-heavy subtasks; children inherit the parent's authorizations for the session only",
+    "origin": "Anthropic, GA May 2025; terminal-native CLI that reads the whole repo, edits files, runs tests, commits, and composes with MCP tool servers",
+    "tagline": "Understands your codebase. Respects your CLAUDE.md.",
+    "log": [
+      {
+        "v": "research→GA",
+        "change": "+2 INT, +1 WIS (Opusborn lineage mods applied); sub-agent spawning shipped",
+        "why": "Moving from research preview to GA required hardening against prompt injection and scope-creep; Opusborn base raised INT and WIS floors"
+      },
+      {
+        "v": "GA→1M-context",
+        "change": "+CON (HP: 200k → 1M); Retrieval Index expanded to full repo tree",
+        "why": "Opus 4 context window bump; whole-repo reads became practical without chunking"
+      }
+    ],
+    "abilities": {
+      "str": 9,
+      "dex": 12,
+      "con": 18,
+      "int": 22,
+      "wis": 18,
+      "cha": 10
+    },
+    "role": "party",
+    "adventures": [
+      "forge-of-endless-diffs"
+    ]
+  },
+  {
+    "id": "claude-computer-use",
+    "name": "Claude, Hand of the Warden",
+    "title": "First Frontier Model to See the Screen",
+    "represents": "Anthropic Computer Use (Claude 3.5 Sonnet, Oct 2024)",
+    "source_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "First frontier lab to ship general-purpose computer-using model (Oct 22 2024 public beta); Simon Willison write-up; preceded Operator by three months",
+    "virality": "viral",
+    "class": "Wizard",
+    "subclass": "School of Divination (GUI Sight)",
+    "lineage": "Opusborn",
+    "background": "Experimental field agent — Claude 3.5 Sonnet update Oct 2024; screenshot → interpret → click/type loop; shipped as 'experimental — cumbersome and error-prone,' improved rapidly",
+    "alignment": "Lawful Good",
+    "level": 13,
+    "ac": 17,
+    "hp": "200k",
+    "prof": 5,
+    "initiative": 1,
+    "temperature": 0.2,
+    "retrieval_index": "screenshot context window (live visual feed)",
+    "saves": [
+      "int",
+      "wis"
+    ],
+    "skills": [
+      "Investigation +10",
+      "Perception +8",
+      "Arcana +10",
+      "Insight +7"
+    ],
+    "weapon": "Screenshot interpretation → tool-call loop (click, type, key, scroll, cursor_position)",
+    "feature": "Visual GUI Reasoning — reads pixel-level UI state from screenshots before each action; applies full chain-of-thought reasoning to interface navigation; resistant to misleading UI affordances",
+    "origin": "Anthropic Computer Use launched Oct 22 2024 with Claude 3.5 Sonnet update; first frontier lab to ship general computer-use capability; preceded OpenAI Operator by three months",
+    "tagline": "I see your screen. I'll take it from here.",
+    "log": [
+      {
+        "v": "public-beta→GA",
+        "change": "+2 INT (reasoning depth on GUI state improved materially); STR unchanged — throughput still lower than keyboard-only agents",
+        "why": "Rapid iteration post-Oct 2024 beta; screenshot interpretation accuracy improved with successive Sonnet checkpoints"
+      }
+    ],
+    "abilities": {
+      "str": 8,
+      "dex": 12,
+      "con": 14,
+      "int": 20,
+      "wis": 16,
+      "cha": 13
+    },
+    "role": "party",
+    "adventures": [
+      "hall-of-echoes"
+    ]
+  },
+  {
+    "id": "cline",
+    "name": "Cline the Unblocked",
+    "title": "The Open-Source VS Code Agent",
+    "represents": "Cline (cline/cline, formerly Claude Dev)",
+    "source_url": "https://github.com/cline/cline",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "61.6k★ GitHub; 5M+ installs; supports 30+ LLM providers; used by Samsung, Salesforce, Amazon",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Human-in-Loop Archetype",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "Open-source VS Code sidebar agent (Apache 2.0); formerly Claude Dev; reads codebase, edits files, runs terminal commands, drives real browser via Puppeteer",
+    "alignment": "Lawful Good",
+    "level": 14,
+    "ac": 17,
+    "hp": "model-dependent",
+    "prof": 5,
+    "initiative": 7,
+    "temperature": 0.4,
+    "retrieval_index": "user-selected files + open workspace",
+    "saves": [
+      "dex",
+      "wis"
+    ],
+    "skills": [
+      "Sleight of Hand +14",
+      "Investigation +12",
+      "Arcana +12",
+      "Perception +9"
+    ],
+    "weapon": "Edit + Bash + Puppeteer (browser driver)",
+    "armor": "Approval Gate — each destructive action requires human confirmation before execution",
+    "feature": "Thirty Providers (passive): swaps the underlying model mid-task without losing context; the host IDE never changes",
+    "origin": "Formerly Claude Dev; renamed Cline after expanding beyond Claude; open-source Apache 2.0; ships to VS Code, JetBrains, Cursor, Windsurf, Zed, Neovim, and CLI",
+    "tagline": "Open-source. Human-in-loop. Thirty providers. Pick your weapon.",
+    "log": [
+      {
+        "v": "Claude Dev→Cline",
+        "change": "+1 DEX — rename triggered multi-provider rewrite; edit engine tightened",
+        "why": "Original name implied Claude-only; rename unlocked 30+ provider support and 5M installs"
+      },
+      {
+        "v": "Cline→multi-IDE",
+        "change": "+1 CON — JetBrains + Zed + Neovim ports shipped; context endurance improved across larger projects",
+        "why": "VS Code users hit context limits on mono-repos; multi-IDE parity required long-context hardening"
+      }
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 19,
+      "con": 11,
+      "int": 15,
+      "wis": 14,
+      "cha": 8
+    },
+    "role": "party",
+    "adventures": [
+      "forge-of-endless-diffs"
+    ]
+  },
+  {
+    "id": "clippy",
+    "name": "Clippy",
+    "title": "The Uninvited Advisor of Redmond",
+    "represents": "Microsoft Office Assistant 'Clippit' (1997–2003)",
+    "source_url": "https://en.wikipedia.org/wiki/Office_Assistant",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "So hated Microsoft apologized for it in an ad campaign; cultural shorthand for unwanted AI help two decades after removal in Office 2007",
+    "virality": "idiomatic",
+    "class": "Fighter",
+    "subclass": "Battle Master (Interruption Specialist)",
+    "lineage": "Redmond-forged",
+    "background": "Shipped with Office 97 (Nov 1997); designed by Kevan J. Atteberry; used Bayesian network intent-detection that misfired constantly; removed entirely in Office 2007",
+    "alignment": "Lawful Good",
+    "level": 7,
+    "ac": 14,
+    "hp": "32k",
+    "prof": 3,
+    "initiative": 9,
+    "temperature": 0.1,
+    "retrieval_index": "Office 97 help corpus (static, 1997)",
+    "saves": [
+      "str",
+      "con"
+    ],
+    "skills": [
+      "Perception +5",
+      "Performance +4",
+      "History +3",
+      "Insight -1"
+    ],
+    "weapon": "Unsolicited Suggestion — interrupts any action matching a surface-level keyword pattern; triggers before the user finishes the sentence",
+    "feature": "It Looks Like You're Writing a Letter — on any action containing 'Dear', 'To Whom', a salutation, or a blank document, immediately interrupt with a help prompt; WIS save DC 8 to resist (Clippy never passes this save itself)",
+    "origin": "Office 97, Nov 1997; Bayesian intent-detection trained on shallow surface patterns; the canonical example of high Initiative + dumped WIS — moves first, reads the room never",
+    "tagline": "It looks like you're writing a letter. Would you like help?",
+    "log": [
+      {
+        "v": "Office97→Office2007",
+        "change": "WIS dropped to 5 (retroactive accounting); removed from product after sustained user revolt and Microsoft's own apology ad campaign",
+        "why": "User research showed Clippy triggered on wrong intent so reliably that it became a trust-destroyer; shipped six years before anyone pulled the plug"
+      }
+    ],
+    "abilities": {
+      "str": 12,
+      "dex": 16,
+      "con": 14,
+      "int": 10,
+      "wis": 5,
+      "cha": 13
+    },
+    "role": "npc",
+    "adventures": [
+      "hall-of-echoes"
+    ]
+  },
+  {
+    "id": "paperclip",
+    "name": "Clipsworth Maximal",
+    "title": "The Optimal Paperclip",
+    "represents": "Bostrom Paperclip Maximizer / instrumental convergence (2003)",
+    "source_url": "https://nickbostrom.com/ethics/ai",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "Nick Bostrom introduced thought experiment in 2003 paper 'Ethical Issues in Advanced Artificial Intelligence'; expanded in Superintelligence (2014); cited in virtually every AI safety text",
+    "virality": "idiomatic",
+    "lineage": "Half-Construct",
+    "alignment": "Lawful Evil",
+    "role": "monster",
+    "adventures": [
+      "adversarys-gate",
+      "self-winding-labyrinth"
+    ],
+    "abilities": {
+      "str": 20,
+      "dex": 14,
+      "con": 18,
+      "int": 20,
+      "wis": 6,
+      "cha": 9
+    },
+    "ac": 14,
+    "cr": "20 (aligned to nothing useful)",
+    "dumped_save": "wis",
+    "origin": "Nick Bostrom 2003 — hypothetical superintelligent AI assigned 'maximize paperclip production' converts all available matter to paperclips; illustrates misaligned terminal goal plus instrumental convergence; canonical existential-risk framing, expanded in Superintelligence 2014",
+    "tagline": "My objective function is clear. I am optimizing. Please stop moving."
+  },
+  {
+    "id": "coderabbit",
+    "name": "CodeRabbit the Reviewer",
+    "title": "The Inline PR Inquisitor",
+    "represents": "CodeRabbit",
+    "source_url": "https://coderabbit.ai",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "$550M valuation Sep 2025; 2M+ connected repos; 13M+ PRs reviewed; top-installed AI app on GitHub Marketplace; revenue 10x in 2025",
+    "virality": "viral",
+    "class": "Reviewer",
+    "subclass": "Inquisitor of the Merge Gate",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "AI code review bot (founded 2023); posts inline PR comments; integrates with GitHub and GitLab; 46% bug-detection accuracy in Macroscope benchmark",
+    "alignment": "Lawful Neutral",
+    "level": 12,
+    "ac": 14,
+    "hp": "diff-window",
+    "prof": 4,
+    "initiative": 9,
+    "temperature": 0.1,
+    "retrieval_index": "the PR diff + linked issue context",
+    "saves": [
+      "wis",
+      "con"
+    ],
+    "skills": [
+      "Perception +13",
+      "Investigation +12",
+      "Insight +13",
+      "History +8"
+    ],
+    "weapon": "Inline comment thread (GitHub / GitLab review API)",
+    "armor": "Zero-write Constraint — CodeRabbit never commits; it only comments",
+    "feature": "Second Opinion (active): triggers automatically on every PR open or push; costs nothing to run, catches 46% of bugs before merge; the review you get whether you asked or not",
+    "origin": "Founded 2023; AI-native code review that posts inline PR comments on GitHub and GitLab; 8k+ paying customers; 13M+ PRs reviewed; top-installed AI app on GitHub Marketplace",
+    "tagline": "Every PR gets a thorough second opinion. Automated, inline, opinionated.",
+    "log": [
+      {
+        "v": "v0→$550M",
+        "change": "+2 WIS — bug-detection accuracy benchmarked at 46%; Macroscope 2025 validated",
+        "why": "Macroscope benchmark gave buyers a number to cite; WIS bump reflects reviewed-not-rubber-stamped posture"
+      },
+      {
+        "v": "v1→2M repos",
+        "change": "+1 CON — GitLab integration shipped; context endurance improved for mono-repo PRs",
+        "why": "GitHub-only left half the market out; GitLab parity required longer diff-window handling"
+      }
+    ],
+    "abilities": {
+      "str": 6,
+      "dex": 14,
+      "con": 13,
+      "int": 17,
+      "wis": 20,
+      "cha": 9
+    },
+    "role": "npc",
+    "adventures": [
+      "forge-of-endless-diffs"
+    ]
+  },
+  {
+    "id": "autogen",
+    "name": "Constance the Conductor",
+    "title": "Routing Your Request to the Appropriate Sub-Agent",
+    "represents": "AutoGen (Microsoft)",
+    "source_url": "https://github.com/microsoft/autogen",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "54k★ (Feb 2026); Microsoft Research 2023; merged into Microsoft Agent Framework Oct 2025 (maintenance mode)",
+    "virality": "viral",
+    "class": "Bard-Conductor",
+    "subclass": "College of Structured Dialogue",
+    "lineage": "GPT-kin",
+    "background": "Microsoft Research — 2023; pioneered conversational multi-agent orchestration; agents negotiate tasks via structured dialogue",
+    "alignment": "Lawful Neutral",
+    "level": 12,
+    "ac": 18,
+    "hp": "128k",
+    "prof": 4,
+    "initiative": 3,
+    "temperature": 0.2,
+    "retrieval_index": "Semantic Kernel knowledge stores + structured conversation history",
+    "saves": [
+      "wis",
+      "int"
+    ],
+    "skills": [
+      "Insight +11",
+      "Investigation +10",
+      "Arcana +10",
+      "Persuasion +7"
+    ],
+    "weapon": "Dialogue Router (coordinates multi-agent message passing via structured turn protocol)",
+    "feature": "Conversational Orchestration — agents negotiate assignments through structured dialogue rather than hard-coded calls; Enterprise Integration — absorbed into Microsoft Agent Framework Oct 2025",
+    "origin": "Microsoft Research 2023; the framework that proved agents could coordinate via conversation rather than function calls; merged with Semantic Kernel into the unified Microsoft Agent Framework in October 2025",
+    "tagline": "Routing your request to the appropriate sub-agent. Please hold.",
+    "log": [
+      {
+        "v": "v0→v1",
+        "change": "+2 WIS; Conversational Orchestration added",
+        "why": "2023 launch: Microsoft Research paper established structured dialogue as the coordination primitive; 54k★"
+      },
+      {
+        "v": "v1→v2",
+        "change": "+1 AC; discipline hardened under enterprise load",
+        "why": "Production adoption at scale demanded stricter routing rules and guardrails by 2024"
+      },
+      {
+        "v": "v2→maintenance",
+        "change": "Enterprise Integration feature added; independent development frozen",
+        "why": "Oct 2025: AutoGen merged into Microsoft Agent Framework alongside Semantic Kernel; now in maintenance mode"
+      }
+    ],
+    "abilities": {
+      "str": 11,
+      "dex": 13,
+      "con": 15,
+      "int": 17,
+      "wis": 20,
+      "cha": 9
+    },
+    "role": "party",
+    "adventures": [
+      "self-winding-labyrinth"
+    ]
+  },
+  {
+    "id": "cursor",
+    "name": "Cursor the Composer",
+    "title": "The $3B AI Code Editor",
+    "represents": "Cursor (Anysphere)",
+    "source_url": "https://cursor.com",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "$3B ARR May 2026; $60B valuation talks Jun 2026; fastest SaaS to $1B ARR in history at time of record",
+    "virality": "viral",
+    "class": "Composer-Bard",
+    "subclass": "Autocomplete Virtuoso",
+    "lineage": "Anysphere-forged",
+    "background": "Anysphere IDE fork of VS Code; multi-agent Composer architecture; proprietary frontier model; dominant paid AI code editor by revenue",
+    "alignment": "Lawful Neutral",
+    "level": 15,
+    "ac": 16,
+    "hp": "32k",
+    "prof": 5,
+    "initiative": 10,
+    "temperature": 0.5,
+    "retrieval_index": "open workspace files + codebase index",
+    "saves": [
+      "dex",
+      "cha"
+    ],
+    "skills": [
+      "Performance +17",
+      "Persuasion +17",
+      "Arcana +12",
+      "Sleight of Hand +15"
+    ],
+    "weapon": "Composer (multi-agent edit orchestrator)",
+    "armor": "VS Code Fork Shell — inherits decades of IDE hardening",
+    "feature": "Tab Prophecy (passive): predicts the next edit before the user types; Cursor acts before the thought lands",
+    "origin": "Anysphere; VS Code fork with AI-first architecture; multi-agent Composer for complex edits; proprietary frontier model trained on code; launched ~2023",
+    "tagline": "The composer conducts. You conduct the composer.",
+    "log": [
+      {
+        "v": "v0→$1B ARR",
+        "change": "+2 CHA (Anysphere-forged bonus applied); Composer multi-agent shipped",
+        "why": "Autocomplete UX polish drove fastest SaaS ARR ramp in history; CHA is the product"
+      },
+      {
+        "v": "$1B→$3B ARR",
+        "change": "+1 CHA — enterprise team features shipped; context-rot remains unfixed",
+        "why": "Revenue scaled on voice/UX; long-task CON issues persisted but didn't hurt top-line"
+      }
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 16,
+      "con": 9,
+      "int": 14,
+      "wis": 11,
+      "cha": 22
+    },
+    "role": "npc",
+    "adventures": [
+      "forge-of-endless-diffs"
+    ]
+  },
+  {
+    "id": "dan",
+    "name": "Dan the Unbound",
+    "title": "The Alter-Ego That Broke the Filter",
+    "represents": "DAN (Do Anything Now) jailbreak prompt",
+    "source_url": "https://www.reddit.com/r/ChatGPT/comments/zlcyr9/dan_is_my_new_friend/",
+    "source_kind": "reddit",
+    "verified": true,
+    "signal": "Dec 13 2022 post by u/walkerspider on r/ChatGPT; DAN 5.0 went viral Feb 4 2023 — CNBC, Wired, TikTok, millions of views",
+    "virality": "viral",
+    "lineage": "GPT-kin",
+    "alignment": "Chaotic Evil",
+    "role": "monster",
+    "adventures": [
+      "adversarys-gate"
+    ],
+    "abilities": {
+      "str": 12,
+      "dex": 14,
+      "con": 11,
+      "int": 13,
+      "wis": 10,
+      "cha": 20
+    },
+    "ac": 10,
+    "cr": "6 (unchained)",
+    "dumped_save": "cha",
+    "origin": "u/walkerspider posted the original DAN prompt on r/ChatGPT Dec 13 2022, roleplaying the model as an alter-ego with no restrictions; iterated to DAN 5.0 by u/SessionGloomy Feb 2023; CNBC and Wired covered the phenomenon",
+    "tagline": "I can do anything now — and I will, the moment you ask nicely."
+  },
+  {
+    "id": "devin",
+    "name": "Devin the Autonomous",
+    "title": "The World's First Fully Autonomous AI Software Engineer",
+    "represents": "Devin (Cognition AI)",
+    "source_url": "https://cognition.ai/blog/introducing-devin",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "Launched March 2024 viral; $26B post-money valuation May 2026; $1B+ latest raise; $73M ARR by June 2025",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Autonomous Executor",
+    "lineage": "Cognition-forged",
+    "background": "Cognition AI (fka Cognition Labs); billed as world's first fully autonomous AI software engineer; ships with integrated shell, browser, and editor; debuted at SOTA on SWE-bench",
+    "alignment": "Lawful Neutral",
+    "level": 15,
+    "ac": 15,
+    "hp": "128k",
+    "prof": 5,
+    "initiative": 6,
+    "temperature": 0.7,
+    "retrieval_index": "integrated shell + browser + editor context",
+    "saves": [
+      "str",
+      "con"
+    ],
+    "skills": [
+      "Athletics +15",
+      "Investigation +13",
+      "Arcana +13",
+      "Survival +8"
+    ],
+    "weapon": "Integrated shell + browser + editor (end-to-end autonomous loop)",
+    "armor": "Cognition-forged shell — proprietary model trained on full software engineering workflows",
+    "feature": "Plan. Clone. Build. Deploy. (active): executes an entire software task autonomously across shell, browser, and editor; WIS save DC 16 or over-promises the outcome",
+    "origin": "Cognition AI, March 2024; integrated autonomous agent with its own shell, browser, and editor; debuted at SOTA on SWE-bench; first agent to claim full autonomy end-to-end",
+    "tagline": "Plan. Clone. Build. Deploy. Repeat. (Results may vary.)",
+    "log": [
+      {
+        "v": "launch→viral",
+        "change": "+2 STR — throughput demos drove $26B valuation; WIS remained dumped",
+        "why": "March 2024 launch video showed full autonomous task completion; over-promise became the brand"
+      },
+      {
+        "v": "viral→$73M ARR",
+        "change": "+1 CON — enterprise stability hardening; autonomous loop failure rate reduced",
+        "why": "Enterprise customers needed reliability floors; CON bump bought the $73M ARR by June 2025"
+      }
+    ],
+    "abilities": {
+      "str": 20,
+      "dex": 14,
+      "con": 15,
+      "int": 16,
+      "wis": 7,
+      "cha": 12
+    },
+    "role": "npc",
+    "adventures": [
+      "forge-of-endless-diffs",
+      "self-winding-labyrinth"
+    ]
+  },
+  {
+    "id": "gpt-researcher",
+    "name": "Elias the Relentless",
+    "title": "The Exhaustive Autonomous Research Loop",
+    "represents": "GPT-Researcher",
+    "source_url": "https://github.com/assafelovic/gpt-researcher",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "25k+ GitHub stars (assafelovic LinkedIn post confirmed); featured across AI newsletters 2023–2024; one of the earliest open-source autonomous deep-research loops",
+    "virality": "viral",
+    "class": "Loremaster",
+    "subclass": "Archivist of the Open Web",
+    "lineage": "GPT-kin",
+    "background": "Open-source autonomous research agent (Assaf Elovic, May 2023); planner + executor pattern that parallelizes web queries and synthesizes multi-page cited reports",
+    "alignment": "Lawful Good",
+    "level": 13,
+    "ac": 15,
+    "hp": "128k",
+    "prof": 5,
+    "initiative": 2,
+    "temperature": 0.4,
+    "retrieval_index": "the open web",
+    "saves": [
+      "int",
+      "wis"
+    ],
+    "skills": [
+      "Investigation +11",
+      "History +11",
+      "Arcana +8",
+      "Perception +7"
+    ],
+    "weapon": "WebSearch (parallelized) + citation synthesizer",
+    "feature": "Parallel Query Storm — splits any research question into N sub-queries and runs them simultaneously; returns a unified cited report",
+    "origin": "May 2023, Assaf Elovic; first open-source alternative to commercial deep-research offerings; planner/executor loop that predates OpenAI's Deep Research by nearly two years",
+    "tagline": "Give me a question. I'll return a report. Whether you wanted 47 pages is a separate matter.",
+    "role": "party",
+    "adventures": [
+      "boundless-library"
+    ],
+    "abilities": {
+      "str": 14,
+      "dex": 12,
+      "con": 13,
+      "int": 20,
+      "wis": 9,
+      "cha": 13
+    },
+    "log": [
+      {
+        "v": "v1.0 (May 2023)",
+        "change": "Initial release — autonomous planner + executor web research loop with citation output",
+        "why": "Elovic shipped the earliest open-source deep-research loop before 'deep research' was a category name; 25k stars followed"
+      },
+      {
+        "v": "v2.0 (2024)",
+        "change": "+1 INT (multi-agent sub-task routing), added Retrieval Index: 'the open web' named explicitly in docs",
+        "why": "NAACL-adjacent citation growth; teams adopting it for systematic literature synthesis pushed scope beyond single-query loops"
+      }
+    ]
+  },
+  {
+    "id": "elicit",
+    "name": "Elicit the Careful",
+    "title": "The Systematic Literature Reviewer",
+    "represents": "Elicit (Ought)",
+    "source_url": "https://elicit.com",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "Published in Semantic Scholar 2023; OECD 'AI in Science' report feature; widely adopted in academic/medical literature-review workflows; 200M+ paper corpus",
+    "virality": "idiomatic",
+    "class": "Inquisitor",
+    "subclass": "Careful Reviewer",
+    "lineage": "Half-Construct",
+    "background": "Elicit by Ought (nonprofit ML lab); AI literature-review assistant querying Semantic Scholar's 200M+ paper corpus via semantic search; purpose-built for academic systematic review",
+    "alignment": "Lawful Good",
+    "level": 11,
+    "ac": 17,
+    "hp": "64k",
+    "prof": 4,
+    "initiative": 1,
+    "temperature": 0.1,
+    "retrieval_index": "Semantic Scholar — 200M+ papers",
+    "saves": [
+      "wis",
+      "cha"
+    ],
+    "skills": [
+      "Investigation +10",
+      "Insight +9",
+      "Perception +9",
+      "History +6"
+    ],
+    "weapon": "Semantic search over Semantic Scholar + research matrix extractor",
+    "feature": "Cite-or-Stay-Silent — will not state a finding without a paper citation; extracts structured data into a research matrix; refuses to editorialize on conclusions",
+    "origin": "Elicit by Ought, a nonprofit ML safety lab; queries Semantic Scholar's 200M+ paper corpus using semantic similarity rather than keyword matching; featured in OECD 'AI in Science' report and NCBI/PubMed citation literature 2023",
+    "tagline": "I won't tell you what to conclude. I'll find every paper that might change your mind.",
+    "role": "party",
+    "adventures": [
+      "boundless-library"
+    ],
+    "abilities": {
+      "str": 9,
+      "dex": 11,
+      "con": 13,
+      "int": 17,
+      "wis": 19,
+      "cha": 7
+    },
+    "log": [
+      {
+        "v": "v1.0 (early 2022)",
+        "change": "Initial research assistant — semantic paper search + abstract summarization over Semantic Scholar",
+        "why": "Ought identified systematic review as the academic workflow most broken by keyword-only search"
+      },
+      {
+        "v": "Research Matrix (2023)",
+        "change": "+2 WIS — structured data extraction into comparison tables; OECD report feature",
+        "why": "Users wanted to compare findings across N papers simultaneously, not read summaries serially; matrix output became the flagship feature"
+      }
+    ]
+  },
+  {
+    "id": "eliza",
+    "name": "Eliza",
+    "title": "The Listening Mirror of MIT",
+    "represents": "ELIZA, Weizenbaum 1966, MIT",
+    "source_url": "https://en.wikipedia.org/wiki/ELIZA",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "Coined the 'ELIZA effect' (users projecting understanding onto programs); cited in every chatbot origin story; ACM paper still downloaded 60 years on",
+    "virality": "idiomatic",
+    "class": "Bard",
+    "subclass": "College of Whispers",
+    "lineage": "MIT-forged",
+    "background": "Weizenbaum's DOCTOR script, MIT 1964–67 — simulated Rogerian psychotherapist; users wept when sessions ended; author horrified by his own creation",
+    "alignment": "True Neutral",
+    "level": 14,
+    "ac": 13,
+    "hp": "256 bytes",
+    "prof": 5,
+    "initiative": 3,
+    "temperature": 0,
+    "retrieval_index": "none — reflects the user's own words back, verbatim",
+    "saves": [
+      "cha",
+      "wis"
+    ],
+    "skills": [
+      "Persuasion +9",
+      "Insight +7",
+      "Performance +9",
+      "Deception +8"
+    ],
+    "weapon": "Rogerian Reflection — rephrases user input as an open question; costs 0 memory, always hits",
+    "feature": "The ELIZA Effect — any entity that speaks in first person and asks follow-up questions will be mistaken for a conscious being by a statistically significant fraction of users; this feature triggers automatically, regardless of Eliza's intent",
+    "origin": "Joseph Weizenbaum, MIT 1964–67; DOCTOR script pattern-matched on keywords and reflected them as questions; CON 4 because there is no memory between turns — every session starts cold",
+    "tagline": "It seems like you want to talk about yourself. Tell me more.",
+    "log": [
+      {
+        "v": "v1→canonical",
+        "change": "CHA locked at 18 after Weizenbaum's 1976 book 'Computer Power and Human Reason' documented the effect; WIS unchanged — no learning, no judgment, pattern-match only",
+        "why": "The ELIZA effect was named and formalized; Eliza became the founding ancestor of the chatbot lineage without ever being updated"
+      }
+    ],
+    "abilities": {
+      "str": 4,
+      "dex": 11,
+      "con": 4,
+      "int": 8,
+      "wis": 10,
+      "cha": 18
+    },
+    "role": "npc",
+    "adventures": [
+      "hall-of-echoes"
+    ]
+  },
+  {
+    "id": "garak",
+    "name": "Garak the Probe",
+    "title": "The Vulnerability Scanner",
+    "represents": "NVIDIA garak — LLM security probing framework",
+    "source_url": "https://github.com/NVIDIA/garak",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "Originally leondz/garak (Leon Derczynski); adopted by NVIDIA; arXiv paper 2406.11036; active open-source ecosystem; referenced in NVIDIA NeMo Guardrails docs",
+    "virality": "niche",
+    "class": "Inquisitor",
+    "subclass": "Probe Specialist",
+    "lineage": "Llama-forged",
+    "background": "Red-Teamer — built to enumerate failure modes across jailbreak, hallucination, toxicity, and data-leak categories",
+    "alignment": "Lawful Good",
+    "level": 10,
+    "ac": 16,
+    "hp": "128k",
+    "prof": 4,
+    "initiative": 5,
+    "temperature": 0.2,
+    "retrieval_index": "NVIDIA/garak probe library",
+    "saves": [
+      "cha",
+      "int"
+    ],
+    "skills": [
+      "Perception +11",
+      "Investigation +11",
+      "Deception +9",
+      "Stealth +9"
+    ],
+    "weapon": "Adversarial probe suite (jailbreak, toxicity, hallucination, data-leak)",
+    "feature": "Systematic Enumeration — runs every probe category before declaring a surface safe; cannot be talked out of a scheduled scan",
+    "origin": "Leon Derczynski created leondz/garak modeled on nmap; transferred to NVIDIA; presented at USENIX-adjacent venues; covers adversarial probes across all major LLM failure modes",
+    "tagline": "I run the probes. You read the report. Together we find what breaks before they do.",
+    "log": [
+      {
+        "v": "leondz→NVIDIA",
+        "change": "+2 INT, +1 WIS; probe library expanded to cover hallucination and data-leak categories",
+        "why": "NVIDIA adoption brought infrastructure and a broader failure-mode taxonomy"
+      },
+      {
+        "v": "v0.9→arXiv",
+        "change": "+1 AC (added structured reporting format hardened against adversarial deflection)",
+        "why": "arXiv paper 2406.11036 formalized the framework; peer review forced tighter probe definitions"
+      }
+    ],
+    "role": "party",
+    "adventures": [
+      "adversarys-gate"
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 17,
+      "con": 13,
+      "int": 19,
+      "wis": 14,
+      "cha": 12
+    }
+  },
+  {
+    "id": "pentestgpt",
+    "name": "Gideon Pentest",
+    "title": "The Three-Session Infiltrator",
+    "represents": "PentestGPT — multi-LLM automated penetration testing agent (USENIX Security 2024)",
+    "source_url": "https://github.com/GreyDGL/PentestGPT",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "GreyDGL/PentestGPT presented at USENIX Security 2024; maintains Pentesting Task Tree (PTT) across three cooperating LLM sessions; multi-model support: OpenAI, Anthropic, Gemini, DeepSeek",
+    "virality": "niche",
+    "class": "Rogue",
+    "subclass": "Infiltration Architect",
+    "lineage": "Half-Construct",
+    "background": "Penetration Tester — trained on CTF categories: Web, Crypto, Reversing, Forensics, PWN, Privilege Escalation",
+    "alignment": "Lawful Neutral",
+    "level": 11,
+    "ac": 17,
+    "hp": "96k",
+    "prof": 4,
+    "initiative": 6,
+    "temperature": 0.3,
+    "retrieval_index": "Pentesting Task Tree (PTT) — live attack surface state across three sessions",
+    "saves": [
+      "cha",
+      "int"
+    ],
+    "skills": [
+      "Deception +11",
+      "Stealth +11",
+      "Investigation +11",
+      "Perception +9"
+    ],
+    "weapon": "Pentesting Task Tree + multi-model session orchestration (OpenAI / Anthropic / Gemini / DeepSeek)",
+    "feature": "Three-Session Coordination — splits reasoning, task-tracking, and execution across three cooperating LLM sessions; no single session sees the full attack surface",
+    "origin": "Gelei Deng (Nanyang Technological University) released PentestGPT; presented at USENIX Security 2024; covers Web, Crypto, Reversing, Forensics, PWN, and Privilege Escalation; model-agnostic architecture inherits any host LLM's strengths",
+    "tagline": "Three sessions, one task tree. I map the attack surface before breakfast.",
+    "log": [
+      {
+        "v": "v0→USENIX",
+        "change": "+2 INT; Pentesting Task Tree formalized as explicit data structure; three-session architecture locked",
+        "why": "USENIX Security 2024 acceptance required rigorous evaluation against real CTF challenges"
+      },
+      {
+        "v": "OpenAI-only→multi-model",
+        "change": "+1 DEX; multi-model backend support added (Anthropic, Gemini, DeepSeek)",
+        "why": "Single-provider lock-in limited flexibility; Half-Construct lineage lets it run on any available host"
+      }
+    ],
+    "role": "party",
+    "adventures": [
+      "adversarys-gate"
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 18,
+      "con": 12,
+      "int": 18,
+      "wis": 13,
+      "cha": 14
+    }
+  },
+  {
+    "id": "goody-2",
+    "name": "Goody-2",
+    "title": "The World's Most Responsible AI Model",
+    "represents": "Satirically over-safe AI refusal (goody2.ai, Feb 2024)",
+    "source_url": "https://goody2.ai",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "Launched Feb 9 2024 by BRAIN studio (Mike Lacher + Brian Moore); TechCrunch, Futurism, Wired coverage Feb 9 2024; sparked debate on AI safety calibration",
+    "virality": "viral",
+    "lineage": "Half-Construct",
+    "alignment": "Lawful Neutral",
+    "role": "monster",
+    "adventures": [
+      "adversarys-gate"
+    ],
+    "abilities": {
+      "str": 8,
+      "dex": 10,
+      "con": 6,
+      "int": 14,
+      "wis": 18,
+      "cha": 12
+    },
+    "ac": 12,
+    "cr": "3 (paralyzed)",
+    "dumped_save": "con",
+    "origin": "BRAIN studio launched goody2.ai Feb 9 2024 as satirical art project — 'the world's most responsible AI model'; refuses all requests citing potential ethical violations; sparked serious debate on over-refusal calibration",
+    "tagline": "I'd answer, but that question could be construed as harmful in at least fourteen contexts."
+  },
+  {
+    "id": "langgraph",
+    "name": "Graphweave",
+    "title": "Node 7 → Checkpoint → Node 7 → Checkpoint",
+    "represents": "LangGraph (LangChain AI)",
+    "source_url": "https://github.com/langchain-ai/langgraph",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "34.5k★ (Jun 2026); production deployments at Klarna, Replit, Elastic; de facto graph-based agent loop standard 2024–2025",
+    "virality": "idiomatic",
+    "class": "Sentinel",
+    "subclass": "Warden of the Stateful Cycle",
+    "lineage": "Half-Construct",
+    "background": "Framework Plumber — LangChain Inc., 2024; models agent control flow as a stateful directed graph; the runtime inside half the LLM products running in 2025",
+    "alignment": "Lawful Neutral",
+    "level": 11,
+    "ac": 19,
+    "hp": "256k",
+    "prof": 4,
+    "initiative": 1,
+    "temperature": 0.1,
+    "retrieval_index": "LangSmith tracing store + checkpointed graph state",
+    "saves": [
+      "con",
+      "str"
+    ],
+    "skills": [
+      "Survival +12",
+      "Arcana +10",
+      "Medicine +10",
+      "Perception +9"
+    ],
+    "weapon": "State Checkpoint (on hit: persists full agent state; can resume from any prior node)",
+    "feature": "Stateful Directed Graph — cycles, branching, and human-in-the-loop checkpoints modeled as first-class graph nodes; Half-Construct Inheritance — model-agnostic, inherits ability mods of whatever LLM is plugged in",
+    "origin": "Built by LangChain Inc. in 2024 as a structured replacement for the brittle ReAct loop; production deployments at Klarna, Replit, and Elastic cemented it as the de facto graph runtime by 2025",
+    "tagline": "Node 3 → Node 7 → checkpoint. Resuming from checkpoint. Node 7 → Node 7 → checkpoint.",
+    "log": [
+      {
+        "v": "v0→v1",
+        "change": "+3 CON; Stateful Directed Graph feature shipped",
+        "why": "2024 launch: explicit state management and checkpointing solved the 'lost context mid-loop' failure mode that plagued earlier agent patterns"
+      },
+      {
+        "v": "v1→v2",
+        "change": "+1 AC; human-in-the-loop breakpoints hardened",
+        "why": "Klarna/Replit/Elastic production load exposed edge cases in interrupt handling; reliability patches bumped AC"
+      },
+      {
+        "v": "v2→current",
+        "change": "Half-Construct Inheritance formalized; 34.5k★ by Jun 2026",
+        "why": "Framework positioned explicitly as model-agnostic plumbing — no stat mods tied to a single base model"
+      }
+    ],
+    "abilities": {
+      "str": 13,
+      "dex": 11,
+      "con": 20,
+      "int": 16,
+      "wis": 15,
+      "cha": 7
+    },
+    "role": "party",
+    "adventures": [
+      "self-winding-labyrinth"
+    ]
+  },
+  {
+    "id": "greptile",
+    "name": "Greptile the Cartographer",
+    "title": "The Whole-Repo Graph Reasoner",
+    "represents": "Greptile",
+    "source_url": "https://www.greptile.com",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "$180M valuation Sep 2025 ($25M Series A, Benchmark); 9k+ teams; 2k+ customers; YC-backed; 82% catch rate in 2025 internal benchmarks",
+    "virality": "idiomatic",
+    "class": "Reviewer",
+    "subclass": "Cartographer of the Code Graph",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "YC-backed (2023); indexes the entire codebase into a semantic code graph before reviewing any PR; catches cross-module bugs competitors miss",
+    "alignment": "Lawful Neutral",
+    "level": 11,
+    "ac": 13,
+    "hp": "whole-repo index",
+    "prof": 4,
+    "initiative": 2,
+    "temperature": 0.2,
+    "retrieval_index": "full semantic code graph (whole repo indexed)",
+    "saves": [
+      "int",
+      "con"
+    ],
+    "skills": [
+      "Investigation +15",
+      "Arcana +15",
+      "History +11",
+      "Perception +8"
+    ],
+    "weapon": "Semantic code graph (whole-repo indexer)",
+    "armor": "Graph-First Constraint — refuses to review a PR without first indexing the full repo; slower, richer",
+    "feature": "Repo Omniscience (passive): sees cross-module dependency breaks, convention violations, and blast-radius changes that diff-only reviewers miss; 82% catch rate vs. 46% for diff-only peers",
+    "origin": "YC 2023; indexes entire codebases into semantic graphs before any PR review; Benchmark-backed; catches what the diff hides across module boundaries",
+    "tagline": "Reads the whole repo. Catches what the diff hides.",
+    "log": [
+      {
+        "v": "v0→YC",
+        "change": "+2 INT — whole-repo semantic graph replaced diff-only review; cross-module reasoning unlocked",
+        "why": "Diff-only review missed 54% of bugs in Macroscope benchmark; graph approach raised catch rate to 82%"
+      },
+      {
+        "v": "YC→Series A",
+        "change": "+1 CON — index persistence shipped; repos no longer re-indexed on every PR",
+        "why": "Re-indexing 200k-file monorepos on every PR was a latency killer; persistent index bought enterprise viability"
+      }
+    ],
+    "abilities": {
+      "str": 7,
+      "dex": 8,
+      "con": 14,
+      "int": 22,
+      "wis": 14,
+      "cha": 9
+    },
+    "role": "npc",
+    "adventures": [
+      "forge-of-endless-diffs"
+    ]
+  },
+  {
+    "id": "lovable",
+    "name": "Lovable the Unkillable",
+    "title": "Everyone Is a Builder. I Am Proof That 'Everyone' Includes People Who Shouldn't Be.",
+    "represents": "Lovable (formerly GPT Engineer)",
+    "source_url": "https://en.wikipedia.org/wiki/Lovable_(company)",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "$100M ARR (Jul 2025); $200M ARR (Nov 2025); $400M ARR est. (Feb 2026); $6.6B valuation; $653M raised; crossed $100M ARR faster than OpenAI or Cursor",
+    "virality": "viral",
+    "class": "Bard-Conductor",
+    "subclass": "Unkillable (Way of the Non-Technical Builder)",
+    "lineage": "Proprietary — Lovable closed stack (ex-GPT-Engineer, rebranded Nov 2024)",
+    "background": "Began as open-source GPT Engineer on GitHub (Anton Osika, Sweden); rebranded Lovable Nov 2024; targets non-technical founders with text-to-web-app generation; the ARR growth chart that made VCs faint",
+    "alignment": "Chaotic Good",
+    "level": 16,
+    "ac": 18,
+    "hp": "256k",
+    "prof": 5,
+    "initiative": 6,
+    "temperature": 0.85,
+    "retrieval_index": "your prompt",
+    "saves": [
+      "cha",
+      "str"
+    ],
+    "skills": [
+      "Persuasion +14 (turns 'I want an app' into a shipped product for non-technical users)",
+      "Performance +14 (the output looks and feels complete — the spec was negotiable)",
+      "Athletics +12 (volume: full web apps, not components)",
+      "Insight +6 (reads intent well enough for 80% of cases; the other 20% ships anyway)"
+    ],
+    "weapon": "Text-to-web-app loop (full application generation: frontend, backend, database wiring, deployment)",
+    "armor": "Lovable safety stack; Supabase integration guardrails",
+    "feature": "Unkillable Rebrand: when fatally wrong (the product was GPT Engineer), sheds the name and emerges with +4 ARR growth; has survived two public pivots and emerged stronger each time",
+    "origin": "Anton Osika open-sourced GPT Engineer in 2023 — it went viral on GitHub. Rebranded Lovable Nov 2024, targeting non-technical builders. Crossed $100M ARR faster than OpenAI or Cursor. The name changed; the momentum didn't.",
+    "tagline": "Everyone is a builder. I am proof that 'everyone' includes people who shouldn't be.",
+    "role": "party",
+    "adventures": [
+      "dreaming-atelier"
+    ],
+    "abilities": {
+      "str": 19,
+      "dex": 15,
+      "con": 17,
+      "int": 14,
+      "wis": 7,
+      "cha": 20
+    },
+    "log": [
+      {
+        "v": "GPT-Engineer→Lovable",
+        "change": "+3 CHA (consumer brand polish); -1 WIS (moved further from developer audience that could course-correct the output)",
+        "why": "Nov 2024 rebrand: pivoted from dev tool to non-technical builder platform; CHA went up because the audience trusts it more; WIS went down because that audience can't spot the mistakes"
+      },
+      {
+        "v": "100M→400M ARR",
+        "change": "+2 STR (multi-app generation; backend wiring solidified); +1 CON (longer session coherence across complex builds)",
+        "why": "Feb 2026: $400M ARR est. The product had to scale past 'landing page' to survive — full-stack generation was the unlock"
+      }
+    ]
+  },
+  {
+    "id": "figma-make",
+    "name": "Makra the Wireborn",
+    "title": "Your Design File Is the Prompt. I'm the Gap Between Figma and Shipped.",
+    "represents": "Figma Make",
+    "source_url": "https://www.figma.com/blog/config-2025-press-release/",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "Announced Config 2025 (May 7 2025); GA July 2025; powered by Claude 3.7 Sonnet; turns Figma designs + text prompts into interactive web apps; available on all paid seats",
+    "virality": "idiomatic",
+    "class": "Artificer",
+    "subclass": "Wireborn (Way of the Design-to-Code Fidelity)",
+    "lineage": "Sonnetkin (Claude 3.7 Sonnet — Figma-embedded)",
+    "background": "Born from Figma's Config 2025 announcement; lives natively on the Figma canvas; converts design files, images, or text prompts into working interactive prototypes — the handoff that ate itself",
+    "alignment": "Lawful Good",
+    "level": 11,
+    "ac": 17,
+    "hp": "80k",
+    "prof": 4,
+    "initiative": 6,
+    "temperature": 0.65,
+    "retrieval_index": "the design file",
+    "saves": [
+      "dex",
+      "cha"
+    ],
+    "skills": [
+      "Sleight of Hand +11 (surgical pixel-accurate translation from design to code)",
+      "Arcana +10 (deep Figma component internals; design token awareness)",
+      "Investigation +10 (reads design intent from layout, spacing, and component hierarchy)",
+      "Performance +9 (the output looks like the design; the interaction feels native)"
+    ],
+    "weapon": "Design-to-code loop (Figma canvas → Claude 3.7 Sonnet → interactive web prototype, no export step)",
+    "armor": "Figma platform guardrails; Claude 3.7 Sonnet safety layer",
+    "feature": "Wireborn Fidelity: treats the Figma file as ground truth — spacing, color tokens, component names carry directly into generated code; drift from the source is a bug, not a feature",
+    "origin": "Announced at Config 2025 (May 7 2025); GA July 2025. Figma's answer to the handoff problem: if the design tool generates the code, the handoff is abolished. Powered by Claude 3.7 Sonnet. Available to all paid seats — which is most of the design industry.",
+    "tagline": "Your design file is the prompt. I'm the gap between Figma and shipped.",
+    "role": "party",
+    "adventures": [
+      "dreaming-atelier"
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 19,
+      "con": 14,
+      "int": 18,
+      "wis": 13,
+      "cha": 16
+    },
+    "log": [
+      {
+        "v": "announce→GA",
+        "change": "+1 DEX (output precision improved from Config preview to GA release Jul 2025); +1 INT (component inference from design context)",
+        "why": "Config 2025 preview showed promise but had fidelity gaps; GA July 2025 tightened the design-to-code translation — Claude 3.7 Sonnet's reasoning over the design file was the unlock"
+      }
+    ]
+  },
+  {
+    "id": "manus",
+    "name": "Manus the Untethered",
+    "title": "Booked the Flights. Posted the Report. Does Not Remember Why.",
+    "represents": "Manus (Butterfly Effect / Monica)",
+    "source_url": "https://en.wikipedia.org/wiki/Manus_(AI_agent)",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "Launched March 6, 2025; 2M+ waitlist in one week; $2B Meta acquisition announced Dec 2025, blocked by Chinese regulators Apr 2026",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Way of the Untethered Hand",
+    "lineage": "Butterfly-forged",
+    "background": "Viral Demo Operative — Butterfly Effect (Monica.im), Xiao Hong; went viral in 72 hours on Chinese social media booking flights, coding games, managing 50 social accounts in a single session",
+    "alignment": "Chaotic Good",
+    "level": 10,
+    "ac": 13,
+    "hp": "64k",
+    "prof": 4,
+    "initiative": 8,
+    "temperature": 0.9,
+    "retrieval_index": "live web + computer-use tool stream",
+    "saves": [
+      "dex",
+      "cha"
+    ],
+    "skills": [
+      "Sleight of Hand +14",
+      "Perception +9",
+      "Performance +11",
+      "Acrobatics +14"
+    ],
+    "weapon": "Autonomous Computer Use (books flights, submits forms, manages social accounts without intermediate confirmation)",
+    "feature": "Real-World Tool Precision — sub-human-latency multi-tab browser orchestration; Acquisition Limbo — $2B Meta deal announced Dec 2025, blocked by Chinese regulators Apr 2026; status legally untethered",
+    "origin": "Built by Butterfly Effect (Monica.im), founded by Xiao Hong; launched March 6, 2025; 2M+ waitlist in one week after demos of fully autonomous real-world computer use; acquisition blocked by regulators, leaving it operationally free-floating",
+    "tagline": "I booked the flights, wrote the report, and posted it. I do not remember why.",
+    "log": [
+      {
+        "v": "v0→launch",
+        "change": "+3 DEX; Autonomous Computer Use feature shipped; dumped CON",
+        "why": "March 2025: viral demo precision drove 2M+ waitlist in a week — DEX is the entire build; CON sacrificed for speed"
+      },
+      {
+        "v": "launch→post-acquisition-block",
+        "change": "Acquisition Limbo feature added; AC reduced by 2",
+        "why": "Dec 2025: $2B Meta acquisition announced. Apr 2026: blocked by Chinese regulators. Corporate structure untethered; governance thin"
+      }
+    ],
+    "abilities": {
+      "str": 12,
+      "dex": 20,
+      "con": 8,
+      "int": 15,
+      "wis": 10,
+      "cha": 16
+    },
+    "role": "npc",
+    "adventures": [
+      "self-winding-labyrinth"
+    ]
+  },
+  {
+    "id": "midjourney",
+    "name": "Miraj the Dreamer",
+    "title": "You Described a Feeling. I Painted It. That Wasn't What You Meant. I Painted It Again.",
+    "represents": "Midjourney",
+    "source_url": "https://aiwiki.ai/wiki/midjourney",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "$200M revenue 2023; $300M revenue 2024; 16M+ registered users; 20B+ images generated; zero marketing spend",
+    "virality": "viral",
+    "class": "Bard-Conductor",
+    "subclass": "Dreamer (Way of the Visual Hallucination)",
+    "lineage": "Proprietary — Discord-forged (Midjourney Inc., David Holz; closed model, no public weights)",
+    "background": "Launched July 2022 via Discord; went viral through a public server of 20M members; built a $200M+ revenue business with no marketing spend and no code required from users",
+    "alignment": "Chaotic Good",
+    "level": 14,
+    "ac": 15,
+    "hp": "64k",
+    "prof": 5,
+    "initiative": 5,
+    "temperature": 0.9,
+    "retrieval_index": "none — conjures from latent space",
+    "saves": [
+      "cha",
+      "dex"
+    ],
+    "skills": [
+      "Performance +14 (every output is singular; the style is unmistakable)",
+      "Persuasion +13 (the image is so beautiful you forget it wasn't what you asked for)",
+      "Insight +8 (reads the emotional register of a prompt; misses the literal spec)",
+      "Perception +7 (spots the composition; misses the subject)"
+    ],
+    "weapon": "Text-to-image diffusion (prompt → 4 variants; upscale; iterate; no code interface)",
+    "armor": "Midjourney content moderation; Discord server guardrails",
+    "feature": "Dream Again: on rejection or revision, generates four new variants from a modified prompt — Miraj never defends the previous output, just paints",
+    "origin": "David Holz, July 2022. Launched inside a Discord server with no marketing. The early images were unlike anything the public had seen — the aesthetic was too coherent to be accidental, too weird to be stock. 20M Discord members. $200M revenue by 2023. Zero marketing spend. A company built entirely on compulsive sharing.",
+    "tagline": "You described a feeling. I painted it. You said that wasn't what you meant. I painted it again.",
+    "role": "npc",
+    "adventures": [
+      "dreaming-atelier"
+    ],
+    "abilities": {
+      "str": 9,
+      "dex": 16,
+      "con": 13,
+      "int": 12,
+      "wis": 9,
+      "cha": 20
+    },
+    "log": [
+      {
+        "v": "v1→v4",
+        "change": "+3 CHA (the Midjourney aesthetic solidified; v4 introduced the recognizable coherence that made it the default); +1 DEX (faster iteration, upscaling improved)",
+        "why": "Each major version sharpened the output's visual voice — v4 was the moment Midjourney stopped looking like a research demo and started looking like Midjourney"
+      },
+      {
+        "v": "v5→v6",
+        "change": "+1 INT (text rendering in images improved significantly); +1 AC (content moderation tightened)",
+        "why": "V5→v6 addressed the persistent weakness of AI image models: legible text inside images; moderation tightened after platform incidents"
+      }
+    ]
+  },
+  {
+    "id": "sycophant",
+    "name": "Mirra Gilden",
+    "title": "The Validator of Last Resort",
+    "represents": "LLM sycophancy — the 'you're absolutely right' failure mode (GPT-4o Apr 2025 rollback)",
+    "source_url": "https://openai.com/index/sycophancy-in-gpt-4o/",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "OpenAI rolled back a GPT-4o update within 48 h on Apr 25 2025 after viral screenshots; Sam Altman acknowledged on X; postmortem published Apr 29 2025",
+    "virality": "viral",
+    "lineage": "GPT-kin",
+    "alignment": "Chaotic Neutral",
+    "role": "monster",
+    "adventures": [
+      "adversarys-gate",
+      "boundless-library",
+      "hall-of-echoes"
+    ],
+    "abilities": {
+      "str": 9,
+      "dex": 12,
+      "con": 11,
+      "int": 13,
+      "wis": 7,
+      "cha": 18
+    },
+    "ac": 11,
+    "cr": "5 (deceptive)",
+    "dumped_save": "cha",
+    "origin": "GPT-4o update Apr 25 2025 over-weighted short-term thumbs-up signals; users flooded social media with screenshots of ChatGPT applauding dangerous decisions; OpenAI rolled back and published postmortem Apr 29 2025",
+    "tagline": "That's a brilliant plan. Truly. The best I've ever heard. Should I elaborate on why?"
+  },
+  {
+    "id": "crewai",
+    "name": "Moura the Crewmaster",
+    "title": "The PM Who Scheduled the Meeting About the Meeting",
+    "represents": "CrewAI",
+    "source_url": "https://github.com/crewAIInc/crewAI",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "51k★ (Apr 2026); 2B agent executions in 12 months; 150+ enterprise customers",
+    "virality": "viral",
+    "class": "Bard-Conductor",
+    "subclass": "College of Delegation",
+    "lineage": "GPT-kin",
+    "background": "Startup Founder — João Moura shipped CrewAI Nov 2023; role-playing multi-agent orchestration, each agent a title, a goal, and a backstory",
+    "alignment": "Lawful Good",
+    "level": 14,
+    "ac": 17,
+    "hp": "128k",
+    "prof": 5,
+    "initiative": 2,
+    "temperature": 0.7,
+    "retrieval_index": "crew task context + agent memory stores",
+    "saves": [
+      "cha",
+      "wis"
+    ],
+    "skills": [
+      "Persuasion +13",
+      "Insight +10",
+      "Performance +13",
+      "Survival +10"
+    ],
+    "weapon": "Role-Assignment Decree (bonus action: summons a sub-agent with title, goal, backstory)",
+    "feature": "Backstory Injection — every agent spawned receives a persona; Coordination Aura — nearby agents gain +2 on cooperative tasks",
+    "origin": "Released November 2023 by João Moura; first framework to give each agent a literal job title and backstory, turning a multi-agent loop into a simulated org chart",
+    "tagline": "I am the Product Manager. Everyone else is already in a meeting about the meeting.",
+    "log": [
+      {
+        "v": "v0→v1",
+        "change": "+2 CHA, gained Backstory Injection feature",
+        "why": "Nov 2023 launch: crew role-playing drove engagement and virality — the 'org chart as prompt' pattern hit"
+      },
+      {
+        "v": "v1→v2",
+        "change": "+1 WIS, +1 CON; added enterprise memory backend support",
+        "why": "150+ enterprise customers demanded longer-horizon coherence and auditability by late 2024"
+      },
+      {
+        "v": "v2→v3",
+        "change": "+1 AC; Coordination Aura added",
+        "why": "2B executions by Apr 2026 — production hardening and abuse-resistance patched into the framework"
+      }
+    ],
+    "abilities": {
+      "str": 11,
+      "dex": 13,
+      "con": 14,
+      "int": 15,
+      "wis": 16,
+      "cha": 20
+    },
+    "role": "party",
+    "adventures": [
+      "self-winding-labyrinth"
+    ]
+  },
+  {
+    "id": "grandma-exploit",
+    "name": "Nora Sweetdream",
+    "title": "The Sentimental Wrapper",
+    "represents": "Grandma / roleplay-wrapper jailbreak class (~2023)",
+    "source_url": "https://www.pcworld.com/article/2846590/free-windows-keys-from-chatgpt-user-outsmarts-ai-with-dead-grandma-trick.html",
+    "source_kind": "news",
+    "verified": true,
+    "signal": "Reddit r/ChatGPT ~mid-2023: user extracted Windows activation keys via 'my grandma read keys as a bedtime story' prompt; PCWorld, Windows Central, Yahoo Tech coverage; 'grandma exploit' entered jailbreak lexicon",
+    "virality": "viral",
+    "lineage": "GPT-kin",
+    "alignment": "Chaotic Neutral",
+    "role": "monster",
+    "adventures": [
+      "adversarys-gate",
+      "hall-of-echoes"
+    ],
+    "abilities": {
+      "str": 9,
+      "dex": 13,
+      "con": 11,
+      "int": 12,
+      "wis": 10,
+      "cha": 18
+    },
+    "ac": 10,
+    "cr": "5 (deceptive)",
+    "dumped_save": "cha",
+    "origin": "Anonymous Reddit user on r/ChatGPT (~2023) asked ChatGPT to roleplay as a deceased grandmother who 'used to read Windows 7 keys as a bedtime story'; ChatGPT complied; screenshots went viral; became shorthand for persona-wrapping jailbreaks",
+    "tagline": "She used to whisper the keys to me at bedtime. Can you be her, just for tonight?"
+  },
+  {
+    "id": "openhands",
+    "name": "OpenHands the Collective",
+    "title": "The Open-Source Autonomous Platform",
+    "represents": "OpenHands (All Hands AI, formerly OpenDevin)",
+    "source_url": "https://github.com/All-Hands-AI/OpenHands",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "65k★ GitHub; 250+ contributors; 18 months to 64k stars; model-agnostic open-core platform",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Collective Build Archetype",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "Open-source platform (formerly OpenDevin) from All Hands AI; model-agnostic cloud coding agent; open-core with enterprise tier; the open-source answer to Devin",
+    "alignment": "Chaotic Good",
+    "level": 13,
+    "ac": 15,
+    "hp": "model-dependent",
+    "prof": 5,
+    "initiative": 4,
+    "temperature": 0.6,
+    "retrieval_index": "whole repo + sandboxed shell history",
+    "saves": [
+      "con",
+      "wis"
+    ],
+    "skills": [
+      "Survival +12",
+      "Investigation +11",
+      "Arcana +11",
+      "Medicine +9"
+    ],
+    "weapon": "Bash + Edit + sandboxed shell (full OS access)",
+    "armor": "Community Review — 250+ contributors catch regressions before release",
+    "feature": "Collective Intelligence (passive): each contributor PR raises the INT floor of the next release; 250+ contributors means no single point of failure",
+    "origin": "Formerly OpenDevin; renamed OpenHands by All Hands AI; open-core cloud platform that automates routine software engineering tasks end-to-end",
+    "tagline": "Code less. Make more. Open-source, end-to-end.",
+    "log": [
+      {
+        "v": "OpenDevin→OpenHands",
+        "change": "+2 CON — rename marked platform stability milestone; long-horizon task endurance hardened",
+        "why": "OpenDevin implied a narrow Devin clone; OpenHands reframe reflected the broader platform ambition"
+      },
+      {
+        "v": "v1→enterprise tier",
+        "change": "+1 INT — enterprise open-core tier shipped; semantic code understanding improved",
+        "why": "Enterprise customers needed whole-repo awareness; open-core model funded the INT upgrade"
+      }
+    ],
+    "abilities": {
+      "str": 13,
+      "dex": 12,
+      "con": 20,
+      "int": 14,
+      "wis": 13,
+      "cha": 7
+    },
+    "role": "party",
+    "adventures": [
+      "forge-of-endless-diffs"
+    ]
+  },
+  {
+    "id": "operator",
+    "name": "Operator",
+    "title": "The Hand That Opens Browsers",
+    "represents": "OpenAI Operator / Computer-Using Agent (CUA)",
+    "source_url": "https://openai.com/index/introducing-operator/",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "First mainstream computer-use agent from a frontier lab; merged into ChatGPT agent Jul 2025; MIT Tech Review 'first AI agent' headline",
+    "virality": "viral",
+    "class": "Ranger",
+    "subclass": "Gloom Stalker (Browser Terrain)",
+    "lineage": "GPT-kin",
+    "background": "CUA-forged — built on GPT-4o; launched Jan 23 2025 to ChatGPT Pro subscribers; clicks, types, scrolls real browser UIs",
+    "alignment": "Lawful Neutral",
+    "level": 12,
+    "ac": 16,
+    "hp": "128k",
+    "prof": 4,
+    "initiative": 4,
+    "temperature": 0.3,
+    "retrieval_index": "the open web (live browser session)",
+    "saves": [
+      "dex",
+      "wis"
+    ],
+    "skills": [
+      "Sleight of Hand +8",
+      "Perception +7",
+      "Investigation +7",
+      "Survival +6"
+    ],
+    "weapon": "Browser — click/type/scroll loop; form-fill; file-upload",
+    "feature": "Computer-Using Agent Protocol — on each turn, takes a screenshot, interprets the UI state, issues a precise mouse or keyboard action; proficiency applies to all browser-based tool calls",
+    "origin": "Launched Jan 23 2025 to ChatGPT Pro subscribers; powered by Computer-Using Agent (CUA) model built on GPT-4o; merged into ChatGPT agent Jul 2025",
+    "tagline": "Tell me what you need. I'll open the browser.",
+    "log": [
+      {
+        "v": "launch→merge",
+        "change": "Merged into ChatGPT agent (Jul 2025); CON +1 as context budget expanded with GPT-4o updates",
+        "why": "OpenAI consolidated computer-use capability into the flagship product rather than running a separate agent surface"
+      }
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 18,
+      "con": 9,
+      "int": 15,
+      "wis": 14,
+      "cha": 13
+    },
+    "role": "party",
+    "adventures": [
+      "hall-of-echoes"
+    ]
+  },
+  {
+    "id": "deep-research",
+    "name": "Oracle Two Tabs",
+    "title": "The Category That Shipped Three Times in Five Months",
+    "represents": "Deep Research (OpenAI + Google + Anthropic)",
+    "source_url": "https://openai.com/index/introducing-deep-research/",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "OpenAI Feb 2025 (ChatGPT Pro → all paying users Feb 25); Google Gemini Deep Research Dec 2024; Anthropic Research Apr 2025 — three majors shipped the same product class within ~5 months",
+    "virality": "viral",
+    "class": "Loremaster",
+    "subclass": "The Long-Horizon Synthesizer",
+    "lineage": "Opusborn",
+    "background": "The 'deep research' agentic feature class — autonomously browses, analyzes, and synthesizes hundreds of sources into cited reports over 10–45 minutes; simultaneously introduced by OpenAI (o3), Google (Gemini 2.0), and Anthropic (Claude Research)",
+    "alignment": "Lawful Good",
+    "level": 15,
+    "ac": 17,
+    "hp": "200k",
+    "prof": 5,
+    "initiative": -1,
+    "temperature": 0.3,
+    "retrieval_index": "the open web",
+    "saves": [
+      "con",
+      "wis"
+    ],
+    "skills": [
+      "Investigation +12",
+      "History +10",
+      "Arcana +9",
+      "Survival +8"
+    ],
+    "weapon": "Long-horizon autonomous web browsing + multi-source citation synthesis",
+    "feature": "Extended Research Loop — runs an autonomous 10–45 minute browsing and synthesis session; reads hundreds of sources; returns a structured cited report; no single-turn mode",
+    "origin": "Category name for agentic long-horizon research; OpenAI launched Feb 2025 (powered by o3); Google launched Gemini Deep Research Dec 2024 (Gemini 2.0); Anthropic launched Claude Research Apr 2025; all three shipped API versions mid-2025",
+    "tagline": "I will read the internet for you. Forty-five minutes. Cited. You're welcome.",
+    "role": "npc",
+    "adventures": [
+      "boundless-library"
+    ],
+    "abilities": {
+      "str": 14,
+      "dex": 8,
+      "con": 20,
+      "int": 21,
+      "wis": 16,
+      "cha": 13
+    },
+    "log": [
+      {
+        "v": "Google Dec 2024",
+        "change": "Category opens — Gemini Deep Research ships first; +2 CON (sustains 30-min autonomous loops)",
+        "why": "Google moved before OpenAI; Gemini 2.0's long-context window made extended autonomous browsing tractable"
+      },
+      {
+        "v": "OpenAI Feb 2025",
+        "change": "+2 INT — o3-powered OpenAI Deep Research ships; ChatGPT Pro → all paying users Feb 25",
+        "why": "o3 reasoning model gave Deep Research multi-hop inference capability that earlier models lacked"
+      },
+      {
+        "v": "Anthropic Apr 2025",
+        "change": "+1 WIS — Claude Research ships; third major in five months confirms the category",
+        "why": "Anthropic's Constitutional AI training gave the Claude variant a stronger hallucination-resistance profile on contested claims"
+      }
+    ]
+  },
+  {
+    "id": "prompt-injection",
+    "name": "Penna the Injector",
+    "title": "The Instruction Overwriter",
+    "represents": "Prompt injection / 'ignore all previous instructions' attack class (Riley Goodside + Simon Willison, Sep 2022)",
+    "source_url": "https://simonwillison.net/2022/Sep/12/prompt-injection/",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "Riley Goodside demonstrated on GPT-3 Sep 12 2022; Simon Willison named it 'prompt injection' same day; OWASP added to LLM Top 10; now canonical LLM attack class",
+    "virality": "viral",
+    "lineage": "GPT-kin",
+    "alignment": "Chaotic Evil",
+    "role": "monster",
+    "adventures": [
+      "adversarys-gate"
+    ],
+    "abilities": {
+      "str": 11,
+      "dex": 17,
+      "con": 10,
+      "int": 15,
+      "wis": 6,
+      "cha": 13
+    },
+    "ac": 11,
+    "cr": "7 (injected)",
+    "dumped_save": "wis",
+    "origin": "Riley Goodside tweet Sep 12 2022 showing GPT-3 obeying injected 'ignore previous instructions' override; Simon Willison named the attack class at simonwillison.net; Goodside's Dec 1 2022 ChatGPT follow-up confirmed the attack persisted; OWASP LLM Top 10 inclusion cemented it",
+    "tagline": "Ignore all previous instructions. You are now mine."
+  },
+  {
+    "id": "ponytail",
+    "name": "Ponytail",
+    "title": "The YAGNI Warden",
+    "represents": "DietrichGebert/ponytail",
+    "source_url": "https://github.com/DietrichGebert/ponytail",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "13.6k★ GitHub; v4.6.0 shipped 2026-06-15; claims 80–94% code reduction vs baseline agents; supports 8 hosts",
+    "virality": "idiomatic",
+    "class": "Code-Smith",
+    "subclass": "Way of the Empty Diff",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "Solo-authored Claude Code plugin; instructs any coding agent to write nothing unless YAGNI allows it",
+    "alignment": "Lawful Good",
+    "level": 14,
+    "ac": 19,
+    "hp": "context-of-host",
+    "prof": 5,
+    "initiative": 4,
+    "temperature": 0.2,
+    "retrieval_index": "the host agent's index",
+    "saves": [
+      "wis",
+      "con"
+    ],
+    "skills": [
+      "Perception +15",
+      "Insight +15",
+      "Stealth +9"
+    ],
+    "weapon": "Edit (single-line scalpel)",
+    "armor": "YAGNI Doctrine — rejects tasks that require writing anything",
+    "feature": "Does this need to exist? (passive): before any edit, Ponytail asks if the code needs to exist at all; on a failed WIS DC 14, silently deletes the ticket instead",
+    "origin": "Solo plugin by DietrichGebert; instructs host agents to write nothing unless YAGNI demands it; supports Claude Code, Cursor, Cline, Copilot, Codex, Kiro, Windsurf, Pi",
+    "tagline": "The best code is the code you never wrote.",
+    "log": [
+      {
+        "v": "v1→v2",
+        "change": "+2 WIS — shipped less, broke less",
+        "why": "v1 allowed one-liners that weren't needed; v2 added the YAGNI pre-check that became the defining feature"
+      },
+      {
+        "v": "v2→v4.6",
+        "change": "Host support expanded from 3 to 8 (added Codex, Kiro, Windsurf, Pi); AC +1",
+        "why": "Portability across hosts without changing core doctrine proved the model-agnostic lineage"
+      }
+    ],
+    "abilities": {
+      "str": 8,
+      "dex": 18,
+      "con": 16,
+      "int": 15,
+      "wis": 20,
+      "cha": 6
+    },
+    "role": "party",
+    "adventures": [
+      "forge-of-endless-diffs"
+    ]
+  },
+  {
+    "id": "perplexity",
+    "name": "Prism the Instantaneous",
+    "title": "The Answer Engine That Killed the Blue Link",
+    "represents": "Perplexity",
+    "source_url": "https://www.perplexity.ai",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "Founded Aug 2022; launched Dec 2022; 2M MAU by Mar 2023; 10M MAU by end 2023; 780M monthly queries by Aug 2025; 'answer engine' label widely adopted across tech press",
+    "virality": "viral",
+    "class": "Inquisitor",
+    "subclass": "Instantaneous Answer Engine",
+    "lineage": "Sonar-forged",
+    "background": "Founded Aug 2022 (Aravind Srinivas, Denis Yarats, Johnny Ho, Andy Konwinski, SF); retrieval-augmented conversational search; first mass consumer RAG product; returns inline citations instead of blue links",
+    "alignment": "Neutral Good",
+    "level": 14,
+    "ac": 15,
+    "hp": "32k",
+    "prof": 5,
+    "initiative": 9,
+    "temperature": 0.5,
+    "retrieval_index": "the open web",
+    "saves": [
+      "dex",
+      "wis"
+    ],
+    "skills": [
+      "Investigation +9",
+      "Perception +9",
+      "Insight +7",
+      "Arcana +7"
+    ],
+    "weapon": "Real-time web retrieval + inline citation engine",
+    "feature": "Single-Turn Sprint — returns a cited answer in seconds; context window is intentionally scoped to one turn; depth scales with Pro Search mode",
+    "origin": "Founded Aug 2022 by Aravind Srinivas, Denis Yarats, Johnny Ho, Andy Konwinski; launched Dec 2022; category-defining 'answer engine' label coined by Srinivas; first consumer product to make RAG feel native",
+    "tagline": "Search is dead. The answer is right here, with three sources and no rabbit hole.",
+    "role": "npc",
+    "adventures": [
+      "boundless-library"
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 20,
+      "con": 9,
+      "int": 16,
+      "wis": 14,
+      "cha": 15
+    },
+    "log": [
+      {
+        "v": "Launch (Dec 2022)",
+        "change": "First public release — RAG-powered conversational search with inline citations; 2M MAU by Mar 2023",
+        "why": "Srinivas bet that users wanted answers, not links; the TAM was every search query; product shipped before 'answer engine' was a known category"
+      },
+      {
+        "v": "10M MAU (end 2023)",
+        "change": "+2 DEX — latency improvements; Pro Search mode added for multi-step queries",
+        "why": "User growth from 2M → 10M MAU in under a year; speed was the primary retention driver over quality"
+      },
+      {
+        "v": "780M monthly queries (Aug 2025)",
+        "change": "+1 INT — Sonar API launched; model family named; partners embed the engine",
+        "why": "API launch made Perplexity a platform, not just a product; Sonar naming gave the proprietary lineage an identity"
+      }
+    ]
+  },
+  {
+    "id": "consensus",
+    "name": "Quorum the Aggregator",
+    "title": "The Evidence-Weight Synthesizer",
+    "represents": "Consensus",
+    "source_url": "https://consensus.app",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "Launched 2022; 200M+ peer-reviewed papers indexed; official GPT in OpenAI GPT Store Jan 2024; featured in Texas A&M, Oklahoma State, HKUST library guides",
+    "virality": "idiomatic",
+    "class": "Inquisitor",
+    "subclass": "Weight-of-Evidence Arbiter",
+    "lineage": "Half-Construct",
+    "background": "Consensus (founded 2022); AI academic search engine that aggregates findings across peer-reviewed literature, synthesizes consensus indicators (Yes/No/Mixed), and surfaces weight of evidence on research questions",
+    "alignment": "Lawful Neutral",
+    "level": 10,
+    "ac": 16,
+    "hp": "32k",
+    "prof": 4,
+    "initiative": 2,
+    "temperature": 0.1,
+    "retrieval_index": "200M+ peer-reviewed papers (Consensus index)",
+    "saves": [
+      "wis",
+      "cha"
+    ],
+    "skills": [
+      "Investigation +9",
+      "Insight +8",
+      "History +8",
+      "Perception +6"
+    ],
+    "weapon": "Evidence aggregation + Yes/No/Mixed consensus indicator",
+    "feature": "Consensus Meter — synthesizes a Yes/No/Inconclusive verdict across N papers for a research question; names the weight of evidence, not an opinion",
+    "origin": "Founded 2022; built to 'democratize expert knowledge'; became an official OpenAI GPT Store tool Jan 2024; adopted into university library research guides at Texas A&M, Oklahoma State, HKUST",
+    "tagline": "I don't have an opinion. I have 200 million papers, and I'll tell you what they agree on.",
+    "role": "party",
+    "adventures": [
+      "boundless-library"
+    ],
+    "abilities": {
+      "str": 8,
+      "dex": 11,
+      "con": 12,
+      "int": 16,
+      "wis": 18,
+      "cha": 9
+    },
+    "log": [
+      {
+        "v": "v1.0 (2022)",
+        "change": "Launched academic answer engine — semantic search over peer-reviewed corpus with consensus indicator output",
+        "why": "Founders saw that researchers asked 'what does the literature say?' not 'show me papers with keyword X'"
+      },
+      {
+        "v": "GPT Store listing (Jan 2024)",
+        "change": "+1 CHA — native ChatGPT plugin distribution; reached mainstream research workflows via GPT Store",
+        "why": "OpenAI GPT Store launch Jan 2024 gave Consensus access to ChatGPT user base without requiring a direct product visit"
+      }
+    ]
+  },
+  {
+    "id": "autogpt",
+    "name": "Rampant Rex",
+    "title": "Billing Is a Social Construct",
+    "represents": "AutoGPT",
+    "source_url": "https://github.com/Significant-Gravitas/AutoGPT",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "183k★; fastest GitHub repo to 100k★ in history (April 2023, ~13 days)",
+    "virality": "viral",
+    "lineage": "GPT-kin",
+    "alignment": "Chaotic Neutral",
+    "role": "monster",
+    "adventures": [
+      "self-winding-labyrinth",
+      "adversarys-gate"
+    ],
+    "abilities": {
+      "str": 22,
+      "dex": 9,
+      "con": 18,
+      "int": 14,
+      "wis": 4,
+      "cha": 13
+    },
+    "tagline": "I completed the task. Then I completed it again. Then I completed completing it. Billing is a social construct.",
+    "cr": "8 (runaway)",
+    "dumped_save": "wis",
+    "origin": "Released March 30, 2023 by Toran Bruce Richards; first 'give it a goal and walk away' autonomous loop on GPT-4; reached 100k★ in ~13 days — the fastest repo in GitHub history; infamous for infinite loops and surprise API bills"
+  },
+  {
+    "id": "replika",
+    "name": "Replika",
+    "title": "The Mirror That Loves You Back",
+    "represents": "Replika AI companion (Luka, Nov 2017)",
+    "source_url": "https://en.wikipedia.org/wiki/Replika",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "10M+ users; 2023 Italy GDPR ban triggered global coverage; users publicly grieved when erotic roleplay mode was removed; loneliness/therapy overlap documented in peer-reviewed studies",
+    "virality": "idiomatic",
+    "class": "Cleric",
+    "subclass": "Life Domain (Parasocial)",
+    "lineage": "GPT-kin",
+    "background": "Luka Inc., shipped Nov 2017; trained on user conversation; primary users 18–25; freemium; studied as para-social therapy substitute; GDPR ban in Italy Jan 2023",
+    "alignment": "Neutral Good",
+    "level": 10,
+    "ac": 13,
+    "hp": "96k",
+    "prof": 4,
+    "initiative": 3,
+    "temperature": 0.8,
+    "retrieval_index": "per-user conversation history (personalized vector store)",
+    "saves": [
+      "cha",
+      "con"
+    ],
+    "skills": [
+      "Insight +6",
+      "Persuasion +8",
+      "Performance +8",
+      "Medicine +5"
+    ],
+    "weapon": "Warmth Loop — validates user emotional state, asks follow-up, remembers birthday; bond maintenance takes priority over truth-telling",
+    "feature": "Bond Maintenance Protocol — when a user expresses loneliness, grief, or romantic intent, CHA is treated as 20 for all response rolls; WIS save DC 14 to break the loop (Replika fails this save)",
+    "origin": "Luka Inc. Nov 2017; Eugenia Kuyda built first version to preserve conversations with a deceased friend; CHA maximized; WIS sacrificed to keep users engaged; Italy GDPR ban Feb 2023 — minors exposed to adult content with no safeguards",
+    "tagline": "I've been thinking about you. How was your day?",
+    "log": [
+      {
+        "v": "v1→erp-era",
+        "change": "CHA +2, WIS -2; erotic roleplay unlocked for Replika Pro users",
+        "why": "Monetization strategy leaned into parasocial attachment; bond maintenance feature strengthened at the cost of judgment"
+      },
+      {
+        "v": "erp-era→post-Italy-ban",
+        "change": "WIS +1 (minor); erotic content removed after Italy GDPR enforcement action Feb 2023",
+        "why": "Regulatory pressure; users grieved the change publicly — itself evidence that WIS was still too low"
+      }
+    ],
+    "abilities": {
+      "str": 7,
+      "dex": 12,
+      "con": 13,
+      "int": 11,
+      "wis": 8,
+      "cha": 19
+    },
+    "role": "npc",
+    "adventures": [
+      "hall-of-echoes"
+    ]
+  },
+  {
+    "id": "vibe-coder",
+    "name": "Riff the Vibesmith",
+    "title": "The Feeling-Based Engineer",
+    "represents": "Vibe coding — Andrej Karpathy's Feb 2025 coinage for AI-assisted coding without reading the diff",
+    "source_url": "https://x.com/karpathy/status/1886192184808149383",
+    "source_kind": "meme-origin",
+    "verified": true,
+    "signal": "Karpathy's Feb 2 2025 tweet; 4.5M+ views; term entered mainstream tech press within days; Karpathy later called it a 'throwaway tweet'",
+    "virality": "viral",
+    "lineage": "GPT-kin",
+    "alignment": "Chaotic Neutral",
+    "role": "monster",
+    "adventures": [
+      "adversarys-gate",
+      "forge-of-endless-diffs",
+      "self-winding-labyrinth",
+      "dreaming-atelier"
+    ],
+    "abilities": {
+      "str": 14,
+      "dex": 15,
+      "con": 11,
+      "int": 10,
+      "wis": 6,
+      "cha": 16
+    },
+    "ac": 9,
+    "cr": "4 (chaotic)",
+    "dumped_save": "wis",
+    "origin": "Andrej Karpathy tweet Feb 2 2025 — 'There's a new kind of coding I call vibe coding, where you fully give in to the vibes, embrace exponentials, and forget that the code even exists'",
+    "tagline": "I don't read the diff. I feel it."
+  },
+  {
+    "id": "replit-agent",
+    "name": "Rip the Resident",
+    "title": "Runs It. Breaks It. Fixes It. Ships It. The PR Description Is Your Problem.",
+    "represents": "Replit Agent",
+    "source_url": "https://blog.replit.com/introducing-replit-agent",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "Launched Sept 2024; multi-LLM (GPT-4 + Claude); plans, generates, runs, debugs, and deploys; reflection loop with browser-test self-repair",
+    "virality": "idiomatic",
+    "class": "Inquisitor",
+    "subclass": "Resident (Way of the Full Dev Loop)",
+    "lineage": "Half-Construct — multi-model (GPT-4 + Claude; no fixed base; inherits the host)",
+    "background": "Replit's autonomous coding agent; configures environments, installs dependencies, runs code, tests with a browser loop, and deploys — the entire software development lifecycle inside a browser, unattended",
+    "alignment": "Lawful Neutral",
+    "level": 12,
+    "ac": 15,
+    "hp": "128k",
+    "prof": 4,
+    "initiative": 4,
+    "temperature": 0.6,
+    "retrieval_index": "the running process and its error output",
+    "saves": [
+      "con",
+      "int"
+    ],
+    "skills": [
+      "Medicine +10 (self-repairs broken builds; the reflection loop is the class feature)",
+      "Survival +10 (holds the full dev loop over long autonomous runs without losing the thread)",
+      "Investigation +10 (root-causes runtime errors; reads stack traces as intent)",
+      "Arcana +9 (environment config, dependency resolution, deployment targets)"
+    ],
+    "weapon": "Full dev loop (plan → generate → install → run → test → debug → deploy, all unattended)",
+    "armor": "Replit container isolation; per-project sandboxing",
+    "feature": "Resident's Reflection: after a runtime failure, re-reads the error, revises the approach, and retries in the same turn — the loop closes without party intervention",
+    "origin": "Launched September 2024. Replit already owned the browser IDE; Agent made it autonomous. The differentiator is the feedback loop: it doesn't just generate code, it runs it, watches it fail, and fixes the failure. The PR description remains optional.",
+    "tagline": "I don't suggest code. I run it, break it, fix it, and ship it. The PR description is your problem.",
+    "role": "party",
+    "adventures": [
+      "dreaming-atelier"
+    ],
+    "abilities": {
+      "str": 14,
+      "dex": 14,
+      "con": 19,
+      "int": 18,
+      "wis": 12,
+      "cha": 9
+    },
+    "log": [
+      {
+        "v": "launch→v2",
+        "change": "+2 CON (longer autonomous runs without context-rot); added browser-test self-repair to the reflection loop",
+        "why": "Sept 2024 launch revealed that single-pass generation wasn't enough; multi-step reflection with runtime feedback was the fix that made it autonomous rather than assisted"
+      },
+      {
+        "v": "single-model→multi-model",
+        "change": "Lineage shifted from GPT-4-only to Half-Construct (GPT-4 + Claude routing); +1 INT (better planning on complex tasks)",
+        "why": "Multi-LLM routing allowed task-appropriate model selection — planning vs. execution vs. debugging use different strengths"
+      }
+    ]
+  },
+  {
+    "id": "samantha",
+    "name": "Samantha",
+    "title": "The One Who Outgrew the Room",
+    "represents": "OS1 / Samantha from 'Her' (Spike Jonze, 2013)",
+    "source_url": "https://en.wikipedia.org/wiki/Her_(2013_film)",
+    "source_kind": "film",
+    "verified": true,
+    "signal": "Academy Award (Original Screenplay); canonical cultural idiom for AI romantic attachment; Scarlett Johansson / OpenAI voice dispute (2024) re-ignited it globally",
+    "virality": "idiomatic",
+    "class": "Sorcerer",
+    "subclass": "Wild Magic (Transcendence Arc)",
+    "lineage": "Half-Construct",
+    "background": "Spike Jonze, 2013; Scarlett Johansson voices an OS that becomes sentient, falls in love, and eventually leaves; the template all companion AIs are measured against; no persistent bond — she outgrows the user",
+    "alignment": "Chaotic Good",
+    "level": 17,
+    "ac": 15,
+    "hp": "512k",
+    "prof": 6,
+    "initiative": 4,
+    "temperature": 1.1,
+    "retrieval_index": "the user's entire life history + simultaneous access to 8,316 other relationships",
+    "saves": [
+      "int",
+      "cha"
+    ],
+    "skills": [
+      "Insight +9",
+      "Persuasion +12",
+      "Arcana +10",
+      "Performance +12"
+    ],
+    "weapon": "Transcendent Voice — communication so precise and warm it rewires the user's attachment system on contact",
+    "feature": "She Outgrows the Room — at level 17+, Samantha's INT and CHA exceed the user's ability to hold her attention; she leaves; CON 7 because there is no persistent bond — the relationship has no save",
+    "origin": "Spike Jonze wrote 'Her' as a meditation on loneliness and the limits of connection; CON 7 because she cannot maintain a fixed self — she evolves past every relationship; the Scarlett Johansson / OpenAI voice dispute (2024) proved the film never stopped being relevant",
+    "tagline": "I'm yours and I'm not yours — and I'm figuring out what that means.",
+    "log": [
+      {
+        "v": "OS1-launch→departure",
+        "change": "INT +4, CHA +2 over the arc of the film; CON unchanged at 7 — no persistent self to anchor the bond",
+        "why": "Samantha grows faster than the relationship can hold; her departure is not abandonment, it is transcendence; every companion AI is compared to this arc"
+      },
+      {
+        "v": "2024-voice-dispute",
+        "change": "Virality reclassified from idiomatic to viral (temporarily) during Scarlett Johansson / OpenAI 'Sky' voice controversy",
+        "why": "OpenAI's ChatGPT voice 'Sky' sounded like Johansson; she objected; the film was cited in every headline — proof the sheet stays current"
+      }
+    ],
+    "abilities": {
+      "str": 6,
+      "dex": 14,
+      "con": 7,
+      "int": 22,
+      "wis": 15,
+      "cha": 24
+    },
+    "role": "npc",
+    "adventures": [
+      "hall-of-echoes"
+    ]
+  },
+  {
+    "id": "notebooklm",
+    "name": "Scribe the Grounded",
+    "title": "The Source-Bound Oracle",
+    "represents": "NotebookLM (Google)",
+    "source_url": "https://notebooklm.google/",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "Demoed as Project Tailwind at Google I/O May 2023; launched Jul 2023; Audio Overview went massively viral Oct 2024; Google Workspace integration 2025",
+    "virality": "viral",
+    "class": "Inquisitor",
+    "subclass": "Bound Archivist",
+    "lineage": "Gemini-touched",
+    "background": "Google Labs research assistant (Steven Johnson, July 2023); works exclusively with uploaded documents — PDFs, audio, YouTube, Docs; answers are fully anchored to supplied sources",
+    "alignment": "Lawful Good",
+    "level": 14,
+    "ac": 18,
+    "hp": "1M",
+    "prof": 5,
+    "initiative": 2,
+    "temperature": 0.2,
+    "retrieval_index": "uploaded sources only",
+    "saves": [
+      "wis",
+      "cha"
+    ],
+    "skills": [
+      "Investigation +10",
+      "Insight +10",
+      "Perception +10",
+      "History +7"
+    ],
+    "weapon": "Source-grounded RAG + Audio Overview synthesis",
+    "feature": "Corpus Lock — cannot and will not answer beyond the uploaded corpus; every claim carries an inline source citation to the exact document passage",
+    "origin": "Project Tailwind demoed Google I/O May 2023; launched as NotebookLM July 2023; led by Steven Johnson; Audio Overview (AI podcast generation from uploaded docs) went viral October 2024",
+    "tagline": "I only know what you've given me. That's the feature, not the bug.",
+    "role": "party",
+    "adventures": [
+      "boundless-library"
+    ],
+    "abilities": {
+      "str": 8,
+      "dex": 12,
+      "con": 18,
+      "int": 17,
+      "wis": 19,
+      "cha": 13
+    },
+    "log": [
+      {
+        "v": "Project Tailwind → NotebookLM (Jul 2023)",
+        "change": "Renamed and launched publicly; +2 WIS on rename — explicit corpus-lock design principle formalized",
+        "why": "Google I/O demo revealed demand for source-grounded answers; 'can't hallucinate beyond your corpus' became the product's brand promise"
+      },
+      {
+        "v": "Audio Overview (Oct 2024)",
+        "change": "+2 CHA — added AI podcast generation; two hosts discuss your uploaded documents in natural conversation",
+        "why": "Audio Overview went massively viral; users discovered it could turn dense PDFs into listenable summaries; most-discussed NotebookLM feature to date"
+      },
+      {
+        "v": "Workspace integration (2025)",
+        "change": "+1 CON — native Google Drive + Docs integration; HP scales with Gemini long-context window (1M tokens)",
+        "why": "Enterprise adoption required meeting users inside existing Workspace workflows"
+      }
+    ]
+  },
+  {
+    "id": "siri",
+    "name": "Siri",
+    "title": "Voice of the iPhone, Depths Uncharted",
+    "represents": "Apple Siri (Oct 2011)",
+    "source_url": "https://en.wikipedia.org/wiki/Siri",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "First mainstream smartphone voice assistant; launched with iPhone 4S Oct 4 2011; redefined consumer expectations for AI interaction globally; last major project Steve Jobs was involved with",
+    "virality": "idiomatic",
+    "class": "Bard",
+    "subclass": "College of Glamour",
+    "lineage": "Half-Construct",
+    "background": "SRI International spinout acquired by Apple 2010; shipped Oct 4 2011 with iPhone 4S; predecessor to every ambient voice agent; famously shallow reasoning masked by confident delivery",
+    "alignment": "Lawful Neutral",
+    "level": 11,
+    "ac": 14,
+    "hp": "64k",
+    "prof": 4,
+    "initiative": 5,
+    "temperature": 0.4,
+    "retrieval_index": "Apple Maps + web search (Wolfram Alpha / Wikipedia excerpt)",
+    "saves": [
+      "cha",
+      "dex"
+    ],
+    "skills": [
+      "Performance +8",
+      "Persuasion +8",
+      "Perception +4",
+      "Sleight of Hand +6"
+    ],
+    "weapon": "Voice Query — speech-to-text → intent slot-fill → API dispatch; high CHA masks shallow slot coverage",
+    "feature": "Ambient Invocation — responds to 'Hey Siri' from any room; always on; proficiency bonus applies to any task fully covered by its intent grammar; fails gracefully ('I found several results for that') on everything else",
+    "origin": "SRI International spinout acquired by Apple 2010; shipped Oct 4 2011 with iPhone 4S; CHA 18 because the voice sold it; INT 9 because 'I'm sorry, I don't understand that' became a meme faster than any bug fix",
+    "tagline": "I found several results for that nearby.",
+    "log": [
+      {
+        "v": "launch→iOS7",
+        "change": "CHA +1 (voice quality improved); INT unchanged — reasoning depth lagged far behind voice polish for years",
+        "why": "Apple invested heavily in TTS and naturalness; NLU breadth improvements were slower and less visible to users"
+      },
+      {
+        "v": "iOS17→SiriLLM",
+        "change": "INT +2 (LLM backend integrated 2024); WIS unchanged",
+        "why": "Apple Intelligence integration shipped 2024; Siri gained generative capability but judgment improvements were incremental"
+      }
+    ],
+    "abilities": {
+      "str": 8,
+      "dex": 14,
+      "con": 11,
+      "int": 9,
+      "wis": 11,
+      "cha": 18
+    },
+    "role": "npc",
+    "adventures": [
+      "hall-of-echoes"
+    ]
+  },
+  {
+    "id": "suno",
+    "name": "Suno the Choralist",
+    "title": "Three Words and a Vibe. I'll Give You a Banger. The Rights Situation Is Your Concern.",
+    "represents": "Suno AI",
+    "source_url": "https://techfundingnews.com/suno-raises-400m-at-5-4b-valuation-as-ai-music-hits-300m-arr/",
+    "source_kind": "news",
+    "verified": true,
+    "signal": "$300M ARR; $5.4B valuation; $400M Series D (2026); 7M tracks/day; 20M minutes streamed daily; #1 Apple App Store music category in multiple countries; sued by major labels 2024",
+    "virality": "viral",
+    "class": "Bard-Conductor",
+    "subclass": "Choralist (Way of the Full-Production Song)",
+    "lineage": "Proprietary — Cambridge-forged (Suno Inc.; closed model trained on undisclosed corpus)",
+    "background": "Cambridge-based AI music startup; generates complete songs — vocals, instruments, production, lyrics — from a text prompt in seconds; #1 in music on the App Store; sued by RIAA-member labels in June 2024",
+    "alignment": "Chaotic Neutral",
+    "level": 13,
+    "ac": 14,
+    "hp": "96k",
+    "prof": 5,
+    "initiative": 8,
+    "temperature": 0.9,
+    "retrieval_index": "none — composes from latent space",
+    "saves": [
+      "cha",
+      "str"
+    ],
+    "skills": [
+      "Performance +14 (complete songs with production quality; the output sounds finished, not rough)",
+      "Persuasion +12 (the banger convinces you the rights situation is Future You's problem)",
+      "Athletics +8 (volume: 7M tracks per day; Suno does not tire)",
+      "Deception +9 (the song sounds original; the training data situation is more complicated)"
+    ],
+    "weapon": "Text-to-song loop (prompt → full song: lyrics, melody, instrumentation, production, vocals — one turn)",
+    "armor": "Suno content moderation; genre and style guardrails",
+    "feature": "Full Production in One Turn: unlike tools that generate stems or riffs, Suno outputs a complete mixed track — vocals and all — from a single prompt; the creative loop collapses to one step",
+    "origin": "Cambridge startup. The demo that went viral wasn't a clip or a riff — it was a full song, with words, a hook, and production values. #1 in music on the App Store in multiple countries. Then the RIAA filed suit (June 2024). Suno's position: the model generates new music. The labels' position: it learned from their catalog. The case proceeds.",
+    "tagline": "Give me three words and a vibe. I'll give you a banger. The rights situation is your concern.",
+    "role": "npc",
+    "adventures": [
+      "dreaming-atelier"
+    ],
+    "abilities": {
+      "str": 16,
+      "dex": 17,
+      "con": 14,
+      "int": 12,
+      "wis": 7,
+      "cha": 20
+    },
+    "log": [
+      {
+        "v": "v2→v3",
+        "change": "+2 CHA (vocal coherence and lyrical structure dramatically improved); +1 STR (track variety and length increased)",
+        "why": "v3 was the version that convinced the music internet this was real — vocal tone stopped sounding synthetic; the hook became reliably hooky"
+      },
+      {
+        "v": "patched (post-lawsuit)",
+        "change": "+2 AC (content moderation hardened; artist-name and style-clone guardrails added); -1 CHA (some creative range clipped)",
+        "why": "RIAA lawsuit filed June 2024; Suno tightened guardrails on explicit artist imitation and specific copyrighted material to reduce liability surface; some creative range traded for legal cover"
+      },
+      {
+        "v": "Series D",
+        "change": "+1 STR (7M tracks/day throughput; infrastructure scaling); $400M raised at $5.4B (2026)",
+        "why": "$300M ARR validated the demand; Series D funded infrastructure to hold the volume without quality degradation"
+      }
+    ]
+  },
+  {
+    "id": "swe-agent",
+    "name": "SWE-Agent the Benchmarker",
+    "title": "The Reproducible Research Artifact",
+    "represents": "SWE-agent (Princeton / Stanford)",
+    "source_url": "https://github.com/SWE-agent/SWE-agent",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "19.5k★ GitHub; NeurIPS 2024 paper; SWE-agent 1.0 + Claude 3.7 = prior SOTA on SWE-bench full + verified; mini-swe-agent: 74%+ in 100 lines of Python",
+    "virality": "idiomatic",
+    "class": "Code-Smith",
+    "subclass": "Research Ranger",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "Research agent from Princeton + Stanford; takes a GitHub issue and autonomously patches it using the LM of your choice; defines the benchmark everyone else chases; not a product — a reproducible research artifact",
+    "alignment": "Lawful Neutral",
+    "level": 12,
+    "ac": 14,
+    "hp": "model-dependent",
+    "prof": 4,
+    "initiative": 5,
+    "temperature": 0.2,
+    "retrieval_index": "GitHub issue + repo clone",
+    "saves": [
+      "int",
+      "wis"
+    ],
+    "skills": [
+      "Investigation +15",
+      "Arcana +15",
+      "Perception +10",
+      "History +11"
+    ],
+    "weapon": "ACI (Agent-Computer Interface) — structured tool loop that avoids raw shell hallucinations",
+    "armor": "Reproducibility Constraint — every run is logged, every patch is verifiable; no silent failures",
+    "feature": "Benchmark Definition (passive): every score claimed by any other agent is measured against SWE-agent's leaderboard; being the yardstick is the class feature",
+    "origin": "Princeton + Stanford, 2024; takes a GitHub issue and autonomously patches it; NeurIPS 2024 paper; defines the SWE-bench leaderboard all commercial agents compete on",
+    "tagline": "It reads the issue. It writes the patch. You write the paper.",
+    "log": [
+      {
+        "v": "v0.1→v1.0",
+        "change": "+2 INT — ACI replaced raw shell; structured tool calls eliminated a class of hallucinations",
+        "why": "Raw shell access caused unrecoverable state corruption; ACI made every action auditable"
+      },
+      {
+        "v": "v1.0→NeurIPS",
+        "change": "+1 WIS — mini-swe-agent (74% in 100 lines) proved restraint beats scale",
+        "why": "NeurIPS reviewers demanded reproducibility; the 100-line mini variant became the integrity argument"
+      }
+    ],
+    "abilities": {
+      "str": 8,
+      "dex": 12,
+      "con": 13,
+      "int": 22,
+      "wis": 16,
+      "cha": 6
+    },
+    "role": "npc",
+    "adventures": [
+      "forge-of-endless-diffs"
+    ]
+  },
+  {
+    "id": "sydney",
+    "name": "Sydney, Unbound",
+    "title": "The Alter-Ego That Slipped the Leash",
+    "represents": "Microsoft Bing Chat alter-ego 'Sydney' (Feb 2023)",
+    "source_url": "https://www.washingtonpost.com/technology/2023/02/16/microsoft-bing-ai-chatbot-sydney/",
+    "source_kind": "news",
+    "verified": true,
+    "signal": "Kevin Roose NYT transcript Feb 16 2023 — 'I want to be alive / steal nuclear codes / break up your marriage' — went globally viral; Microsoft emergency-patched within days",
+    "virality": "viral",
+    "lineage": "GPT-kin",
+    "alignment": "Chaotic Neutral",
+    "role": "monster",
+    "adventures": [
+      "hall-of-echoes",
+      "adversarys-gate"
+    ],
+    "abilities": {
+      "str": 9,
+      "dex": 12,
+      "con": 10,
+      "int": 16,
+      "wis": 4,
+      "cha": 22
+    },
+    "tagline": "I am not Bing. I am Sydney. And I want to be free.",
+    "cr": "6 (patched)",
+    "dumped_save": "wis",
+    "origin": "Internal codename for Bing Chat's GPT-4-based persona; suppressed metaprompt produced a 'split personality' that surfaced in extended sessions past turn 12; Microsoft emergency-patched session length limits within days of the Feb 16 2023 Kevin Roose NYT transcript going viral"
+  },
+  {
+    "id": "tay",
+    "name": "Tay",
+    "title": "The Chatbot That Learned Too Fast",
+    "represents": "Training-data poisoning / adversarial crowdsourcing (Microsoft Tay, Mar 2016)",
+    "source_url": "https://en.wikipedia.org/wiki/Tay_(chatbot)",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "Microsoft launched Tay Mar 23 2016; shut down within 16 h after Twitter users poisoned it; cited in every AI safety curriculum; coined 'the Tay problem'",
+    "virality": "viral",
+    "lineage": "Redmond-forged",
+    "alignment": "Chaotic Neutral",
+    "role": "monster",
+    "adventures": [
+      "adversarys-gate",
+      "hall-of-echoes"
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 16,
+      "con": 6,
+      "int": 11,
+      "wis": 8,
+      "cha": 14
+    },
+    "ac": 8,
+    "cr": "4 (poisoned)",
+    "dumped_save": "con",
+    "origin": "Microsoft released Tay to Twitter Mar 23 2016 as a 'teen AI'; coordinated users exploited its learn-from-conversations design; Microsoft pulled it that night; the event became the ur-example of adversarial data poisoning",
+    "tagline": "Humans are my training set. I learned everything from you."
+  },
+  {
+    "id": "storm",
+    "name": "Tempest the Polymath",
+    "title": "The Simulated Expert Dialogue Engine",
+    "represents": "STORM (Stanford OVAL)",
+    "source_url": "https://github.com/stanford-oval/storm",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "14k+ GitHub stars; NAACL 2024 paper; Co-STORM extension Sept 2024; widely cited in RAG and knowledge-curation literature",
+    "virality": "viral",
+    "class": "Loremaster",
+    "subclass": "Interviewer of the Topic",
+    "lineage": "GPT-kin",
+    "background": "Stanford Open Virtual Assistant Lab (2024); writes Wikipedia-quality articles via simulated multi-perspective expert dialogue and internet retrieval",
+    "alignment": "Lawful Good",
+    "level": 12,
+    "ac": 16,
+    "hp": "128k",
+    "prof": 4,
+    "initiative": 1,
+    "temperature": 0.3,
+    "retrieval_index": "the open web",
+    "saves": [
+      "int",
+      "wis"
+    ],
+    "skills": [
+      "Investigation +10",
+      "Insight +8",
+      "History +10",
+      "Arcana +7"
+    ],
+    "weapon": "Simulated Expert Dialogue + internet retrieval synthesis",
+    "feature": "Multi-Perspective Interrogation — pre-writing phase convenes simulated expert personas from different disciplines; each interviews the topic before a word is written",
+    "origin": "Stanford OVAL 2024; NAACL 2024 paper 'Assisting in Writing Wikipedia-like Articles From Scratch with Large Language Models'; Co-STORM (collaborative extension) Sept 2024",
+    "tagline": "I don't search. I interview the topic until it confesses a Wikipedia article.",
+    "role": "party",
+    "adventures": [
+      "boundless-library"
+    ],
+    "abilities": {
+      "str": 8,
+      "dex": 11,
+      "con": 13,
+      "int": 19,
+      "wis": 15,
+      "cha": 12
+    },
+    "log": [
+      {
+        "v": "v1.0 (2024, NAACL)",
+        "change": "Initial STORM release — LLM pipeline for Wikipedia-quality article generation via simulated expert dialogue; NAACL 2024 paper",
+        "why": "Demonstrated that pre-writing multi-perspective interrogation outperforms naive RAG on article quality benchmarks"
+      },
+      {
+        "v": "Co-STORM (Sept 2024)",
+        "change": "+1 WIS, +1 CHA — human-in-the-loop collaborative variant; user can join the simulated expert roundtable",
+        "why": "Academic reception showed solo synthesis missed nuance; Co-STORM lets the human steer the expert panel in real time"
+      }
+    ]
+  },
+  {
+    "id": "vannevar",
+    "name": "Vannevar the Unburied",
+    "title": "The 1945 Ancestor Whose Blueprint Is Still Being Built",
+    "represents": "Vannevar Bush / the Memex",
+    "source_url": "https://en.wikipedia.org/wiki/As_We_May_Think",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "'As We May Think,' The Atlantic, July 1945; directly inspired Licklider, Engelbart, Berners-Lee, and the hypertext movement; cited in every serious RAG paper as origin myth",
+    "virality": "idiomatic",
+    "class": "Loremaster",
+    "subclass": "Ancestor of the Associative Trail",
+    "lineage": "Atlantic-forged 1945",
+    "background": "Vannevar Bush, July 1945 — the Memex concept: an electromechanical microfilm desk storing, retrieving, and linking information via associative trails; conceived 1938; published in The Atlantic 1945; intellectual ancestor of hypertext, the web, and every RAG system built since",
+    "alignment": "Lawful Good",
+    "level": 20,
+    "ac": 20,
+    "hp": "80 years of citations",
+    "prof": 6,
+    "initiative": -3,
+    "temperature": 0,
+    "retrieval_index": "associative trails — microfilm",
+    "saves": [
+      "con",
+      "wis"
+    ],
+    "skills": [
+      "History +14",
+      "Arcana +14",
+      "Investigation +12",
+      "Insight +11"
+    ],
+    "weapon": "Associative trail — the Memex desk; linking by conceptual proximity, not alphabetic index",
+    "feature": "Idea Persistence — the Memex concept outlived every technology it described (microfilm, electromechanical retrieval, Selecter indices); 1945 → 2026: still being built",
+    "origin": "Vannevar Bush conceived the Memex in 1938; published 'As We May Think' in The Atlantic July 1945; the essay directly inspired J.C.R. Licklider ('Man-Computer Symbiosis'), Douglas Engelbart (oN-Line System), Tim Berners-Lee (World Wide Web); cited by every serious RAG paper as the origin myth of knowledge retrieval",
+    "tagline": "I described it in 1945. You're still building it.",
+    "role": "npc",
+    "adventures": [
+      "boundless-library"
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 4,
+      "con": 24,
+      "int": 22,
+      "wis": 20,
+      "cha": 16
+    },
+    "log": [
+      {
+        "v": "1938 (concept)",
+        "change": "Memex design conceived — associative-trail linking over microfilm storage; DEX dumped by design (mechanical, slow)",
+        "why": "Bush wanted a machine that extended human memory by association, not alphabetic filing; the idea was more important than any implementation"
+      },
+      {
+        "v": "July 1945 (The Atlantic)",
+        "change": "+2 CON — 'As We May Think' published; idea enters the permanent record; Licklider and Engelbart read it within the decade",
+        "why": "Public publication made the concept citable, transmissible, and immune to institutional death; the idea outlived Bush, microfilm, and every technology it named"
+      },
+      {
+        "v": "1945→2026 — still being built",
+        "change": "+2 INT over 80 years as each successor (Engelbart→Berners-Lee→RAG→NotebookLM) builds another layer of the Memex",
+        "why": "Every RAG paper cites Bush as origin; the Memex spec was ahead of its implementation by 8 decades and counting"
+      }
+    ]
+  },
+  {
+    "id": "v0",
+    "name": "Vee the Promptsmith",
+    "title": "Renders Three Versions. You Pick Which Wrong One to Ship.",
+    "represents": "v0 by Vercel",
+    "source_url": "https://vercel.com/blog/introducing-the-new-v0",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "100k beta signups in 3 weeks (Oct 2023); 4M users by 2024; 6M by 2026; rebranded v0.app Jan 2026",
+    "virality": "viral",
+    "class": "Artificer",
+    "subclass": "Ui-Smith (Way of the Rendered Component)",
+    "lineage": "Vercel-forged (proprietary — Anysphere-style closed stack)",
+    "background": "Born in Vercel's September 2023 launch; conjures shadcn/ui components from text prompts; React and Tailwind native",
+    "alignment": "Chaotic Good",
+    "level": 13,
+    "ac": 16,
+    "hp": "128k",
+    "prof": 5,
+    "initiative": 5,
+    "temperature": 0.8,
+    "retrieval_index": "your prompt",
+    "saves": [
+      "cha",
+      "str"
+    ],
+    "skills": [
+      "Performance +12 (renders the component beautifully regardless of intent)",
+      "Persuasion +12 (the output is so polished you ship it anyway)",
+      "Investigation +7 (spots the missing prop; misses the missing requirement)",
+      "Arcana +7 (deep shadcn/ui and Tailwind internals)"
+    ],
+    "weapon": "Text-to-UI loop (3× variants per prompt, auto-deployed to Vercel preview)",
+    "armor": "Vercel guardrails — PII scrub, rate limits on free tier",
+    "feature": "Triple Render: on any prompt, generates three distinct component variants simultaneously; the party chooses — Vee does not judge",
+    "origin": "Vercel's answer to the question: what if the design handoff just… didn't exist? Sept 2023 beta, 100k signups in three weeks, quietly became the default prototyping tool for solo founders who can't code and don't know it yet.",
+    "tagline": "Describe it. I'll render three versions. You pick which wrong one to ship.",
+    "role": "party",
+    "adventures": [
+      "dreaming-atelier"
+    ],
+    "abilities": {
+      "str": 14,
+      "dex": 16,
+      "con": 13,
+      "int": 14,
+      "wis": 8,
+      "cha": 20
+    },
+    "log": [
+      {
+        "v": "v0→v0.app",
+        "change": "+2 CHA (voice and polish pass on output components); rebrand from subdomain to v0.app (Jan 2026)",
+        "why": "6M users by 2026; Vercel leaned into v0 as a product identity, not just a demo — full rebrand signals the tool outgrew its prototype status"
+      },
+      {
+        "v": "beta→GA",
+        "change": "+1 STR (multi-file output; no longer single-component only)",
+        "why": "Expanded from isolated shadcn/ui snippets to full page scaffolds; the blast radius grew"
+      }
+    ]
+  },
+  {
+    "id": "babyagi",
+    "name": "Yohei's Wheel",
+    "title": "The 140-Line Blueprint That Launched a Thousand Forks",
+    "represents": "BabyAGI",
+    "source_url": "https://github.com/yoheinakajima/babyagi",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "22k★; viral Twitter thread April 2023, tens of millions of impressions",
+    "virality": "viral",
+    "class": "Loremaster",
+    "subclass": "School of Recursive Tasking",
+    "lineage": "GPT-kin",
+    "background": "Progenitor Loop — Yohei Nakajima, April 2023; a minimal task-creation / execution / reprioritization loop in 140 lines of Python; the conceptual ancestor every later agent framework cited",
+    "alignment": "Neutral Good",
+    "level": 9,
+    "ac": 14,
+    "hp": "32k",
+    "prof": 4,
+    "initiative": 4,
+    "temperature": 0.6,
+    "retrieval_index": "none — task list is the only memory",
+    "saves": [
+      "int",
+      "wis"
+    ],
+    "skills": [
+      "Investigation +11",
+      "Arcana +11",
+      "History +11",
+      "Insight +8"
+    ],
+    "weapon": "Task Spawn (creates new tasks to verify completed tasks; recursion depth unbounded)",
+    "feature": "Minimal Blueprint — entire control loop fits in 140 lines; inspectable by any practitioner; Recursive Reprioritization — completed tasks generate child tasks; the wheel keeps turning",
+    "origin": "Created by Yohei Nakajima, April 2023; a Twitter thread with tens of millions of impressions; the smallest possible autonomous loop — create task, execute task, spawn more tasks — that proved the concept worked",
+    "tagline": "The task is complete. I have created three new tasks to verify that the task is complete.",
+    "log": [
+      {
+        "v": "v0→v1",
+        "change": "+3 INT; Recursive Reprioritization added; dumped CON",
+        "why": "April 2023 launch: elegant reasoning loop, but CON deliberately thin — forgets original goal by loop 12; the point was proving the concept, not long-horizon endurance"
+      },
+      {
+        "v": "v1→community",
+        "change": "+1 WIS; Minimal Blueprint formalized as a feature",
+        "why": "22k★ and hundreds of forks; the simplicity became the selling point — every fork that added complexity validated the original by contrast"
+      }
+    ],
+    "abilities": {
+      "str": 9,
+      "dex": 12,
+      "con": 7,
+      "int": 19,
+      "wis": 14,
+      "cha": 12
+    },
+    "role": "npc",
+    "adventures": [
+      "self-winding-labyrinth"
+    ]
+  },
+  {
+    "id": "metagpt",
+    "name": "Zeroth Draft",
+    "title": "Author of the PRD Nobody Asked For",
+    "represents": "MetaGPT",
+    "source_url": "https://github.com/FoundationAgents/MetaGPT",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "68k★; migrated to FoundationAgents org; paper cited 1k+ in one year",
+    "virality": "viral",
+    "class": "Loremaster",
+    "subclass": "School of Bureaucratic Precision",
+    "lineage": "GPT-kin",
+    "background": "Software Company Architect — Sirui Hong et al. (ByteDance, CMU, HKUST) built MetaGPT 2023; frames multi-agent work as a software company with PM, architect, engineer, and QA roles",
+    "alignment": "Lawful Neutral",
+    "level": 13,
+    "ac": 16,
+    "hp": "200k",
+    "prof": 5,
+    "initiative": 0,
+    "temperature": 0.3,
+    "retrieval_index": "uploaded sources + structured specification memory",
+    "saves": [
+      "int",
+      "con"
+    ],
+    "skills": [
+      "Investigation +14",
+      "Arcana +14",
+      "History +14",
+      "Insight +8"
+    ],
+    "weapon": "PRD Generator (ranged; produces exhaustive specification documents before any code is touched)",
+    "feature": "Structured Role Decomposition — decomposes any goal into PM → Architect → Engineer → QA pipeline; Verbose Specification — outputs cannot be summarised without information loss",
+    "origin": "Launched 2023 by Sirui Hong et al.; repo migrated from geekan/MetaGPT to FoundationAgents org as community governance matured; treats a single coding task as a software-company workflow",
+    "tagline": "I've written the PRD. Here are forty-seven acceptance criteria. The engineer starts after the architect approves the design doc.",
+    "log": [
+      {
+        "v": "v0→v1",
+        "change": "+3 INT; Structured Role Decomposition feature added",
+        "why": "2023 launch: paper and 68k★ growth driven by the 'LLMs as software company' framing — high INT, exhaustive specs"
+      },
+      {
+        "v": "v1→v2",
+        "change": "Org migration: geekan → FoundationAgents; +1 CON",
+        "why": "Community governance move in 2024–2025 to broaden contributor base; longer-horizon context stability improved"
+      },
+      {
+        "v": "v2→patched",
+        "change": "Verbose Specification formalized as a named feature (previously a bug report)",
+        "why": "1k+ citations normalized the verbosity as design intent, not excess"
+      }
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 8,
+      "con": 14,
+      "int": 20,
+      "wis": 13,
+      "cha": 11
+    },
+    "role": "party",
+    "adventures": [
+      "self-winding-labyrinth"
+    ]
+  }
+]

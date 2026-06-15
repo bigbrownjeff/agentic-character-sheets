@@ -1,0 +1,13 @@
+node_modules/
+.DS_Store
+
+# Generated card images — PNGs are build artifacts; SVGs are tracked
+render/cards/*.png
+
+# OS cruft
+Thumbs.db
+*.swp
+*.swo
+
+# scratch preview screenshots
+.preview/

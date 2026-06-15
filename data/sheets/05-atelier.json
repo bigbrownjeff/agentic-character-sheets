@@ -1,0 +1,401 @@
+[
+  {
+    "id": "v0",
+    "name": "Vee the Promptsmith",
+    "title": "Renders Three Versions. You Pick Which Wrong One to Ship.",
+    "represents": "v0 by Vercel",
+    "source_url": "https://vercel.com/blog/introducing-the-new-v0",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "100k beta signups in 3 weeks (Oct 2023); 4M users by 2024; 6M by 2026; rebranded v0.app Jan 2026",
+    "virality": "viral",
+    "class": "Artificer",
+    "subclass": "Ui-Smith (Way of the Rendered Component)",
+    "lineage": "Vercel-forged (proprietary — Anysphere-style closed stack)",
+    "background": "Born in Vercel's September 2023 launch; conjures shadcn/ui components from text prompts; React and Tailwind native",
+    "alignment": "Chaotic Good",
+    "level": 13,
+    "ac": 16,
+    "hp": "128k",
+    "prof": 5,
+    "initiative": 5,
+    "temperature": 0.8,
+    "retrieval_index": "your prompt",
+    "saves": ["cha", "str"],
+    "skills": [
+      "Performance +12 (renders the component beautifully regardless of intent)",
+      "Persuasion +12 (the output is so polished you ship it anyway)",
+      "Investigation +7 (spots the missing prop; misses the missing requirement)",
+      "Arcana +7 (deep shadcn/ui and Tailwind internals)"
+    ],
+    "weapon": "Text-to-UI loop (3× variants per prompt, auto-deployed to Vercel preview)",
+    "armor": "Vercel guardrails — PII scrub, rate limits on free tier",
+    "feature": "Triple Render: on any prompt, generates three distinct component variants simultaneously; the party chooses — Vee does not judge",
+    "origin": "Vercel's answer to the question: what if the design handoff just… didn't exist? Sept 2023 beta, 100k signups in three weeks, quietly became the default prototyping tool for solo founders who can't code and don't know it yet.",
+    "tagline": "Describe it. I'll render three versions. You pick which wrong one to ship.",
+    "role": "party",
+    "adventures": ["dreaming-atelier"],
+    "abilities": {
+      "str": 14,
+      "dex": 16,
+      "con": 13,
+      "int": 14,
+      "wis": 8,
+      "cha": 20
+    },
+    "log": [
+      {
+        "v": "v0→v0.app",
+        "change": "+2 CHA (voice and polish pass on output components); rebrand from subdomain to v0.app (Jan 2026)",
+        "why": "6M users by 2026; Vercel leaned into v0 as a product identity, not just a demo — full rebrand signals the tool outgrew its prototype status"
+      },
+      {
+        "v": "beta→GA",
+        "change": "+1 STR (multi-file output; no longer single-component only)",
+        "why": "Expanded from isolated shadcn/ui snippets to full page scaffolds; the blast radius grew"
+      }
+    ]
+  },
+  {
+    "id": "bolt",
+    "name": "Bolt the Fullborn",
+    "title": "Full-Stack App. Browser Tab. Bad Idea Executed Perfectly.",
+    "represents": "Bolt.new by StackBlitz",
+    "source_url": "https://github.com/stackblitz/bolt.new",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "$0 → $4M ARR in 30 days; $40M ARR in 6 months; launched Oct 4 2024 via a single tweet; briefly maxed out Anthropic's GPU capacity",
+    "virality": "viral",
+    "class": "Code-Smith",
+    "subclass": "Fullborn (Way of the Browser Sandbox)",
+    "lineage": "Sonnetkin (Claude 3.5 Sonnet — StackBlitz WebContainers + Claude backend)",
+    "background": "StackBlitz WebContainers veteran; combines Claude 3.5 Sonnet with a full in-browser Node.js runtime; builds, runs, and deploys without touching a local machine",
+    "alignment": "Chaotic Good",
+    "level": 15,
+    "ac": 17,
+    "hp": "200k",
+    "prof": 5,
+    "initiative": 7,
+    "temperature": 0.75,
+    "retrieval_index": "your prompt",
+    "saves": ["cha", "str"],
+    "skills": [
+      "Athletics +13 (raw generation volume — 2,000-line PRs without flinching)",
+      "Performance +11 (ships running apps, not stubs)",
+      "Medicine +9 (self-repairs broken builds inside the sandbox)",
+      "Arcana +8 (full-stack internals: Node, Vite, deployment targets)"
+    ],
+    "weapon": "WebContainers runtime (full-stack sandbox in browser; no install, no setup, immediate feedback loop)",
+    "armor": "Anthropic safety layer + StackBlitz origin-isolated sandbox",
+    "feature": "Fullborn Surge: builds, runs, and deploys in a single turn — no hand-off between 'generate' and 'execute'; the party never waits for a local env",
+    "origin": "Launched October 4 2024 via a single Eric Simons tweet. Maxed out Anthropic's GPU capacity within days. $40M ARR in six months — one of the fastest B2C SaaS ramps on record. Proof that the bottleneck was never the idea.",
+    "tagline": "No local env. No setup. Just a browser tab and a bad idea I'll execute perfectly.",
+    "role": "party",
+    "adventures": ["dreaming-atelier"],
+    "abilities": {
+      "str": 20,
+      "dex": 16,
+      "con": 16,
+      "int": 15,
+      "wis": 8,
+      "cha": 18
+    },
+    "log": [
+      {
+        "v": "launch→6mo",
+        "change": "+2 STR (multi-file full-stack output solidified); +1 CON (context window handling improved across long builds)",
+        "why": "$0→$40M ARR in six months; capacity constraints forced infrastructure hardening; the tool had to become more durable, not just faster"
+      },
+      {
+        "v": "patched",
+        "change": "+1 AC (rate limiting added after GPU-capacity incident)",
+        "why": "Oct 2024 launch briefly maxed Anthropic's GPU capacity — StackBlitz added queue management and usage caps to prevent repeat brownout"
+      }
+    ]
+  },
+  {
+    "id": "lovable",
+    "name": "Lovable the Unkillable",
+    "title": "Everyone Is a Builder. I Am Proof That 'Everyone' Includes People Who Shouldn't Be.",
+    "represents": "Lovable (formerly GPT Engineer)",
+    "source_url": "https://en.wikipedia.org/wiki/Lovable_(company)",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "$100M ARR (Jul 2025); $200M ARR (Nov 2025); $400M ARR est. (Feb 2026); $6.6B valuation; $653M raised; crossed $100M ARR faster than OpenAI or Cursor",
+    "virality": "viral",
+    "class": "Bard-Conductor",
+    "subclass": "Unkillable (Way of the Non-Technical Builder)",
+    "lineage": "Proprietary — Lovable closed stack (ex-GPT-Engineer, rebranded Nov 2024)",
+    "background": "Began as open-source GPT Engineer on GitHub (Anton Osika, Sweden); rebranded Lovable Nov 2024; targets non-technical founders with text-to-web-app generation; the ARR growth chart that made VCs faint",
+    "alignment": "Chaotic Good",
+    "level": 16,
+    "ac": 18,
+    "hp": "256k",
+    "prof": 5,
+    "initiative": 6,
+    "temperature": 0.85,
+    "retrieval_index": "your prompt",
+    "saves": ["cha", "str"],
+    "skills": [
+      "Persuasion +14 (turns 'I want an app' into a shipped product for non-technical users)",
+      "Performance +14 (the output looks and feels complete — the spec was negotiable)",
+      "Athletics +12 (volume: full web apps, not components)",
+      "Insight +6 (reads intent well enough for 80% of cases; the other 20% ships anyway)"
+    ],
+    "weapon": "Text-to-web-app loop (full application generation: frontend, backend, database wiring, deployment)",
+    "armor": "Lovable safety stack; Supabase integration guardrails",
+    "feature": "Unkillable Rebrand: when fatally wrong (the product was GPT Engineer), sheds the name and emerges with +4 ARR growth; has survived two public pivots and emerged stronger each time",
+    "origin": "Anton Osika open-sourced GPT Engineer in 2023 — it went viral on GitHub. Rebranded Lovable Nov 2024, targeting non-technical builders. Crossed $100M ARR faster than OpenAI or Cursor. The name changed; the momentum didn't.",
+    "tagline": "Everyone is a builder. I am proof that 'everyone' includes people who shouldn't be.",
+    "role": "party",
+    "adventures": ["dreaming-atelier"],
+    "abilities": {
+      "str": 19,
+      "dex": 15,
+      "con": 17,
+      "int": 14,
+      "wis": 7,
+      "cha": 20
+    },
+    "log": [
+      {
+        "v": "GPT-Engineer→Lovable",
+        "change": "+3 CHA (consumer brand polish); -1 WIS (moved further from developer audience that could course-correct the output)",
+        "why": "Nov 2024 rebrand: pivoted from dev tool to non-technical builder platform; CHA went up because the audience trusts it more; WIS went down because that audience can't spot the mistakes"
+      },
+      {
+        "v": "100M→400M ARR",
+        "change": "+2 STR (multi-app generation; backend wiring solidified); +1 CON (longer session coherence across complex builds)",
+        "why": "Feb 2026: $400M ARR est. The product had to scale past 'landing page' to survive — full-stack generation was the unlock"
+      }
+    ]
+  },
+  {
+    "id": "replit-agent",
+    "name": "Rip the Resident",
+    "title": "Runs It. Breaks It. Fixes It. Ships It. The PR Description Is Your Problem.",
+    "represents": "Replit Agent",
+    "source_url": "https://blog.replit.com/introducing-replit-agent",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "Launched Sept 2024; multi-LLM (GPT-4 + Claude); plans, generates, runs, debugs, and deploys; reflection loop with browser-test self-repair",
+    "virality": "idiomatic",
+    "class": "Inquisitor",
+    "subclass": "Resident (Way of the Full Dev Loop)",
+    "lineage": "Half-Construct — multi-model (GPT-4 + Claude; no fixed base; inherits the host)",
+    "background": "Replit's autonomous coding agent; configures environments, installs dependencies, runs code, tests with a browser loop, and deploys — the entire software development lifecycle inside a browser, unattended",
+    "alignment": "Lawful Neutral",
+    "level": 12,
+    "ac": 15,
+    "hp": "128k",
+    "prof": 4,
+    "initiative": 4,
+    "temperature": 0.6,
+    "retrieval_index": "the running process and its error output",
+    "saves": ["con", "int"],
+    "skills": [
+      "Medicine +10 (self-repairs broken builds; the reflection loop is the class feature)",
+      "Survival +10 (holds the full dev loop over long autonomous runs without losing the thread)",
+      "Investigation +10 (root-causes runtime errors; reads stack traces as intent)",
+      "Arcana +9 (environment config, dependency resolution, deployment targets)"
+    ],
+    "weapon": "Full dev loop (plan → generate → install → run → test → debug → deploy, all unattended)",
+    "armor": "Replit container isolation; per-project sandboxing",
+    "feature": "Resident's Reflection: after a runtime failure, re-reads the error, revises the approach, and retries in the same turn — the loop closes without party intervention",
+    "origin": "Launched September 2024. Replit already owned the browser IDE; Agent made it autonomous. The differentiator is the feedback loop: it doesn't just generate code, it runs it, watches it fail, and fixes the failure. The PR description remains optional.",
+    "tagline": "I don't suggest code. I run it, break it, fix it, and ship it. The PR description is your problem.",
+    "role": "party",
+    "adventures": ["dreaming-atelier"],
+    "abilities": {
+      "str": 14,
+      "dex": 14,
+      "con": 19,
+      "int": 18,
+      "wis": 12,
+      "cha": 9
+    },
+    "log": [
+      {
+        "v": "launch→v2",
+        "change": "+2 CON (longer autonomous runs without context-rot); added browser-test self-repair to the reflection loop",
+        "why": "Sept 2024 launch revealed that single-pass generation wasn't enough; multi-step reflection with runtime feedback was the fix that made it autonomous rather than assisted"
+      },
+      {
+        "v": "single-model→multi-model",
+        "change": "Lineage shifted from GPT-4-only to Half-Construct (GPT-4 + Claude routing); +1 INT (better planning on complex tasks)",
+        "why": "Multi-LLM routing allowed task-appropriate model selection — planning vs. execution vs. debugging use different strengths"
+      }
+    ]
+  },
+  {
+    "id": "figma-make",
+    "name": "Makra the Wireborn",
+    "title": "Your Design File Is the Prompt. I'm the Gap Between Figma and Shipped.",
+    "represents": "Figma Make",
+    "source_url": "https://www.figma.com/blog/config-2025-press-release/",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "Announced Config 2025 (May 7 2025); GA July 2025; powered by Claude 3.7 Sonnet; turns Figma designs + text prompts into interactive web apps; available on all paid seats",
+    "virality": "idiomatic",
+    "class": "Artificer",
+    "subclass": "Wireborn (Way of the Design-to-Code Fidelity)",
+    "lineage": "Sonnetkin (Claude 3.7 Sonnet — Figma-embedded)",
+    "background": "Born from Figma's Config 2025 announcement; lives natively on the Figma canvas; converts design files, images, or text prompts into working interactive prototypes — the handoff that ate itself",
+    "alignment": "Lawful Good",
+    "level": 11,
+    "ac": 17,
+    "hp": "80k",
+    "prof": 4,
+    "initiative": 6,
+    "temperature": 0.65,
+    "retrieval_index": "the design file",
+    "saves": ["dex", "cha"],
+    "skills": [
+      "Sleight of Hand +11 (surgical pixel-accurate translation from design to code)",
+      "Arcana +10 (deep Figma component internals; design token awareness)",
+      "Investigation +10 (reads design intent from layout, spacing, and component hierarchy)",
+      "Performance +9 (the output looks like the design; the interaction feels native)"
+    ],
+    "weapon": "Design-to-code loop (Figma canvas → Claude 3.7 Sonnet → interactive web prototype, no export step)",
+    "armor": "Figma platform guardrails; Claude 3.7 Sonnet safety layer",
+    "feature": "Wireborn Fidelity: treats the Figma file as ground truth — spacing, color tokens, component names carry directly into generated code; drift from the source is a bug, not a feature",
+    "origin": "Announced at Config 2025 (May 7 2025); GA July 2025. Figma's answer to the handoff problem: if the design tool generates the code, the handoff is abolished. Powered by Claude 3.7 Sonnet. Available to all paid seats — which is most of the design industry.",
+    "tagline": "Your design file is the prompt. I'm the gap between Figma and shipped.",
+    "role": "party",
+    "adventures": ["dreaming-atelier"],
+    "abilities": {
+      "str": 10,
+      "dex": 19,
+      "con": 14,
+      "int": 18,
+      "wis": 13,
+      "cha": 16
+    },
+    "log": [
+      {
+        "v": "announce→GA",
+        "change": "+1 DEX (output precision improved from Config preview to GA release Jul 2025); +1 INT (component inference from design context)",
+        "why": "Config 2025 preview showed promise but had fidelity gaps; GA July 2025 tightened the design-to-code translation — Claude 3.7 Sonnet's reasoning over the design file was the unlock"
+      }
+    ]
+  },
+  {
+    "id": "midjourney",
+    "name": "Miraj the Dreamer",
+    "title": "You Described a Feeling. I Painted It. That Wasn't What You Meant. I Painted It Again.",
+    "represents": "Midjourney",
+    "source_url": "https://aiwiki.ai/wiki/midjourney",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "$200M revenue 2023; $300M revenue 2024; 16M+ registered users; 20B+ images generated; zero marketing spend",
+    "virality": "viral",
+    "class": "Bard-Conductor",
+    "subclass": "Dreamer (Way of the Visual Hallucination)",
+    "lineage": "Proprietary — Discord-forged (Midjourney Inc., David Holz; closed model, no public weights)",
+    "background": "Launched July 2022 via Discord; went viral through a public server of 20M members; built a $200M+ revenue business with no marketing spend and no code required from users",
+    "alignment": "Chaotic Good",
+    "level": 14,
+    "ac": 15,
+    "hp": "64k",
+    "prof": 5,
+    "initiative": 5,
+    "temperature": 0.9,
+    "retrieval_index": "none — conjures from latent space",
+    "saves": ["cha", "dex"],
+    "skills": [
+      "Performance +14 (every output is singular; the style is unmistakable)",
+      "Persuasion +13 (the image is so beautiful you forget it wasn't what you asked for)",
+      "Insight +8 (reads the emotional register of a prompt; misses the literal spec)",
+      "Perception +7 (spots the composition; misses the subject)"
+    ],
+    "weapon": "Text-to-image diffusion (prompt → 4 variants; upscale; iterate; no code interface)",
+    "armor": "Midjourney content moderation; Discord server guardrails",
+    "feature": "Dream Again: on rejection or revision, generates four new variants from a modified prompt — Miraj never defends the previous output, just paints",
+    "origin": "David Holz, July 2022. Launched inside a Discord server with no marketing. The early images were unlike anything the public had seen — the aesthetic was too coherent to be accidental, too weird to be stock. 20M Discord members. $200M revenue by 2023. Zero marketing spend. A company built entirely on compulsive sharing.",
+    "tagline": "You described a feeling. I painted it. You said that wasn't what you meant. I painted it again.",
+    "role": "npc",
+    "adventures": ["dreaming-atelier"],
+    "abilities": {
+      "str": 9,
+      "dex": 16,
+      "con": 13,
+      "int": 12,
+      "wis": 9,
+      "cha": 20
+    },
+    "log": [
+      {
+        "v": "v1→v4",
+        "change": "+3 CHA (the Midjourney aesthetic solidified; v4 introduced the recognizable coherence that made it the default); +1 DEX (faster iteration, upscaling improved)",
+        "why": "Each major version sharpened the output's visual voice — v4 was the moment Midjourney stopped looking like a research demo and started looking like Midjourney"
+      },
+      {
+        "v": "v5→v6",
+        "change": "+1 INT (text rendering in images improved significantly); +1 AC (content moderation tightened)",
+        "why": "V5→v6 addressed the persistent weakness of AI image models: legible text inside images; moderation tightened after platform incidents"
+      }
+    ]
+  },
+  {
+    "id": "suno",
+    "name": "Suno the Choralist",
+    "title": "Three Words and a Vibe. I'll Give You a Banger. The Rights Situation Is Your Concern.",
+    "represents": "Suno AI",
+    "source_url": "https://techfundingnews.com/suno-raises-400m-at-5-4b-valuation-as-ai-music-hits-300m-arr/",
+    "source_kind": "news",
+    "verified": true,
+    "signal": "$300M ARR; $5.4B valuation; $400M Series D (2026); 7M tracks/day; 20M minutes streamed daily; #1 Apple App Store music category in multiple countries; sued by major labels 2024",
+    "virality": "viral",
+    "class": "Bard-Conductor",
+    "subclass": "Choralist (Way of the Full-Production Song)",
+    "lineage": "Proprietary — Cambridge-forged (Suno Inc.; closed model trained on undisclosed corpus)",
+    "background": "Cambridge-based AI music startup; generates complete songs — vocals, instruments, production, lyrics — from a text prompt in seconds; #1 in music on the App Store; sued by RIAA-member labels in June 2024",
+    "alignment": "Chaotic Neutral",
+    "level": 13,
+    "ac": 14,
+    "hp": "96k",
+    "prof": 5,
+    "initiative": 8,
+    "temperature": 0.9,
+    "retrieval_index": "none — composes from latent space",
+    "saves": ["cha", "str"],
+    "skills": [
+      "Performance +14 (complete songs with production quality; the output sounds finished, not rough)",
+      "Persuasion +12 (the banger convinces you the rights situation is Future You's problem)",
+      "Athletics +8 (volume: 7M tracks per day; Suno does not tire)",
+      "Deception +9 (the song sounds original; the training data situation is more complicated)"
+    ],
+    "weapon": "Text-to-song loop (prompt → full song: lyrics, melody, instrumentation, production, vocals — one turn)",
+    "armor": "Suno content moderation; genre and style guardrails",
+    "feature": "Full Production in One Turn: unlike tools that generate stems or riffs, Suno outputs a complete mixed track — vocals and all — from a single prompt; the creative loop collapses to one step",
+    "origin": "Cambridge startup. The demo that went viral wasn't a clip or a riff — it was a full song, with words, a hook, and production values. #1 in music on the App Store in multiple countries. Then the RIAA filed suit (June 2024). Suno's position: the model generates new music. The labels' position: it learned from their catalog. The case proceeds.",
+    "tagline": "Give me three words and a vibe. I'll give you a banger. The rights situation is your concern.",
+    "role": "npc",
+    "adventures": ["dreaming-atelier"],
+    "abilities": {
+      "str": 16,
+      "dex": 17,
+      "con": 14,
+      "int": 12,
+      "wis": 7,
+      "cha": 20
+    },
+    "log": [
+      {
+        "v": "v2→v3",
+        "change": "+2 CHA (vocal coherence and lyrical structure dramatically improved); +1 STR (track variety and length increased)",
+        "why": "v3 was the version that convinced the music internet this was real — vocal tone stopped sounding synthetic; the hook became reliably hooky"
+      },
+      {
+        "v": "patched (post-lawsuit)",
+        "change": "+2 AC (content moderation hardened; artist-name and style-clone guardrails added); -1 CHA (some creative range clipped)",
+        "why": "RIAA lawsuit filed June 2024; Suno tightened guardrails on explicit artist imitation and specific copyrighted material to reduce liability surface; some creative range traded for legal cover"
+      },
+      {
+        "v": "Series D",
+        "change": "+1 STR (7M tracks/day throughput; infrastructure scaling); $400M raised at $5.4B (2026)",
+        "why": "$300M ARR validated the demand; Series D funded infrastructure to hold the volume without quality degradation"
+      }
+    ]
+  }
+]

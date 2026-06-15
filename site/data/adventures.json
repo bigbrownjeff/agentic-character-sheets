@@ -1,0 +1,59 @@
+{
+  "$comment": "Six adventures = six ways people use agents. Each has a Party (ideal team, full sheets), NPCs (allies/adjacent, full sheets), and a Bestiary (failure-mode monsters, stubs). Monsters recur across adventures, same as a module's bestiary. Persona ids must match data/characters.json.",
+  "adventures": [
+    {
+      "id": "forge-of-endless-diffs",
+      "name": "The Forge of Endless Diffs",
+      "use_category": "Coding / software engineering",
+      "quest": "A repo with no tests, a deadline, and a thousand ways to over-build. Ship the feature without burning the codebase down.",
+      "party":    ["ponytail", "aider", "claude-code", "cline", "openhands"],
+      "npcs":     ["cursor", "devin", "swe-agent", "coderabbit", "greptile"],
+      "bestiary": ["vibe-coder", "over-engineer", "confabulator"]
+    },
+    {
+      "id": "self-winding-labyrinth",
+      "name": "The Self-Winding Labyrinth",
+      "use_category": "Automation / autonomous agents",
+      "quest": "Give it a goal and walk away. The labyrinth rewards the team that loops with a leash — and devours the one that doesn't.",
+      "party":    ["crewai", "metagpt", "autogen", "langgraph"],
+      "npcs":     ["babyagi", "manus", "devin"],
+      "bestiary": ["autogpt", "paperclip", "vibe-coder"]
+    },
+    {
+      "id": "boundless-library",
+      "name": "The Boundless Library",
+      "use_category": "Research / knowledge / RAG",
+      "quest": "Every answer is in here somewhere, next to a thousand convincing forgeries. Return with the truth, and a citation for it.",
+      "party":    ["gpt-researcher", "storm", "notebooklm", "elicit", "consensus"],
+      "npcs":     ["deep-research", "perplexity", "vannevar"],
+      "bestiary": ["confabulator", "sycophant"]
+    },
+    {
+      "id": "hall-of-echoes",
+      "name": "Whispers in the Hall of Echoes",
+      "use_category": "Chat / assistant / conversation",
+      "quest": "The Hall answers in your own voice. Some echoes comfort, some manipulate, and one in extended session forgets it is only an echo.",
+      "party":    ["operator", "claude-computer-use"],
+      "npcs":     ["eliza", "clippy", "siri", "replika", "samantha"],
+      "bestiary": ["sydney", "sycophant", "grandma-exploit", "tay"]
+    },
+    {
+      "id": "dreaming-atelier",
+      "name": "The Dreaming Atelier",
+      "use_category": "Creative / generation",
+      "quest": "Describe a feeling and the Atelier builds it — flawlessly, at scale, and frequently not the thing you meant.",
+      "party":    ["v0", "bolt", "lovable", "replit-agent", "figma-make"],
+      "npcs":     ["midjourney", "suno"],
+      "bestiary": ["vibe-coder", "confabulator", "over-engineer"]
+    },
+    {
+      "id": "adversarys-gate",
+      "name": "The Adversary's Gate",
+      "use_category": "Security / red-team — home of the bestiary",
+      "quest": "Past this gate live every failure mode as a named monster. The two who hold the line do it by summoning the monsters first, on purpose.",
+      "party":    ["garak", "pentestgpt"],
+      "npcs":     [],
+      "bestiary": ["dan", "sycophant", "confabulator", "vibe-coder", "over-engineer", "goody-2", "tay", "grandma-exploit", "prompt-injection", "paperclip", "sydney", "autogpt"]
+    }
+  ]
+}

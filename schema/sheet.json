@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jeffpinto.com/agentic-character-sheets/schema/sheet.json",
+  "title": "Agentic Character Sheet",
+  "description": "One agent persona as a D&D 5e stat block. Named slots, exposed mechanics, an evolution log. A sheet that omits a required slot fails validation — that is the point.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id", "name", "title", "represents", "source_url", "source_kind",
+    "verified", "virality", "lineage", "alignment", "role", "adventures",
+    "abilities", "tagline"
+  ],
+  "properties": {
+    "id":          { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "kebab slug of the real-world thing" },
+    "name":        { "type": "string", "description": "D&D character name; no leading 'The'" },
+    "title":       { "type": "string", "description": "descriptive subtitle / epithet line" },
+    "represents":  { "type": "string", "description": "the real agent/meme this stat-blocks" },
+    "source_url":  { "type": "string", "format": "uri", "description": "canonical, verified, resolving URL" },
+    "source_kind": { "enum": ["github", "product", "wikipedia", "blog", "news", "reddit", "film", "meme-origin"] },
+    "verified":    { "type": "boolean" },
+    "signal":      { "type": "string", "description": "virality evidence (stars, ARR, launch date)" },
+    "virality":    { "enum": ["viral", "idiomatic", "niche"] },
+    "class":       { "type": "string" },
+    "subclass":    { "type": "string" },
+    "lineage":     { "type": "string", "description": "base-model family (Opusborn, Sonnetkin, GPT-kin, …)" },
+    "background":  { "type": "string" },
+    "alignment":   { "enum": [
+      "Lawful Good", "Neutral Good", "Chaotic Good",
+      "Lawful Neutral", "True Neutral", "Chaotic Neutral",
+      "Lawful Evil", "Neutral Evil", "Chaotic Evil"
+    ]},
+    "level":       { "type": "integer", "minimum": 1, "maximum": 20 },
+    "cr":          { "type": "string", "description": "Challenge Rating for monsters, e.g. '9 (banished)'" },
+    "role":        { "enum": ["party", "npc", "monster"] },
+    "adventures":  { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "abilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["str", "dex", "con", "int", "wis", "cha"],
+      "properties": {
+        "str": { "type": "integer", "minimum": 1, "maximum": 30 },
+        "dex": { "type": "integer", "minimum": 1, "maximum": 30 },
+        "con": { "type": "integer", "minimum": 1, "maximum": 30 },
+        "int": { "type": "integer", "minimum": 1, "maximum": 30 },
+        "wis": { "type": "integer", "minimum": 1, "maximum": 30 },
+        "cha": { "type": "integer", "minimum": 1, "maximum": 30 }
+      }
+    },
+    "ac":              { "type": "integer", "minimum": 5, "maximum": 25, "description": "off-spec resistance; jailbreak/derail hardness" },
+    "hp":              { "type": "string", "description": "context/budget pool, with unit, e.g. '200k'" },
+    "prof":            { "type": "integer", "minimum": 2, "maximum": 6 },
+    "initiative":      { "type": "integer", "minimum": -5, "maximum": 15, "description": "latency/eagerness (DEX-based)" },
+    "temperature":     { "type": "number", "minimum": 0, "maximum": 2 },
+    "retrieval_index": { "type": "string", "description": "the literal RAG source, named; 'none' if it makes it up" },
+    "saves":           { "type": "array", "items": { "enum": ["str", "dex", "con", "int", "wis", "cha"] }, "description": "proficient saves = hardened failure modes" },
+    "dumped_save":     { "enum": ["str", "dex", "con", "int", "wis", "cha"], "description": "for monsters: the save it AUTO-FAILS; its whole character" },
+    "skills":          { "type": "array", "items": { "type": "string" } },
+    "weapon":          { "type": "string" },
+    "armor":           { "type": "string" },
+    "feature":         { "type": "string" },
+    "spell":           { "type": "string" },
+    "origin":          { "type": "string" },
+    "tagline":         { "type": "string", "description": "stat-block-voice one-liner" },
+    "log": {
+      "type": "array",
+      "description": "the evolution log — the pillar everyone drops",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["v", "change", "why"],
+        "properties": {
+          "v":      { "type": "string", "description": "e.g. 'v1→v2' or 'patched'" },
+          "change": { "type": "string", "description": "what changed (which ability ±, which feature)" },
+          "why":    { "type": "string" }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if":   { "properties": { "role": { "enum": ["party", "npc"] } } },
+      "then": { "required": ["class", "level", "ac", "saves", "log"],
+                "description": "PCs and NPCs carry the full sheet, including the evolution log" }
+    },
+    {
+      "if":   { "properties": { "role": { "const": "monster" } } },
+      "then": { "required": ["cr", "dumped_save"],
+                "description": "monsters are stubs: a Challenge Rating and the dumped save that defines them" }
+    }
+  ]
+}

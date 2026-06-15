@@ -1,0 +1,25 @@
+# This is the thesis: a PR that adds a sheet without an Adventure Log fails CI.
+# PC/NPC entries require a log[], 2 proficient saves, class, level, and ac.
+# Monster entries require a cr and a dumped_save.
+# A missing slot is not a warning — it is a failing check.
+
+name: Validate character sheets
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    name: Build & validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate sheets
+        run: node scripts/build.mjs

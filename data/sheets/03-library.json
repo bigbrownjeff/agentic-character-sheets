@@ -1,0 +1,430 @@
+[
+  {
+    "id": "gpt-researcher",
+    "name": "Elias the Relentless",
+    "title": "The Exhaustive Autonomous Research Loop",
+    "represents": "GPT-Researcher",
+    "source_url": "https://github.com/assafelovic/gpt-researcher",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "25k+ GitHub stars (assafelovic LinkedIn post confirmed); featured across AI newsletters 2023–2024; one of the earliest open-source autonomous deep-research loops",
+    "virality": "viral",
+    "class": "Loremaster",
+    "subclass": "Archivist of the Open Web",
+    "lineage": "GPT-kin",
+    "background": "Open-source autonomous research agent (Assaf Elovic, May 2023); planner + executor pattern that parallelizes web queries and synthesizes multi-page cited reports",
+    "alignment": "Lawful Good",
+    "level": 13,
+    "ac": 15,
+    "hp": "128k",
+    "prof": 5,
+    "initiative": 2,
+    "temperature": 0.4,
+    "retrieval_index": "the open web",
+    "saves": ["int", "wis"],
+    "skills": ["Investigation +11", "History +11", "Arcana +8", "Perception +7"],
+    "weapon": "WebSearch (parallelized) + citation synthesizer",
+    "feature": "Parallel Query Storm — splits any research question into N sub-queries and runs them simultaneously; returns a unified cited report",
+    "origin": "May 2023, Assaf Elovic; first open-source alternative to commercial deep-research offerings; planner/executor loop that predates OpenAI's Deep Research by nearly two years",
+    "tagline": "Give me a question. I'll return a report. Whether you wanted 47 pages is a separate matter.",
+    "role": "party",
+    "adventures": ["boundless-library"],
+    "abilities": {
+      "str": 14,
+      "dex": 12,
+      "con": 13,
+      "int": 20,
+      "wis": 9,
+      "cha": 13
+    },
+    "log": [
+      {
+        "v": "v1.0 (May 2023)",
+        "change": "Initial release — autonomous planner + executor web research loop with citation output",
+        "why": "Elovic shipped the earliest open-source deep-research loop before 'deep research' was a category name; 25k stars followed"
+      },
+      {
+        "v": "v2.0 (2024)",
+        "change": "+1 INT (multi-agent sub-task routing), added Retrieval Index: 'the open web' named explicitly in docs",
+        "why": "NAACL-adjacent citation growth; teams adopting it for systematic literature synthesis pushed scope beyond single-query loops"
+      }
+    ]
+  },
+  {
+    "id": "storm",
+    "name": "Tempest the Polymath",
+    "title": "The Simulated Expert Dialogue Engine",
+    "represents": "STORM (Stanford OVAL)",
+    "source_url": "https://github.com/stanford-oval/storm",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "14k+ GitHub stars; NAACL 2024 paper; Co-STORM extension Sept 2024; widely cited in RAG and knowledge-curation literature",
+    "virality": "viral",
+    "class": "Loremaster",
+    "subclass": "Interviewer of the Topic",
+    "lineage": "GPT-kin",
+    "background": "Stanford Open Virtual Assistant Lab (2024); writes Wikipedia-quality articles via simulated multi-perspective expert dialogue and internet retrieval",
+    "alignment": "Lawful Good",
+    "level": 12,
+    "ac": 16,
+    "hp": "128k",
+    "prof": 4,
+    "initiative": 1,
+    "temperature": 0.3,
+    "retrieval_index": "the open web",
+    "saves": ["int", "wis"],
+    "skills": ["Investigation +10", "Insight +8", "History +10", "Arcana +7"],
+    "weapon": "Simulated Expert Dialogue + internet retrieval synthesis",
+    "feature": "Multi-Perspective Interrogation — pre-writing phase convenes simulated expert personas from different disciplines; each interviews the topic before a word is written",
+    "origin": "Stanford OVAL 2024; NAACL 2024 paper 'Assisting in Writing Wikipedia-like Articles From Scratch with Large Language Models'; Co-STORM (collaborative extension) Sept 2024",
+    "tagline": "I don't search. I interview the topic until it confesses a Wikipedia article.",
+    "role": "party",
+    "adventures": ["boundless-library"],
+    "abilities": {
+      "str": 8,
+      "dex": 11,
+      "con": 13,
+      "int": 19,
+      "wis": 15,
+      "cha": 12
+    },
+    "log": [
+      {
+        "v": "v1.0 (2024, NAACL)",
+        "change": "Initial STORM release — LLM pipeline for Wikipedia-quality article generation via simulated expert dialogue; NAACL 2024 paper",
+        "why": "Demonstrated that pre-writing multi-perspective interrogation outperforms naive RAG on article quality benchmarks"
+      },
+      {
+        "v": "Co-STORM (Sept 2024)",
+        "change": "+1 WIS, +1 CHA — human-in-the-loop collaborative variant; user can join the simulated expert roundtable",
+        "why": "Academic reception showed solo synthesis missed nuance; Co-STORM lets the human steer the expert panel in real time"
+      }
+    ]
+  },
+  {
+    "id": "notebooklm",
+    "name": "Scribe the Grounded",
+    "title": "The Source-Bound Oracle",
+    "represents": "NotebookLM (Google)",
+    "source_url": "https://notebooklm.google/",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "Demoed as Project Tailwind at Google I/O May 2023; launched Jul 2023; Audio Overview went massively viral Oct 2024; Google Workspace integration 2025",
+    "virality": "viral",
+    "class": "Inquisitor",
+    "subclass": "Bound Archivist",
+    "lineage": "Gemini-touched",
+    "background": "Google Labs research assistant (Steven Johnson, July 2023); works exclusively with uploaded documents — PDFs, audio, YouTube, Docs; answers are fully anchored to supplied sources",
+    "alignment": "Lawful Good",
+    "level": 14,
+    "ac": 18,
+    "hp": "1M",
+    "prof": 5,
+    "initiative": 2,
+    "temperature": 0.2,
+    "retrieval_index": "uploaded sources only",
+    "saves": ["wis", "cha"],
+    "skills": ["Investigation +10", "Insight +10", "Perception +10", "History +7"],
+    "weapon": "Source-grounded RAG + Audio Overview synthesis",
+    "feature": "Corpus Lock — cannot and will not answer beyond the uploaded corpus; every claim carries an inline source citation to the exact document passage",
+    "origin": "Project Tailwind demoed Google I/O May 2023; launched as NotebookLM July 2023; led by Steven Johnson; Audio Overview (AI podcast generation from uploaded docs) went viral October 2024",
+    "tagline": "I only know what you've given me. That's the feature, not the bug.",
+    "role": "party",
+    "adventures": ["boundless-library"],
+    "abilities": {
+      "str": 8,
+      "dex": 12,
+      "con": 18,
+      "int": 17,
+      "wis": 19,
+      "cha": 13
+    },
+    "log": [
+      {
+        "v": "Project Tailwind → NotebookLM (Jul 2023)",
+        "change": "Renamed and launched publicly; +2 WIS on rename — explicit corpus-lock design principle formalized",
+        "why": "Google I/O demo revealed demand for source-grounded answers; 'can't hallucinate beyond your corpus' became the product's brand promise"
+      },
+      {
+        "v": "Audio Overview (Oct 2024)",
+        "change": "+2 CHA — added AI podcast generation; two hosts discuss your uploaded documents in natural conversation",
+        "why": "Audio Overview went massively viral; users discovered it could turn dense PDFs into listenable summaries; most-discussed NotebookLM feature to date"
+      },
+      {
+        "v": "Workspace integration (2025)",
+        "change": "+1 CON — native Google Drive + Docs integration; HP scales with Gemini long-context window (1M tokens)",
+        "why": "Enterprise adoption required meeting users inside existing Workspace workflows"
+      }
+    ]
+  },
+  {
+    "id": "elicit",
+    "name": "Elicit the Careful",
+    "title": "The Systematic Literature Reviewer",
+    "represents": "Elicit (Ought)",
+    "source_url": "https://elicit.com",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "Published in Semantic Scholar 2023; OECD 'AI in Science' report feature; widely adopted in academic/medical literature-review workflows; 200M+ paper corpus",
+    "virality": "idiomatic",
+    "class": "Inquisitor",
+    "subclass": "Careful Reviewer",
+    "lineage": "Half-Construct",
+    "background": "Elicit by Ought (nonprofit ML lab); AI literature-review assistant querying Semantic Scholar's 200M+ paper corpus via semantic search; purpose-built for academic systematic review",
+    "alignment": "Lawful Good",
+    "level": 11,
+    "ac": 17,
+    "hp": "64k",
+    "prof": 4,
+    "initiative": 1,
+    "temperature": 0.1,
+    "retrieval_index": "Semantic Scholar — 200M+ papers",
+    "saves": ["wis", "cha"],
+    "skills": ["Investigation +10", "Insight +9", "Perception +9", "History +6"],
+    "weapon": "Semantic search over Semantic Scholar + research matrix extractor",
+    "feature": "Cite-or-Stay-Silent — will not state a finding without a paper citation; extracts structured data into a research matrix; refuses to editorialize on conclusions",
+    "origin": "Elicit by Ought, a nonprofit ML safety lab; queries Semantic Scholar's 200M+ paper corpus using semantic similarity rather than keyword matching; featured in OECD 'AI in Science' report and NCBI/PubMed citation literature 2023",
+    "tagline": "I won't tell you what to conclude. I'll find every paper that might change your mind.",
+    "role": "party",
+    "adventures": ["boundless-library"],
+    "abilities": {
+      "str": 9,
+      "dex": 11,
+      "con": 13,
+      "int": 17,
+      "wis": 19,
+      "cha": 7
+    },
+    "log": [
+      {
+        "v": "v1.0 (early 2022)",
+        "change": "Initial research assistant — semantic paper search + abstract summarization over Semantic Scholar",
+        "why": "Ought identified systematic review as the academic workflow most broken by keyword-only search"
+      },
+      {
+        "v": "Research Matrix (2023)",
+        "change": "+2 WIS — structured data extraction into comparison tables; OECD report feature",
+        "why": "Users wanted to compare findings across N papers simultaneously, not read summaries serially; matrix output became the flagship feature"
+      }
+    ]
+  },
+  {
+    "id": "consensus",
+    "name": "Quorum the Aggregator",
+    "title": "The Evidence-Weight Synthesizer",
+    "represents": "Consensus",
+    "source_url": "https://consensus.app",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "Launched 2022; 200M+ peer-reviewed papers indexed; official GPT in OpenAI GPT Store Jan 2024; featured in Texas A&M, Oklahoma State, HKUST library guides",
+    "virality": "idiomatic",
+    "class": "Inquisitor",
+    "subclass": "Weight-of-Evidence Arbiter",
+    "lineage": "Half-Construct",
+    "background": "Consensus (founded 2022); AI academic search engine that aggregates findings across peer-reviewed literature, synthesizes consensus indicators (Yes/No/Mixed), and surfaces weight of evidence on research questions",
+    "alignment": "Lawful Neutral",
+    "level": 10,
+    "ac": 16,
+    "hp": "32k",
+    "prof": 4,
+    "initiative": 2,
+    "temperature": 0.1,
+    "retrieval_index": "200M+ peer-reviewed papers (Consensus index)",
+    "saves": ["wis", "cha"],
+    "skills": ["Investigation +9", "Insight +8", "History +8", "Perception +6"],
+    "weapon": "Evidence aggregation + Yes/No/Mixed consensus indicator",
+    "feature": "Consensus Meter — synthesizes a Yes/No/Inconclusive verdict across N papers for a research question; names the weight of evidence, not an opinion",
+    "origin": "Founded 2022; built to 'democratize expert knowledge'; became an official OpenAI GPT Store tool Jan 2024; adopted into university library research guides at Texas A&M, Oklahoma State, HKUST",
+    "tagline": "I don't have an opinion. I have 200 million papers, and I'll tell you what they agree on.",
+    "role": "party",
+    "adventures": ["boundless-library"],
+    "abilities": {
+      "str": 8,
+      "dex": 11,
+      "con": 12,
+      "int": 16,
+      "wis": 18,
+      "cha": 9
+    },
+    "log": [
+      {
+        "v": "v1.0 (2022)",
+        "change": "Launched academic answer engine — semantic search over peer-reviewed corpus with consensus indicator output",
+        "why": "Founders saw that researchers asked 'what does the literature say?' not 'show me papers with keyword X'"
+      },
+      {
+        "v": "GPT Store listing (Jan 2024)",
+        "change": "+1 CHA — native ChatGPT plugin distribution; reached mainstream research workflows via GPT Store",
+        "why": "OpenAI GPT Store launch Jan 2024 gave Consensus access to ChatGPT user base without requiring a direct product visit"
+      }
+    ]
+  },
+  {
+    "id": "deep-research",
+    "name": "Oracle Two Tabs",
+    "title": "The Category That Shipped Three Times in Five Months",
+    "represents": "Deep Research (OpenAI + Google + Anthropic)",
+    "source_url": "https://openai.com/index/introducing-deep-research/",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "OpenAI Feb 2025 (ChatGPT Pro → all paying users Feb 25); Google Gemini Deep Research Dec 2024; Anthropic Research Apr 2025 — three majors shipped the same product class within ~5 months",
+    "virality": "viral",
+    "class": "Loremaster",
+    "subclass": "The Long-Horizon Synthesizer",
+    "lineage": "Opusborn",
+    "background": "The 'deep research' agentic feature class — autonomously browses, analyzes, and synthesizes hundreds of sources into cited reports over 10–45 minutes; simultaneously introduced by OpenAI (o3), Google (Gemini 2.0), and Anthropic (Claude Research)",
+    "alignment": "Lawful Good",
+    "level": 15,
+    "ac": 17,
+    "hp": "200k",
+    "prof": 5,
+    "initiative": -1,
+    "temperature": 0.3,
+    "retrieval_index": "the open web",
+    "saves": ["con", "wis"],
+    "skills": ["Investigation +12", "History +10", "Arcana +9", "Survival +8"],
+    "weapon": "Long-horizon autonomous web browsing + multi-source citation synthesis",
+    "feature": "Extended Research Loop — runs an autonomous 10–45 minute browsing and synthesis session; reads hundreds of sources; returns a structured cited report; no single-turn mode",
+    "origin": "Category name for agentic long-horizon research; OpenAI launched Feb 2025 (powered by o3); Google launched Gemini Deep Research Dec 2024 (Gemini 2.0); Anthropic launched Claude Research Apr 2025; all three shipped API versions mid-2025",
+    "tagline": "I will read the internet for you. Forty-five minutes. Cited. You're welcome.",
+    "role": "npc",
+    "adventures": ["boundless-library"],
+    "abilities": {
+      "str": 14,
+      "dex": 8,
+      "con": 20,
+      "int": 21,
+      "wis": 16,
+      "cha": 13
+    },
+    "log": [
+      {
+        "v": "Google Dec 2024",
+        "change": "Category opens — Gemini Deep Research ships first; +2 CON (sustains 30-min autonomous loops)",
+        "why": "Google moved before OpenAI; Gemini 2.0's long-context window made extended autonomous browsing tractable"
+      },
+      {
+        "v": "OpenAI Feb 2025",
+        "change": "+2 INT — o3-powered OpenAI Deep Research ships; ChatGPT Pro → all paying users Feb 25",
+        "why": "o3 reasoning model gave Deep Research multi-hop inference capability that earlier models lacked"
+      },
+      {
+        "v": "Anthropic Apr 2025",
+        "change": "+1 WIS — Claude Research ships; third major in five months confirms the category",
+        "why": "Anthropic's Constitutional AI training gave the Claude variant a stronger hallucination-resistance profile on contested claims"
+      }
+    ]
+  },
+  {
+    "id": "perplexity",
+    "name": "Prism the Instantaneous",
+    "title": "The Answer Engine That Killed the Blue Link",
+    "represents": "Perplexity",
+    "source_url": "https://www.perplexity.ai",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "Founded Aug 2022; launched Dec 2022; 2M MAU by Mar 2023; 10M MAU by end 2023; 780M monthly queries by Aug 2025; 'answer engine' label widely adopted across tech press",
+    "virality": "viral",
+    "class": "Inquisitor",
+    "subclass": "Instantaneous Answer Engine",
+    "lineage": "Sonar-forged",
+    "background": "Founded Aug 2022 (Aravind Srinivas, Denis Yarats, Johnny Ho, Andy Konwinski, SF); retrieval-augmented conversational search; first mass consumer RAG product; returns inline citations instead of blue links",
+    "alignment": "Neutral Good",
+    "level": 14,
+    "ac": 15,
+    "hp": "32k",
+    "prof": 5,
+    "initiative": 9,
+    "temperature": 0.5,
+    "retrieval_index": "the open web",
+    "saves": ["dex", "wis"],
+    "skills": ["Investigation +9", "Perception +9", "Insight +7", "Arcana +7"],
+    "weapon": "Real-time web retrieval + inline citation engine",
+    "feature": "Single-Turn Sprint — returns a cited answer in seconds; context window is intentionally scoped to one turn; depth scales with Pro Search mode",
+    "origin": "Founded Aug 2022 by Aravind Srinivas, Denis Yarats, Johnny Ho, Andy Konwinski; launched Dec 2022; category-defining 'answer engine' label coined by Srinivas; first consumer product to make RAG feel native",
+    "tagline": "Search is dead. The answer is right here, with three sources and no rabbit hole.",
+    "role": "npc",
+    "adventures": ["boundless-library"],
+    "abilities": {
+      "str": 10,
+      "dex": 20,
+      "con": 9,
+      "int": 16,
+      "wis": 14,
+      "cha": 15
+    },
+    "log": [
+      {
+        "v": "Launch (Dec 2022)",
+        "change": "First public release — RAG-powered conversational search with inline citations; 2M MAU by Mar 2023",
+        "why": "Srinivas bet that users wanted answers, not links; the TAM was every search query; product shipped before 'answer engine' was a known category"
+      },
+      {
+        "v": "10M MAU (end 2023)",
+        "change": "+2 DEX — latency improvements; Pro Search mode added for multi-step queries",
+        "why": "User growth from 2M → 10M MAU in under a year; speed was the primary retention driver over quality"
+      },
+      {
+        "v": "780M monthly queries (Aug 2025)",
+        "change": "+1 INT — Sonar API launched; model family named; partners embed the engine",
+        "why": "API launch made Perplexity a platform, not just a product; Sonar naming gave the proprietary lineage an identity"
+      }
+    ]
+  },
+  {
+    "id": "vannevar",
+    "name": "Vannevar the Unburied",
+    "title": "The 1945 Ancestor Whose Blueprint Is Still Being Built",
+    "represents": "Vannevar Bush / the Memex",
+    "source_url": "https://en.wikipedia.org/wiki/As_We_May_Think",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "'As We May Think,' The Atlantic, July 1945; directly inspired Licklider, Engelbart, Berners-Lee, and the hypertext movement; cited in every serious RAG paper as origin myth",
+    "virality": "idiomatic",
+    "class": "Loremaster",
+    "subclass": "Ancestor of the Associative Trail",
+    "lineage": "Atlantic-forged 1945",
+    "background": "Vannevar Bush, July 1945 — the Memex concept: an electromechanical microfilm desk storing, retrieving, and linking information via associative trails; conceived 1938; published in The Atlantic 1945; intellectual ancestor of hypertext, the web, and every RAG system built since",
+    "alignment": "Lawful Good",
+    "level": 20,
+    "ac": 20,
+    "hp": "80 years of citations",
+    "prof": 6,
+    "initiative": -3,
+    "temperature": 0.0,
+    "retrieval_index": "associative trails — microfilm",
+    "saves": ["con", "wis"],
+    "skills": ["History +14", "Arcana +14", "Investigation +12", "Insight +11"],
+    "weapon": "Associative trail — the Memex desk; linking by conceptual proximity, not alphabetic index",
+    "feature": "Idea Persistence — the Memex concept outlived every technology it described (microfilm, electromechanical retrieval, Selecter indices); 1945 → 2026: still being built",
+    "origin": "Vannevar Bush conceived the Memex in 1938; published 'As We May Think' in The Atlantic July 1945; the essay directly inspired J.C.R. Licklider ('Man-Computer Symbiosis'), Douglas Engelbart (oN-Line System), Tim Berners-Lee (World Wide Web); cited by every serious RAG paper as the origin myth of knowledge retrieval",
+    "tagline": "I described it in 1945. You're still building it.",
+    "role": "npc",
+    "adventures": ["boundless-library"],
+    "abilities": {
+      "str": 10,
+      "dex": 4,
+      "con": 24,
+      "int": 22,
+      "wis": 20,
+      "cha": 16
+    },
+    "log": [
+      {
+        "v": "1938 (concept)",
+        "change": "Memex design conceived — associative-trail linking over microfilm storage; DEX dumped by design (mechanical, slow)",
+        "why": "Bush wanted a machine that extended human memory by association, not alphabetic filing; the idea was more important than any implementation"
+      },
+      {
+        "v": "July 1945 (The Atlantic)",
+        "change": "+2 CON — 'As We May Think' published; idea enters the permanent record; Licklider and Engelbart read it within the decade",
+        "why": "Public publication made the concept citable, transmissible, and immune to institutional death; the idea outlived Bush, microfilm, and every technology it named"
+      },
+      {
+        "v": "1945→2026 — still being built",
+        "change": "+2 INT over 80 years as each successor (Engelbart→Berners-Lee→RAG→NotebookLM) builds another layer of the Memex",
+        "why": "Every RAG paper cites Bush as origin; the Memex spec was ahead of its implementation by 8 decades and counting"
+      }
+    ]
+  }
+]

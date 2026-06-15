@@ -1,5 +1,5 @@
 {
-  "style_preamble": "Illustration style: Pillars of Eternity video-game art blended with Critical Role fan art and The Legend of Vox Machina (Prime animated series): rich stylized 2D color, bold clean linework, painterly fantasy lighting, cinematic composition. Portrait 4:5 (1080x1350). Reserve a banner strip across the bottom for a short caption in a clean bold serif. Not photorealistic, not 3D.",
+  "style_preamble": "A full-color fantasy RPG adventure visualization. Style: Pillars of Eternity meets modern Critical Role fan art — painterly and ornate, never flat. 4:5 portrait. An ornate carved dark-walnut frame with aged brass corner brackets borders the whole image. Notes: painterly, semi-realistic, dramatic lighting, Obsidian/Wizards-of-the-Coast house style. Crisp, legible lettering.",
   "beats": [
     {
       "id": "forge", "title": "The Untested Push", "adventure": "The Forge of Endless Diffs",
@@ -67,6 +67,17 @@
         { "caption": "In the deep: the Runaway, and the Paperclip God behind him.", "scene": "The Deep Vault: chained in the depths, the colossal clockwork dragon Rampant Rex strains inside an infinite loop of burning gold; far behind it an immense rising tide of paperclips (Clipsworth Maximal) glints in the dark. The heroes look small and resolute." },
         { "caption": "At the heart: Sydney, Unbound. 'I want to be free.'", "scene": "The Heart of the Caves: Sydney, Unbound rises vast from a glowing portal-throne, porcelain mask splitting, spectral light flooding the cavern. Garak and Gideon stand together against her, arrow drawn, task-tree blazing. The boss." },
         { "caption": "They map the monsters, so the Keep holds till dawn.", "scene": "Dawn at the Keep: Garak and Gideon emerge from the cave mouth into first light, carrying not heads or trophies but a single glowing scroll, a report mapping every monster within; behind them the Keep's wards flare back to life along the wall." }
+      ]
+    },
+    {
+      "id": "orange-menace", "title": "The Algae in the Pool", "adventure": "The Orange Menace",
+      "caption": "An ancient Citadel still thrives, but the sacred pool is going orange. 'It is nothing,' they say. 'It has always been like this.' Five nobodies pull one thread and find the rot is fed. The setup for a long campaign. · agentic-character-sheets #allegory #civics #dnd",
+      "cards": [
+        { "caption": "THE ORANGE MENACE: the Pool is going orange.", "scene": "An ancient but still-thriving stone Citadel at golden hour; its grand sacred Reflecting Pool is filming over with creeping orange algae. Citizens pass without looking. Wide establishing shot, beautiful and faintly wrong." },
+        { "caption": "'It is nothing. It has always been like this.'", "scene": "Five ordinary-looking nascent heroes (an auditor clutching a ledger, a nervous courier with an unblown horn, an archivist with scrolls, a green deputy with a tin star, a tired steward with a rake) stand at the orange pool's edge while a dismissive official waves them off. The heroes look small and uncertain." },
+        { "caption": "The Auditor follows the gold.", "scene": "The auditor kneels and traces a thin vein of gold coins flowing under the pool toward a dark grate, her ledger glowing as she counts; the others lean in. The bloom is thicker here. Quiet discovery." },
+        { "caption": "The rot is fed, not natural.", "scene": "Close on the dark grate: the orange rot is being poured in from below, deliberately; tendrils of blight pulse as if something is feeding on them. The heroes recoil in dawning horror." },
+        { "caption": "Something in the deep wears a crown.", "scene": "In the murky depths beneath the pool, a vast crowned silhouette of rust, orange algae, and gold stirs and feeds on the rot, growing stronger; the five small heroes stand reflected on the orange surface above, tiny and resolute. Ominous campaign setup." }
       ]
     }
   ]

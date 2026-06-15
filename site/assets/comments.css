@@ -1,0 +1,328 @@
+/* ============================================================
+   CHARACTER SHEETS — COMMENTS.CSS
+   Flat editorial aesthetic. Matches styles.css tokens.
+   No shadows, radius ~0, mono eyebrows, serif prose.
+   ============================================================ */
+
+/* --- WIDGET WRAPPER -------------------------------------- */
+
+.cs-comments {
+  margin-top: 32px;
+  border-top: 1px solid var(--ruleSoft);
+  padding-top: 20px;
+}
+
+.cs-comments-anchor {
+  /* spacer so the widget appends cleanly at the end of any container */
+}
+
+/* --- TOGGLE BUTTON --------------------------------------- */
+
+.cs-comments-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.12s;
+  margin-bottom: 0;
+}
+
+.cs-comments-toggle:hover {
+  color: var(--ink);
+}
+
+.cs-comments-toggle[aria-expanded="true"] {
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.cs-comments-label {
+  /* text label */
+}
+
+.cs-comments-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 1px 6px;
+  border: 1px solid var(--ruleSoft);
+  border-radius: 2px;
+  color: var(--muted);
+  background: transparent;
+  min-width: 22px;
+  text-align: center;
+  transition: border-color 0.12s, color 0.12s;
+}
+
+.cs-comments-toggle:hover .cs-comments-badge,
+.cs-comments-toggle[aria-expanded="true"] .cs-comments-badge {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+/* --- PANEL ----------------------------------------------- */
+
+.cs-comments-panel {
+  display: none;
+}
+
+.cs-comments-panel.cs-comments-panel-open {
+  display: block;
+}
+
+/* --- COMMENT LIST ---------------------------------------- */
+
+.cs-comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.cs-comment-empty {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 12px 0;
+}
+
+/* --- INDIVIDUAL COMMENT ---------------------------------- */
+
+.cs-comment-item {
+  border-left: 2px solid var(--ruleSoft);
+  padding: 12px 0 12px 14px;
+  margin-bottom: 2px;
+  transition: border-color 0.12s;
+}
+
+.cs-comment-item.cs-comment-mine {
+  border-left-color: var(--ink);
+}
+
+.cs-comment-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.cs-comment-author {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.cs-comment-time {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.cs-comment-edited {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+.cs-comment-body {
+  font-family: var(--serif);
+  font-size: 0.9375rem;
+  color: var(--body);
+  line-height: 1.55;
+}
+
+.cs-comment-body code {
+  font-family: var(--mono);
+  font-size: 0.8125em;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+.cs-comment-body a {
+  color: var(--ink);
+  text-underline-offset: 2px;
+}
+
+.cs-comment-body a:hover {
+  color: var(--accent);
+}
+
+/* --- COMMENT ACTIONS (edit / delete) --------------------- */
+
+.cs-comment-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.cs-comment-action-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.12s;
+}
+
+.cs-comment-action-btn:hover {
+  color: var(--ink);
+}
+
+.cs-comment-action-delete:hover {
+  color: var(--accent);
+}
+
+/* --- ADD / EDIT FORM ------------------------------------- */
+
+.cs-comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid var(--ruleSoft);
+  padding-top: 16px;
+}
+
+.cs-comment-name-row {
+  display: flex;
+  gap: 8px;
+}
+
+.cs-comment-name-input {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 6px 10px;
+  border: 1px solid var(--ruleSoft);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.12s;
+  flex: 0 0 180px;
+}
+
+.cs-comment-name-input:focus {
+  border-color: var(--ink);
+}
+
+.cs-comment-name-input::placeholder {
+  color: var(--muted);
+}
+
+.cs-comment-textarea {
+  font-family: var(--serif);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  padding: 10px 12px;
+  border: 1px solid var(--ruleSoft);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--ink);
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.12s;
+  width: 100%;
+}
+
+.cs-comment-textarea:focus {
+  border-color: var(--ink);
+}
+
+.cs-comment-textarea::placeholder {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.cs-comment-edit-area {
+  margin-top: 8px;
+}
+
+.cs-comment-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cs-comment-err {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  margin-right: auto;
+}
+
+.cs-comment-submit {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: var(--ink);
+  color: var(--bg);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+
+.cs-comment-submit:hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+.cs-comment-submit:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.cs-comment-submit-sm {
+  padding: 4px 12px;
+}
+
+/* --- ADVENTURE PAGE: widget below each adventure block --- */
+
+.adventure-block .cs-comments {
+  margin-top: 24px;
+}
+
+/* --- BEATS PAGE: widget below each beat section ---------- */
+
+.beat-section .cs-comments {
+  margin-top: 24px;
+  padding: 0 0 32px 0;
+}
+
+/* --- RESPONSIVE ------------------------------------------ */
+
+@media (max-width: 768px) {
+  .cs-comment-name-input {
+    flex: 1 1 auto;
+  }
+}

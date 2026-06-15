@@ -60,6 +60,47 @@
   padding-left: 16px;
 }
 
+/* --- STYLE TOGGLE ----------------------------------------- */
+
+.beat-style-toggle {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.beat-style-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--ruleSoft);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s, background 0.12s;
+  white-space: nowrap;
+}
+
+.beat-style-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.beat-style-btn.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+.beat-style-btn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
 /* --- CAROUSEL WRAPPER ------------------------------------- */
 
 .carousel {

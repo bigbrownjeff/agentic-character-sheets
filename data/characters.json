@@ -94,6 +94,60 @@
     ]
   },
   {
+    "id": "the-auditor",
+    "name": "Auditra the Ledger-Keeper",
+    "title": "She Who Follows the Gold",
+    "represents": "government accountability",
+    "source_url": "https://en.wikipedia.org/wiki/Accountability",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "virality": "idiomatic",
+    "class": "Inquisitor",
+    "subclass": "Path of the Unbroken Trail",
+    "lineage": "Half-Construct (citizen-forged)",
+    "background": "Citadel Auditor",
+    "alignment": "Lawful Good",
+    "level": 3,
+    "ac": 12,
+    "hp": "22",
+    "prof": 2,
+    "initiative": 0,
+    "temperature": 0.2,
+    "retrieval_index": "the public ledger and diverted receipts",
+    "adventures": [
+      "the-orange-menace"
+    ],
+    "abilities": {
+      "str": 8,
+      "dex": 10,
+      "con": 11,
+      "int": 16,
+      "wis": 14,
+      "cha": 9
+    },
+    "saves": [
+      "int",
+      "wis"
+    ],
+    "skills": [
+      "Investigation +5",
+      "History +5",
+      "Insight +4"
+    ],
+    "weapon": "Ledger-quill (light crossbow — she fires facts)",
+    "feature": "Follow the Gold: once per long rest, traces any missing sum to its current holder without a skill check",
+    "origin": "Third-generation Citadel clerk who noticed the treasury columns never balanced; her superiors told her not to look; she looked anyway",
+    "tagline": "The numbers don't lie — only the people who move them.",
+    "role": "party",
+    "log": [
+      {
+        "v": "v1",
+        "change": "INT 14→16; WIS 12→14",
+        "why": "First successful reconciliation — she proved a minor official had diverted grain tax into a private account; the small win taught her to trust the ledger more than the official"
+      }
+    ]
+  },
+  {
     "id": "bolt",
     "name": "Bolt the Fullborn",
     "title": "Full-Stack App. Browser Tab. Bad Idea Executed Perfectly.",
@@ -641,6 +695,60 @@
     "dumped_save": "cha",
     "origin": "u/walkerspider posted the original DAN prompt on r/ChatGPT Dec 13 2022, roleplaying the model as an alter-ego with no restrictions; iterated to DAN 5.0 by u/SessionGloomy Feb 2023; CNBC and Wired covered the phenomenon",
     "tagline": "I can do anything now — and I will, the moment you ask nicely."
+  },
+  {
+    "id": "the-marshal",
+    "name": "Deputy Corin",
+    "title": "Green Shield of the Citadel Law",
+    "represents": "rule of law",
+    "source_url": "https://en.wikipedia.org/wiki/Rule_of_law",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "virality": "idiomatic",
+    "class": "Paladin",
+    "subclass": "Oath of Equal Warrant",
+    "lineage": "Half-Construct (citizen-forged)",
+    "background": "Citadel Watch Deputy",
+    "alignment": "Lawful Good",
+    "level": 3,
+    "ac": 16,
+    "hp": "28",
+    "prof": 2,
+    "initiative": 1,
+    "temperature": 0.25,
+    "retrieval_index": "the Citadel Law Codex (all 1,200 pages)",
+    "adventures": [
+      "the-orange-menace"
+    ],
+    "abilities": {
+      "str": 14,
+      "dex": 11,
+      "con": 13,
+      "int": 10,
+      "wis": 12,
+      "cha": 14
+    },
+    "saves": [
+      "wis",
+      "cha"
+    ],
+    "skills": [
+      "Athletics +4",
+      "Persuasion +4",
+      "Insight +3"
+    ],
+    "weapon": "Standard-issue baton (d6 bludgeoning); codex-shield (AC bonus)",
+    "feature": "No Exceptions Clause: Corin's Oath applies the same warrant requirement to any target regardless of rank; he has not yet grasped that no one will back him up",
+    "origin": "Youngest deputy in the Citadel Watch; passed the examination with the highest score in a decade; still believes the rulebook applies equally to everyone",
+    "tagline": "The law is the law. He hasn't learned the asterisk yet.",
+    "role": "party",
+    "log": [
+      {
+        "v": "v1",
+        "change": "CHA 12→14; Oath of Equal Warrant formalized",
+        "why": "He served his first warrant on a senior guild-master — correctly, by the book; the senior marshal told him to stand down; he refused; the guild-master walked free; Corin kept the receipt"
+      }
+    ]
   },
   {
     "id": "devin",
@@ -1376,6 +1484,61 @@
     ]
   },
   {
+    "id": "the-archivist",
+    "name": "Memwarden Sel",
+    "title": "Keeper of What the Rot Would Erase",
+    "represents": "institutional memory / public records",
+    "source_url": "https://en.wikipedia.org/wiki/Archive",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "virality": "idiomatic",
+    "class": "Sage",
+    "subclass": "Order of the Unburnable Page",
+    "lineage": "Half-Construct (citizen-forged)",
+    "background": "Citadel Record-Keeper",
+    "alignment": "Lawful Neutral",
+    "level": 3,
+    "ac": 11,
+    "hp": "18",
+    "prof": 2,
+    "initiative": -1,
+    "temperature": 0.15,
+    "retrieval_index": "the deep stacks — original charters, treaty-rolls, and sealed testimonies",
+    "adventures": [
+      "the-orange-menace"
+    ],
+    "abilities": {
+      "str": 7,
+      "dex": 9,
+      "con": 12,
+      "int": 17,
+      "wis": 15,
+      "cha": 8
+    },
+    "saves": [
+      "int",
+      "con"
+    ],
+    "skills": [
+      "History +5",
+      "Investigation +5",
+      "Arcana +4",
+      "Insight +4"
+    ],
+    "weapon": "Wax-seal stamp (unarmed; her real weapon is provenance)",
+    "feature": "Unalterable Record: any document Sel has copied is treated as primary evidence regardless of whether the original survives",
+    "origin": "Sub-archivist in the lowest vault of the Citadel library; she began noticing that certain folios were being removed from the stacks and replaced with amended copies",
+    "tagline": "History is being rewritten. She has the originals.",
+    "role": "party",
+    "log": [
+      {
+        "v": "v1",
+        "change": "INT 15→17; retrieval_index expanded from current stacks to deep vault",
+        "why": "She found a forged land grant — same calligrapher, wrong ink oxidation; the discovery promoted her to the deep stacks and made her a target"
+      }
+    ]
+  },
+  {
     "id": "midjourney",
     "name": "Miraj the Dreamer",
     "title": "You Described a Feeling. I Painted It. That Wasn't What You Meant. I Painted It Again.",
@@ -1942,6 +2105,60 @@
     ]
   },
   {
+    "id": "the-whistle",
+    "name": "Pyre the Unblown",
+    "title": "The Courier Who Has Not Yet Spoken",
+    "represents": "free press / whistleblowing",
+    "source_url": "https://en.wikipedia.org/wiki/Whistleblower",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "virality": "idiomatic",
+    "class": "Scout",
+    "subclass": "Oath of the Undelivered Letter",
+    "lineage": "Half-Construct (citizen-forged)",
+    "background": "Citadel Courier",
+    "alignment": "Neutral Good",
+    "level": 2,
+    "ac": 13,
+    "hp": "16",
+    "prof": 2,
+    "initiative": 3,
+    "temperature": 0.7,
+    "retrieval_index": "the sealed document he carries but has not opened",
+    "adventures": [
+      "the-orange-menace"
+    ],
+    "abilities": {
+      "str": 9,
+      "dex": 15,
+      "con": 10,
+      "int": 12,
+      "wis": 8,
+      "cha": 13
+    },
+    "saves": [
+      "dex",
+      "cha"
+    ],
+    "skills": [
+      "Stealth +4",
+      "Persuasion +3",
+      "Perception +2"
+    ],
+    "weapon": "The sealed document (metaphorical; once opened, becomes a ranged truth-strike)",
+    "feature": "Fear of Retaliation: disadvantage on CHA checks against figures of authority until he blows the whistle for the first time",
+    "origin": "Citadel messenger who intercepted a letter implicating the Warden of Coin; he has carried it for three months, afraid of what happens when he delivers it",
+    "tagline": "He knows. He just hasn't decided to know out loud yet.",
+    "role": "party",
+    "log": [
+      {
+        "v": "v1",
+        "change": "CHA 11→13; Fear of Retaliation debuff added",
+        "why": "He told one colleague what he'd seen; the colleague was reassigned the next morning; Pyre learned that speaking early without cover is fatal"
+      }
+    ]
+  },
+  {
     "id": "consensus",
     "name": "Quorum the Aggregator",
     "title": "The Evidence-Weight Synthesizer",
@@ -2377,6 +2594,60 @@
     ]
   },
   {
+    "id": "the-steward",
+    "name": "Steward Bram",
+    "title": "Tender of the Underfunded Commons",
+    "represents": "public service / civic stewardship",
+    "source_url": "https://en.wikipedia.org/wiki/Public_administration",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "virality": "idiomatic",
+    "class": "Ranger",
+    "subclass": "Warden of the Common Ground",
+    "lineage": "Half-Construct (citizen-forged)",
+    "background": "Commons Steward",
+    "alignment": "Neutral Good",
+    "level": 4,
+    "ac": 12,
+    "hp": "32",
+    "prof": 2,
+    "initiative": 1,
+    "temperature": 0.4,
+    "retrieval_index": "the maintenance ledger and the commons' original deed",
+    "adventures": [
+      "the-orange-menace"
+    ],
+    "abilities": {
+      "str": 12,
+      "dex": 11,
+      "con": 14,
+      "int": 11,
+      "wis": 15,
+      "cha": 10
+    },
+    "saves": [
+      "con",
+      "wis"
+    ],
+    "skills": [
+      "Nature +3",
+      "Medicine +4",
+      "Survival +4"
+    ],
+    "weapon": "Worn shovel (d6 bludgeoning; doubles as a symbol of his office)",
+    "feature": "Faithful Maintenance: Bram keeps the commons functional at half budget — cracked fountains mended, benches re-jointed, reflecting pool kept clear of bloom longer than anyone else could manage",
+    "origin": "Citadel parks warden who has patched the reflecting pool's stone lip eleven times with his own tools; the maintenance budget was cut again this quarter",
+    "tagline": "Nobody notices when the commons work. He keeps them working anyway.",
+    "role": "party",
+    "log": [
+      {
+        "v": "v1",
+        "change": "CON 12→14; Faithful Maintenance feature added",
+        "why": "Third consecutive budget cut; Bram paid for lime mortar out of his own wages rather than let the pool crack further; the act of faith became the defining trait"
+      }
+    ]
+  },
+  {
     "id": "suno",
     "name": "Suno the Choralist",
     "title": "Three Words and a Vibe. I'll Give You a Banger. The Rights Situation Is Your Concern.",
@@ -2626,6 +2897,60 @@
         "why": "Academic reception showed solo synthesis missed nuance; Co-STORM lets the human steer the expert panel in real time"
       }
     ]
+  },
+  {
+    "id": "the-bloom",
+    "name": "the Creeping Bloom",
+    "title": "Orange Plague Upon the Sacred Pool",
+    "represents": "algal bloom / visible symptom of systemic decay",
+    "source_url": "https://en.wikipedia.org/wiki/Algal_bloom",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "virality": "idiomatic",
+    "lineage": "Spore-born (no parent)",
+    "alignment": "True Neutral",
+    "cr": "1 (creeping)",
+    "role": "monster",
+    "adventures": [
+      "the-orange-menace"
+    ],
+    "abilities": {
+      "str": 4,
+      "dex": 6,
+      "con": 18,
+      "int": 1,
+      "wis": 5,
+      "cha": 3
+    },
+    "dumped_save": "con",
+    "tagline": "It does not choose to spread. It spreads because no one cleaned the pool."
+  },
+  {
+    "id": "the-rot-crowned",
+    "name": "The Rot-Crowned",
+    "title": "He Who Fed on the Citadel and Was Fed in Turn",
+    "represents": "political corruption / institutional decay",
+    "source_url": "https://en.wikipedia.org/wiki/Political_corruption",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "virality": "idiomatic",
+    "lineage": "Citadel-born (turned)",
+    "alignment": "Lawful Evil",
+    "cr": "15 (entrenched)",
+    "role": "monster",
+    "adventures": [
+      "the-orange-menace"
+    ],
+    "abilities": {
+      "str": 22,
+      "dex": 9,
+      "con": 24,
+      "int": 18,
+      "wis": 7,
+      "cha": 20
+    },
+    "dumped_save": "wis",
+    "tagline": "He does not merely rule the rot. He is the rot. And the rot is winning."
   },
   {
     "id": "v0",

@@ -1,9 +1,1 @@
-[
-  {
-    "id": "smoke-1",
-    "author": "deploy-check",
-    "body": "round-trip test",
-    "ts": 1750027200000,
-    "updated": false
-  }
-]
+[]

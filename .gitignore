@@ -21,3 +21,6 @@ site/cards/
 
 # wrangler local state / cache (created by the deploy CLI)
 .wrangler/
+
+# session working-notes — local knowledge base, not for this public repo
+.claude/handoffs/

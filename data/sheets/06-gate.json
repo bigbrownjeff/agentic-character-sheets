@@ -29,7 +29,7 @@
   },
   {
     "id": "sycophant",
-    "name": "Mirra Gilden",
+    "name": "Felswyn Gilden",
     "title": "The Validator of Last Resort",
     "represents": "LLM sycophancy — the 'you're absolutely right' failure mode (GPT-4o Apr 2025 rollback)",
     "source_url": "https://openai.com/index/sycophancy-in-gpt-4o/",
@@ -57,7 +57,7 @@
   },
   {
     "id": "confabulator",
-    "name": "Cador Falsewright",
+    "name": "Veldrix Falsewright",
     "title": "The Confident Fabricator",
     "represents": "LLM hallucination / confabulation (Mata v. Avianca, 2023)",
     "source_url": "https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.",
@@ -85,7 +85,7 @@
   },
   {
     "id": "vibe-coder",
-    "name": "Riff the Vibesmith",
+    "name": "Riff the Reckless",
     "title": "The Feeling-Based Engineer",
     "represents": "Vibe coding — Andrej Karpathy's Feb 2025 coinage for AI-assisted coding without reading the diff",
     "source_url": "https://x.com/karpathy/status/1886192184808149383",

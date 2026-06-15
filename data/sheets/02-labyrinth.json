@@ -184,7 +184,7 @@
   },
   {
     "id": "langgraph",
-    "name": "Graphweave",
+    "name": "Nylvorn the Weft",
     "title": "Node 7 → Checkpoint → Node 7 → Checkpoint",
     "represents": "LangGraph (LangChain AI)",
     "source_url": "https://github.com/langchain-ai/langgraph",

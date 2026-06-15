@@ -1,0 +1,339 @@
+/* ============================================================
+   CHARACTER SHEETS — BEATS.CSS
+   Carousel styles for beats.html only.
+   Relies on tokens in styles.css (:root variables).
+   ============================================================ */
+
+/* --- BEATS CONTAINER -------------------------------------- */
+
+.beats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* --- BEAT SECTION ----------------------------------------- */
+
+.beat-section {
+  border-top: 2px solid var(--rule);
+  padding: 48px 0;
+}
+
+.beat-section:last-child {
+  border-bottom: 2px solid var(--rule);
+}
+
+/* --- BEAT HEADER ------------------------------------------ */
+
+.beat-header {
+  margin-bottom: 32px;
+}
+
+.beat-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.beat-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.beat-caption {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--muted);
+  max-width: 640px;
+  line-height: 1.55;
+  border-left: 2px solid var(--ruleSoft);
+  padding-left: 16px;
+}
+
+/* --- CAROUSEL WRAPPER ------------------------------------- */
+
+.carousel {
+  position: relative;
+  outline: none;
+  /* Show a subtle focus ring when the carousel itself is focused (keyboard nav) */
+}
+
+.carousel:focus-visible {
+  box-shadow: 0 0 0 2px var(--ink);
+}
+
+/* --- TRACK / SLIDES --------------------------------------- */
+
+.carousel-track {
+  position: relative;
+  /* All slides stacked; only .carousel-slide-active is visible */
+}
+
+.carousel-slide {
+  display: none;
+  position: relative;
+  width: 100%;
+  /* 4:5 aspect on the image area */
+  aspect-ratio: 4 / 5;
+  max-height: 75vh;       /* never taller than viewport on desktop */
+  background: var(--ink); /* fallback while image loads */
+  overflow: hidden;
+}
+
+.carousel-slide-active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The image fills the slide */
+.carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Removed: pointer-events; allow default */
+}
+
+/* Text card fallback — shown when image errors */
+.carousel-text-card {
+  display: none; /* revealed by JS on img error */
+  width: 100%;
+  height: 100%;
+  background: var(--paper);
+  border: 1px solid var(--ruleSoft);
+  padding: 32px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .carousel-text-card visibility is set entirely by JS (img error handler) */
+
+.carousel-text-scene {
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  font-style: italic;
+  color: var(--body);
+  line-height: 1.65;
+  text-align: center;
+  max-width: 52ch;
+}
+
+/* Caption banner — bottom overlay on image; bottom section on text card */
+.carousel-caption-banner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(14, 17, 22, 0.82); /* --ink at 82% opacity */
+  padding: 12px 20px;
+  pointer-events: none;
+}
+
+.carousel-caption-banner span {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #F1ECE2; /* --bg equivalent on dark surface */
+  line-height: 1.45;
+  display: block;
+}
+
+/* When text card is active (img hidden by JS), the caption banner
+   repositions itself — handled via .carousel-slide-text-fallback
+   class added by JS on img error. */
+.carousel-slide-text-fallback .carousel-caption-banner {
+  position: relative;
+  background: var(--ink);
+}
+
+/* --- CONTROLS -------------------------------------------- */
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0 0;
+  flex-wrap: wrap;
+}
+
+/* Prev / Next buttons */
+.carousel-btn {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  background: none;
+  border: 1px solid var(--ruleSoft);
+  border-radius: 2px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 6px 14px;
+  line-height: 1;
+  transition: border-color 0.12s, color 0.12s;
+  flex-shrink: 0;
+}
+
+.carousel-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.carousel-btn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Counter */
+.carousel-counter {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: auto; /* push counter to the right of dots */
+}
+
+/* Dots */
+.carousel-dots {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 0; /* flat, editorial */
+  background: var(--ruleSoft);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.12s;
+  flex-shrink: 0;
+}
+
+.carousel-dot:hover {
+  background: var(--muted);
+}
+
+.carousel-dot.active {
+  background: var(--ink);
+}
+
+.carousel-dot:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* --- ERROR STATE ------------------------------------------ */
+
+.beats-error {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  padding: 24px 0;
+}
+
+/* --- INDEX PAGE: BODY NAV LINKS -------------------------- */
+
+.body-nav-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.body-nav-links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--body);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ruleSoft);
+  padding-bottom: 1px;
+  transition: color 0.12s, border-color 0.12s;
+}
+
+.body-nav-links a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.body-nav-top {
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--ruleSoft);
+}
+
+.body-nav-bottom {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ruleSoft);
+}
+
+/* --- RESPONSIVE ------------------------------------------ */
+
+@media (max-width: 768px) {
+  .beat-section {
+    padding: 36px 0;
+  }
+
+  .beat-title {
+    font-size: 1.375rem;
+  }
+
+  .carousel-slide {
+    max-height: 80vw; /* on mobile, let the 4:5 ratio breathe */
+  }
+
+  .carousel-caption-banner {
+    padding: 10px 14px;
+  }
+
+  .carousel-caption-banner span {
+    font-size: 10px;
+  }
+
+  .carousel-controls {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .beat-title {
+    font-size: 1.25rem;
+  }
+
+  .carousel-text-scene {
+    font-size: 0.9375rem;
+  }
+
+  .carousel-caption-banner span {
+    font-size: 9px;
+  }
+
+  /* On very small screens, let slide be full-width natural height */
+  .carousel-slide {
+    max-height: none;
+    aspect-ratio: 4 / 5;
+  }
+
+  .carousel-btn {
+    padding: 6px 10px;
+  }
+}

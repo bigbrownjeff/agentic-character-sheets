@@ -15,3 +15,6 @@ Thumbs.db
 # downstream / Instagram card export — kept local, out of the repo
 render/
 local/
+
+# generated beat-card images (local viewing only)
+site/cards/

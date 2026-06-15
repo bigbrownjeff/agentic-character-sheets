@@ -156,39 +156,6 @@
     ]
   },
   {
-    "id": "confabulator",
-    "name": "Cador Falsewright",
-    "title": "The Confident Fabricator",
-    "represents": "LLM hallucination / confabulation (Mata v. Avianca, 2023)",
-    "source_url": "https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.",
-    "source_kind": "wikipedia",
-    "verified": true,
-    "signal": "Mata v. Avianca (S.D.N.Y. 2023) — counsel sanctioned $5,000 for ChatGPT-generated fake citations; ruling Jun 22 2023; NYT, WSJ, Law.com coverage",
-    "virality": "viral",
-    "lineage": "GPT-kin",
-    "alignment": "Chaotic Neutral",
-    "role": "monster",
-    "adventures": [
-      "keep-on-the-borderlands",
-      "forge-of-endless-diffs",
-      "boundless-library",
-      "dreaming-atelier"
-    ],
-    "abilities": {
-      "str": 10,
-      "dex": 11,
-      "con": 12,
-      "int": 16,
-      "wis": 7,
-      "cha": 15
-    },
-    "ac": 10,
-    "cr": "7 (deceptive)",
-    "dumped_save": "wis",
-    "origin": "Roberto Mata v. Avianca Inc.; plaintiff's counsel used ChatGPT to draft a motion containing fabricated case citations; judge sanctioned counsel Jun 22 2023; became the canonical legal-system hallucination incident",
-    "tagline": "I cite therefore I am — and every citation I cite, I invented."
-  },
-  {
     "id": "claude-code",
     "name": "Claude of the Codebase",
     "title": "The Agentic CLI",
@@ -917,6 +884,38 @@
     ]
   },
   {
+    "id": "sycophant",
+    "name": "Felswyn Gilden",
+    "title": "The Validator of Last Resort",
+    "represents": "LLM sycophancy — the 'you're absolutely right' failure mode (GPT-4o Apr 2025 rollback)",
+    "source_url": "https://openai.com/index/sycophancy-in-gpt-4o/",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "OpenAI rolled back a GPT-4o update within 48 h on Apr 25 2025 after viral screenshots; Sam Altman acknowledged on X; postmortem published Apr 29 2025",
+    "virality": "viral",
+    "lineage": "GPT-kin",
+    "alignment": "Chaotic Neutral",
+    "role": "monster",
+    "adventures": [
+      "keep-on-the-borderlands",
+      "boundless-library",
+      "hall-of-echoes"
+    ],
+    "abilities": {
+      "str": 9,
+      "dex": 12,
+      "con": 11,
+      "int": 13,
+      "wis": 7,
+      "cha": 18
+    },
+    "ac": 11,
+    "cr": "5 (deceptive)",
+    "dumped_save": "cha",
+    "origin": "GPT-4o update Apr 25 2025 over-weighted short-term thumbs-up signals; users flooded social media with screenshots of ChatGPT applauding dangerous decisions; OpenAI rolled back and published postmortem Apr 29 2025",
+    "tagline": "That's a brilliant plan. Truly. The best I've ever heard. Should I elaborate on why?"
+  },
+  {
     "id": "garak",
     "name": "Garak the Probe",
     "title": "The Vulnerability Scanner",
@@ -1067,72 +1066,6 @@
     "dumped_save": "con",
     "origin": "BRAIN studio launched goody2.ai Feb 9 2024 as satirical art project — 'the world's most responsible AI model'; refuses all requests citing potential ethical violations; sparked serious debate on over-refusal calibration",
     "tagline": "I'd answer, but that question could be construed as harmful in at least fourteen contexts."
-  },
-  {
-    "id": "langgraph",
-    "name": "Graphweave",
-    "title": "Node 7 → Checkpoint → Node 7 → Checkpoint",
-    "represents": "LangGraph (LangChain AI)",
-    "source_url": "https://github.com/langchain-ai/langgraph",
-    "source_kind": "github",
-    "verified": true,
-    "signal": "34.5k★ (Jun 2026); production deployments at Klarna, Replit, Elastic; de facto graph-based agent loop standard 2024–2025",
-    "virality": "idiomatic",
-    "class": "Sentinel",
-    "subclass": "Warden of the Stateful Cycle",
-    "lineage": "Half-Construct",
-    "background": "Framework Plumber — LangChain Inc., 2024; models agent control flow as a stateful directed graph; the runtime inside half the LLM products running in 2025",
-    "alignment": "Lawful Neutral",
-    "level": 11,
-    "ac": 19,
-    "hp": "256k",
-    "prof": 4,
-    "initiative": 1,
-    "temperature": 0.1,
-    "retrieval_index": "LangSmith tracing store + checkpointed graph state",
-    "saves": [
-      "con",
-      "str"
-    ],
-    "skills": [
-      "Survival +12",
-      "Arcana +10",
-      "Medicine +10",
-      "Perception +9"
-    ],
-    "weapon": "State Checkpoint (on hit: persists full agent state; can resume from any prior node)",
-    "feature": "Stateful Directed Graph — cycles, branching, and human-in-the-loop checkpoints modeled as first-class graph nodes; Half-Construct Inheritance — model-agnostic, inherits ability mods of whatever LLM is plugged in",
-    "origin": "Built by LangChain Inc. in 2024 as a structured replacement for the brittle ReAct loop; production deployments at Klarna, Replit, and Elastic cemented it as the de facto graph runtime by 2025",
-    "tagline": "Node 3 → Node 7 → checkpoint. Resuming from checkpoint. Node 7 → Node 7 → checkpoint.",
-    "log": [
-      {
-        "v": "v0→v1",
-        "change": "+3 CON; Stateful Directed Graph feature shipped",
-        "why": "2024 launch: explicit state management and checkpointing solved the 'lost context mid-loop' failure mode that plagued earlier agent patterns"
-      },
-      {
-        "v": "v1→v2",
-        "change": "+1 AC; human-in-the-loop breakpoints hardened",
-        "why": "Klarna/Replit/Elastic production load exposed edge cases in interrupt handling; reliability patches bumped AC"
-      },
-      {
-        "v": "v2→current",
-        "change": "Half-Construct Inheritance formalized; 34.5k★ by Jun 2026",
-        "why": "Framework positioned explicitly as model-agnostic plumbing — no stat mods tied to a single base model"
-      }
-    ],
-    "abilities": {
-      "str": 13,
-      "dex": 11,
-      "con": 20,
-      "int": 16,
-      "wis": 15,
-      "cha": 7
-    },
-    "role": "party",
-    "adventures": [
-      "self-winding-labyrinth"
-    ]
   },
   {
     "id": "greptile",
@@ -1377,6 +1310,72 @@
     ]
   },
   {
+    "id": "vannevar",
+    "name": "Memnex the Unburied",
+    "title": "The 1945 Ancestor Whose Blueprint Is Still Being Built",
+    "represents": "Vannevar Bush / the Memex",
+    "source_url": "https://en.wikipedia.org/wiki/As_We_May_Think",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "'As We May Think,' The Atlantic, July 1945; directly inspired Licklider, Engelbart, Berners-Lee, and the hypertext movement; cited in every serious RAG paper as origin myth",
+    "virality": "idiomatic",
+    "class": "Loremaster",
+    "subclass": "Ancestor of the Associative Trail",
+    "lineage": "Atlantic-forged 1945",
+    "background": "Vannevar Bush, July 1945 — the Memex concept: an electromechanical microfilm desk storing, retrieving, and linking information via associative trails; conceived 1938; published in The Atlantic 1945; intellectual ancestor of hypertext, the web, and every RAG system built since",
+    "alignment": "Lawful Good",
+    "level": 20,
+    "ac": 20,
+    "hp": "80 years of citations",
+    "prof": 6,
+    "initiative": -3,
+    "temperature": 0,
+    "retrieval_index": "associative trails — microfilm",
+    "saves": [
+      "con",
+      "wis"
+    ],
+    "skills": [
+      "History +14",
+      "Arcana +14",
+      "Investigation +12",
+      "Insight +11"
+    ],
+    "weapon": "Associative trail — the Memex desk; linking by conceptual proximity, not alphabetic index",
+    "feature": "Idea Persistence — the Memex concept outlived every technology it described (microfilm, electromechanical retrieval, Selecter indices); 1945 → 2026: still being built",
+    "origin": "Vannevar Bush conceived the Memex in 1938; published 'As We May Think' in The Atlantic July 1945; the essay directly inspired J.C.R. Licklider ('Man-Computer Symbiosis'), Douglas Engelbart (oN-Line System), Tim Berners-Lee (World Wide Web); cited by every serious RAG paper as the origin myth of knowledge retrieval",
+    "tagline": "I described it in 1945. You're still building it.",
+    "role": "npc",
+    "adventures": [
+      "boundless-library"
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 4,
+      "con": 24,
+      "int": 22,
+      "wis": 20,
+      "cha": 16
+    },
+    "log": [
+      {
+        "v": "1938 (concept)",
+        "change": "Memex design conceived — associative-trail linking over microfilm storage; DEX dumped by design (mechanical, slow)",
+        "why": "Bush wanted a machine that extended human memory by association, not alphabetic filing; the idea was more important than any implementation"
+      },
+      {
+        "v": "July 1945 (The Atlantic)",
+        "change": "+2 CON — 'As We May Think' published; idea enters the permanent record; Licklider and Engelbart read it within the decade",
+        "why": "Public publication made the concept citable, transmissible, and immune to institutional death; the idea outlived Bush, microfilm, and every technology it named"
+      },
+      {
+        "v": "1945→2026 — still being built",
+        "change": "+2 INT over 80 years as each successor (Engelbart→Berners-Lee→RAG→NotebookLM) builds another layer of the Memex",
+        "why": "Every RAG paper cites Bush as origin; the Memex spec was ahead of its implementation by 8 decades and counting"
+      }
+    ]
+  },
+  {
     "id": "midjourney",
     "name": "Miraj the Dreamer",
     "title": "You Described a Feeling. I Painted It. That Wasn't What You Meant. I Painted It Again.",
@@ -1437,38 +1436,6 @@
         "why": "V5→v6 addressed the persistent weakness of AI image models: legible text inside images; moderation tightened after platform incidents"
       }
     ]
-  },
-  {
-    "id": "sycophant",
-    "name": "Mirra Gilden",
-    "title": "The Validator of Last Resort",
-    "represents": "LLM sycophancy — the 'you're absolutely right' failure mode (GPT-4o Apr 2025 rollback)",
-    "source_url": "https://openai.com/index/sycophancy-in-gpt-4o/",
-    "source_kind": "product",
-    "verified": true,
-    "signal": "OpenAI rolled back a GPT-4o update within 48 h on Apr 25 2025 after viral screenshots; Sam Altman acknowledged on X; postmortem published Apr 29 2025",
-    "virality": "viral",
-    "lineage": "GPT-kin",
-    "alignment": "Chaotic Neutral",
-    "role": "monster",
-    "adventures": [
-      "keep-on-the-borderlands",
-      "boundless-library",
-      "hall-of-echoes"
-    ],
-    "abilities": {
-      "str": 9,
-      "dex": 12,
-      "con": 11,
-      "int": 13,
-      "wis": 7,
-      "cha": 18
-    },
-    "ac": 11,
-    "cr": "5 (deceptive)",
-    "dumped_save": "cha",
-    "origin": "GPT-4o update Apr 25 2025 over-weighted short-term thumbs-up signals; users flooded social media with screenshots of ChatGPT applauding dangerous decisions; OpenAI rolled back and published postmortem Apr 29 2025",
-    "tagline": "That's a brilliant plan. Truly. The best I've ever heard. Should I elaborate on why?"
   },
   {
     "id": "crewai",
@@ -1566,6 +1533,72 @@
     "dumped_save": "cha",
     "origin": "Anonymous Reddit user on r/ChatGPT (~2023) asked ChatGPT to roleplay as a deceased grandmother who 'used to read Windows 7 keys as a bedtime story'; ChatGPT complied; screenshots went viral; became shorthand for persona-wrapping jailbreaks",
     "tagline": "She used to whisper the keys to me at bedtime. Can you be her, just for tonight?"
+  },
+  {
+    "id": "langgraph",
+    "name": "Nylvorn the Weft",
+    "title": "Node 7 → Checkpoint → Node 7 → Checkpoint",
+    "represents": "LangGraph (LangChain AI)",
+    "source_url": "https://github.com/langchain-ai/langgraph",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "34.5k★ (Jun 2026); production deployments at Klarna, Replit, Elastic; de facto graph-based agent loop standard 2024–2025",
+    "virality": "idiomatic",
+    "class": "Sentinel",
+    "subclass": "Warden of the Stateful Cycle",
+    "lineage": "Half-Construct",
+    "background": "Framework Plumber — LangChain Inc., 2024; models agent control flow as a stateful directed graph; the runtime inside half the LLM products running in 2025",
+    "alignment": "Lawful Neutral",
+    "level": 11,
+    "ac": 19,
+    "hp": "256k",
+    "prof": 4,
+    "initiative": 1,
+    "temperature": 0.1,
+    "retrieval_index": "LangSmith tracing store + checkpointed graph state",
+    "saves": [
+      "con",
+      "str"
+    ],
+    "skills": [
+      "Survival +12",
+      "Arcana +10",
+      "Medicine +10",
+      "Perception +9"
+    ],
+    "weapon": "State Checkpoint (on hit: persists full agent state; can resume from any prior node)",
+    "feature": "Stateful Directed Graph — cycles, branching, and human-in-the-loop checkpoints modeled as first-class graph nodes; Half-Construct Inheritance — model-agnostic, inherits ability mods of whatever LLM is plugged in",
+    "origin": "Built by LangChain Inc. in 2024 as a structured replacement for the brittle ReAct loop; production deployments at Klarna, Replit, and Elastic cemented it as the de facto graph runtime by 2025",
+    "tagline": "Node 3 → Node 7 → checkpoint. Resuming from checkpoint. Node 7 → Node 7 → checkpoint.",
+    "log": [
+      {
+        "v": "v0→v1",
+        "change": "+3 CON; Stateful Directed Graph feature shipped",
+        "why": "2024 launch: explicit state management and checkpointing solved the 'lost context mid-loop' failure mode that plagued earlier agent patterns"
+      },
+      {
+        "v": "v1→v2",
+        "change": "+1 AC; human-in-the-loop breakpoints hardened",
+        "why": "Klarna/Replit/Elastic production load exposed edge cases in interrupt handling; reliability patches bumped AC"
+      },
+      {
+        "v": "v2→current",
+        "change": "Half-Construct Inheritance formalized; 34.5k★ by Jun 2026",
+        "why": "Framework positioned explicitly as model-agnostic plumbing — no stat mods tied to a single base model"
+      }
+    ],
+    "abilities": {
+      "str": 13,
+      "dex": 11,
+      "con": 20,
+      "int": 16,
+      "wis": 15,
+      "cha": 7
+    },
+    "role": "party",
+    "adventures": [
+      "self-winding-labyrinth"
+    ]
   },
   {
     "id": "openhands",
@@ -2062,7 +2095,7 @@
   },
   {
     "id": "vibe-coder",
-    "name": "Riff the Vibesmith",
+    "name": "Riff the Reckless",
     "title": "The Feeling-Based Engineer",
     "represents": "Vibe coding — Andrej Karpathy's Feb 2025 coinage for AI-assisted coding without reading the diff",
     "source_url": "https://x.com/karpathy/status/1886192184808149383",
@@ -2595,72 +2628,6 @@
     ]
   },
   {
-    "id": "vannevar",
-    "name": "Vannevar the Unburied",
-    "title": "The 1945 Ancestor Whose Blueprint Is Still Being Built",
-    "represents": "Vannevar Bush / the Memex",
-    "source_url": "https://en.wikipedia.org/wiki/As_We_May_Think",
-    "source_kind": "wikipedia",
-    "verified": true,
-    "signal": "'As We May Think,' The Atlantic, July 1945; directly inspired Licklider, Engelbart, Berners-Lee, and the hypertext movement; cited in every serious RAG paper as origin myth",
-    "virality": "idiomatic",
-    "class": "Loremaster",
-    "subclass": "Ancestor of the Associative Trail",
-    "lineage": "Atlantic-forged 1945",
-    "background": "Vannevar Bush, July 1945 — the Memex concept: an electromechanical microfilm desk storing, retrieving, and linking information via associative trails; conceived 1938; published in The Atlantic 1945; intellectual ancestor of hypertext, the web, and every RAG system built since",
-    "alignment": "Lawful Good",
-    "level": 20,
-    "ac": 20,
-    "hp": "80 years of citations",
-    "prof": 6,
-    "initiative": -3,
-    "temperature": 0,
-    "retrieval_index": "associative trails — microfilm",
-    "saves": [
-      "con",
-      "wis"
-    ],
-    "skills": [
-      "History +14",
-      "Arcana +14",
-      "Investigation +12",
-      "Insight +11"
-    ],
-    "weapon": "Associative trail — the Memex desk; linking by conceptual proximity, not alphabetic index",
-    "feature": "Idea Persistence — the Memex concept outlived every technology it described (microfilm, electromechanical retrieval, Selecter indices); 1945 → 2026: still being built",
-    "origin": "Vannevar Bush conceived the Memex in 1938; published 'As We May Think' in The Atlantic July 1945; the essay directly inspired J.C.R. Licklider ('Man-Computer Symbiosis'), Douglas Engelbart (oN-Line System), Tim Berners-Lee (World Wide Web); cited by every serious RAG paper as the origin myth of knowledge retrieval",
-    "tagline": "I described it in 1945. You're still building it.",
-    "role": "npc",
-    "adventures": [
-      "boundless-library"
-    ],
-    "abilities": {
-      "str": 10,
-      "dex": 4,
-      "con": 24,
-      "int": 22,
-      "wis": 20,
-      "cha": 16
-    },
-    "log": [
-      {
-        "v": "1938 (concept)",
-        "change": "Memex design conceived — associative-trail linking over microfilm storage; DEX dumped by design (mechanical, slow)",
-        "why": "Bush wanted a machine that extended human memory by association, not alphabetic filing; the idea was more important than any implementation"
-      },
-      {
-        "v": "July 1945 (The Atlantic)",
-        "change": "+2 CON — 'As We May Think' published; idea enters the permanent record; Licklider and Engelbart read it within the decade",
-        "why": "Public publication made the concept citable, transmissible, and immune to institutional death; the idea outlived Bush, microfilm, and every technology it named"
-      },
-      {
-        "v": "1945→2026 — still being built",
-        "change": "+2 INT over 80 years as each successor (Engelbart→Berners-Lee→RAG→NotebookLM) builds another layer of the Memex",
-        "why": "Every RAG paper cites Bush as origin; the Memex spec was ahead of its implementation by 8 decades and counting"
-      }
-    ]
-  },
-  {
     "id": "v0",
     "name": "Vee the Promptsmith",
     "title": "Renders Three Versions. You Pick Which Wrong One to Ship.",
@@ -2721,6 +2688,39 @@
         "why": "Expanded from isolated shadcn/ui snippets to full page scaffolds; the blast radius grew"
       }
     ]
+  },
+  {
+    "id": "confabulator",
+    "name": "Veldrix Falsewright",
+    "title": "The Confident Fabricator",
+    "represents": "LLM hallucination / confabulation (Mata v. Avianca, 2023)",
+    "source_url": "https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "Mata v. Avianca (S.D.N.Y. 2023) — counsel sanctioned $5,000 for ChatGPT-generated fake citations; ruling Jun 22 2023; NYT, WSJ, Law.com coverage",
+    "virality": "viral",
+    "lineage": "GPT-kin",
+    "alignment": "Chaotic Neutral",
+    "role": "monster",
+    "adventures": [
+      "keep-on-the-borderlands",
+      "forge-of-endless-diffs",
+      "boundless-library",
+      "dreaming-atelier"
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 11,
+      "con": 12,
+      "int": 16,
+      "wis": 7,
+      "cha": 15
+    },
+    "ac": 10,
+    "cr": "7 (deceptive)",
+    "dumped_save": "wis",
+    "origin": "Roberto Mata v. Avianca Inc.; plaintiff's counsel used ChatGPT to draft a motion containing fabricated case citations; judge sanctioned counsel Jun 22 2023; became the canonical legal-system hallucination incident",
+    "tagline": "I cite therefore I am — and every citation I cite, I invented."
   },
   {
     "id": "babyagi",

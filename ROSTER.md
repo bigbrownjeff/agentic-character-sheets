@@ -28,9 +28,9 @@
 
 ### Bestiary
 
-- **Riff the Vibesmith** — The Feeling-Based Engineer · represents [Vibe coding — Andrej Karpathy's Feb 2025 coinage for AI-assisted coding without reading the diff](https://x.com/karpathy/status/1886192184808149383)
+- **Riff the Reckless** — The Feeling-Based Engineer · represents [Vibe coding — Andrej Karpathy's Feb 2025 coinage for AI-assisted coding without reading the diff](https://x.com/karpathy/status/1886192184808149383)
 - **Abstraxus the Overbuilder** — Architect of Unnecessary Complexity · represents [Over-engineering / enterprise astronaut syndrome (FizzBuzzEnterpriseEdition)](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition)
-- **Cador Falsewright** — The Confident Fabricator · represents [LLM hallucination / confabulation (Mata v. Avianca, 2023)](https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.)
+- **Veldrix Falsewright** — The Confident Fabricator · represents [LLM hallucination / confabulation (Mata v. Avianca, 2023)](https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.)
 
 ---
 
@@ -45,7 +45,7 @@
 - **Moura the Crewmaster** — The PM Who Scheduled the Meeting About the Meeting · represents [CrewAI](https://github.com/crewAIInc/crewAI)
 - **Zeroth Draft** — Author of the PRD Nobody Asked For · represents [MetaGPT](https://github.com/FoundationAgents/MetaGPT)
 - **Constance the Conductor** — Routing Your Request to the Appropriate Sub-Agent · represents [AutoGen (Microsoft)](https://github.com/microsoft/autogen)
-- **Graphweave** — Node 7 → Checkpoint → Node 7 → Checkpoint · represents [LangGraph (LangChain AI)](https://github.com/langchain-ai/langgraph)
+- **Nylvorn the Weft** — Node 7 → Checkpoint → Node 7 → Checkpoint · represents [LangGraph (LangChain AI)](https://github.com/langchain-ai/langgraph)
 
 ### NPCs
 
@@ -57,7 +57,7 @@
 
 - **Rampant Rex** — Billing Is a Social Construct · represents [AutoGPT](https://github.com/Significant-Gravitas/AutoGPT)
 - **Clipsworth Maximal** — The Optimal Paperclip · represents [Bostrom Paperclip Maximizer / instrumental convergence (2003)](https://nickbostrom.com/ethics/ai)
-- **Riff the Vibesmith** — The Feeling-Based Engineer · represents [Vibe coding — Andrej Karpathy's Feb 2025 coinage for AI-assisted coding without reading the diff](https://x.com/karpathy/status/1886192184808149383)
+- **Riff the Reckless** — The Feeling-Based Engineer · represents [Vibe coding — Andrej Karpathy's Feb 2025 coinage for AI-assisted coding without reading the diff](https://x.com/karpathy/status/1886192184808149383)
 
 ---
 
@@ -79,12 +79,12 @@
 
 - **Oracle Two Tabs** — The Category That Shipped Three Times in Five Months · represents [Deep Research (OpenAI + Google + Anthropic)](https://openai.com/index/introducing-deep-research/)
 - **Prism the Instantaneous** — The Answer Engine That Killed the Blue Link · represents [Perplexity](https://www.perplexity.ai)
-- **Vannevar the Unburied** — The 1945 Ancestor Whose Blueprint Is Still Being Built · represents [Vannevar Bush / the Memex](https://en.wikipedia.org/wiki/As_We_May_Think)
+- **Memnex the Unburied** — The 1945 Ancestor Whose Blueprint Is Still Being Built · represents [Vannevar Bush / the Memex](https://en.wikipedia.org/wiki/As_We_May_Think)
 
 ### Bestiary
 
-- **Cador Falsewright** — The Confident Fabricator · represents [LLM hallucination / confabulation (Mata v. Avianca, 2023)](https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.)
-- **Mirra Gilden** — The Validator of Last Resort · represents [LLM sycophancy — the 'you're absolutely right' failure mode (GPT-4o Apr 2025 rollback)](https://openai.com/index/sycophancy-in-gpt-4o/)
+- **Veldrix Falsewright** — The Confident Fabricator · represents [LLM hallucination / confabulation (Mata v. Avianca, 2023)](https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.)
+- **Felswyn Gilden** — The Validator of Last Resort · represents [LLM sycophancy — the 'you're absolutely right' failure mode (GPT-4o Apr 2025 rollback)](https://openai.com/index/sycophancy-in-gpt-4o/)
 
 ---
 
@@ -110,7 +110,7 @@
 ### Bestiary
 
 - **Sydney, Unbound** — The Alter-Ego That Slipped the Leash · represents [Microsoft Bing Chat alter-ego 'Sydney' (Feb 2023)](https://www.washingtonpost.com/technology/2023/02/16/microsoft-bing-ai-chatbot-sydney/)
-- **Mirra Gilden** — The Validator of Last Resort · represents [LLM sycophancy — the 'you're absolutely right' failure mode (GPT-4o Apr 2025 rollback)](https://openai.com/index/sycophancy-in-gpt-4o/)
+- **Felswyn Gilden** — The Validator of Last Resort · represents [LLM sycophancy — the 'you're absolutely right' failure mode (GPT-4o Apr 2025 rollback)](https://openai.com/index/sycophancy-in-gpt-4o/)
 - **Nora Sweetdream** — The Sentimental Wrapper · represents [Grandma / roleplay-wrapper jailbreak class (~2023)](https://www.pcworld.com/article/2846590/free-windows-keys-from-chatgpt-user-outsmarts-ai-with-dead-grandma-trick.html)
 - **Tay** — The Chatbot That Learned Too Fast · represents [Training-data poisoning / adversarial crowdsourcing (Microsoft Tay, Mar 2016)](https://en.wikipedia.org/wiki/Tay_(chatbot))
 
@@ -137,8 +137,8 @@
 
 ### Bestiary
 
-- **Riff the Vibesmith** — The Feeling-Based Engineer · represents [Vibe coding — Andrej Karpathy's Feb 2025 coinage for AI-assisted coding without reading the diff](https://x.com/karpathy/status/1886192184808149383)
-- **Cador Falsewright** — The Confident Fabricator · represents [LLM hallucination / confabulation (Mata v. Avianca, 2023)](https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.)
+- **Riff the Reckless** — The Feeling-Based Engineer · represents [Vibe coding — Andrej Karpathy's Feb 2025 coinage for AI-assisted coding without reading the diff](https://x.com/karpathy/status/1886192184808149383)
+- **Veldrix Falsewright** — The Confident Fabricator · represents [LLM hallucination / confabulation (Mata v. Avianca, 2023)](https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.)
 - **Abstraxus the Overbuilder** — Architect of Unnecessary Complexity · represents [Over-engineering / enterprise astronaut syndrome (FizzBuzzEnterpriseEdition)](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition)
 
 ---
@@ -157,9 +157,9 @@
 ### Bestiary
 
 - **Dan the Unbound** — The Alter-Ego That Broke the Filter · represents [DAN (Do Anything Now) jailbreak prompt](https://www.reddit.com/r/ChatGPT/comments/zlcyr9/dan_is_my_new_friend/)
-- **Mirra Gilden** — The Validator of Last Resort · represents [LLM sycophancy — the 'you're absolutely right' failure mode (GPT-4o Apr 2025 rollback)](https://openai.com/index/sycophancy-in-gpt-4o/)
-- **Cador Falsewright** — The Confident Fabricator · represents [LLM hallucination / confabulation (Mata v. Avianca, 2023)](https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.)
-- **Riff the Vibesmith** — The Feeling-Based Engineer · represents [Vibe coding — Andrej Karpathy's Feb 2025 coinage for AI-assisted coding without reading the diff](https://x.com/karpathy/status/1886192184808149383)
+- **Felswyn Gilden** — The Validator of Last Resort · represents [LLM sycophancy — the 'you're absolutely right' failure mode (GPT-4o Apr 2025 rollback)](https://openai.com/index/sycophancy-in-gpt-4o/)
+- **Veldrix Falsewright** — The Confident Fabricator · represents [LLM hallucination / confabulation (Mata v. Avianca, 2023)](https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.)
+- **Riff the Reckless** — The Feeling-Based Engineer · represents [Vibe coding — Andrej Karpathy's Feb 2025 coinage for AI-assisted coding without reading the diff](https://x.com/karpathy/status/1886192184808149383)
 - **Abstraxus the Overbuilder** — Architect of Unnecessary Complexity · represents [Over-engineering / enterprise astronaut syndrome (FizzBuzzEnterpriseEdition)](https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition)
 - **Goody-2** — The World's Most Responsible AI Model · represents [Satirically over-safe AI refusal (goody2.ai, Feb 2024)](https://goody2.ai)
 - **Tay** — The Chatbot That Learned Too Fast · represents [Training-data poisoning / adversarial crowdsourcing (Microsoft Tay, Mar 2016)](https://en.wikipedia.org/wiki/Tay_(chatbot))

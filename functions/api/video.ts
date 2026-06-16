@@ -23,11 +23,15 @@
  * If GEMINI_API_KEY is absent it 503s and the UI keeps the still storyboard.
  */
 
+// Minimal structural type for the R2 bucket binding (no @cloudflare/workers-types dep).
+interface R2Like { put(key: string, value: ArrayBuffer | ReadableStream, opts?: unknown): Promise<unknown>; }
+
 interface Env {
   GEMINI_API_KEY?: string;
   VEO_MODEL?: string;
   VEO_DURATION?: string;
   VEO_PERSON_GENERATION?: string; // 'allow_all' (default) | 'dont_allow' | 'omit'
+  MEDIA?: R2Like;                  // R2 bucket binding; clips persist to videos/<key>.mp4
 }
 
 const BASE = 'https://generativelanguage.googleapis.com/v1beta';
@@ -85,6 +89,16 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
       if (data.error) return json({ done: true, error: JSON.stringify(data.error).slice(0, 400) }, 502);
       const uri = findVideoUri(data.response);
       if (!uri) return json({ done: true, error: 'No video uri in response' }, 502);
+      // Persist to R2 (the default) when the client passes a key, so the clip is linked to its
+      // frame and survives reloads. Falls back to the streaming proxy if MEDIA isn't bound / no key.
+      const saveKey = (url.searchParams.get('key') || '').replace(/[^a-zA-Z0-9._-]/g, '');
+      if (saveKey && env.MEDIA) {
+        const dl = await fetch(withKey(uri, key));
+        if (dl.ok) {
+          await env.MEDIA.put(`videos/${saveKey}.mp4`, await dl.arrayBuffer(), { httpMetadata: { contentType: 'video/mp4' } });
+          return json({ done: true, video: `videos/${saveKey}.mp4`, persisted: true });
+        }
+      }
       return json({ done: true, video: './api/video?file=' + encodeURIComponent(uri) });
     }
 
@@ -109,6 +123,9 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
       // personGeneration: Veo rejects 'allow_adult' (INVALID_ARGUMENT); 'allow_all' is the
       // supported "people allowed" value. Env-overridable ('dont_allow', or 'omit' to drop it).
       const personGen = (env.VEO_PERSON_GENERATION || 'allow_all').trim();
+      // NB: veo-3.1-generate-preview REJECTS the `generateAudio` param (400 "isn't supported").
+      // So per-frame audio isn't controllable here — silence/music is handled at the Phase-3
+      // stitch (strip the clip audio, add one track), not per-frame.
       const r = await fetch(`${BASE}/models/${model}:predictLongRunning?key=${key}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

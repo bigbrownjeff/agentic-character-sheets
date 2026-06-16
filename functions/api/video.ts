@@ -101,18 +101,42 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
       if (!Number.isFinite(duration)) duration = 5;
       duration = Math.max(3, Math.min(8, duration)); // 3–5s per cell/keyframe (one clip per card)
 
-      const r = await fetch(`${BASE}/models/${model}:predictLongRunning?key=${key}`, {
+      // Try the configured model, then known Veo fallbacks (model ids vary by
+      // account/region). On a param-related 400, retry that model with minimal
+      // params. Surface the last error if everything fails.
+      const candidates: string[] = [];
+      [model, 'veo-3.1-generate-preview', 'veo-3.1-fast-generate-preview',
+        'veo-3.0-generate-preview', 'veo-3.0-fast-generate-preview'].forEach((m) => {
+        if (m && candidates.indexOf(m) === -1) candidates.push(m);
+      });
+      const start = (m: string, full: boolean) => fetch(`${BASE}/models/${m}:predictLongRunning?key=${key}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           instances: [{ prompt: prompt }],
-          parameters: { aspectRatio: aspectRatio, durationSeconds: duration, personGeneration: 'allow_adult' },
+          parameters: full ? { aspectRatio: aspectRatio, durationSeconds: duration, personGeneration: 'allow_adult' } : { aspectRatio: aspectRatio },
         }),
       });
-      if (!r.ok) return json({ error: `Start ${r.status}: ${(await r.text()).slice(0, 300)}` }, 502);
-      const data = await r.json() as { name?: string };
-      if (!data.name) return json({ error: 'No operation name returned' }, 502);
-      return json({ op: data.name });
+
+      let lastErr = '';
+      for (const m of candidates) {
+        let r = await start(m, true);
+        if (!r.ok) {
+          const t = await r.text();
+          lastErr = `${m} → ${r.status}: ${t.slice(0, 200)}`;
+          if (r.status === 404 || /not.?found|does not exist|unsupported|not supported/i.test(t)) continue; // try next model
+          if (r.status === 400 && /parameter|duration|person|aspect|invalid argument/i.test(t)) {
+            r = await start(m, false); // retry this model without the optional params
+            if (!r.ok) { lastErr = `${m} (min) → ${r.status}: ${(await r.text()).slice(0, 200)}`; continue; }
+          } else {
+            return json({ error: `Start ${lastErr}` }, 502); // auth/quota/region — don't keep trying
+          }
+        }
+        const data = await r.json() as { name?: string };
+        if (data.name) return json({ op: data.name });
+        lastErr = `${m}: no operation name`;
+      }
+      return json({ error: `Start failed (tried ${candidates.length} models): ${lastErr}` }, 502);
     }
 
     return json({ error: 'Method not allowed' }, 405);

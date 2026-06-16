@@ -184,8 +184,10 @@ function buildCarousel(beat, beatIndex) {
 
   section.appendChild(styleToggleBar);
 
-  // Maker controls — explicit only, no auto-generation. The note steers the
-  // NEXT image/video for the CURRENT card. Video = one 3–5s clip per card.
+  // Per-card maker controls — explicit only. Each card has its own named image
+  // versions (pills + delete + history) plus a 3–5s video. Only the current
+  // card's controls are shown (toggled by updateUI). No auto-generation.
+  let beatMakers = [];
   if (window.CardRender) {
     let videoEl = null, videoStatus = null;
     function poll(op, n) {
@@ -202,45 +204,39 @@ function buildCarousel(beat, beatIndex) {
         tick();
       });
     }
-    const saveBtn = window.CardRender.saveButton('⬇ Save card',
-      () => window.CardRender.beatCanvas(beat, current, currentStyle),
-      beat.id + '.png');
-    const bar = window.CardRender.makerControls({
-      placeholder: 'Note to steer this card’s image / video (optional)…',
-      buttons: [
-        {
-          label: '🖼 Make image', busy: '🖼 making…', done: '🖼 Remake image', fail: 'image not enabled',
-          title: 'Generate art for THIS card in the selected style',
-          run: (note) => {
-            const prompt = window.CardRender.beatPrompt(beat, current, currentStyle) + (note ? ' Art-director note: ' + note : '');
-            return window.CardRender.fetchArt(prompt).then((img) => {
-              if (img) { renderBeatSlide(slides[current], current, currentStyle, img); return true; }
-              return false;
-            });
-          },
+    function videoButtonFor(i) {
+      return {
+        label: '🎬 Make video', busy: '🎬 generating…', done: '🎬 Make another', fail: 'video not enabled', ghost: true,
+        title: 'Render card ' + (i + 1) + ' as a 3–5s clip',
+        run: (note) => {
+          if (!videoStatus) { videoStatus = document.createElement('p'); videoStatus.className = 'beat-video-status'; section.appendChild(videoStatus); }
+          videoStatus.textContent = 'Sending card ' + (i + 1) + ' to the video model…';
+          const prompt = window.CardRender.videoPrompt(beat, i, currentStyle, note);
+          return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: prompt, aspectRatio: '9:16', durationSeconds: 5 }) })
+            .then(r => r.json().then(d => r.ok ? d : Promise.reject(d)))
+            .then(d => { if (!d.op) return Promise.reject(d); return poll(d.op, 0); })
+            .then(videoUrl => {
+              if (!videoEl) { videoEl = document.createElement('video'); videoEl.className = 'beat-video'; videoEl.controls = true; videoEl.playsInline = true; videoEl.loop = true; section.appendChild(videoEl); }
+              videoEl.src = videoUrl; videoStatus.textContent = 'Card ' + (i + 1) + ' clip (right-click to save):';
+              return true;
+            })
+            .catch(err => { videoStatus.textContent = (err && err.error) ? ('Video unavailable: ' + err.error) : 'Video isn’t enabled yet (needs GEMINI_API_KEY + Veo).'; return false; });
         },
-        {
-          label: '🎬 Make video', busy: '🎬 generating…', done: '🎬 Remake video', fail: 'video not enabled', ghost: true,
-          title: 'Render THIS card as a 3–5s clip in the selected style',
-          run: (note) => {
-            if (!videoStatus) { videoStatus = document.createElement('p'); videoStatus.className = 'beat-video-status'; section.appendChild(videoStatus); }
-            videoStatus.textContent = 'Sending this card to the video model…';
-            const prompt = window.CardRender.videoPrompt(beat, current, currentStyle, note);
-            return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: prompt, aspectRatio: '9:16', durationSeconds: 5 }) })
-              .then(r => r.json().then(d => r.ok ? d : Promise.reject(d)))
-              .then(d => { if (!d.op) return Promise.reject(d); return poll(d.op, 0); })
-              .then(videoUrl => {
-                if (!videoEl) { videoEl = document.createElement('video'); videoEl.className = 'beat-video'; videoEl.controls = true; videoEl.playsInline = true; videoEl.loop = true; section.appendChild(videoEl); }
-                videoEl.src = videoUrl; videoStatus.textContent = 'Card clip (right-click to save):';
-                return true;
-              })
-              .catch(err => { videoStatus.textContent = (err && err.error) ? ('Video unavailable: ' + err.error) : 'Video isn’t enabled yet (needs GEMINI_API_KEY + Veo).'; return false; });
-          },
-        },
-      ],
-      extra: [saveBtn],
+      };
+    }
+    beatMakers = cards.map((card, i) => {
+      const m = window.CardRender.versionedMaker({
+        itemId: 'beat-' + beat.id + '-' + i,
+        show: (img) => renderBeatSlide(slides[i], i, currentStyle, img || null),
+        buildPrompt: (note) => window.CardRender.beatPrompt(beat, i, currentStyle) + (note ? ' Art-director note: ' + note : ''),
+        placeholder: 'Note to steer card ' + (i + 1) + '’s image / video (optional)…',
+        makeSaveCanvas: () => window.CardRender.beatCanvas(beat, i, currentStyle),
+        extraButtons: [videoButtonFor(i)],
+      });
+      m.style.display = i === current ? '' : 'none';
+      return m;
     });
-    section.appendChild(bar);
+    beatMakers.forEach((m) => section.appendChild(m));
   }
 
   // Async: update style-C button label if a JSON name is available
@@ -392,6 +388,11 @@ function buildCarousel(beat, beatIndex) {
 
     // Counter
     counter.textContent = `${current + 1} / ${total}`;
+
+    // Show only the current card's maker controls (per-card pills/video)
+    if (beatMakers && beatMakers.length) {
+      beatMakers.forEach((m, i) => { m.style.display = i === current ? '' : 'none'; });
+    }
   }
 
   function goTo(index) {

@@ -9,8 +9,15 @@
   {
     "id": "note-omenace-video-2",
     "author": "studio notes",
-    "body": "Workflow note: video is the FINAL step. Approve the storyboard style first (3 options via the style toggle), then hit '🎬 Make video' to render a 15–30s clip in the approved style. Veo turns each card's scene into a moving shot with smooth transitions.",
+    "body": "Workflow note: video is the FINAL step. Approve the storyboard style first (3 options via the style toggle), then hit '🎬 Make video' to render a 15–30s clip (Veo 3.1) in the approved style. Veo turns each card's scene into a moving shot with smooth transitions.",
     "ts": 1781920500000,
+    "updated": false
+  },
+  {
+    "id": "note-omenace-pool-3",
+    "author": "studio notes",
+    "body": "Setting note: the pool is a LONG RECTANGULAR reflecting pool — the Washington DC National Mall / Lincoln Memorial Reflecting Pool, which this civic allegory is loosely lifted from. Marble basin running to a domed capitol, flanked by tree-lined promenades. The orange rot creeps down its length from the far grate.",
+    "ts": 1781920580000,
     "updated": false
   }
 ]

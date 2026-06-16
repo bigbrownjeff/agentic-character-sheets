@@ -52,18 +52,19 @@ storyboard style (the 3-option toggle), then **🎬 Make video** renders a short
 style. Uses the **same** `GEMINI_API_KEY` as image gen.
 
 1. Ensure `GEMINI_API_KEY` is set (step B1).
-2. (optional) `VEO_MODEL` = `veo-3.0-generate-preview` — override if your account exposes a
-   different Veo id (e.g. a `veo-3.1-*` or `*-fast-*` variant). This is the one value most
-   likely to need adjusting; the function surfaces the exact API error if the id is wrong.
-3. **Save** → **Retry deployment**.
+2. (optional) `VEO_MODEL` = `veo-3.1-generate-preview` (the default — Veo 3.1, for 15–30s
+   clips). Override if your account exposes a different 3.1 id (e.g. a `*-fast-*` variant).
+3. (optional) `VEO_DURATION` = `24` — target clip length in seconds (clamped 4–30).
+4. **Save** → **Retry deployment**.
 
 Notes / honest limits:
 - Veo is long-running (~1–2 min); the UI starts the job and polls, then shows the clip.
-- Single clips are typically ~8s. The prompt asks for a 15–30s motion sequence, but the
-  delivered length depends on the model — true 15–30s may need a Veo 3.1 long/extend model
-  or stitching clips (a follow-up if the single-clip length is short).
+- We default to **Veo 3.1** and request `durationSeconds` in the 15–30s range. The delivered
+  length still depends on what your account's model allows; if it rejects the duration or the
+  model id, the function surfaces the exact API error — lower `VEO_DURATION` or adjust
+  `VEO_MODEL`.
 - This path is wired but **unverified against the live Veo API from here** — confirm once the
-  key is in, and tweak `VEO_MODEL` if the start/poll/download shape differs for your account.
+  key is in, and tweak `VEO_MODEL` / `VEO_DURATION` if the start/poll/download shape differs.
 
 Keeping the URL unlisted means no rate-limiting is required; if you ever make it public,
 add Cloudflare Rate Limiting / Turnstile in front of `/api/image`, `/api/forge`, and

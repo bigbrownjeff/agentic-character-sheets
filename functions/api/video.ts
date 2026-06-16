@@ -12,18 +12,21 @@
  *   GET  /api/video?file=<uri>                             → streams video/mp4 (key kept server-side)
  *
  * Setup (Cloudflare → Pages → Settings → Variables and Secrets):
- *   GEMINI_API_KEY  = <your key>            (same key as image gen)
- *   VEO_MODEL       = veo-3.0-generate-preview   (optional; override if your account uses another id)
+ *   GEMINI_API_KEY  = <your key>                  (same key as image gen)
+ *   VEO_MODEL       = veo-3.1-generate-preview     (default; Veo 3.1 for 15–30s clips)
+ *   VEO_DURATION    = 24                           (optional; seconds, clamped 4–30)
  *
- * NOTE: Veo model ids and clip length evolve and vary by account. Single clips
- * are typically ~8s; longer 15–30s targets may need Veo 3.1 extension or
- * stitching (a follow-up). Everything is env-overridable; errors are surfaced.
+ * NOTE: Veo model ids and max clip length evolve and vary by account. We default
+ * to Veo 3.1 and request durationSeconds (target 15–30s). If your account uses a
+ * different 3.1 id or caps duration, override VEO_MODEL / VEO_DURATION; errors are
+ * surfaced verbatim.
  * If GEMINI_API_KEY is absent it 503s and the UI keeps the still storyboard.
  */
 
 interface Env {
   GEMINI_API_KEY?: string;
   VEO_MODEL?: string;
+  VEO_DURATION?: string;
 }
 
 const BASE = 'https://generativelanguage.googleapis.com/v1beta';
@@ -60,7 +63,7 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
   if (!env.GEMINI_API_KEY) return json({ error: 'Video not enabled. Set GEMINI_API_KEY.' }, 503);
 
   const key = env.GEMINI_API_KEY;
-  const model = env.VEO_MODEL || 'veo-3.0-generate-preview';
+  const model = env.VEO_MODEL || 'veo-3.1-generate-preview';
   const url = new URL(request.url);
 
   try {
@@ -87,20 +90,24 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
     /* --- POST: start a generation --- */
     if (request.method === 'POST') {
       let prompt = '', aspectRatio = '9:16';
+      let duration = parseInt(env.VEO_DURATION || '24', 10);
       try {
-        const body = await request.json() as { prompt?: string; aspectRatio?: string };
+        const body = await request.json() as { prompt?: string; aspectRatio?: string; durationSeconds?: number };
         prompt = String(body.prompt || '').slice(0, MAX_PROMPT).trim();
         if (body.aspectRatio) aspectRatio = String(body.aspectRatio);
+        if (body.durationSeconds) duration = Number(body.durationSeconds);
       } catch { return json({ error: 'Invalid JSON body' }, 400); }
       if (!prompt) return json({ error: 'Missing prompt' }, 400);
       if (BLOCK.test(prompt)) return json({ error: 'Prompt rejected' }, 422);
+      if (!Number.isFinite(duration)) duration = 24;
+      duration = Math.max(4, Math.min(30, duration)); // target 15–30s; clamp to a safe range
 
       const r = await fetch(`${BASE}/models/${model}:predictLongRunning?key=${key}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           instances: [{ prompt: prompt }],
-          parameters: { aspectRatio: aspectRatio, personGeneration: 'allow_adult' },
+          parameters: { aspectRatio: aspectRatio, durationSeconds: duration, personGeneration: 'allow_adult' },
         }),
       });
       if (!r.ok) return json({ error: `Start ${r.status}: ${(await r.text()).slice(0, 300)}` }, 502);

@@ -38,6 +38,16 @@ canvas.card-sheet-img, canvas.adv-cover-img, canvas.cr-incard {
 /* a small save control row under content */
 .cr-actions { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; align-items: center; }
 
+/* maker bar: a note input that steers the next image/video + action buttons */
+.cr-maker { margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.cr-maker .cr-actions { margin-top: 0; }
+.cr-note {
+  width: 100%; font-family: var(--sans, sans-serif); font-size: 0.82rem;
+  padding: 0.45rem 0.6rem; border-radius: 8px;
+  border: 1px solid var(--ruleSoft, #C9C3B4); background: #fff; color: var(--ink, #0E1116);
+}
+.cr-note:focus { outline: 2px solid var(--accent, #C84B31); outline-offset: 1px; }
+
 /* art-engine picker */
 .cr-provider {
   font-family: var(--sans, sans-serif); font-size: 0.82rem; font-weight: 600;

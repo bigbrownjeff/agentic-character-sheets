@@ -228,6 +228,15 @@ img {
   line-height: 1.15;
 }
 
+.page-hero-help {
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-top: 12px;
+  max-width: 620px;
+}
+
 /* --- FILTER BAR ------------------------------------------ */
 
 .filter-bar {
@@ -1035,9 +1044,21 @@ img {
 
 .adv-style-toggle {
   display: flex;
+  align-items: center;
   gap: 6px;
   margin-bottom: 12px;
   flex-wrap: wrap;
+}
+
+/* Small clarifying label that leads an art-style toggle row (covers + beats) */
+.style-toggle-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 4px;
 }
 
 .adv-style-btn {
@@ -1377,3 +1398,205 @@ img {
   border-radius: 8px;
 }
 .essay-cta-link:hover { background: var(--accent); color: var(--paper); }
+
+/* --- HOME (front page) ----------------------------------- */
+
+.home-hero {
+  padding: 56px 0 40px;
+  border-bottom: 1px solid var(--ruleSoft);
+  margin-bottom: 48px;
+  max-width: 760px;
+}
+
+.home-hero h1 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 2.75rem;
+  color: var(--ink);
+  line-height: 1.12;
+  margin: 4px 0 18px;
+}
+
+.home-lede {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  color: var(--body);
+  line-height: 1.55;
+}
+
+/* Three primary paths: flat hairline grid, radius 0, no shadow */
+.paths {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+  margin-bottom: 64px;
+}
+
+.path-card {
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 28px 24px 24px;
+  background: var(--bg);
+  text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  transition: background 0.15s;
+}
+
+/* Accent hairline appears on hover/focus (the only flourish) */
+.path-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.path-card:hover,
+.path-card:focus-visible {
+  background: var(--paper);
+}
+
+.path-card:hover::before,
+.path-card:focus-visible::before {
+  opacity: 1;
+}
+
+.path-card:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+}
+
+.path-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.path-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--ink);
+  line-height: 1.15;
+}
+
+.path-body {
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  color: var(--body);
+  line-height: 1.55;
+}
+
+.path-go {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.path-card:hover .path-go,
+.path-card:focus-visible .path-go {
+  color: var(--accent);
+}
+
+/* Add your take */
+.take {
+  border-top: 1px solid var(--ruleSoft);
+  padding-top: 40px;
+  max-width: 860px;
+}
+
+.take h2 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.875rem;
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 4px 0 14px;
+}
+
+.take-intro {
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  color: var(--body);
+  line-height: 1.55;
+  margin-bottom: 32px;
+}
+
+.take-ways {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.take-way {
+  border-top: 2px solid var(--rule);
+  padding-top: 18px;
+}
+
+.take-way-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.take-way p {
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  color: var(--body);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.take-link {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.take-link:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 900px) {
+  .paths {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-hero h1 {
+    font-size: 2rem;
+  }
+  .home-lede {
+    font-size: 1.125rem;
+  }
+  .take-ways {
+    grid-template-columns: 1fr;
+  }
+}

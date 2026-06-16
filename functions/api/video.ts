@@ -104,14 +104,31 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
 
     /* --- POST: start a generation --- */
     if (request.method === 'POST') {
-      let prompt = '', aspectRatio = '9:16';
+      let prompt = '', aspectRatio = '9:16', imageUrl = '';
       let duration = parseInt(env.VEO_DURATION || '4', 10);
       try {
-        const body = await request.json() as { prompt?: string; aspectRatio?: string; durationSeconds?: number };
+        const body = await request.json() as { prompt?: string; aspectRatio?: string; durationSeconds?: number; imageUrl?: string };
         prompt = String(body.prompt || '').slice(0, MAX_PROMPT).trim();
         if (body.aspectRatio) aspectRatio = String(body.aspectRatio);
         if (body.durationSeconds) duration = Number(body.durationSeconds);
+        if (body.imageUrl) imageUrl = String(body.imageUrl);
       } catch { return json({ error: 'Invalid JSON body' }, 400); }
+
+      // Image-to-video: if a keyframe URL is given, fetch it and use it as Veo's FIRST FRAME, so
+      // Veo animates that exact (already-consistent) painted card instead of re-imagining the scene.
+      // This is THE consistency fix — condition on our locked stills, not text alone.
+      let imagePart: { bytesBase64Encoded: string; mimeType: string } | null = null;
+      if (imageUrl) {
+        try {
+          const ir = await fetch(imageUrl);
+          if (ir.ok) {
+            const bytes = new Uint8Array(await ir.arrayBuffer());
+            let bin = '';
+            for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, Array.from(bytes.subarray(i, i + 0x8000)));
+            imagePart = { bytesBase64Encoded: btoa(bin), mimeType: ir.headers.get('Content-Type') || (imageUrl.endsWith('.png') ? 'image/png' : 'image/jpeg') };
+          }
+        } catch { /* fall back to text-to-video */ }
+      }
       if (!prompt) return json({ error: 'Missing prompt' }, 400);
       if (BLOCK.test(prompt)) return json({ error: 'Prompt rejected' }, 422);
       // Veo 3.1 accepts only EVEN durations 4/6/8 — it 400s on 5 or 7 ("out of bound,
@@ -130,7 +147,7 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          instances: [{ prompt: prompt }],
+          instances: [{ prompt: prompt, ...(imagePart ? { image: imagePart } : {}) }],
           parameters: {
             aspectRatio: aspectRatio,
             durationSeconds: duration,

@@ -24,3 +24,6 @@ site/cards/
 
 # session working-notes — local knowledge base, not for this public repo
 .claude/handoffs/
+
+# business / monetization strategy — kept local, out of the public repo
+business/

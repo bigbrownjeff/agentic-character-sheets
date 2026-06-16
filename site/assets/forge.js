@@ -229,6 +229,21 @@ THE ANSWERS:
 ${people}`;
 }
 
+function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'hero'; }
+function liteChar(person) {
+  const name = a(person, 'name') || 'A Hero';
+  const great = a(person, 'great');
+  const quote = a(person, 'quote');
+  const title = great
+    ? 'The One Who ' + great.replace(/^(is |they |he |she |can )/i, '').replace(/[.?!]+$/, '').slice(0, 56)
+    : 'A Hero in the Making';
+  return {
+    id: slug(name), name: name, title: title,
+    role: 'party', 'class': 'Adventurer', subclass: '', lineage: '',
+    ac: null, tagline: quote || '',
+  };
+}
+
 function renderOutput() {
   const prompt = buildPrompt();
   app.innerHTML = `
@@ -268,6 +283,21 @@ function renderOutput() {
   $('#forge-download').addEventListener('click', () => downloadJSON());
   $('#forge-restart').addEventListener('click', () => { state.mode = null; state.people = []; state.personIdx = 0; state.qIdx = 0; render(); });
   $('#forge-generate').addEventListener('click', () => generateHere(prompt));
+
+  // Downloadable hero card(s) — rendered from the answers, no backend needed.
+  if (window.CardRender) {
+    const cardBar = document.createElement('div');
+    cardBar.className = 'forge-actions';
+    state.people.forEach((p, idx) => {
+      const ch = liteChar(p);
+      cardBar.appendChild(window.CardRender.saveButton(
+        '🖼 ' + (ch.name || ('Hero ' + (idx + 1))) + ' card',
+        () => window.CardRender.characterCanvas(ch),
+        (ch.id || 'hero') + '.png'));
+    });
+    const resultEl = $('#forge-result');
+    resultEl.parentNode.insertBefore(cardBar, resultEl);
+  }
 }
 
 async function generateHere(prompt) {

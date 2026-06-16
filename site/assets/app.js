@@ -184,7 +184,6 @@ function renderCard(char) {
       src="./cards/sheets/${escAttr(char.id)}.png"
       loading="lazy"
       alt="${escAttr(char.name)} character sheet"
-      onerror="this.style.display='none';var f=document.getElementById('${statFallbackId}');if(f)f.style.display='';"
     >
     <div id="${statFallbackId}" class="card-stat-fallback" style="display:none;">
       ${char.abilities ? renderAbilityGridCard(char.abilities) : ''}
@@ -192,6 +191,31 @@ function renderCard(char) {
     </div>
     <div class="card-badges">${badges.join('')}</div>
   `;
+
+  // Render a real card image from data when the (downstream-only) PNG is absent.
+  const _img = el.querySelector('.card-sheet-img');
+  const _fb = el.querySelector('.card-stat-fallback');
+  if (_img) {
+    _img.addEventListener('error', () => {
+      if (window.CardRender) {
+        const cv = window.CardRender.characterCanvas(char);
+        cv.className = 'card-sheet-img';
+        cv.setAttribute('role', 'img');
+        cv.setAttribute('aria-label', (char.name || '') + ' character card');
+        _img.replaceWith(cv);
+        if (_fb) _fb.style.display = 'none';
+      } else {
+        _img.style.display = 'none';
+        if (_fb) _fb.style.display = '';
+      }
+    });
+  }
+  if (window.CardRender) {
+    const _actions = document.createElement('div');
+    _actions.className = 'cr-actions';
+    _actions.appendChild(window.CardRender.saveButton('⬇ Save', () => window.CardRender.characterCanvas(char), (char.id || 'character') + '.png'));
+    el.appendChild(_actions);
+  }
 
   el.addEventListener('click', () => openModal(char.id));
   return el;
@@ -705,11 +729,30 @@ function initAdventuresPage(characters, adventures) {
       coverImg.src = `./cards/covers/${escAttr(adv.id)}-${key}.png`;
     }
 
+    let coverRendered = false;
     coverImg.addEventListener('error', () => {
-      styleErrors[currentCoverStyle] = true;
-      coverImg.style.display = 'none';
-      // Hide the whole cover wrap (img + toggle) if image is missing
-      coverWrap.style.display = 'none';
+      if (coverRendered) return;
+      if (window.CardRender) {
+        coverRendered = true;
+        const advNames = {
+          party: (adv.party || []).map(id => charMap[id] && charMap[id].name).filter(Boolean),
+          npcs: (adv.npcs || []).map(id => charMap[id] && charMap[id].name).filter(Boolean),
+          bestiary: (adv.bestiary || []).map(id => charMap[id] && charMap[id].name).filter(Boolean),
+        };
+        const cv = window.CardRender.adventureCanvas(adv, advNames);
+        cv.className = 'adv-cover-img';
+        coverImg.replaceWith(cv);
+        styleToggleBar.style.display = 'none';
+        coverWrap.style.display = '';
+        const act = document.createElement('div');
+        act.className = 'cr-actions';
+        act.appendChild(window.CardRender.saveButton('⬇ Save cover', () => window.CardRender.adventureCanvas(adv, advNames), (adv.id || 'adventure') + '.png'));
+        coverWrap.appendChild(act);
+      } else {
+        styleErrors[currentCoverStyle] = true;
+        coverImg.style.display = 'none';
+        coverWrap.style.display = 'none';
+      }
     });
 
     ['A', 'B', 'C'].forEach(key => {

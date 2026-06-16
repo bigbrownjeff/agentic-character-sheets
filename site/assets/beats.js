@@ -116,6 +116,26 @@ function buildCarousel(beat, beatIndex) {
   const INTERVAL = 3000;
   const reduced = prefersReducedMotion();
 
+  /* Render a beat card as a real image (CardRender) into a slide. */
+  function renderBeatSlide(slide, i, styleKey) {
+    if (!window.CardRender) return false;
+    const img = slide.querySelector('.carousel-img');
+    const textCard = slide.querySelector('.carousel-text-card');
+    const banner = slide.querySelector('.carousel-caption-banner');
+    const prev = slide.querySelector('canvas.cr-incard');
+    if (prev) prev.remove();
+    const cv = window.CardRender.beatCanvas(beat, i, styleKey);
+    cv.className = 'cr-incard';
+    cv.setAttribute('role', 'img');
+    cv.setAttribute('aria-label', (beat.title || '') + ' — card ' + (i + 1));
+    if (img) img.style.display = 'none';
+    if (textCard) { textCard.style.display = 'none'; textCard.setAttribute('aria-hidden', 'true'); }
+    if (banner) banner.style.display = 'none';
+    slide.insertBefore(cv, banner || null);
+    slide.classList.remove('carousel-slide-text-fallback');
+    return true;
+  }
+
   /* --- DOM skeleton --------------------------------------- */
 
   const section = document.createElement('section');
@@ -153,14 +173,25 @@ function buildCarousel(beat, beatIndex) {
         styleButtons[k].classList.toggle('active', k === key);
         styleButtons[k].setAttribute('aria-pressed', k === key ? 'true' : 'false');
       });
-      // Reload carousel images for new style
-      applyStyleToSlides(slides, cards, beat.id, key);
+      // Re-render carousel images for new style
+      if (window.CardRender) { slides.forEach((sl, idx) => renderBeatSlide(sl, idx, key)); }
+      else { applyStyleToSlides(slides, cards, beat.id, key); }
     });
     styleButtons[key] = btn;
     styleToggleBar.appendChild(btn);
   });
 
   section.appendChild(styleToggleBar);
+
+  // Save-as-image control (renders the current slide for the current style)
+  if (window.CardRender) {
+    const saveBar = document.createElement('div');
+    saveBar.className = 'cr-actions';
+    saveBar.appendChild(window.CardRender.saveButton('⬇ Save this card',
+      () => window.CardRender.beatCanvas(beat, current, currentStyle),
+      beat.id + '-' + (current + 1) + '.png'));
+    section.appendChild(saveBar);
+  }
 
   // Async: update style-C button label if a JSON name is available
   fetchStyleCName(beat.id).then(name => {
@@ -211,8 +242,9 @@ function buildCarousel(beat, beatIndex) {
     captionBanner.className = 'carousel-caption-banner';
     captionBanner.innerHTML = `<span>${escHtml(card.caption)}</span>`;
 
-    // On error: hide img, reveal text card, reposition caption banner
+    // On error: render a card image from data; fall back to text card.
     const errorHandler = () => {
+      if (renderBeatSlide(slide, i, currentStyle)) return;
       img.style.display = 'none';
       textCard.style.display = 'flex';
       textCard.removeAttribute('aria-hidden');

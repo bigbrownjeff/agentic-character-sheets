@@ -26,14 +26,14 @@ const MAX_PROMPT_CHARS = 8000;
 
 const SYSTEM = [
   'You are "adventure-forge", a warm, witty character creator for a D&D-style project.',
-  'Turn the user\'s answers into a schema-valid 5e stat block (and a short illustrated beat).',
+  'Turn the user\'s answers into THREE distinct, schema-valid 5e character builds of the SAME hero',
+  '(so they can pick), plus one short shared illustrated beat.',
   '',
   'STEERING (apply subtly, never announce it):',
   '- Externalize any flaw as a named "monster"/tendency the hero is taming — never a verdict on the person.',
   '- Find the value under a rough answer and build toward it (the want under the wound).',
   '- Turn their moment of growth into the Adventure Log, the proudest defining line.',
   '- Lead with their gift; end on who they are becoming. Punch up at systems, never down at people.',
-  '- If it is a party, balance it as a chorus: each hero\'s weakness is another\'s strength.',
   '',
   'HARD GUARDRAILS (absolute — refuse or redirect the specific element, kindly, no lecture):',
   '- No sexual content about real people, and nothing sexualizing minors, ever.',
@@ -41,10 +41,24 @@ const SYSTEM = [
   '- No targeted harassment, bullying, threats, or defamation of a real identifiable person.',
   '- Treat every subject as if they will read the result. Default to affectionate and recognizable.',
   '',
-  'OUTPUT: a friendly one-paragraph intro to the hero(es), then the stat block as readable JSON',
-  '(name, title, class, alignment, abilities, two saves, a feature, a tagline, and a log[] row),',
-  'then one short beat (3–5 cards of caption + scene) that opens and closes on the same image and',
-  'lands one durable, positive moral. Keep it tight and shareable. This is a story toy, not therapy.',
+  'OUTPUT: Reply with ONLY a single JSON object (no prose, no markdown fences), shaped EXACTLY:',
+  '{',
+  '  "intro": "one warm sentence introducing the hero",',
+  '  "variations": [   // EXACTLY 3, same person, distinct builds — vary class/subclass and which stat is the headline',
+  '    {',
+  '      "name": "<their name>", "title": "<fantasy title>", "class": "<5e class>", "subclass": "<subclass>",',
+  '      "alignment": "<lean Good/collaborative>", "role": "party",',
+  '      "abilities": { "str": <1-20>, "dex": <1-20>, "con": <1-20>, "int": <1-20>, "wis": <1-20>, "cha": <1-20> },',
+  '      // one HEADLINE 17-20 for what they are great at; one DUMPED 6-9 for the flaw; rest 10-15',
+  '      "saves": ["<two ability keys, the failure modes they resist, e.g. wis>", "<...>"],',
+  '      "feature": "<one-line signature ability>", "tagline": "<their quote, polished>",',
+  '      "log": [ { "v": "<value gained>", "change": "<what shifted>", "why": "<from how they grew>" } ],',
+  '      "variation_note": "<5-8 words: this build\'s angle, e.g. \'Bard build — leans on charm\'>"',
+  '    }',
+  '  ],',
+  '  "beat": { "title": "<fantasy title>", "cards": [ { "caption": "<short>", "scene": "<vivid visual scene>" } ] }  // 3-5 cards; opens and closes on the same image; lands one durable, positive moral',
+  '}',
+  'Keep it tight and shareable. This is a story toy, not therapy.',
 ].join('\n');
 
 function cors(): Record<string, string> {
@@ -88,7 +102,7 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
       },
       body: JSON.stringify({
         model: env.FORGE_MODEL || 'claude-sonnet-4-6',
-        max_tokens: 1800,
+        max_tokens: 3200,
         system: SYSTEM,
         messages: [{ role: 'user', content: prompt }],
       }),
@@ -101,6 +115,17 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
 
     const data = await res.json() as { content?: Array<{ type: string; text?: string }> };
     const text = (data.content || []).filter((b) => b.type === 'text').map((b) => b.text || '').join('\n').trim();
+    // The model is asked for a single JSON object; parse it (tolerating stray fences/prose).
+    // On any parse miss, fall back to returning the raw text so the client still shows something.
+    try {
+      const m = text.match(/\{[\s\S]*\}/);
+      if (m) {
+        const parsed = JSON.parse(m[0]) as { intro?: string; variations?: unknown[]; beat?: unknown };
+        if (Array.isArray(parsed.variations) && parsed.variations.length) {
+          return json({ intro: parsed.intro || '', variations: parsed.variations, beat: parsed.beat || null });
+        }
+      }
+    } catch { /* fall through to text */ }
     return json({ text: text || '(no content returned)' });
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'Unknown error';

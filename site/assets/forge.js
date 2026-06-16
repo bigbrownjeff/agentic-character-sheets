@@ -337,7 +337,7 @@ function renderOutput() {
 
 async function generateHere(prompt) {
   const out = $('#forge-result');
-  out.innerHTML = `<p class="forge-busy">Forging… this takes a few seconds.</p>`;
+  out.innerHTML = `<p class="forge-busy">Forging 3 builds… this takes a few seconds.</p>`;
   try {
     const res = await fetch('./api/forge', {
       method: 'POST',
@@ -346,6 +346,12 @@ async function generateHere(prompt) {
     });
     if (!res.ok) throw new Error(String(res.status));
     const data = await res.json();
+    if (data && Array.isArray(data.variations) && data.variations.length && window.CardRender) {
+      renderForgedVariations(out, data);
+      toast('Forged 3 builds — pick your favourite ✦');
+      return;
+    }
+    // Fallback: a structured object never arrived; show whatever text came back.
     const text = (data && (data.text || data.result)) || JSON.stringify(data, null, 2);
     out.innerHTML = `<div class="forge-result">${esc(text)}</div>`;
     toast('Forged ✦');
@@ -355,6 +361,48 @@ async function generateHere(prompt) {
       adds an <code>ANTHROPIC_API_KEY</code> secret in Cloudflare Pages — see the function at
       <code>functions/api/forge.ts</code>.)</div>`;
   }
+}
+
+// Shape a forged variation into what CardRender.characterCanvas expects (raw ability scores,
+// saves[], role) so the card draws a FULL stat block instead of an empty "AC —" frame.
+function normalizeForged(v, i) {
+  const ab = v.abilities || {};
+  return {
+    id: slug(v.name || ('hero-' + i)) + '-' + (i + 1),
+    name: v.name || 'A Hero', title: v.title || '', role: v.role || 'party',
+    'class': v['class'] || 'Adventurer', subclass: v.subclass || '', alignment: v.alignment || '',
+    abilities: { str: +ab.str || 10, dex: +ab.dex || 10, con: +ab.con || 10, int: +ab.int || 10, wis: +ab.wis || 10, cha: +ab.cha || 10 },
+    saves: Array.isArray(v.saves) ? v.saves : [],
+    feature: v.feature || '', tagline: v.tagline || '', log: Array.isArray(v.log) ? v.log : [],
+    ac: null,
+  };
+}
+function forgedPortraitPrompt(ch, note) {
+  return window.CardRender.stylePrompt.painterly +
+    'Heroic, warm fantasy character portrait of ' + (ch.name || 'a hero') +
+    (ch['class'] ? ', a ' + ch['class'] : '') + (ch.feature ? '. ' + ch.feature : '') +
+    '. Single dignified figure, friendly, no text, no words.' + (note ? ' Art-director note: ' + note : '');
+}
+// Render the 3 forged builds as full, filled stat-cards, each with its own art maker.
+function renderForgedVariations(out, data) {
+  out.innerHTML = '';
+  if (data.intro) { const p = document.createElement('p'); p.className = 'forge-hint'; p.style.marginBottom = '.8rem'; p.textContent = data.intro; out.appendChild(p); }
+  const grid = document.createElement('div'); grid.className = 'forge-gallery';
+  data.variations.slice(0, 3).forEach((v, i) => {
+    const ch = normalizeForged(v, i);
+    const item = document.createElement('div'); item.className = 'forge-card-item';
+    if (v.variation_note) { const n = document.createElement('div'); n.className = 'forge-step-eyebrow'; n.textContent = v.variation_note; item.appendChild(n); }
+    let cv = window.CardRender.characterCanvas(ch); cv.className = 'forge-card-img'; item.appendChild(cv);
+    item.appendChild(window.CardRender.versionedMaker({
+      itemId: 'forge-' + ch.id + '-' + Date.now(),
+      show: (img) => { const ncv = window.CardRender.characterCanvas(ch, img || null); ncv.className = 'forge-card-img'; cv.replaceWith(ncv); cv = ncv; },
+      buildPrompt: (note) => forgedPortraitPrompt(ch, note),
+      placeholder: 'Note to steer ' + (ch.name || 'this hero') + '’s art (optional)…',
+      makeSaveCanvas: () => cv,
+    }));
+    grid.appendChild(item);
+  });
+  out.appendChild(grid);
 }
 
 function downloadJSON() {

@@ -195,9 +195,10 @@
     feedbait: { bg: ['#ff2e63', '#7a1fff'], ink: '#fff', accent: '#ffe600', motif: '▶', label: 'Feed-Bait' },
     telecast: { bg: ['#0b132b', '#1c2541'], ink: '#fff', accent: '#ffb703', motif: '★', label: 'Leaderboard Telecast' },
     terminal: { bg: ['#001100', '#000800'], ink: '#39ff14', accent: '#39ff14', motif: '▮', label: 'Terminal' },
+    glitch: { bg: ['#2a1b3d', '#070310'], ink: '#eaffff', accent: '#ff3df2', motif: '▦', label: 'Glitchcore' },
   };
   var BEAT_STYLE_BY_ID = {
-    masquerade: 'gothic', 'round-table': 'feedbait', 'proving-grounds': 'telecast', forge: 'terminal',
+    masquerade: 'gothic', 'round-table': 'feedbait', 'proving-grounds': 'telecast', forge: 'terminal', echoes: 'glitch',
   };
   function styleNameFor(beatId, styleKey) {
     if (styleKey === 'B') return 'graphic-novel';
@@ -214,10 +215,20 @@
     feedbait: 'Hyper-saturated bold poster style, punchy and vivid (tasteful, non-sexual), 4:5 portrait. ',
     telecast: 'Glossy esports-broadcast spectacle, stadium lighting, dynamic, 4:5 portrait. ',
     terminal: 'Retro phosphor-green CRT terminal / pixel art, 4:5 portrait. ',
+    glitch: 'Digital glitch art: pastel porcelain gradients (blush, mint, pale gold) corrupted by JPEG datamosh, scanline tears and violent cyan/magenta chromatic aberration, 4:5 portrait. ',
   };
   function beatPrompt(beat, index, styleKey) {
     var card = (beat.cards || [])[index] || {};
     return (STYLE_PROMPT[styleNameFor(beat.id, styleKey)] || STYLE_PROMPT.painterly) + (card.scene || beat.title || '');
+  }
+  // Compose a motion prompt for a short beat video in the approved style.
+  function videoPrompt(beat, styleKey) {
+    var pre = STYLE_PROMPT[styleNameFor(beat.id, styleKey)] || STYLE_PROMPT.painterly;
+    var shots = (beat.cards || []).map(function (c, i) { return (i + 1) + ') ' + (c.scene || c.caption || ''); }).join('  ');
+    return pre +
+      'Short cinematic motion sequence, 15-30 seconds, in this art style. Moving camera and changing shots — never a static locked frame. ' +
+      'Title: "' + (beat.title || '') + '". Shot list: ' + shots +
+      '  Smooth transitions between shots, dynamic camera moves (push-in, pan, parallax), and living motion in every scene. No on-screen text or captions.';
   }
 
   // object-fit: cover for a loaded image into a rect
@@ -400,6 +411,7 @@
     adventureCanvas: adventureCanvas,
     beatCanvas: beatCanvas,
     beatPrompt: beatPrompt,
+    videoPrompt: videoPrompt,
     stylePrompt: STYLE_PROMPT,
     loadImage: loadImage, fetchArt: fetchArt, providerToggle: providerToggle,
     download: download, saveButton: saveButton, lightbox: lightbox,

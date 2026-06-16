@@ -203,6 +203,51 @@ function buildCarousel(beat, beatIndex) {
       });
     });
     saveBar.appendChild(illoBtn);
+
+    // Video — the FINAL step, after the storyboard style above is approved.
+    let videoEl = null, videoStatus = null;
+    function poll(op, n) {
+      return new Promise((resolve, reject) => {
+        const tick = () => {
+          fetch('./api/video?op=' + encodeURIComponent(op)).then(r => r.json()).then(d => {
+            if (d.error) return reject(d);
+            if (d.done && d.video) return resolve(d.video);
+            if (n++ > 48) return reject({ error: 'timed out' });
+            if (videoStatus) videoStatus.textContent = 'Rendering video… (' + (n * 5) + 's)';
+            setTimeout(tick, 5000);
+          }).catch(reject);
+        };
+        tick();
+      });
+    }
+    function makeVideo(btn) {
+      if (!window.CardRender) return;
+      btn.disabled = true; btn.textContent = '🎬 generating…';
+      if (!videoStatus) { videoStatus = document.createElement('p'); videoStatus.className = 'beat-video-status'; section.appendChild(videoStatus); }
+      videoStatus.textContent = 'Sending the approved storyboard to the video model…';
+      const prompt = window.CardRender.videoPrompt(beat, currentStyle);
+      fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: prompt, aspectRatio: '9:16' }) })
+        .then(r => r.json().then(d => r.ok ? d : Promise.reject(d)))
+        .then(d => { if (!d.op) return Promise.reject(d); return poll(d.op, 0); })
+        .then(videoUrl => {
+          if (!videoEl) { videoEl = document.createElement('video'); videoEl.className = 'beat-video'; videoEl.controls = true; videoEl.playsInline = true; videoEl.loop = true; section.appendChild(videoEl); }
+          videoEl.src = videoUrl; videoStatus.textContent = 'Your beat video (right-click to save):';
+          btn.textContent = '🎬 Re-make video'; btn.disabled = false;
+        })
+        .catch(err => {
+          videoStatus.textContent = (err && err.error)
+            ? ('Video unavailable: ' + err.error)
+            : 'Video isn’t enabled for this site yet (needs GEMINI_API_KEY + a Veo model).';
+          btn.textContent = '🎬 Make video'; btn.disabled = false;
+        });
+    }
+    const vidBtn = document.createElement('button');
+    vidBtn.type = 'button'; vidBtn.className = 'cr-save-btn';
+    vidBtn.textContent = '🎬 Make video';
+    vidBtn.title = 'Final step — render this approved storyboard as a short video (15–30s)';
+    vidBtn.addEventListener('click', () => makeVideo(vidBtn));
+    saveBar.appendChild(vidBtn);
+
     section.appendChild(saveBar);
   }
 

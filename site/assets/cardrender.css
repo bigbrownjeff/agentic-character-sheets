@@ -2,17 +2,21 @@
    CARDRENDER — UI for save buttons, previews, in-card canvases
    ============================================================ */
 
+/* Maker buttons are deliberately quiet (secondary): outline by default, fill on
+   hover. The primary action on every page is reading the card, not generating. */
 .cr-save-btn {
-  font-family: var(--sans, sans-serif);
-  font-size: 0.82rem; font-weight: 600;
-  cursor: pointer; border-radius: 8px;
-  border: 1px solid var(--rule, #231F1A);
-  background: var(--ink, #0E1116); color: var(--paper, #FAF6EC);
-  padding: 0.45rem 0.85rem;
+  font-family: var(--mono, monospace);
+  font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer; border-radius: 2px;
+  border: 1px solid var(--ruleSoft, #C9C3B4);
+  background: transparent; color: var(--ink, #0E1116);
+  padding: 0.4rem 0.7rem;
+  transition: border-color 0.12s, background 0.12s, color 0.12s;
 }
-.cr-save-btn:hover { background: var(--accent, #C84B31); border-color: var(--accent, #C84B31); }
-.cr-save-btn.ghost { background: transparent; color: var(--ink, #0E1116); }
-.cr-save-btn.ghost:hover { background: var(--ink, #0E1116); color: var(--paper, #FAF6EC); }
+.cr-save-btn:hover { background: var(--ink, #0E1116); border-color: var(--ink, #0E1116); color: var(--paper, #FAF6EC); }
+.cr-save-btn.ghost { color: var(--muted, #6B6B6B); }
+.cr-save-btn.ghost:hover { background: var(--ink, #0E1116); border-color: var(--ink, #0E1116); color: var(--paper, #FAF6EC); }
 
 /* a canvas rendered in place of a missing PNG */
 canvas.card-sheet-img, canvas.adv-cover-img, canvas.cr-incard {
@@ -43,10 +47,31 @@ canvas.card-sheet-img, canvas.adv-cover-img, canvas.cr-incard {
 .cr-maker .cr-actions { margin-top: 0; }
 .cr-note {
   width: 100%; font-family: var(--sans, sans-serif); font-size: 0.82rem;
-  padding: 0.45rem 0.6rem; border-radius: 8px;
+  padding: 0.45rem 0.6rem; border-radius: 2px;
   border: 1px solid var(--ruleSoft, #C9C3B4); background: #fff; color: var(--ink, #0E1116);
 }
 .cr-note:focus { outline: 2px solid var(--accent, #C84B31); outline-offset: 1px; }
+
+/* "Add your take" disclosure: calm closed state, controls appear on open */
+.cr-take { margin: 0; }
+.cr-take-summary {
+  list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem;
+  font-family: var(--mono, monospace); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted, #6B6B6B);
+  padding: 0.15rem 0; user-select: none;
+}
+.cr-take-summary::-webkit-details-marker { display: none; }
+.cr-take-summary::before {
+  content: '+'; font-weight: 600; color: var(--accent, #C84B31);
+  font-size: 0.85rem; line-height: 1; width: 0.8rem; text-align: center;
+}
+.cr-take[open] > .cr-take-summary::before { content: '−'; }
+.cr-take-summary:hover { color: var(--ink, #0E1116); }
+.cr-take-summary:focus-visible { outline: 2px solid var(--ink, #0E1116); outline-offset: 2px; }
+.cr-take-panel {
+  display: flex; flex-direction: column; gap: 0.4rem;
+  margin-top: 0.5rem;
+}
 
 /* version pills (named image versions; hover = full prompt; × deletes) */
 .cr-versions { margin-top: 0.6rem; }

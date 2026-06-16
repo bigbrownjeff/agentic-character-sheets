@@ -448,6 +448,23 @@
     opts = opts || {};
     var wrap = document.createElement('div');
     wrap.className = 'cr-maker';
+
+    // Tuck the generator UI behind a calm "Add your take" disclosure so cards and
+    // beats read quietly by default. The note input and the .cr-actions row still
+    // live inside the returned node, so callers that query them (e.g. beats.js
+    // selecting the video button) keep working whether the panel is open or shut.
+    var det = document.createElement('details');
+    det.className = 'cr-take';
+    var sum = document.createElement('summary');
+    sum.className = 'cr-take-summary';
+    sum.textContent = opts.takeLabel || 'Add your take';
+    sum.addEventListener('click', function (e) { e.stopPropagation(); });
+    det.appendChild(sum);
+    var panel = document.createElement('div');
+    panel.className = 'cr-take-panel';
+    det.appendChild(panel);
+    wrap.appendChild(det);
+
     var noteEl = null;
     if (opts.note !== false) {
       noteEl = document.createElement('input');
@@ -456,7 +473,7 @@
       noteEl.placeholder = opts.placeholder || 'Add a note to steer the next image / video (optional)…';
       noteEl.addEventListener('click', function (e) { e.stopPropagation(); });
       noteEl.addEventListener('keydown', function (e) { e.stopPropagation(); });
-      wrap.appendChild(noteEl);
+      panel.appendChild(noteEl);
     }
     var row = document.createElement('div');
     row.className = 'cr-actions';
@@ -480,7 +497,7 @@
       row.appendChild(btn);
     });
     (opts.extra || []).forEach(function (node) { row.appendChild(node); });
-    wrap.appendChild(row);
+    panel.appendChild(row);
     return wrap;
   }
 

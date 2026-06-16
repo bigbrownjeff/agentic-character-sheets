@@ -159,6 +159,11 @@ function buildCarousel(beat, beatIndex) {
   styleToggleBar.setAttribute('role', 'group');
   styleToggleBar.setAttribute('aria-label', 'Illustration style');
 
+  const styleToggleLabel = document.createElement('span');
+  styleToggleLabel.className = 'style-toggle-label';
+  styleToggleLabel.textContent = 'Art style';
+  styleToggleBar.appendChild(styleToggleLabel);
+
   const styleButtons = {};
   ['A', 'B', 'C'].forEach(key => {
     const btn = document.createElement('button');

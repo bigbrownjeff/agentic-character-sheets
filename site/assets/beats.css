@@ -64,6 +64,7 @@
 
 .beat-style-toggle {
   display: flex;
+  align-items: center;
   gap: 6px;
   margin-bottom: 16px;
   flex-wrap: wrap;

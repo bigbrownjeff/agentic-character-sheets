@@ -726,6 +726,11 @@ function initAdventuresPage(characters, adventures) {
     styleToggleBar.setAttribute('role', 'group');
     styleToggleBar.setAttribute('aria-label', 'Module cover style');
 
+    const styleToggleLabel = document.createElement('span');
+    styleToggleLabel.className = 'style-toggle-label';
+    styleToggleLabel.textContent = 'Cover style';
+    styleToggleBar.appendChild(styleToggleLabel);
+
     const ADV_STYLE_LABELS = { A: 'Module', B: 'Graphic Novel', C: 'Trend' };
     let currentCoverStyle = 'A';
     const styleBtns = {};

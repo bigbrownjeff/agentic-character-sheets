@@ -45,6 +45,26 @@ Best (Gemini)**. You should see a generated portrait replace the stylized card. 
 dropdown's choice isn't configured, the button reads "AI art not enabled" and the
 stylized card stays — that's the graceful fallback, not an error.
 
+## C. Beat videos — Gemini / Veo ("Gemini Omni")
+
+Powers `functions/api/video.ts`. Video is the **final step**: on the Beats page, approve a
+storyboard style (the 3-option toggle), then **🎬 Make video** renders a short clip in that
+style. Uses the **same** `GEMINI_API_KEY` as image gen.
+
+1. Ensure `GEMINI_API_KEY` is set (step B1).
+2. (optional) `VEO_MODEL` = `veo-3.0-generate-preview` — override if your account exposes a
+   different Veo id (e.g. a `veo-3.1-*` or `*-fast-*` variant). This is the one value most
+   likely to need adjusting; the function surfaces the exact API error if the id is wrong.
+3. **Save** → **Retry deployment**.
+
+Notes / honest limits:
+- Veo is long-running (~1–2 min); the UI starts the job and polls, then shows the clip.
+- Single clips are typically ~8s. The prompt asks for a 15–30s motion sequence, but the
+  delivered length depends on the model — true 15–30s may need a Veo 3.1 long/extend model
+  or stitching clips (a follow-up if the single-clip length is short).
+- This path is wired but **unverified against the live Veo API from here** — confirm once the
+  key is in, and tweak `VEO_MODEL` if the start/poll/download shape differs for your account.
+
 Keeping the URL unlisted means no rate-limiting is required; if you ever make it public,
-add Cloudflare Rate Limiting / Turnstile in front of `/api/image` and `/api/forge` so a
-stranger can't spend your credits.
+add Cloudflare Rate Limiting / Turnstile in front of `/api/image`, `/api/forge`, and
+`/api/video` so a stranger can't spend your credits (video is the most expensive).

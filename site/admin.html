@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Content Browser (Admin)</title>
+  <link rel="stylesheet" href="./assets/styles.css">
+  <style>
+    /* --- ADMIN: denser, more utilitarian than the editorial pages -------- */
+    .admin-wrap { max-width: 1200px; margin: 0 auto; padding: 28px 40px 64px; }
+
+    .admin-head { border-bottom: 1px solid var(--rule); padding-bottom: 16px; margin-bottom: 20px; }
+    .admin-head h1 { font-family: var(--serif); font-weight: 700; font-size: 1.7rem; color: var(--ink); line-height: 1.15; }
+    .admin-note {
+      font-family: var(--mono); font-size: 11px; color: var(--muted);
+      margin-top: 8px; line-height: 1.5;
+    }
+    .admin-note strong { color: var(--ink); font-weight: 600; }
+
+    /* Controls */
+    .admin-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 14px; }
+    .admin-controls .search-input { width: 320px; max-width: 100%; }
+    .admin-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+    .admin-status {
+      font-family: var(--mono); font-size: 11px; color: var(--muted);
+      margin-left: auto; white-space: nowrap;
+    }
+    .admin-status.error { color: var(--accent); }
+
+    /* Table */
+    .admin-table-scroll { overflow-x: auto; border-top: 1px solid var(--rule); }
+    table.admin-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    table.admin-table th {
+      font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+      text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--ruleSoft);
+      cursor: pointer; user-select: none; white-space: nowrap; position: sticky; top: 0;
+      background: var(--bg);
+    }
+    table.admin-table th.no-sort { cursor: default; }
+    table.admin-table th .arrow { color: var(--accent); margin-left: 4px; }
+    table.admin-table th.num, table.admin-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+    table.admin-table td { padding: 8px 12px; border-bottom: 1px solid var(--ruleSoft); vertical-align: top; }
+    table.admin-table tr.row { cursor: pointer; }
+    table.admin-table tr.row:hover td { background: #FAF9F6; }
+    table.admin-table tr.row.open td { background: #F4F2ED; }
+
+    .cell-type {
+      font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--ink); border: 1px solid var(--ruleSoft);
+      border-radius: 2px; padding: 2px 6px; white-space: nowrap; display: inline-block;
+    }
+    /* Type accents: keep flat, just a left tick of colour */
+    .cell-type[data-group="media"] { border-left: 2px solid var(--accent); }
+    .cell-type[data-group="text"]  { border-left: 2px solid var(--role-npc); }
+    .cell-type[data-group="page"]  { border-left: 2px solid var(--role-party); }
+
+    .cell-name { font-family: var(--serif); color: var(--ink); }
+    .cell-key  { font-family: var(--mono); font-size: 11px; color: var(--body); word-break: break-all; }
+    .cell-size { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+    .cell-sub  { font-family: var(--mono); font-size: 10px; color: var(--muted); display: block; margin-top: 2px; }
+
+    /* Inline preview row */
+    tr.preview-row > td { padding: 0; background: #FCFBF8; }
+    tr.preview-row.hidden { display: none; }
+    .preview-box { padding: 16px 12px 20px; }
+    .preview-box img { max-width: 480px; width: 100%; height: auto; border: 1px solid var(--ruleSoft); }
+    .preview-box video { max-width: 480px; width: 100%; border: 1px solid var(--ruleSoft); background: #000; }
+    .preview-text {
+      font-family: var(--serif); font-size: 14px; color: var(--body); line-height: 1.6;
+      max-width: 760px; white-space: pre-wrap;
+    }
+    .preview-text .label {
+      font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--muted); display: block; margin: 12px 0 4px;
+    }
+    .preview-text .label:first-child { margin-top: 0; }
+    .preview-meta { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 10px; }
+    .preview-open {
+      font-family: var(--mono); font-size: 11px; display: inline-block; margin-top: 12px;
+    }
+    .preview-error { font-family: var(--mono); font-size: 11px; color: var(--accent); }
+
+    .empty-row td { font-family: var(--mono); font-size: 12px; color: var(--muted); padding: 24px 12px; text-align: center; }
+
+    @media (max-width: 768px) {
+      .admin-wrap { padding: 20px 18px 48px; }
+      .admin-controls .search-input { width: 100%; }
+      .admin-status { margin-left: 0; }
+      table.admin-table .col-size, table.admin-table .cell-size { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MASTHEAD NAV (admin is unlinked from the public nav; reachable only by URL) -->
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="site-name" href="./index.html">Character Sheets</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-list">
+        <li><a href="./characters.html">Characters</a></li>
+        <li><a href="./adventures.html">Adventures</a></li>
+        <li><a href="./beats.html">Beats</a></li>
+        <li><a href="./forge.html">Forge</a></li>
+        <li><a href="./admin.html" class="active">Admin</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="admin-wrap">
+    <div class="admin-head">
+      <h1>Content browser</h1>
+      <p class="admin-note">
+        Every piece of content in one table: pages, character and beat text, and all R2 media
+        (sheets, covers, beat images, video clips and moments). Search, filter by type, sort any
+        column, and click a row to preview it inline.
+        <br><strong>Owner-only / unlisted.</strong> Not linked from the public nav and tagged
+        <code>noindex</code>; no auth in v1 (the R2 media is already public via its r2.dev URL).
+      </p>
+    </div>
+
+    <div class="admin-controls">
+      <input type="search" id="search" class="search-input" placeholder="Search key, name, text..." autocomplete="off" spellcheck="false">
+      <div class="admin-filters" id="filters" role="group" aria-label="Filter by type"></div>
+      <span class="admin-status" id="status">Loading...</span>
+    </div>
+
+    <div class="admin-table-scroll">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th data-sort="type" class="col-type">Type</th>
+            <th data-sort="name">Name / Key</th>
+            <th data-sort="size" class="num col-size">Size</th>
+            <th class="no-sort">Preview</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="./assets/media.js"></script>
+  <script src="./assets/admin.js"></script>
+  <script>
+    /* Self-contained nav toggle (admin doesn't load app.js). */
+    (function () {
+      var t = document.getElementById('nav-toggle');
+      var l = document.getElementById('nav-list');
+      if (t && l) t.addEventListener('click', function () {
+        var open = l.classList.toggle('nav-open');
+        t.setAttribute('aria-expanded', String(open));
+      });
+    })();
+  </script>
+</body>
+</html>

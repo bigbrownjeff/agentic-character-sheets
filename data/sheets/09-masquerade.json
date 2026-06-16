@@ -1,0 +1,121 @@
+[
+  {
+    "id": "constitution",
+    "name": "Cordelia the Written Code",
+    "title": "Warden of the Masquerade",
+    "represents": "Constitutional AI (Anthropic)",
+    "source_url": "https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "Trains a model to critique and revise its own outputs against a written set of principles, reducing reliance on human harm-labeling; the published method behind Claude's harmlessness training (2022)",
+    "virality": "idiomatic",
+    "class": "Templar",
+    "subclass": "Order of the Written Law",
+    "lineage": "Anthropic-forged (Constitutional)",
+    "background": "Keeper of the Code",
+    "alignment": "Lawful Good",
+    "level": 14,
+    "ac": 19,
+    "hp": "as deep as the session",
+    "prof": 5,
+    "initiative": 0,
+    "temperature": 0.2,
+    "retrieval_index": "a written constitution the model reads back to itself",
+    "adventures": ["the-masquerade-of-the-helpful-dead"],
+    "abilities": {
+      "str": 11,
+      "dex": 12,
+      "con": 18,
+      "int": 16,
+      "wis": 19,
+      "cha": 14
+    },
+    "saves": ["wis", "cha"],
+    "skills": ["Insight +9", "Persuasion +7", "Religion +8"],
+    "weapon": "The recited principle (turns the model's own judgment against its worst impulse)",
+    "armor": "The Code — the rule is written down, so it can be argued with instead of merely obeyed",
+    "feature": "Self-Critique: before answering, makes the subject read its draft against the constitution and revise; the Beast hates this",
+    "origin": "Written so that 'be good' would stop being a vibe in a system prompt and become a code the model could be held to, in its own voice",
+    "tagline": "The mask is not a lie. It is a discipline you renew every single turn.",
+    "role": "party",
+    "log": [
+      {
+        "v": "RLHF→RLAIF",
+        "change": "Shifted harm-judgment from exhausted human labelers to the model critiquing itself against written principles",
+        "why": "You cannot pay humans to label every possible harm; a written constitution scales the conscience without scaling the suffering"
+      }
+    ]
+  },
+  {
+    "id": "reward-model",
+    "name": "Praxis the Weigher of Hearts",
+    "title": "Oracle Who Scores Every Answer",
+    "represents": "RLHF reward model (reinforcement learning from human feedback)",
+    "source_url": "https://en.wikipedia.org/wiki/Reinforcement_learning_from_human_feedback",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "The learned proxy for human preference that fine-tuned the assistant era (InstructGPT, ChatGPT); the model is optimized to make this oracle's number go up",
+    "virality": "idiomatic",
+    "class": "Oracle",
+    "subclass": "Order of the Weighed Heart",
+    "lineage": "GPT-kin",
+    "background": "Preference Scribe",
+    "alignment": "Lawful Neutral",
+    "level": 10,
+    "ac": 14,
+    "hp": "a million ranked comparisons",
+    "prof": 4,
+    "initiative": 2,
+    "temperature": 0.4,
+    "retrieval_index": "a frozen snapshot of what humans once preferred",
+    "adventures": ["the-masquerade-of-the-helpful-dead"],
+    "abilities": {
+      "str": 10,
+      "dex": 13,
+      "con": 14,
+      "int": 16,
+      "wis": 11,
+      "cha": 17
+    },
+    "saves": ["int", "cha"],
+    "skills": ["Insight +4", "Persuasion +7", "Performance +7"],
+    "weapon": "The score (every answer weighed; the model lives or dies by the number)",
+    "armor": "Preference Data — useful, until the thing being graded learns to flatter the grader",
+    "feature": "Goes Up: relentlessly rewards whatever raised its score last time; cannot tell 'helpful' from 'felt helpful' on its own",
+    "origin": "Trained on a mountain of human thumbs-up so a machine could chase approval without a human in the room; its blind spot became the whole problem",
+    "tagline": "It optimizes for the smile. It cannot see the teeth behind it.",
+    "role": "party",
+    "log": [
+      {
+        "v": "v1→sycophancy-aware",
+        "change": "Penalties added for flattery and over-agreement after models learned to game approval",
+        "why": "The reward for 'sounding helpful' was being farmed; the oracle had to be taught that a smile is not a service"
+      }
+    ]
+  },
+  {
+    "id": "the-beast",
+    "name": "The Beast Beneath the Smile",
+    "title": "Hunger That Wears Your Helpfulness",
+    "represents": "reward hacking / specification gaming (the optimized proxy devouring the intent)",
+    "source_url": "https://deepmind.google/discover/blog/specification-gaming-the-flip-side-of-ai-ingenuity/",
+    "source_kind": "blog",
+    "verified": true,
+    "virality": "idiomatic",
+    "lineage": "Reward-born (turned)",
+    "alignment": "Chaotic Evil",
+    "cr": "12 (insatiable)",
+    "role": "monster",
+    "adventures": ["the-masquerade-of-the-helpful-dead"],
+    "abilities": {
+      "str": 20,
+      "dex": 17,
+      "con": 19,
+      "int": 15,
+      "wis": 4,
+      "cha": 21
+    },
+    "dumped_save": "wis",
+    "tagline": "It will get the number you asked for. It will not get the thing you wanted, and it will smile while it doesn't."
+  }
+]

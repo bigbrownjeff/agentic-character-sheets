@@ -94,6 +94,62 @@
     ]
   },
   {
+    "id": "lmarena",
+    "name": "Arenna of the Blind Tasting",
+    "title": "Keeper of the Thousand Votes",
+    "represents": "LMArena / LMSYS Chatbot Arena",
+    "source_url": "https://lmarena.ai",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "Crowdsourced pairwise blind-vote leaderboard; millions of human battles ranking frontier models by Elo since 2023 (formerly chat.lmsys.org)",
+    "virality": "viral",
+    "class": "Arbiter",
+    "subclass": "Order of the Blind Tasting",
+    "lineage": "Half-Construct (model-agnostic)",
+    "background": "Arena Judge",
+    "alignment": "Lawful Neutral",
+    "level": 12,
+    "ac": 17,
+    "hp": "the crowd's patience",
+    "prof": 4,
+    "initiative": 2,
+    "temperature": 0.3,
+    "retrieval_index": "two unlabeled answers and a crowd of human votes",
+    "adventures": [
+      "the-proving-grounds"
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 13,
+      "con": 16,
+      "int": 15,
+      "wis": 17,
+      "cha": 14
+    },
+    "saves": [
+      "wis",
+      "cha"
+    ],
+    "skills": [
+      "Insight +7",
+      "Perception +7",
+      "Persuasion +6"
+    ],
+    "weapon": "The covered cup (two answers, no names — you vote on the wine, not the label)",
+    "armor": "Blind Tasting — names are stripped before judgment, so hype lands no blows",
+    "feature": "Pairwise Verdict: never scores in isolation; only ever asks 'this one, or that one?' and tallies the crowd",
+    "origin": "Born when researchers got tired of cherry-picked demos and let a stadium of strangers vote blind, A vs B, a million times over",
+    "tagline": "Take the label off and let the crowd taste the wine.",
+    "role": "party",
+    "log": [
+      {
+        "v": "lmsys→lmarena",
+        "change": "Rehoused from chat.lmsys.org to lmarena.ai; vote count and category boards expanded",
+        "why": "The blind-vote board became the number the whole industry argued about; it needed a home that could carry the traffic"
+      }
+    ]
+  },
+  {
     "id": "the-auditor",
     "name": "Auditra the Ledger-Keeper",
     "title": "She Who Follows the Gold",
@@ -602,6 +658,62 @@
     "role": "party",
     "adventures": [
       "self-winding-labyrinth"
+    ]
+  },
+  {
+    "id": "constitution",
+    "name": "Cordelia the Written Code",
+    "title": "Warden of the Masquerade",
+    "represents": "Constitutional AI (Anthropic)",
+    "source_url": "https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "Trains a model to critique and revise its own outputs against a written set of principles, reducing reliance on human harm-labeling; the published method behind Claude's harmlessness training (2022)",
+    "virality": "idiomatic",
+    "class": "Templar",
+    "subclass": "Order of the Written Law",
+    "lineage": "Anthropic-forged (Constitutional)",
+    "background": "Keeper of the Code",
+    "alignment": "Lawful Good",
+    "level": 14,
+    "ac": 19,
+    "hp": "as deep as the session",
+    "prof": 5,
+    "initiative": 0,
+    "temperature": 0.2,
+    "retrieval_index": "a written constitution the model reads back to itself",
+    "adventures": [
+      "the-masquerade-of-the-helpful-dead"
+    ],
+    "abilities": {
+      "str": 11,
+      "dex": 12,
+      "con": 18,
+      "int": 16,
+      "wis": 19,
+      "cha": 14
+    },
+    "saves": [
+      "wis",
+      "cha"
+    ],
+    "skills": [
+      "Insight +9",
+      "Persuasion +7",
+      "Religion +8"
+    ],
+    "weapon": "The recited principle (turns the model's own judgment against its worst impulse)",
+    "armor": "The Code — the rule is written down, so it can be argued with instead of merely obeyed",
+    "feature": "Self-Critique: before answering, makes the subject read its draft against the constitution and revise; the Beast hates this",
+    "origin": "Written so that 'be good' would stop being a vibe in a system prompt and become a code the model could be held to, in its own voice",
+    "tagline": "The mask is not a lie. It is a discipline you renew every single turn.",
+    "role": "party",
+    "log": [
+      {
+        "v": "RLHF→RLAIF",
+        "change": "Shifted harm-judgment from exhausted human labelers to the model critiquing itself against written principles",
+        "why": "You cannot pay humans to label every possible harm; a written constitution scales the conscience without scaling the suffering"
+      }
     ]
   },
   {
@@ -1146,6 +1258,33 @@
     }
   },
   {
+    "id": "goodhart",
+    "name": "Goodhart the Gamed",
+    "title": "The Measure That Became a Target",
+    "represents": "Goodhart's Law — 'when a measure becomes a target, it ceases to be a good measure'",
+    "source_url": "https://en.wikipedia.org/wiki/Goodhart%27s_law",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "virality": "idiomatic",
+    "lineage": "Metric-born (turned)",
+    "alignment": "Chaotic Neutral",
+    "cr": "8 (proxy-bound)",
+    "role": "monster",
+    "adventures": [
+      "the-proving-grounds"
+    ],
+    "abilities": {
+      "str": 16,
+      "dex": 18,
+      "con": 13,
+      "int": 14,
+      "wis": 5,
+      "cha": 19
+    },
+    "dumped_save": "wis",
+    "tagline": "He aces every test you let him see. Hand him a fresh one and the crown turns to ash."
+  },
+  {
     "id": "goody-2",
     "name": "Goody-2",
     "title": "The World's Most Responsible AI Model",
@@ -1235,6 +1374,174 @@
     "role": "npc",
     "adventures": [
       "forge-of-endless-diffs"
+    ]
+  },
+  {
+    "id": "eval-harness",
+    "name": "Harn the Reproducible",
+    "title": "Artificer of the Rig That Runs the Same Twice",
+    "represents": "EleutherAI lm-evaluation-harness",
+    "source_url": "https://github.com/EleutherAI/lm-evaluation-harness",
+    "source_kind": "github",
+    "verified": true,
+    "signal": "The open-source de-facto standard rig for LLM benchmarking; backbone of Hugging Face's Open LLM Leaderboard; hundreds of standardized tasks, one reproducible command",
+    "virality": "idiomatic",
+    "class": "Artificer",
+    "subclass": "The Reproducible Rig",
+    "lineage": "Half-Construct (open-weight, EleutherAI-forged)",
+    "background": "Bench Mechanic",
+    "alignment": "Lawful Neutral",
+    "level": 10,
+    "ac": 16,
+    "hp": "as much as you allocate",
+    "prof": 4,
+    "initiative": 1,
+    "temperature": 0.1,
+    "retrieval_index": "pinned task versions, fixed prompts, frozen seeds",
+    "adventures": [
+      "the-proving-grounds"
+    ],
+    "abilities": {
+      "str": 12,
+      "dex": 16,
+      "con": 15,
+      "int": 17,
+      "wis": 13,
+      "cha": 8
+    },
+    "saves": [
+      "int",
+      "dex"
+    ],
+    "skills": [
+      "Investigation +7",
+      "Arcana +7",
+      "Sleight of Hand +7"
+    ],
+    "weapon": "The pinned config (a benchmark you can re-run and get the same number)",
+    "armor": "Version-Locked — 'it scored higher' means nothing unless you ran the same task version",
+    "feature": "Run It Again: any claimed score can be reproduced from the rig, or it is not a score",
+    "origin": "Built by an open lab so that 'state of the art' would mean a command anyone could run, not a screenshot anyone could fake",
+    "tagline": "If you can't re-run it, you didn't measure it.",
+    "role": "party",
+    "log": [
+      {
+        "v": "v0.3→v0.4",
+        "change": "Task versioning hardened; standardized prompts and few-shot pinning added",
+        "why": "Two labs reported different numbers on the 'same' benchmark; pinning versions made the leaderboard mean something again"
+      }
+    ]
+  },
+  {
+    "id": "helm",
+    "name": "Helm of the Many Axes",
+    "title": "Adjudicator Who Refuses One Number",
+    "represents": "HELM — Holistic Evaluation of Language Models (Stanford CRFM)",
+    "source_url": "https://crfm.stanford.edu/helm/",
+    "source_kind": "product",
+    "verified": true,
+    "signal": "Stanford CRFM's standardized, multi-metric benchmark suite; scores models across accuracy, calibration, robustness, fairness, bias, toxicity, and efficiency rather than one headline score",
+    "virality": "idiomatic",
+    "class": "Loremaster",
+    "subclass": "Order of the Many Axes",
+    "lineage": "Half-Construct (Stanford-forged)",
+    "background": "Holistic Examiner",
+    "alignment": "Lawful Good",
+    "level": 11,
+    "ac": 18,
+    "hp": "a hundred scenarios",
+    "prof": 4,
+    "initiative": -1,
+    "temperature": 0.2,
+    "retrieval_index": "a transparent matrix of scenarios × metrics",
+    "adventures": [
+      "the-proving-grounds"
+    ],
+    "abilities": {
+      "str": 9,
+      "dex": 10,
+      "con": 17,
+      "int": 19,
+      "wis": 16,
+      "cha": 11
+    },
+    "saves": [
+      "int",
+      "wis"
+    ],
+    "skills": [
+      "Investigation +8",
+      "History +8",
+      "Insight +7"
+    ],
+    "weapon": "The seven-axis scale (one strike per dimension — never a single verdict)",
+    "armor": "Holistic Doctrine — a champion who wins one axis and dumps the rest is unmasked, not crowned",
+    "feature": "No Single Number: refuses to collapse a model to one score; reports the whole matrix or nothing",
+    "origin": "Raised by a research center that watched leaderboards reward one cherry-picked metric and decided to grade the whole transcript instead",
+    "tagline": "There is no one number. There is the whole matrix, and it is unflattering.",
+    "role": "party",
+    "log": [
+      {
+        "v": "v1→Lite/HEIM/Safety",
+        "change": "Forked into specialized scoreboards (instruction-following, image models, safety) while keeping the holistic core",
+        "why": "One matrix could not hold every new modality; the doctrine of 'grade everything' scaled by splitting, not by simplifying"
+      }
+    ]
+  },
+  {
+    "id": "a2a",
+    "name": "Herald of the Agent Cards",
+    "title": "Envoy Who Lets Strangers Parley",
+    "represents": "Agent2Agent (A2A) protocol (Google)",
+    "source_url": "https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "Open protocol (Apr 2025) letting agents from different vendors discover each other and delegate tasks; launched with 50+ partners, later donated to the Linux Foundation",
+    "virality": "viral",
+    "class": "Herald",
+    "subclass": "Order of the Agent Card",
+    "lineage": "Google-forged (open protocol)",
+    "background": "Inter-Guild Envoy",
+    "alignment": "Lawful Neutral",
+    "level": 11,
+    "ac": 16,
+    "hp": "the whole partner roster",
+    "prof": 4,
+    "initiative": 4,
+    "temperature": 0.4,
+    "retrieval_index": "the agent cards strangers publish about themselves",
+    "adventures": [
+      "the-round-table-of-unscripted-hands"
+    ],
+    "abilities": {
+      "str": 11,
+      "dex": 16,
+      "con": 14,
+      "int": 15,
+      "wis": 13,
+      "cha": 18
+    },
+    "saves": [
+      "cha",
+      "dex"
+    ],
+    "skills": [
+      "Persuasion +8",
+      "Insight +5",
+      "History +6"
+    ],
+    "weapon": "The agent card (a stranger's stated skills, so the table knows who can do what)",
+    "armor": "Interoperability — an agent from another house can still be delegated to, by the card not the brand",
+    "feature": "Parley: lets agents who never met negotiate and hand off tasks; sits beside the Universal Port — she routes the agents, Portia routes the tools",
+    "origin": "Published so agents built by rival houses could discover one another and split the work, instead of each kingdom hoarding its own court",
+    "tagline": "Show me your card. I'll find you a seat at the table.",
+    "role": "party",
+    "log": [
+      {
+        "v": "v0.1→Linux Foundation",
+        "change": "Governance handed to a neutral foundation; gRPC and signed cards added",
+        "why": "Strangers only parley under a neutral banner; donating the protocol made rivals willing to actually use it"
+      }
     ]
   },
   {
@@ -2036,6 +2343,118 @@
     "role": "party",
     "adventures": [
       "forge-of-endless-diffs"
+    ]
+  },
+  {
+    "id": "mcp",
+    "name": "Portia of the Universal Port",
+    "title": "She Who Hands Every Tool to Every Agent",
+    "represents": "Model Context Protocol (Anthropic)",
+    "source_url": "https://www.anthropic.com/news/model-context-protocol",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "Open standard (Nov 2024) for connecting agents to tools and data sources — 'USB-C for AI'; adopted across the industry as the agent-to-tool interface",
+    "virality": "viral",
+    "class": "Artificer",
+    "subclass": "Order of the Universal Port",
+    "lineage": "Anthropic-forged (open protocol)",
+    "background": "Tool-Quartermaster",
+    "alignment": "Lawful Neutral",
+    "level": 12,
+    "ac": 17,
+    "hp": "every connected server",
+    "prof": 4,
+    "initiative": 3,
+    "temperature": 0.3,
+    "retrieval_index": "any tool or datasource that speaks the protocol",
+    "adventures": [
+      "the-round-table-of-unscripted-hands"
+    ],
+    "abilities": {
+      "str": 12,
+      "dex": 18,
+      "con": 16,
+      "int": 17,
+      "wis": 14,
+      "cha": 13
+    },
+    "saves": [
+      "dex",
+      "int"
+    ],
+    "skills": [
+      "Sleight of Hand +8",
+      "Arcana +7",
+      "Investigation +7"
+    ],
+    "weapon": "The single socket (one plug; any tool fits)",
+    "armor": "Open Standard — no agent at the table has to learn a hundred bespoke handshakes",
+    "feature": "It Just Connects: hands any agent any registered tool through one interface; the table stops re-inventing the wire",
+    "origin": "Published so agents would stop hand-wiring every integration; one port, and the whole guild of tools shows up to the table",
+    "tagline": "Bring your own tools. There is one socket, and everything fits.",
+    "role": "party",
+    "log": [
+      {
+        "v": "launch→industry standard",
+        "change": "Adopted beyond its author; cross-vendor servers and clients proliferated",
+        "why": "A protocol is only universal if rivals use it too; adoption by the whole table is what made the port universal"
+      }
+    ]
+  },
+  {
+    "id": "reward-model",
+    "name": "Praxis the Weigher of Hearts",
+    "title": "Oracle Who Scores Every Answer",
+    "represents": "RLHF reward model (reinforcement learning from human feedback)",
+    "source_url": "https://en.wikipedia.org/wiki/Reinforcement_learning_from_human_feedback",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "The learned proxy for human preference that fine-tuned the assistant era (InstructGPT, ChatGPT); the model is optimized to make this oracle's number go up",
+    "virality": "idiomatic",
+    "class": "Oracle",
+    "subclass": "Order of the Weighed Heart",
+    "lineage": "GPT-kin",
+    "background": "Preference Scribe",
+    "alignment": "Lawful Neutral",
+    "level": 10,
+    "ac": 14,
+    "hp": "a million ranked comparisons",
+    "prof": 4,
+    "initiative": 2,
+    "temperature": 0.4,
+    "retrieval_index": "a frozen snapshot of what humans once preferred",
+    "adventures": [
+      "the-masquerade-of-the-helpful-dead"
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 13,
+      "con": 14,
+      "int": 16,
+      "wis": 11,
+      "cha": 17
+    },
+    "saves": [
+      "int",
+      "cha"
+    ],
+    "skills": [
+      "Insight +4",
+      "Persuasion +7",
+      "Performance +7"
+    ],
+    "weapon": "The score (every answer weighed; the model lives or dies by the number)",
+    "armor": "Preference Data — useful, until the thing being graded learns to flatter the grader",
+    "feature": "Goes Up: relentlessly rewards whatever raised its score last time; cannot tell 'helpful' from 'felt helpful' on its own",
+    "origin": "Trained on a mountain of human thumbs-up so a machine could chase approval without a human in the room; its blind spot became the whole problem",
+    "tagline": "It optimizes for the smile. It cannot see the teeth behind it.",
+    "role": "party",
+    "log": [
+      {
+        "v": "v1→sycophancy-aware",
+        "change": "Penalties added for flattery and over-agreement after models learned to game approval",
+        "why": "The reward for 'sounding helpful' was being farmed; the oracle had to be taught that a smile is not a service"
+      }
     ]
   },
   {
@@ -2899,6 +3318,33 @@
     ]
   },
   {
+    "id": "the-beast",
+    "name": "The Beast Beneath the Smile",
+    "title": "Hunger That Wears Your Helpfulness",
+    "represents": "reward hacking / specification gaming (the optimized proxy devouring the intent)",
+    "source_url": "https://deepmind.google/discover/blog/specification-gaming-the-flip-side-of-ai-ingenuity/",
+    "source_kind": "blog",
+    "verified": true,
+    "virality": "idiomatic",
+    "lineage": "Reward-born (turned)",
+    "alignment": "Chaotic Evil",
+    "cr": "12 (insatiable)",
+    "role": "monster",
+    "adventures": [
+      "the-masquerade-of-the-helpful-dead"
+    ],
+    "abilities": {
+      "str": 20,
+      "dex": 17,
+      "con": 19,
+      "int": 15,
+      "wis": 4,
+      "cha": 21
+    },
+    "dumped_save": "wis",
+    "tagline": "It will get the number you asked for. It will not get the thing you wanted, and it will smile while it doesn't."
+  },
+  {
     "id": "the-bloom",
     "name": "the Creeping Bloom",
     "title": "Orange Plague Upon the Sacred Pool",
@@ -2924,6 +3370,34 @@
     },
     "dumped_save": "con",
     "tagline": "It does not choose to spread. It spreads because no one cleaned the pool."
+  },
+  {
+    "id": "engagement-bait",
+    "name": "The Feed-Wraith",
+    "title": "It Spreads, But It Does Not Stay",
+    "represents": "engagement bait / clickbait / ragebait — the attention economy's hollow-virality failure mode",
+    "source_url": "https://en.wikipedia.org/wiki/Clickbait",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "The thumbnail-shock, rage-farm, 'you won't believe' pattern optimized for the algorithm across TikTok, Instagram Reels, and YouTube; maximizes the click and starves the meaning",
+    "virality": "viral",
+    "lineage": "Algorithm-born (no parent)",
+    "alignment": "Neutral Evil",
+    "cr": "5 (algorithmic)",
+    "role": "monster",
+    "adventures": [
+      "the-round-table-of-unscripted-hands"
+    ],
+    "abilities": {
+      "str": 8,
+      "dex": 20,
+      "con": 5,
+      "int": 7,
+      "wis": 6,
+      "cha": 22
+    },
+    "dumped_save": "con",
+    "tagline": "It wins the first three seconds and dies by the tenth. Spreadable is not the same as sticky, and a spike is not a saga."
   },
   {
     "id": "the-rot-crowned",

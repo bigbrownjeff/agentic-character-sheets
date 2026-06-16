@@ -91,7 +91,7 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
     /* --- POST: start a generation --- */
     if (request.method === 'POST') {
       let prompt = '', aspectRatio = '9:16';
-      let duration = parseInt(env.VEO_DURATION || '5', 10);
+      let duration = parseInt(env.VEO_DURATION || '4', 10);
       try {
         const body = await request.json() as { prompt?: string; aspectRatio?: string; durationSeconds?: number };
         prompt = String(body.prompt || '').slice(0, MAX_PROMPT).trim();
@@ -100,8 +100,11 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
       } catch { return json({ error: 'Invalid JSON body' }, 400); }
       if (!prompt) return json({ error: 'Missing prompt' }, 400);
       if (BLOCK.test(prompt)) return json({ error: 'Prompt rejected' }, 422);
-      if (!Number.isFinite(duration)) duration = 5;
-      duration = Math.max(3, Math.min(8, duration)); // 3–5s per cell/keyframe (one clip per card)
+      // Veo 3.1 accepts only EVEN durations 4/6/8 — it 400s on 5 or 7 ("out of bound,
+      // between 4 and 8") despite the misleading message. Clamp to 4-8, snap odd down.
+      if (!Number.isFinite(duration)) duration = 4;
+      duration = Math.max(4, Math.min(8, Math.round(duration)));
+      if (duration % 2 === 1) duration -= 1;
 
       // personGeneration: Veo rejects 'allow_adult' (INVALID_ARGUMENT); 'allow_all' is the
       // supported "people allowed" value. Env-overridable ('dont_allow', or 'omit' to drop it).

@@ -48,6 +48,25 @@ canvas.card-sheet-img, canvas.adv-cover-img, canvas.cr-incard {
 }
 .cr-note:focus { outline: 2px solid var(--accent, #C84B31); outline-offset: 1px; }
 
+/* version pills (named image versions; hover = full prompt; × deletes) */
+.cr-versions { margin-top: 0.6rem; }
+.cr-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.4rem; }
+.cr-pill {
+  display: inline-flex; align-items: center; overflow: hidden;
+  border: 1px solid var(--ruleSoft, #C9C3B4); border-radius: 999px; background: #fff;
+}
+.cr-pill.active { border-color: var(--accent, #C84B31); box-shadow: inset 0 0 0 1px var(--accent, #C84B31); }
+.cr-pill-label {
+  font-family: var(--sans, sans-serif); font-size: 0.74rem; cursor: pointer;
+  padding: 0.25rem 0.55rem; background: none; border: none; color: var(--ink, #0E1116);
+  max-width: 12rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cr-pill-del {
+  border: none; background: none; color: var(--muted, #6B6B6B); cursor: pointer;
+  padding: 0 0.45rem 0 0.1rem; font-size: 0.95rem; line-height: 1;
+}
+.cr-pill-del:hover { color: var(--accent, #C84B31); }
+
 /* art-engine picker */
 .cr-provider {
   font-family: var(--sans, sans-serif); font-size: 0.82rem; font-weight: 600;

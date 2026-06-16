@@ -125,29 +125,11 @@ function renderAbilityInline(abilities) {
 
 /* --- CARD RENDERER --------------------------------------- */
 
-/* --- AI ART (explicit, on demand — no auto-generation) --- */
-const _charArtCache = new Map(); // char.id -> HTMLImageElement (last generated)
-
-function currentCardCanvas(char) {
-  return window.CardRender.characterCanvas(char, _charArtCache.get(char.id) || null);
-}
-// Generate art for a card on demand; resolves true on success, false otherwise.
-function illustrateChar(el, char, note) {
-  if (!window.CardRender || !window.CardRender.fetchArt) return Promise.resolve(false);
-  const prompt = window.CardRender.stylePrompt.painterly + 'Heroic D&D character portrait of ' + char.name +
+// Prompt for a character portrait, optionally steered by an art-director note.
+function charImagePrompt(char, note) {
+  return window.CardRender.stylePrompt.painterly + 'Heroic D&D character portrait of ' + char.name +
     (char.title ? ', ' + char.title : '') + (char.role === 'monster' ? ' — a fearsome monster' : '') +
     '. Single dignified figure, dramatic lighting, no text, no words.' + (note ? ' Art-director note: ' + note : '');
-  return window.CardRender.fetchArt(prompt).then((img) => {
-    if (!img) return false;
-    _charArtCache.set(char.id, img);
-    const cur = el.querySelector('canvas.card-sheet-img, img.card-sheet-img');
-    const cv = window.CardRender.characterCanvas(char, img);
-    cv.className = 'card-sheet-img';
-    cv.setAttribute('role', 'img');
-    cv.setAttribute('aria-label', (char.name || '') + ' character art');
-    if (cur) cur.replaceWith(cv);
-    return true;
-  });
 }
 
 function renderCard(char) {
@@ -217,38 +199,50 @@ function renderCard(char) {
     <div class="card-badges">${badges.join('')}</div>
   `;
 
-  // Render a real card image from data when the (downstream-only) PNG is absent.
+  // Default visual = the committed PNG; on error, the stylized Canvas card.
   el._char = char;
-  const _img = el.querySelector('.card-sheet-img');
   const _fb = el.querySelector('.card-stat-fallback');
-  if (_img) {
-    _img.addEventListener('error', () => {
-      if (!_img.isConnected) return; // already replaced (e.g. by AI art)
-      if (window.CardRender) {
-        const cv = window.CardRender.characterCanvas(char);
-        cv.className = 'card-sheet-img';
-        cv.setAttribute('role', 'img');
-        cv.setAttribute('aria-label', (char.name || '') + ' character card');
-        _img.replaceWith(cv);
-        if (_fb) _fb.style.display = 'none';
-      } else {
-        _img.style.display = 'none';
-        if (_fb) _fb.style.display = '';
-      }
+  function attachDefaultErr(im) {
+    im.addEventListener('error', () => {
+      if (!im.isConnected || !window.CardRender) { if (_fb) { im.style.display = 'none'; _fb.style.display = ''; } return; }
+      const cv = window.CardRender.characterCanvas(char, null);
+      cv.className = 'card-sheet-img';
+      cv.setAttribute('role', 'img');
+      cv.setAttribute('aria-label', (char.name || '') + ' character card');
+      im.replaceWith(cv);
+      if (_fb) _fb.style.display = 'none';
     });
   }
+  attachDefaultErr(el.querySelector('.card-sheet-img'));
+
   if (window.CardRender) {
-    const saveBtn = window.CardRender.saveButton('⬇ Save', () => currentCardCanvas(char), (char.id || 'character') + '.png');
-    const bar = window.CardRender.makerControls({
+    let currentImg = null;
+    function show(img) {
+      currentImg = img || null;
+      const cur = el.querySelector('.card-sheet-img');
+      let next;
+      if (img) {
+        next = window.CardRender.characterCanvas(char, img);
+        next.className = 'card-sheet-img';
+        next.setAttribute('role', 'img');
+        next.setAttribute('aria-label', (char.name || '') + ' character art');
+      } else {
+        next = document.createElement('img');
+        next.className = 'card-sheet-img'; next.setAttribute('loading', 'lazy');
+        next.alt = (char.name || '') + ' character sheet';
+        next.src = './cards/sheets/' + char.id + '.png';
+        attachDefaultErr(next);
+      }
+      if (cur) cur.replaceWith(next);
+      if (_fb) _fb.style.display = 'none';
+    }
+    el.appendChild(window.CardRender.versionedMaker({
+      itemId: 'char-' + char.id,
+      show: show,
+      buildPrompt: (note) => charImagePrompt(char, note),
       placeholder: 'Note to steer this image (optional)…',
-      buttons: [{
-        label: '🖼 Make image', busy: '🖼 making…', done: '🖼 Remake image', fail: 'image not enabled',
-        title: 'Generate art for ' + (char.name || 'this character'),
-        run: (note) => illustrateChar(el, char, note),
-      }],
-      extra: [saveBtn],
-    });
-    el.appendChild(bar);
+      makeSaveCanvas: () => window.CardRender.characterCanvas(char, currentImg),
+    }));
   }
 
   el.addEventListener('click', () => openModal(char.id));
@@ -778,26 +772,20 @@ function initAdventuresPage(characters, adventures) {
         coverImg.replaceWith(coverCanvas);
         styleToggleBar.style.display = 'none';
         coverWrap.style.display = '';
-        const saveCover = window.CardRender.saveButton('⬇ Save cover', () => coverCanvas, (adv.id || 'adventure') + '.png');
-        const bar = window.CardRender.makerControls({
+        let currentCoverImg = null;
+        function showCover(img) {
+          currentCoverImg = img || null;
+          const n = window.CardRender.adventureCanvas(adv, advNames, img || null);
+          n.className = 'adv-cover-img';
+          coverCanvas.replaceWith(n); coverCanvas = n;
+        }
+        coverWrap.appendChild(window.CardRender.versionedMaker({
+          itemId: 'cover-' + (adv.id || 'adventure'),
+          show: showCover,
+          buildPrompt: (note) => window.CardRender.stylePrompt.painterly + (adv.name || '') + '. ' + (adv.quest || '') + ' Epic D&D module cover illustration, no text, no words.' + (note ? ' Art-director note: ' + note : ''),
           placeholder: 'Note to steer this cover (optional)…',
-          buttons: [{
-            label: '🖼 Make image', busy: '🖼 making…', done: '🖼 Remake image', fail: 'image not enabled',
-            title: 'Generate a cover illustration for ' + (adv.name || 'this adventure'),
-            run: (note) => {
-              const prompt = window.CardRender.stylePrompt.painterly + (adv.name || '') + '. ' + (adv.quest || '') + ' Epic D&D module cover illustration, no text, no words.' + (note ? ' Art-director note: ' + note : '');
-              return window.CardRender.fetchArt(prompt).then((img) => {
-                if (!img) return false;
-                const n = window.CardRender.adventureCanvas(adv, advNames, img);
-                n.className = 'adv-cover-img';
-                coverCanvas.replaceWith(n); coverCanvas = n;
-                return true;
-              });
-            },
-          }],
-          extra: [saveCover],
-        });
-        coverWrap.appendChild(bar);
+          makeSaveCanvas: () => window.CardRender.adventureCanvas(adv, advNames, currentCoverImg),
+        }));
       } else {
         styleErrors[currentCoverStyle] = true;
         coverImg.style.display = 'none';

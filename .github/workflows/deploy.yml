@@ -1,0 +1,47 @@
+name: Deploy to Cloudflare Pages
+
+# Why this exists: the Pages project "agentic-character-sheets" is a DIRECT-UPLOAD
+# project (no GitHub git-integration), so merges don't deploy on their own —
+# something has to run `wrangler pages deploy`. Locally that was your machine's
+# logged-in wrangler; in CI / cloud sessions it's this workflow, using repo secrets.
+#
+# Required repo secrets (Settings → Secrets and variables → Actions):
+#   CLOUDFLARE_API_TOKEN   — token with "Account → Cloudflare Pages → Edit"
+#   CLOUDFLARE_ACCOUNT_ID  — your account id (Workers & Pages overview, or the dashboard URL)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}   # lets you trigger a deploy by hand from the Actions tab
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build & deploy site/
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Validates every sheet and regenerates the site/data mirrors. Fails the
+      # deploy if a sheet is invalid — same gate as the validate workflow.
+      - name: Build & validate
+        run: node scripts/build.mjs
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # --branch=main marks this a Production deploy (the project's production
+          # branch is "main"), so it updates character-sheet.jeffpinto.com.
+          command: pages deploy site --project-name=agentic-character-sheets --branch=main --commit-dirty=true

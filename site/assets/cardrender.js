@@ -454,6 +454,101 @@
     return wrap;
   }
 
+  // A versioned image maker: every "Make image" ADDS a named pill (never
+  // replaces), so no content is lost. Pills summarize the prompt; hover shows
+  // it in full; each generated pill has a delete (×). The prompt history is
+  // persisted to localStorage per item id, so user input survives reloads.
+  //   opts.itemId      — stable id (persistence key)
+  //   opts.show(imgOrNull)  — caller swaps the visible image (null = default)
+  //   opts.buildPrompt(note) -> string
+  //   opts.placeholder, opts.makeSaveCanvas (optional), opts.extraButtons (optional)
+  function versionedMaker(opts) {
+    const itemId = opts.itemId || ('item-' + Math.random().toString(36).slice(2));
+    const HKEY = 'cs-hist:' + itemId;
+    const versions = [{ label: 'Default', prompt: null, img: null, isDefault: true }];
+    try {
+      const saved = JSON.parse((window.localStorage && localStorage.getItem(HKEY)) || '[]');
+      if (Array.isArray(saved)) saved.forEach((h) => versions.push({ label: h.label || 'image', prompt: h.prompt || '', img: null, ts: h.ts }));
+    } catch (e) {}
+    let active = 0;
+
+    const wrap = document.createElement('div'); wrap.className = 'cr-versions';
+    const pills = document.createElement('div'); pills.className = 'cr-pills';
+    wrap.appendChild(pills);
+
+    function persist() {
+      try {
+        localStorage.setItem(HKEY, JSON.stringify(
+          versions.filter((v) => !v.isDefault).map((v) => ({ label: v.label, prompt: v.prompt, ts: v.ts }))));
+      } catch (e) {}
+    }
+    function select(i) {
+      if (i < 0 || i >= versions.length) return;
+      active = i;
+      const v = versions[i];
+      renderPills();
+      if (v.isDefault) return opts.show(null);
+      if (v.img) return opts.show(v.img);
+      // persisted prompt, no in-session image → regenerate on this explicit click
+      if (v.prompt) {
+        opts.show(null);
+        window.CardRender.fetchArt(v.prompt).then((img) => { if (img) { v.img = img; if (active === i) opts.show(img); } });
+      }
+    }
+    function renderPills() {
+      pills.innerHTML = '';
+      versions.forEach((v, i) => {
+        const pill = document.createElement('span');
+        pill.className = 'cr-pill' + (i === active ? ' active' : '');
+        const lbl = document.createElement('button');
+        lbl.type = 'button'; lbl.className = 'cr-pill-label';
+        lbl.textContent = v.isDefault ? 'Default' : (v.label || 'image');
+        lbl.title = v.prompt || 'Original default';
+        lbl.addEventListener('click', (e) => { e.stopPropagation(); select(i); });
+        pill.appendChild(lbl);
+        if (!v.isDefault) {
+          const del = document.createElement('button');
+          del.type = 'button'; del.className = 'cr-pill-del'; del.textContent = '×'; del.title = 'Delete this version';
+          del.addEventListener('click', (e) => {
+            e.stopPropagation();
+            versions.splice(i, 1);
+            if (active >= versions.length || active === i) active = 0;
+            persist(); select(active);
+          });
+          pill.appendChild(del);
+        }
+        pills.appendChild(pill);
+      });
+    }
+    function summarize(note, n) {
+      const t = (note || '').trim();
+      if (!t) return 'image ' + n;
+      return t.length > 28 ? t.slice(0, 28) + '…' : t;
+    }
+
+    const makeBtn = {
+      label: '🖼 Make image', busy: '🖼 making…', done: '🖼 Make another', fail: 'image not enabled',
+      run: (note) => {
+        const prompt = opts.buildPrompt(note);
+        return window.CardRender.fetchArt(prompt).then((img) => {
+          if (!img) return false;
+          versions.push({ label: summarize(note, versions.filter((v) => !v.isDefault).length + 1), prompt, img, ts: Date.now() });
+          active = versions.length - 1; persist(); select(active);
+          return true;
+        });
+      },
+    };
+    const extras = [];
+    if (opts.makeSaveCanvas) extras.push(window.CardRender.saveButton('⬇ Save', opts.makeSaveCanvas, itemId + '.png'));
+    wrap.appendChild(makerControls({
+      placeholder: opts.placeholder,
+      buttons: [makeBtn].concat(opts.extraButtons || []),
+      extra: extras,
+    }));
+    renderPills();
+    return wrap;
+  }
+
   window.CardRender = {
     characterCanvas: characterCanvas,
     adventureCanvas: adventureCanvas,
@@ -462,7 +557,7 @@
     videoPrompt: videoPrompt,
     stylePrompt: STYLE_PROMPT,
     loadImage: loadImage, fetchArt: fetchArt, providerToggle: providerToggle,
-    makerControls: makerControls,
+    makerControls: makerControls, versionedMaker: versionedMaker,
     download: download, saveButton: saveButton, lightbox: lightbox,
   };
 })();

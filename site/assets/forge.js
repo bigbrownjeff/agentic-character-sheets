@@ -246,6 +246,15 @@ function liteChar(person) {
 
 function renderOutput() {
   const prompt = buildPrompt();
+  const sessionTs = Date.now();
+  // Persist every session's answers so no Forge input is ever lost.
+  try {
+    const log = JSON.parse(localStorage.getItem('cs-forge-sessions') || '[]');
+    log.push({ ts: sessionTs, mode: state.mode, people: state.people.map((p) => {
+      const o = {}; CHARACTER_QS.forEach((q) => { o[q.id] = a(p, q.id); }); return o;
+    }) });
+    localStorage.setItem('cs-forge-sessions', JSON.stringify(log));
+  } catch (e) {}
   app.innerHTML = `
     <div class="forge-card forge-output">
       <div class="forge-step-eyebrow">Step 2 of 2 · forge it</div>
@@ -303,22 +312,18 @@ function renderOutput() {
           (great ? ', who is great at ' + great : '') + (others ? '. ' + others : '') +
           '. Single dignified figure, friendly, no text, no words.' + (note ? ' Art-director note: ' + note : '');
       }
-      const saveBtn = window.CardRender.saveButton('⬇ Save card', () => cv, (ch.id || 'hero') + '.png');
-      const bar = window.CardRender.makerControls({
+      function show(img) {
+        const ncv = window.CardRender.characterCanvas(ch, img || null);
+        ncv.className = 'forge-card-img';
+        cv.replaceWith(ncv); cv = ncv;
+      }
+      item.appendChild(window.CardRender.versionedMaker({
+        itemId: 'forge-' + (ch.id || 'hero') + '-' + sessionTs,
+        show: show,
+        buildPrompt: portraitPrompt,
         placeholder: 'Note to steer ' + (ch.name || 'this hero') + '’s portrait (optional)…',
-        buttons: [{
-          label: '🖼 Make image', busy: '🖼 making…', done: '🖼 Remake image', fail: 'image not enabled',
-          run: (note) => window.CardRender.fetchArt(portraitPrompt(note)).then((img) => {
-            if (!img) return false;
-            const ncv = window.CardRender.characterCanvas(ch, img);
-            ncv.className = 'forge-card-img';
-            cv.replaceWith(ncv); cv = ncv;
-            return true;
-          }),
-        }],
-        extra: [saveBtn],
-      });
-      item.appendChild(bar);
+        makeSaveCanvas: () => cv,
+      }));
       gallery.appendChild(item);
     });
     const resultEl = $('#forge-result');

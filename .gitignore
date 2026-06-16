@@ -16,8 +16,9 @@ Thumbs.db
 render/
 local/
 
-# generated beat-card images (local viewing only)
-site/cards/
+# NOTE: site/cards/ is intentionally TRACKED now — the default card/cover/beat
+# images are committed so the CI deploy (which ships only what's in the repo)
+# serves them as defaults. Drop your images in per site/cards/README.md.
 
 # wrangler local state / cache (created by the deploy CLI)
 .wrangler/

@@ -86,7 +86,7 @@ function applyStyleToSlides(slides, cards, beatId, styleKey) {
     textCard.setAttribute('aria-hidden', 'true');
     slide.classList.remove('carousel-slide-text-fallback');
 
-    const newSrc = `./cards/beats/${beatId}-${styleKey}-${i + 1}.png`;
+    const newSrc = `${window.MEDIA_BASE || '.'}/cards/beats/${beatId}-${styleKey}-${i + 1}.png`;
 
     // Reattach error handler for new src
     const errorHandler = () => {
@@ -271,8 +271,8 @@ function buildCarousel(beat, beatIndex) {
     slide.setAttribute('aria-label', `${i + 1} of ${total}`);
     if (i !== 0) slide.setAttribute('aria-hidden', 'true');
 
-    // Image path: ./cards/beats/<beat.id>-<style>-<n>.png (1-indexed, default style A)
-    const imgSrc = `./cards/beats/${beat.id}-A-${i + 1}.png`;
+    // Image path: <MEDIA_BASE>/cards/beats/<beat.id>-<style>-<n>.png (1-indexed, default style A)
+    const imgSrc = `${window.MEDIA_BASE || '.'}/cards/beats/${beat.id}-A-${i + 1}.png`;
 
     // Image element
     const img = document.createElement('img');

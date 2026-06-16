@@ -16,9 +16,21 @@ Thumbs.db
 render/
 local/
 
-# NOTE: site/cards/ is intentionally TRACKED now — the default card/cover/beat
-# images are committed so the CI deploy (which ships only what's in the repo)
-# serves them as defaults. Drop your images in per site/cards/README.md.
+# Card/cover/beat/video/audio media lives in Cloudflare R2 (durable, cheap,
+# zero-egress, handles video + audio) — NOT git. We don't grow binary media in
+# history. The site loads from the R2 public URL with a Canvas fallback; sync
+# with `npm run media:pull` / `media:push`. See site/cards/README.md.
+site/cards/**/*.png
+site/cards/**/*.jpg
+site/cards/**/*.jpeg
+site/cards/**/*.webp
+site/cards/**/*.gif
+site/cards/**/*.mp4
+site/cards/**/*.webm
+site/cards/**/*.mov
+site/cards/**/*.mp3
+site/cards/**/*.m4a
+site/cards/**/*.wav
 
 # wrangler local state / cache (created by the deploy CLI)
 .wrangler/

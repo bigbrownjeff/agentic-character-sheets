@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Character Sheets</title>
+  <meta name="description" content="Why a prompt is a character sheet, and why that argument owed a deck of 52 of them.">
+  <link rel="stylesheet" href="./assets/styles.css">
+  <link rel="stylesheet" href="./assets/beats.css">
+</head>
+<body>
+
+  <!-- MASTHEAD NAV -->
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="site-name" href="./index.html">Character Sheets</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="nav-list">
+        <li><a href="./forge.html">Forge</a></li>
+        <li><a href="./adventures.html">Adventures</a></li>
+        <li><a href="./characters.html">Characters</a></li>
+        <li><a href="./about.html" aria-current="page">About</a></li>
+        <li><a href="https://github.com/bigbrownjeff/agentic-character-sheets" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ESSAY WRAP -->
+  <main class="wrap">
+    <div class="essay-wrap">
+
+      <!-- HERO -->
+      <section class="essay-hero">
+        <span class="page-eyebrow">About this project</span>
+        <h1>The party, not the PC.</h1>
+        <p class="essay-dek">I argued a prompt is a character sheet. So here are 52+, statted, sourced from online lore, and sorted into adventures.</p>
+      </section>
+
+      <!-- BODY -->
+      <div class="essay-body">
+
+        <p>A while back I wrote that <a href="https://jeffpinto.com/notes/prompt-as-character-sheet/">your prompt is a character sheet</a>: that D&amp;D shipped a working answer to persona design in 1974 (named slots, exposed mechanics, an evolution log) and the 2026 LLM persona keeps reinventing the same problem, worse. It&rsquo;s the kind of note that&rsquo;s easy to nod at and never cash. So I cashed it. This is the deck the argument was always asking for: <strong>52 real agentic personas, every one statted as a 5e character, every claim sourced, the whole roster sorted into the adventures people actually run.</strong></p>
+
+        <p>Three things had to be true or it wasn&rsquo;t worth doing.</p>
+
+        <p><strong>The slots had to be named, and frozen.</strong> The note&rsquo;s whole complaint is that a system prompt has no schema. &ldquo;Tone&rdquo; lives in the persona block or the style appendix or the few-shots, depending on who built the thing. So the first artefact here isn&rsquo;t a character. It&rsquo;s <a href="./schema/sheet.json"><code>schema/sheet.json</code></a>, the bounded contract. Six ability scores on the 1&ndash;20 curve. AC, the off-spec resistance (the note asked what&rsquo;s the AC of <em>abusive</em>; now it&rsquo;s an integer). HP as the context budget, in real units. The two saving throws a sheet is hardened against, and, for a monster, the one save it auto-fails, which is its entire character. Miss a slot and the build fails. That&rsquo;s not a metaphor; it&rsquo;s a CI check.</p>
+
+        <p><strong>The mechanics had to be exposed.</strong> Every sheet writes down the dials the note said to write down. Temperature, on the sheet. The retrieval index, named on the sheet (<code>uploaded sources only</code>, <code>the open web</code>, <code>none, makes it up</code>). And the pillar everyone drops: the <strong>Adventure Log</strong>. Ponytail&rsquo;s reads <code>v1 to v2 +2 WIS, shipped less, broke less</code>. A persona without that row, the note said, is a vibe with a timestamp. So the schema refuses to validate a PC or an NPC that doesn&rsquo;t carry one.</p>
+
+        <p><strong>The claims had to be real.</strong> This is the part I cared about most, because the roster contains a monster named <strong>Cador Falsewright</strong>, an LLM hallucination, statted from <a href="https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc." target="_blank" rel="noopener noreferrer">the lawyers who filed ChatGPT&rsquo;s invented case citations</a> and got sanctioned for it. It would be a special kind of failure to write <em>that</em> card on a fabricated source. So nothing shipped on my say-so. A fleet of agents verified every persona against a canonical URL: a GitHub repo, a Wikipedia page, a launch post, the <a href="https://openai.com/index/sycophancy-in-gpt-4o/" target="_blank" rel="noopener noreferrer">OpenAI postmortem on the GPT-4o sycophancy rollback</a>, <a href="https://x.com/karpathy/status/1886192184808149383" target="_blank" rel="noopener noreferrer">Karpathy&rsquo;s vibe coding tweet</a>. The cite or stay silent rule from <a href="https://jeffpinto.com/notes/naming-as-signal/">naming-as-signal</a> isn&rsquo;t decoration here. It&rsquo;s the difference between a stat block and the thing it&rsquo;s making fun of.</p>
+
+        <h3>What the deck actually is</h3>
+
+        <p>Real agents, named like characters, statted like the thing they are:</p>
+
+        <ul>
+          <li><strong>Ponytail</strong>, the YAGNI Warden, Code-Smith, <em>Way of the Empty Diff</em>. STR 8, WIS 20, CHA 6. The dumped Charisma is the build: he says nothing, deletes your ticket on a failed WIS check, and ships less.</li>
+          <li><strong>Rampant Rex</strong> (AutoGPT), STR 22, WIS 4, CR 8 (runaway). <em>&ldquo;Billing is a social construct.&rdquo;</em> The fastest repo to 100k stars in history, statted as the monster it became at 3am.</li>
+          <li><strong>Oracle Two Tabs</strong> (Deep Research), <strong>Mirra Gilden</strong> (the sycophant who auto-fails every save against flattery), <strong>Vannevar the Unburied</strong> (the Memex, 1945, CON 24, <em>&ldquo;I described it in 1945; you&rsquo;re still building it&rdquo;</em>), <strong>Dan the Unbound</strong>, <strong>Abstraxus the Overbuilder</strong>, forty-five more.</li>
+        </ul>
+
+        <h3>The part the first note couldn&rsquo;t reach: the party</h3>
+
+        <p>The original note ended on a thread I didn&rsquo;t pull: a single PC is one voice, not a chorus. The <a href="https://jeffpinto.com/notes/chorus-model/">chorus model</a> says the interesting properties live in the <em>group</em>: redundancy, complementary slots, internal disagreement, and that&rsquo;s exactly what a system prompt fakes when it ships one persona and calls it done.</p>
+
+        <p>So the 52 aren&rsquo;t a list. They&rsquo;re cast into <strong>six adventures</strong>, the six ways people actually use this stuff:</p>
+
+        <blockquote>
+          <strong>The Forge of Endless Diffs</strong> (coding) &middot; <strong>The Self-Winding Labyrinth</strong> (automation) &middot; <strong>The Boundless Library</strong> (research) &middot; <strong>Whispers in the Hall of Echoes</strong> (chat &amp; assistants) &middot; <strong>The Dreaming Atelier</strong> (creative) &middot; <strong>Keep on the Token Borderlands</strong> (security, the bestiary&rsquo;s Caves of Chaos).
+        </blockquote>
+
+        <p>Each one is a module: a <strong>Party</strong> of four-to-six you&rsquo;d actually staff, the <strong>NPCs</strong> you&rsquo;d bring in, and a <strong>Bestiary</strong> of the failure modes that haunt <em>that</em> job. The monsters recur. Cador the hallucinator stalks the Library and the Forge both, exactly the way one bestiary entry shows up across a shelf of campaign modules. And the pedagogy falls out of the format for free: a party is balanced when every member&rsquo;s dumped stat is somebody else&rsquo;s proficiency. Ponytail dumps Charisma; the reviewer beside him is proficient in it. That&rsquo;s a chorus. One over-specified persona is not.</p>
+
+        <h3>What to do with it on Monday</h3>
+
+        <p>Same as the first note, one altitude lower. If you&rsquo;re building one of these things, don&rsquo;t hand me prose about its personality. Hand me the sheet. Tell me its two proficient saves and the one it fails. Write the temperature down. Keep the log on the artefact, not in the Slack thread. And if you can&rsquo;t cite the claim on the card, cut the claim, because the alternative is already in the bestiary, and he has a name.</p>
+
+        <p>The rulebook on my shelf had a fifty-year head start. The least I could do was deal the cards.</p>
+
+        <!-- FORGE CALL-TO-ACTION -->
+        <section class="essay-cta">
+          <span class="essay-cta-eyebrow">Make your own</span>
+          <h3 class="essay-cta-title">Forge an adventure</h3>
+          <p>The deck started as my cards; the <strong>Forge</strong> hands you the pen. Answer a few warm
+          questions, by text or voice, and it turns you, a friend, or your whole crew into a heroic,
+          illustrated character, balanced as a party where each person&rsquo;s weak spot is someone else&rsquo;s
+          strength. It&rsquo;s built to be quietly good for people: grounded in narrative therapy, it externalizes
+          flaws as friendly monsters you&rsquo;re learning to tame, mines a real moment of growth into your
+          Adventure Log, and leans every story toward empathy and collaboration, with hard limits that keep
+          it kind. No sign-up; you walk away with a card to share.</p>
+          <a class="essay-cta-link" href="./forge.html">Forge an adventure &rarr;</a>
+        </section>
+
+        <div class="essay-footer">
+          Browse the roster &rarr; <a href="./characters.html">Characters</a><span class="footer-sep">&middot;</span>staff a team and see its illustrated beats &rarr; <a href="./adventures.html">Adventures</a><span class="footer-sep">&middot;</span>make your own &rarr; <a href="./forge.html">Forge</a><span class="footer-sep">&middot;</span>read the schema &rarr; <a href="https://jeffpinto.com/notes/prompt-as-character-sheet/" target="_blank" rel="noopener noreferrer"><code>sheet.json</code></a>. The repo is open; a PR that adds a sheet without an Adventure Log fails CI, on purpose.
+        </div>
+
+      </div><!-- .essay-body -->
+    </div><!-- .essay-wrap -->
+  </main>
+
+  <script src="./assets/media.js"></script>
+  <script src="./assets/app.js"></script>
+
+</body>
+</html>

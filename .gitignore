@@ -40,3 +40,6 @@ site/cards/**/*.wav
 
 # business / monetization strategy — kept local, out of the public repo
 business/
+
+# git worktrees created by background agents
+.claude/worktrees/

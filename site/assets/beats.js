@@ -190,6 +190,10 @@ function buildCarousel(beat, beatIndex) {
   // NEXT image/video for the CURRENT card. Video = one 3–5s clip per card.
   if (window.CardRender) {
     let videoEl = null, videoStatus = null, videoBtn = null;
+    const take = window.CardRender.takeDisclosure
+      ? window.CardRender.takeDisclosure({ label: 'Add your take' })
+      : null;
+    const takeBody = take ? take._body : section;
 
     // One persisted clip per (beat, style, frame); the key doubles as the R2 object name.
     function videoKey() { return beat.id + '-' + currentStyle + '-' + (current + 1); }
@@ -199,9 +203,9 @@ function buildCarousel(beat, beatIndex) {
         videoEl = document.createElement('video');
         videoEl.className = 'beat-video'; videoEl.controls = true; videoEl.playsInline = true;
         videoEl.loop = true; videoEl.style.display = 'none';
-        section.appendChild(videoEl);
+        takeBody.appendChild(videoEl);
       }
-      if (!videoStatus) { videoStatus = document.createElement('p'); videoStatus.className = 'beat-video-status'; section.appendChild(videoStatus); }
+      if (!videoStatus) { videoStatus = document.createElement('p'); videoStatus.className = 'beat-video-status'; takeBody.appendChild(videoStatus); }
     }
     // Load THIS frame+style's persisted clip if one exists, and set the button to Make/Remake
     // accordingly — fixes the cross-frame "Remake" leak and pages videos alongside images.
@@ -237,9 +241,9 @@ function buildCarousel(beat, beatIndex) {
         {
           label: '🖼 Make image', busy: '🖼 making…', done: '🖼 Remake image', fail: 'image not enabled',
           title: 'Generate art for THIS card in the selected style',
-          run: (note) => {
+          run: (note, btn, provider) => {
             const prompt = window.CardRender.beatPrompt(beat, current, currentStyle) + (note ? ' Art-director note: ' + note : '');
-            return window.CardRender.fetchArt(prompt).then((img) => {
+            return window.CardRender.fetchArt(prompt, provider).then((img) => {
               if (img) { renderBeatSlide(slides[current], current, currentStyle, img); return true; }
               return false;
             });
@@ -269,7 +273,8 @@ function buildCarousel(beat, beatIndex) {
       extra: [saveBtn],
     });
     videoBtn = bar.querySelectorAll('.cr-actions .cr-save-btn')[1] || null;
-    section.appendChild(bar);
+    takeBody.appendChild(bar);
+    if (take) section.appendChild(take);
     syncVideo(); // initialize for the opening frame / style A
   }
 
@@ -503,55 +508,25 @@ function buildCarousel(beat, beatIndex) {
 }
 
 /* ============================================================
-   BEATS PAGE INIT
+   EXPORTS — beats now render nested inside the Adventures page.
+   app.js groups beats by adventure and calls buildCarousel(); there is
+   no standalone beats page and no global art-engine toggle (the engine
+   picker now lives per-run inside each "Add your take" maker).
    ============================================================ */
 
-async function initBeatsPage() {
-  const container = document.getElementById('beats-container');
-  if (!container) return;
-
-  try {
-    const res = await fetch('./data/beats.json');
-    if (!res.ok) throw new Error(`Failed to load beats.json (${res.status})`);
-    const data = await res.json();
-    const beats = data.beats;
-
-    if (!beats || beats.length === 0) {
-      container.innerHTML = '<p class="beats-error">No beats found in data.</p>';
-      return;
+window.Beats = {
+  buildCarousel: buildCarousel,
+  fetchStyleCName: fetchStyleCName,
+  // Convenience: load beats.json once, returning an array (empty on failure).
+  loadBeats: async function () {
+    try {
+      const res = await fetch('./data/beats.json');
+      if (!res.ok) throw new Error('Failed to load beats.json (' + res.status + ')');
+      const data = await res.json();
+      return (data && Array.isArray(data.beats)) ? data.beats : [];
+    } catch (err) {
+      console.error('Beats load error:', err);
+      return [];
     }
-
-    // Eyebrow count is data-driven so it can't drift as adventures are added.
-    const eyebrowEl = document.querySelector('.page-eyebrow');
-    if (eyebrowEl) eyebrowEl.textContent = `${beats.length} Adventures · Illustrated`;
-
-    // Art-engine picker (Auto / Gemini / Cloudflare)
-    const hero = document.querySelector('.page-hero');
-    if (hero && window.CardRender && window.CardRender.providerToggle) {
-      const t = document.createElement('div');
-      t.className = 'cr-actions';
-      t.style.justifyContent = 'center';
-      t.appendChild(window.CardRender.providerToggle());
-      hero.appendChild(t);
-    }
-
-    beats.forEach((beat, i) => {
-      const section = buildCarousel(beat, i);
-      container.appendChild(section);
-    });
-
-  } catch (err) {
-    console.error('Beats boot error:', err);
-    container.innerHTML = `<div class="beats-error">Error loading beats: ${escHtml(err.message)}</div>`;
-  }
-}
-
-/* ============================================================
-   BOOTSTRAP
-   ============================================================ */
-
-document.addEventListener('DOMContentLoaded', () => {
-  setNavActive();
-  initHamburger();
-  initBeatsPage();
-});
+  },
+};

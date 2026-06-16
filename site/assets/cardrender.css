@@ -3,16 +3,18 @@
    ============================================================ */
 
 .cr-save-btn {
-  font-family: var(--sans, sans-serif);
-  font-size: 0.82rem; font-weight: 600;
-  cursor: pointer; border-radius: 8px;
-  border: 1px solid var(--rule, #231F1A);
-  background: var(--ink, #0E1116); color: var(--paper, #FAF6EC);
-  padding: 0.45rem 0.85rem;
+  font-family: var(--mono, monospace);
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer; border-radius: 2px;
+  border: 1px solid var(--ruleSoft, #C9C3B4);
+  background: transparent; color: var(--muted, #6B6B6B);
+  padding: 0.45rem 0.8rem;
+  transition: border-color 0.12s, color 0.12s, background 0.12s;
 }
-.cr-save-btn:hover { background: var(--accent, #C84B31); border-color: var(--accent, #C84B31); }
-.cr-save-btn.ghost { background: transparent; color: var(--ink, #0E1116); }
-.cr-save-btn.ghost:hover { background: var(--ink, #0E1116); color: var(--paper, #FAF6EC); }
+.cr-save-btn:hover { background: transparent; border-color: var(--ink, #0E1116); color: var(--ink, #0E1116); }
+.cr-save-btn.ghost { background: transparent; color: var(--muted, #6B6B6B); }
+.cr-save-btn.ghost:hover { background: transparent; border-color: var(--ink, #0E1116); color: var(--ink, #0E1116); }
 
 /* a canvas rendered in place of a missing PNG */
 canvas.card-sheet-img, canvas.adv-cover-img, canvas.cr-incard {
@@ -41,9 +43,26 @@ canvas.card-sheet-img, canvas.adv-cover-img, canvas.cr-incard {
 /* maker bar: a note input that steers the next image/video + action buttons */
 .cr-maker { margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.4rem; }
 .cr-maker .cr-actions { margin-top: 0; }
+
+/* "Add your take" disclosure — collapses the maker behind one quiet summary */
+.cr-take { margin-top: 0.7rem; }
+.cr-take-summary {
+  list-style: none; cursor: pointer; user-select: none;
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-family: var(--mono, monospace); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted, #6B6B6B);
+  padding: 0.35rem 0;
+}
+.cr-take-summary::-webkit-details-marker { display: none; }
+.cr-take-summary:hover { color: var(--ink, #0E1116); }
+.cr-take-caret { display: inline-block; width: 0.8em; text-align: center; color: var(--ruleSoft, #C9C3B4); }
+.cr-take-caret::before { content: '+'; }
+.cr-take[open] .cr-take-caret::before { content: '\2013'; }
+.cr-take[open] .cr-take-summary { color: var(--ink, #0E1116); }
+.cr-take-body { padding-top: 0.2rem; }
 .cr-note {
   width: 100%; font-family: var(--sans, sans-serif); font-size: 0.82rem;
-  padding: 0.45rem 0.6rem; border-radius: 8px;
+  padding: 0.45rem 0.6rem; border-radius: 2px;
   border: 1px solid var(--ruleSoft, #C9C3B4); background: #fff; color: var(--ink, #0E1116);
 }
 .cr-note:focus { outline: 2px solid var(--accent, #C84B31); outline-offset: 1px; }
@@ -67,16 +86,19 @@ canvas.card-sheet-img, canvas.adv-cover-img, canvas.cr-incard {
 }
 .cr-pill-del:hover { color: var(--accent, #C84B31); }
 
-/* art-engine picker */
+/* art-engine picker — calm, scoped to each "Add your take" maker */
 .cr-provider {
-  font-family: var(--sans, sans-serif); font-size: 0.82rem; font-weight: 600;
-  color: var(--ink, #0E1116); display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--mono, monospace); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted, #6B6B6B); display: inline-flex; align-items: center; gap: 0.35rem;
 }
 .cr-provider select {
-  font-family: var(--sans, sans-serif); font-size: 0.82rem;
-  padding: 0.35rem 0.5rem; border-radius: 8px; border: 1px solid var(--rule, #231F1A);
-  background: var(--paper, #FAF6EC); color: var(--ink, #0E1116); cursor: pointer;
+  font-family: var(--mono, monospace); font-size: 10px; letter-spacing: 0.04em;
+  padding: 0.4rem 0.5rem; border-radius: 2px; border: 1px solid var(--ruleSoft, #C9C3B4);
+  background: var(--paper, #fff); color: var(--ink, #0E1116); cursor: pointer;
+  text-transform: none;
 }
+.cr-provider select:hover { border-color: var(--ink, #0E1116); }
 
 /* beat video (final step) */
 .beat-video-status {

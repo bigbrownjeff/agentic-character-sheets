@@ -415,7 +415,7 @@
   function providerToggle() {
     var wrap = document.createElement('label');
     wrap.className = 'cr-provider';
-    wrap.appendChild(document.createTextNode('Art engine: '));
+    wrap.appendChild(document.createTextNode('Engine'));
     var sel = document.createElement('select');
     [['auto', 'Auto'], ['gemini', 'Best (Gemini)'], ['cloudflare', 'Fast (Cloudflare)']].forEach(function (o) {
       var op = document.createElement('option'); op.value = o[0]; op.textContent = o[1]; sel.appendChild(op);
@@ -460,6 +460,17 @@
     }
     var row = document.createElement('div');
     row.className = 'cr-actions';
+
+    // Per-run art-engine picker, scoped to THIS maker. Each "Add your take"
+    // section carries its own engine choice, passed explicitly into the run so
+    // the engine shown is the engine used (no global cross-talk between cards).
+    var engineSelect = null;
+    if (opts.engine !== false && typeof providerToggle === 'function') {
+      var engineEl = providerToggle();
+      engineSelect = engineEl.querySelector('select');
+      row.appendChild(engineEl);
+    }
+
     (opts.buttons || []).forEach(function (b) {
       var btn = document.createElement('button');
       btn.type = 'button';
@@ -469,10 +480,11 @@
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
         var note = noteEl ? noteEl.value.trim() : '';
+        var provider = engineSelect ? engineSelect.value : undefined;
         var orig = b.label;
         btn.disabled = true;
         btn.textContent = b.busy || '…working…';
-        Promise.resolve(b.run(note, btn)).then(function (ok) {
+        Promise.resolve(b.run(note, btn, provider)).then(function (ok) {
           btn.disabled = false;
           btn.textContent = (ok === false) ? (b.fail || orig) : (b.done || orig);
         }).catch(function () { btn.disabled = false; btn.textContent = b.fail || orig; });
@@ -482,6 +494,33 @@
     (opts.extra || []).forEach(function (node) { row.appendChild(node); });
     wrap.appendChild(row);
     return wrap;
+  }
+
+  // A collapsed "Add your take" disclosure. Hides the maker controls behind a
+  // single quiet summary so a card reads calm until you choose to shape it.
+  // Returns a <details> whose ._body is where content goes; .setLabel(text)
+  // updates the summary copy (e.g. a take count).
+  function takeDisclosure(opts) {
+    opts = opts || {};
+    var details = document.createElement('details');
+    details.className = 'cr-take';
+    if (opts.open) details.open = true;
+    var summary = document.createElement('summary');
+    summary.className = 'cr-take-summary';
+    summary.innerHTML = '<span class="cr-take-caret" aria-hidden="true"></span>' +
+      '<span class="cr-take-label">' + (opts.label || 'Add your take') + '</span>';
+    // Never let opening/closing bubble to a clickable parent card.
+    summary.addEventListener('click', function (e) { e.stopPropagation(); });
+    details.appendChild(summary);
+    var body = document.createElement('div');
+    body.className = 'cr-take-body';
+    details.appendChild(body);
+    details._body = body;
+    details.setLabel = function (t) {
+      var l = summary.querySelector('.cr-take-label');
+      if (l) l.textContent = t;
+    };
+    return details;
   }
 
   // A versioned image maker: every "Make image" ADDS a named pill (never
@@ -525,7 +564,13 @@
         window.CardRender.fetchArt(v.prompt).then((img) => { if (img) { v.img = img; if (active === i) opts.show(img); } });
       }
     }
+    function updateTakeLabel() {
+      if (!take) return;
+      var n = versions.filter(function (v) { return !v.isDefault; }).length;
+      take.setLabel(n > 0 ? ('Your takes · ' + n) : 'Add your take');
+    }
     function renderPills() {
+      updateTakeLabel();
       pills.innerHTML = '';
       versions.forEach((v, i) => {
         const pill = document.createElement('span');
@@ -558,9 +603,9 @@
 
     const makeBtn = {
       label: '🖼 Make image', busy: '🖼 making…', done: '🖼 Make another', fail: 'image not enabled',
-      run: (note) => {
+      run: (note, btn, provider) => {
         const prompt = opts.buildPrompt(note);
-        return window.CardRender.fetchArt(prompt).then((img) => {
+        return window.CardRender.fetchArt(prompt, provider).then((img) => {
           if (!img) return false;
           versions.push({ label: summarize(note, versions.filter((v) => !v.isDefault).length + 1), prompt, img, ts: Date.now() });
           active = versions.length - 1; persist(); select(active);
@@ -575,8 +620,10 @@
       buttons: [makeBtn].concat(opts.extraButtons || []),
       extra: extras,
     }));
+    var take = takeDisclosure({ label: 'Add your take' });
+    take._body.appendChild(wrap);
     renderPills();
-    return wrap;
+    return take;
   }
 
   window.CardRender = {
@@ -587,7 +634,7 @@
     videoPrompt: videoPrompt,
     stylePrompt: STYLE_PROMPT,
     loadImage: loadImage, fetchArt: fetchArt, providerToggle: providerToggle,
-    makerControls: makerControls, versionedMaker: versionedMaker,
+    makerControls: makerControls, versionedMaker: versionedMaker, takeDisclosure: takeDisclosure,
     download: download, saveButton: saveButton, lightbox: lightbox,
   };
 })();

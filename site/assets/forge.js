@@ -330,6 +330,10 @@ function renderOutput() {
       illustrate(); // auto-attempt: the user wanted to SEE images after answering
     });
     const resultEl = $('#forge-result');
+    const tog = document.createElement('div');
+    tog.className = 'forge-actions';
+    tog.appendChild(window.CardRender.providerToggle());
+    resultEl.parentNode.insertBefore(tog, resultEl);
     resultEl.parentNode.insertBefore(gallery, resultEl);
   }
 }

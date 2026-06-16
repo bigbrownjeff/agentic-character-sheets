@@ -363,11 +363,30 @@
       im.src = src;
     });
   }
+  // Selected art engine (persisted): 'auto' | 'gemini' | 'cloudflare'.
+  function imageProvider() {
+    try { return (window.localStorage && localStorage.getItem('cs-image-provider')) || 'auto'; }
+    catch (e) { return 'auto'; }
+  }
+  // A small <label><select> the user can drop anywhere to pick the art engine.
+  function providerToggle() {
+    var wrap = document.createElement('label');
+    wrap.className = 'cr-provider';
+    wrap.appendChild(document.createTextNode('Art engine: '));
+    var sel = document.createElement('select');
+    [['auto', 'Auto'], ['gemini', 'Best (Gemini)'], ['cloudflare', 'Fast (Cloudflare)']].forEach(function (o) {
+      var op = document.createElement('option'); op.value = o[0]; op.textContent = o[1]; sel.appendChild(op);
+    });
+    sel.value = imageProvider();
+    sel.addEventListener('change', function () { try { localStorage.setItem('cs-image-provider', sel.value); } catch (e) {} });
+    wrap.appendChild(sel);
+    return wrap;
+  }
   // POST a prompt to /api/image; resolve to a loaded <img>, or null on any failure.
-  function fetchArt(prompt) {
+  function fetchArt(prompt, provider) {
     return fetch('./api/image', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt: String(prompt || '').slice(0, 1400) }),
+      body: JSON.stringify({ prompt: String(prompt || '').slice(0, 1400), provider: provider || imageProvider() }),
     }).then(function (r) {
       if (!r.ok) throw new Error(String(r.status));
       return r.json();
@@ -382,7 +401,7 @@
     beatCanvas: beatCanvas,
     beatPrompt: beatPrompt,
     stylePrompt: STYLE_PROMPT,
-    loadImage: loadImage, fetchArt: fetchArt,
+    loadImage: loadImage, fetchArt: fetchArt, providerToggle: providerToggle,
     download: download, saveButton: saveButton, lightbox: lightbox,
   };
 })();

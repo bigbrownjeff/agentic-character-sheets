@@ -479,6 +479,16 @@ async function initBeatsPage() {
     const eyebrowEl = document.querySelector('.page-eyebrow');
     if (eyebrowEl) eyebrowEl.textContent = `${beats.length} Adventures · Illustrated`;
 
+    // Art-engine picker (Auto / Gemini / Cloudflare)
+    const hero = document.querySelector('.page-hero');
+    if (hero && window.CardRender && window.CardRender.providerToggle) {
+      const t = document.createElement('div');
+      t.className = 'cr-actions';
+      t.style.justifyContent = 'center';
+      t.appendChild(window.CardRender.providerToggle());
+      hero.appendChild(t);
+    }
+
     beats.forEach((beat, i) => {
       const section = buildCarousel(beat, i);
       container.appendChild(section);

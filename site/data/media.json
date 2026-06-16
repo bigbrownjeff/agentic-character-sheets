@@ -1,0 +1,5 @@
+{
+  "base": "https://pub-92102a1a4a2e4137b3e39df163badf14.r2.dev",
+  "bucket": "agentic-character-sheets-media",
+  "note": "Durable media (card/cover/beat images, beat videos, future audio) lives in Cloudflare R2, not git. The site loads from `base` with a Canvas fallback. Sync with `npm run media:pull` / `media:push`. Repoint `base` to a custom domain (e.g. media.jeffpinto.com) without touching code."
+}

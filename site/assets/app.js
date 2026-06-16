@@ -125,49 +125,28 @@ function renderAbilityInline(abilities) {
 
 /* --- CARD RENDERER --------------------------------------- */
 
-/* --- AI ART (lazy, generated on scroll-into-view) -------- */
-const _charArtCache = new Map(); // char.id -> HTMLImageElement | 'pending' | 'failed'
-const _artObserver = ('IntersectionObserver' in window)
-  ? new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          _artObserver.unobserve(e.target);
-          if (typeof e.target._illustrate === 'function') e.target._illustrate();
-        }
-      });
-    }, { rootMargin: '300px' })
-  : null;
-// Generate art only when the element is near the viewport (keeps a 69-card grid
-// from firing 69 requests at once). Falls back to immediate if no observer.
-function observeArt(el, fn) { el._illustrate = fn; if (_artObserver) _artObserver.observe(el); else fn(); }
+/* --- AI ART (explicit, on demand — no auto-generation) --- */
+const _charArtCache = new Map(); // char.id -> HTMLImageElement (last generated)
 
 function currentCardCanvas(char) {
-  const a = _charArtCache.get(char.id);
-  const img = (a && a !== 'pending' && a !== 'failed') ? a : null;
-  return window.CardRender.characterCanvas(char, img);
+  return window.CardRender.characterCanvas(char, _charArtCache.get(char.id) || null);
 }
-function illustrateChar(el, char, btn) {
-  if (!window.CardRender || !window.CardRender.fetchArt) return;
-  const cached = _charArtCache.get(char.id);
-  if (cached === 'pending') return;
-  const swap = (img) => {
+// Generate art for a card on demand; resolves true on success, false otherwise.
+function illustrateChar(el, char, note) {
+  if (!window.CardRender || !window.CardRender.fetchArt) return Promise.resolve(false);
+  const prompt = window.CardRender.stylePrompt.painterly + 'Heroic D&D character portrait of ' + char.name +
+    (char.title ? ', ' + char.title : '') + (char.role === 'monster' ? ' — a fearsome monster' : '') +
+    '. Single dignified figure, dramatic lighting, no text, no words.' + (note ? ' Art-director note: ' + note : '');
+  return window.CardRender.fetchArt(prompt).then((img) => {
+    if (!img) return false;
+    _charArtCache.set(char.id, img);
     const cur = el.querySelector('canvas.card-sheet-img, img.card-sheet-img');
     const cv = window.CardRender.characterCanvas(char, img);
     cv.className = 'card-sheet-img';
     cv.setAttribute('role', 'img');
     cv.setAttribute('aria-label', (char.name || '') + ' character art');
     if (cur) cur.replaceWith(cv);
-  };
-  if (cached && cached !== 'failed') { swap(cached); return; }
-  _charArtCache.set(char.id, 'pending');
-  if (btn) { btn.disabled = true; btn.textContent = '✨ illustrating…'; }
-  const prompt = window.CardRender.stylePrompt.painterly + 'Heroic D&D character portrait of ' + char.name +
-    (char.title ? ', ' + char.title : '') + (char.role === 'monster' ? ' — a fearsome monster' : '') +
-    '. Single dignified figure, dramatic lighting, no text, no words.';
-  window.CardRender.fetchArt(prompt).then((img) => {
-    if (img) { _charArtCache.set(char.id, img); swap(img); }
-    else { _charArtCache.set(char.id, 'failed'); }
-    if (btn) { btn.disabled = false; btn.textContent = img ? '✨ Reroll art' : 'AI art not enabled'; }
+    return true;
   });
 }
 
@@ -259,16 +238,17 @@ function renderCard(char) {
     });
   }
   if (window.CardRender) {
-    const _actions = document.createElement('div');
-    _actions.className = 'cr-actions';
-    _actions.appendChild(window.CardRender.saveButton('⬇ Save', () => currentCardCanvas(char), (char.id || 'character') + '.png'));
-    const _reroll = document.createElement('button');
-    _reroll.type = 'button'; _reroll.className = 'cr-save-btn ghost'; _reroll.textContent = '✨ Reroll art';
-    _reroll.addEventListener('click', (e) => { e.stopPropagation(); _charArtCache.delete(char.id); illustrateChar(el, char, _reroll); });
-    _actions.appendChild(_reroll);
-    el.appendChild(_actions);
-    // Lazily generate real AI art (Gemini/Cloudflare per the toggle) on scroll-into-view.
-    observeArt(el, () => illustrateChar(el, char));
+    const saveBtn = window.CardRender.saveButton('⬇ Save', () => currentCardCanvas(char), (char.id || 'character') + '.png');
+    const bar = window.CardRender.makerControls({
+      placeholder: 'Note to steer this image (optional)…',
+      buttons: [{
+        label: '🖼 Make image', busy: '🖼 making…', done: '🖼 Remake image', fail: 'image not enabled',
+        title: 'Generate art for ' + (char.name || 'this character'),
+        run: (note) => illustrateChar(el, char, note),
+      }],
+      extra: [saveBtn],
+    });
+    el.appendChild(bar);
   }
 
   el.addEventListener('click', () => openModal(char.id));
@@ -798,32 +778,26 @@ function initAdventuresPage(characters, adventures) {
         coverImg.replaceWith(coverCanvas);
         styleToggleBar.style.display = 'none';
         coverWrap.style.display = '';
-        const act = document.createElement('div');
-        act.className = 'cr-actions';
-        act.appendChild(window.CardRender.saveButton('⬇ Save cover', () => coverCanvas, (adv.id || 'adventure') + '.png'));
-        const illoBtn = document.createElement('button');
-        illoBtn.type = 'button'; illoBtn.className = 'cr-save-btn ghost'; illoBtn.textContent = '✨ Reroll art';
-        let coverArtPending = false;
-        function runCoverIllustrate() {
-          if (coverArtPending) return;
-          coverArtPending = true;
-          illoBtn.disabled = true; illoBtn.textContent = '✨ illustrating…';
-          const prompt = window.CardRender.stylePrompt.painterly + (adv.name || '') + '. ' + (adv.quest || '') + ' Epic D&D module cover illustration, no text, no words.';
-          window.CardRender.fetchArt(prompt).then((img) => {
-            if (img) {
-              const n = window.CardRender.adventureCanvas(adv, advNames, img);
-              n.className = 'adv-cover-img';
-              coverCanvas.replaceWith(n); coverCanvas = n;
-              illoBtn.textContent = '✨ Reroll art';
-            } else { illoBtn.textContent = 'AI art not enabled'; }
-            illoBtn.disabled = false; coverArtPending = false;
-          });
-        }
-        illoBtn.addEventListener('click', runCoverIllustrate);
-        act.appendChild(illoBtn);
-        coverWrap.appendChild(act);
-        // Auto-generate the cover art when it scrolls into view.
-        observeArt(coverWrap, runCoverIllustrate);
+        const saveCover = window.CardRender.saveButton('⬇ Save cover', () => coverCanvas, (adv.id || 'adventure') + '.png');
+        const bar = window.CardRender.makerControls({
+          placeholder: 'Note to steer this cover (optional)…',
+          buttons: [{
+            label: '🖼 Make image', busy: '🖼 making…', done: '🖼 Remake image', fail: 'image not enabled',
+            title: 'Generate a cover illustration for ' + (adv.name || 'this adventure'),
+            run: (note) => {
+              const prompt = window.CardRender.stylePrompt.painterly + (adv.name || '') + '. ' + (adv.quest || '') + ' Epic D&D module cover illustration, no text, no words.' + (note ? ' Art-director note: ' + note : '');
+              return window.CardRender.fetchArt(prompt).then((img) => {
+                if (!img) return false;
+                const n = window.CardRender.adventureCanvas(adv, advNames, img);
+                n.className = 'adv-cover-img';
+                coverCanvas.replaceWith(n); coverCanvas = n;
+                return true;
+              });
+            },
+          }],
+          extra: [saveCover],
+        });
+        coverWrap.appendChild(bar);
       } else {
         styleErrors[currentCoverStyle] = true;
         coverImg.style.display = 'none';

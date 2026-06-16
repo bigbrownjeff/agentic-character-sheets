@@ -221,14 +221,16 @@
     var card = (beat.cards || [])[index] || {};
     return (STYLE_PROMPT[styleNameFor(beat.id, styleKey)] || STYLE_PROMPT.painterly) + (card.scene || beat.title || '');
   }
-  // Compose a motion prompt for a short beat video in the approved style.
-  function videoPrompt(beat, styleKey) {
+  // Per-cell video prompt: animate ONE keyframe (one card) into a 3–5s shot.
+  // The whole beat = the sequence of these per-cell clips (~15–30s across 5–6 cards).
+  function videoPrompt(beat, index, styleKey, note) {
+    var card = (beat.cards || [])[index] || {};
     var pre = STYLE_PROMPT[styleNameFor(beat.id, styleKey)] || STYLE_PROMPT.painterly;
-    var shots = (beat.cards || []).map(function (c, i) { return (i + 1) + ') ' + (c.scene || c.caption || ''); }).join('  ');
     return pre +
-      'Short cinematic motion sequence, 15-30 seconds, in this art style. Moving camera and changing shots — never a static locked frame. ' +
-      'Title: "' + (beat.title || '') + '". Shot list: ' + shots +
-      '  Smooth transitions between shots, dynamic camera moves (push-in, pan, parallax), and living motion in every scene. No on-screen text or captions.';
+      'Animate THIS single keyframe into a 3-5 second cinematic shot in this exact art style: ' +
+      (card.scene || beat.title || '') +
+      ' Bring it to life with motion and a moving camera (slow push-in, parallax, drifting elements), but stay on this one scene — do NOT cut to other scenes. No on-screen text or captions.' +
+      (note ? ' Art-director note: ' + note : '');
   }
 
   // object-fit: cover for a loaded image into a rect
@@ -406,6 +408,52 @@
     }).catch(function () { return null; });
   }
 
+  // A reusable "maker" bar: an optional note input + action buttons.
+  // The note text is passed to each button's run(note) so the user can steer
+  // the NEXT image/video before it generates. Nothing auto-fires.
+  //   opts.note (default true), opts.placeholder
+  //   opts.buttons: [{ label, busy, done, fail, ghost, title, run(note, btn) -> Promise|any }]
+  //   opts.extra: [DOM nodes appended to the button row, e.g. a Save button]
+  function makerControls(opts) {
+    opts = opts || {};
+    var wrap = document.createElement('div');
+    wrap.className = 'cr-maker';
+    var noteEl = null;
+    if (opts.note !== false) {
+      noteEl = document.createElement('input');
+      noteEl.type = 'text';
+      noteEl.className = 'cr-note';
+      noteEl.placeholder = opts.placeholder || 'Add a note to steer the next image / video (optional)…';
+      noteEl.addEventListener('click', function (e) { e.stopPropagation(); });
+      noteEl.addEventListener('keydown', function (e) { e.stopPropagation(); });
+      wrap.appendChild(noteEl);
+    }
+    var row = document.createElement('div');
+    row.className = 'cr-actions';
+    (opts.buttons || []).forEach(function (b) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cr-save-btn' + (b.ghost ? ' ghost' : '');
+      btn.textContent = b.label;
+      if (b.title) btn.title = b.title;
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var note = noteEl ? noteEl.value.trim() : '';
+        var orig = b.label;
+        btn.disabled = true;
+        btn.textContent = b.busy || '…working…';
+        Promise.resolve(b.run(note, btn)).then(function (ok) {
+          btn.disabled = false;
+          btn.textContent = (ok === false) ? (b.fail || orig) : (b.done || orig);
+        }).catch(function () { btn.disabled = false; btn.textContent = b.fail || orig; });
+      });
+      row.appendChild(btn);
+    });
+    (opts.extra || []).forEach(function (node) { row.appendChild(node); });
+    wrap.appendChild(row);
+    return wrap;
+  }
+
   window.CardRender = {
     characterCanvas: characterCanvas,
     adventureCanvas: adventureCanvas,
@@ -414,6 +462,7 @@
     videoPrompt: videoPrompt,
     stylePrompt: STYLE_PROMPT,
     loadImage: loadImage, fetchArt: fetchArt, providerToggle: providerToggle,
+    makerControls: makerControls,
     download: download, saveButton: saveButton, lightbox: lightbox,
   };
 })();

@@ -13,13 +13,12 @@
  *
  * Setup (Cloudflare → Pages → Settings → Variables and Secrets):
  *   GEMINI_API_KEY  = <your key>                  (same key as image gen)
- *   VEO_MODEL       = veo-3.1-generate-preview     (default; Veo 3.1 for 15–30s clips)
- *   VEO_DURATION    = 24                           (optional; seconds, clamped 4–30)
+ *   VEO_MODEL       = veo-3.1-generate-preview     (default; Veo 3.1)
+ *   VEO_DURATION    = 5                            (optional; seconds per cell, clamped 3–8)
  *
- * NOTE: Veo model ids and max clip length evolve and vary by account. We default
- * to Veo 3.1 and request durationSeconds (target 15–30s). If your account uses a
- * different 3.1 id or caps duration, override VEO_MODEL / VEO_DURATION; errors are
- * surfaced verbatim.
+ * One clip = one beat cell/keyframe (3–5s). A whole beat is the sequence of its
+ * per-cell clips (~15–30s across 5–6 cards). VEO_MODEL / VEO_DURATION are
+ * env-overridable; upstream errors are surfaced verbatim.
  * If GEMINI_API_KEY is absent it 503s and the UI keeps the still storyboard.
  */
 
@@ -90,7 +89,7 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
     /* --- POST: start a generation --- */
     if (request.method === 'POST') {
       let prompt = '', aspectRatio = '9:16';
-      let duration = parseInt(env.VEO_DURATION || '24', 10);
+      let duration = parseInt(env.VEO_DURATION || '5', 10);
       try {
         const body = await request.json() as { prompt?: string; aspectRatio?: string; durationSeconds?: number };
         prompt = String(body.prompt || '').slice(0, MAX_PROMPT).trim();
@@ -99,8 +98,8 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
       } catch { return json({ error: 'Invalid JSON body' }, 400); }
       if (!prompt) return json({ error: 'Missing prompt' }, 400);
       if (BLOCK.test(prompt)) return json({ error: 'Prompt rejected' }, 422);
-      if (!Number.isFinite(duration)) duration = 24;
-      duration = Math.max(4, Math.min(30, duration)); // target 15–30s; clamp to a safe range
+      if (!Number.isFinite(duration)) duration = 5;
+      duration = Math.max(3, Math.min(8, duration)); // 3–5s per cell/keyframe (one clip per card)
 
       const r = await fetch(`${BASE}/models/${model}:predictLongRunning?key=${key}`, {
         method: 'POST',

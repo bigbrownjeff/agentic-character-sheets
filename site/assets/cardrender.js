@@ -119,7 +119,7 @@
      CHARACTER CARD
      ============================================================ */
   var ABIL = [['str', 'STR'], ['dex', 'DEX'], ['con', 'CON'], ['int', 'INT'], ['wis', 'WIS'], ['cha', 'CHA']];
-  function characterCanvas(ch) {
+  function characterCanvas(ch, art) {
     return make(function (ctx) {
       var rc = roleColor(ch.role);
       frame(ctx, rc);
@@ -137,11 +137,19 @@
       ctx.fillStyle = C.body; ctx.font = 'italic 30px ' + SERIF;
       var y = wrap(ctx, ch.title || '', 70, 240, W - 140, 38, 2);
 
-      // emblem
-      var glyph = ch.role === 'monster' ? '☠' : ch.role === 'npc' ? '◈' : '⚔';
-      emblem(ctx, W / 2, 470, 150, rc, glyph);
-      ctx.fillStyle = C.muted; ctx.font = '26px ' + MONO; ctx.textAlign = 'center';
-      ctx.fillText((ch.role || '').toUpperCase(), W / 2, 660); ctx.textAlign = 'left';
+      // portrait illustration if provided, else a role emblem
+      if (art) {
+        ctx.save();
+        rr(ctx, 110, 318, W - 220, 334, 18); ctx.clip();
+        coverDraw(ctx, art, 110, 318, W - 220, 334);
+        ctx.restore();
+        ctx.strokeStyle = rc; ctx.lineWidth = 5; rr(ctx, 110, 318, W - 220, 334, 18); ctx.stroke();
+      } else {
+        var glyph = ch.role === 'monster' ? '☠' : ch.role === 'npc' ? '◈' : '⚔';
+        emblem(ctx, W / 2, 470, 150, rc, glyph);
+        ctx.fillStyle = C.muted; ctx.font = '26px ' + MONO; ctx.textAlign = 'center';
+        ctx.fillText((ch.role || '').toUpperCase(), W / 2, 660); ctx.textAlign = 'left';
+      }
 
       // ability grid 3×2
       if (ch.abilities) {
@@ -191,35 +199,65 @@
   var BEAT_STYLE_BY_ID = {
     masquerade: 'gothic', 'round-table': 'feedbait', 'proving-grounds': 'telecast', forge: 'terminal',
   };
-  function beatStyleFor(beatId, styleKey) {
-    if (styleKey === 'B') return BEAT_STYLES['graphic-novel'];
-    if (styleKey === 'C' && BEAT_STYLE_BY_ID[beatId]) return BEAT_STYLES[BEAT_STYLE_BY_ID[beatId]];
-    return BEAT_STYLES.painterly;
+  function styleNameFor(beatId, styleKey) {
+    if (styleKey === 'B') return 'graphic-novel';
+    if (styleKey === 'C' && BEAT_STYLE_BY_ID[beatId]) return BEAT_STYLE_BY_ID[beatId];
+    return 'painterly';
   }
-  function beatCanvas(beat, index, styleKey) {
+  function beatStyleFor(beatId, styleKey) { return BEAT_STYLES[styleNameFor(beatId, styleKey)] || BEAT_STYLES.painterly; }
+
+  // Prompt preambles per style (used to compose the text-to-image prompt).
+  var STYLE_PROMPT = {
+    painterly: 'Painterly fantasy RPG illustration, Critical Role / Wizards-of-the-Coast house style, dramatic lighting, ornate, wholesome, 4:5 portrait. ',
+    'graphic-novel': 'High-contrast inked graphic-novel illustration, bold linework, cinematic, 4:5 portrait. ',
+    gothic: 'Gothic-punk World of Darkness illustration, blood-red and black, Tim Bradstreet ink chiaroscuro, 4:5 portrait. ',
+    feedbait: 'Hyper-saturated bold poster style, punchy and vivid (tasteful, non-sexual), 4:5 portrait. ',
+    telecast: 'Glossy esports-broadcast spectacle, stadium lighting, dynamic, 4:5 portrait. ',
+    terminal: 'Retro phosphor-green CRT terminal / pixel art, 4:5 portrait. ',
+  };
+  function beatPrompt(beat, index, styleKey) {
+    var card = (beat.cards || [])[index] || {};
+    return (STYLE_PROMPT[styleNameFor(beat.id, styleKey)] || STYLE_PROMPT.painterly) + (card.scene || beat.title || '');
+  }
+
+  // object-fit: cover for a loaded image into a rect
+  function coverDraw(ctx, img, x, y, w, h) {
+    var iw = img.width || img.naturalWidth, ih = img.height || img.naturalHeight;
+    if (!iw || !ih) return;
+    var scale = Math.max(w / iw, h / ih), dw = iw * scale, dh = ih * scale;
+    ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+  }
+  function beatCanvas(beat, index, styleKey, art) {
     var card = beat.cards[index] || {};
     var s = beatStyleFor(beat.id, styleKey);
     return make(function (ctx) {
-      var g = ctx.createLinearGradient(0, 0, W, H);
-      g.addColorStop(0, s.bg[0]); g.addColorStop(1, s.bg[1]);
-      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-      // vignette
-      var vg = ctx.createRadialGradient(W / 2, H / 2, H * 0.2, W / 2, H / 2, H * 0.7);
-      vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.45)');
-      ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
-      // big motif watermark
-      ctx.fillStyle = s.accent; ctx.globalAlpha = 0.16; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.font = '620px ' + SERIF; ctx.fillText(s.motif, W / 2, H / 2 - 60);
-      ctx.globalAlpha = 1; ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+      if (art) {
+        coverDraw(ctx, art, 0, 0, W, H);
+        var tg = ctx.createLinearGradient(0, 0, 0, 280);
+        tg.addColorStop(0, 'rgba(0,0,0,.72)'); tg.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = tg; ctx.fillRect(0, 0, W, 280);
+      } else {
+        var g = ctx.createLinearGradient(0, 0, W, H);
+        g.addColorStop(0, s.bg[0]); g.addColorStop(1, s.bg[1]);
+        ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+        // vignette
+        var vg = ctx.createRadialGradient(W / 2, H / 2, H * 0.2, W / 2, H / 2, H * 0.7);
+        vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.45)');
+        ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+        // big motif watermark
+        ctx.fillStyle = s.accent; ctx.globalAlpha = 0.16; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.font = '620px ' + SERIF; ctx.fillText(s.motif, W / 2, H / 2 - 60);
+        ctx.globalAlpha = 1; ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+        // scene art-direction (faint)
+        ctx.fillStyle = s.ink; ctx.globalAlpha = 0.78; ctx.font = 'italic 30px ' + SERIF;
+        wrap(ctx, card.scene || '', 70, 300, W - 140, 42, 6); ctx.globalAlpha = 1;
+      }
       // eyebrow
-      ctx.fillStyle = s.accent; ctx.font = '24px ' + MONO;
+      ctx.fillStyle = s.accent; ctx.font = '24px ' + MONO; ctx.textAlign = 'left';
       ctx.fillText((beat.adventure || '').toUpperCase().slice(0, 42), 70, 96);
       // title
-      ctx.fillStyle = s.ink; var ts = fit(ctx, beat.title || '', W - 140, 56, 'bold', SERIF);
+      ctx.fillStyle = art ? '#fff' : s.ink; var ts = fit(ctx, beat.title || '', W - 140, 56, 'bold', SERIF);
       ctx.font = 'bold ' + ts + 'px ' + SERIF; wrap(ctx, beat.title || '', 70, 156, W - 140, ts + 8, 2);
-      // scene art-direction (faint)
-      ctx.fillStyle = s.ink; ctx.globalAlpha = 0.78; ctx.font = 'italic 30px ' + SERIF;
-      wrap(ctx, card.scene || '', 70, 300, W - 140, 42, 6); ctx.globalAlpha = 1;
       // caption banner
       var bh = 230;
       ctx.fillStyle = 'rgba(0,0,0,.62)'; ctx.fillRect(40, H - bh - 40, W - 80, bh);
@@ -236,17 +274,22 @@
   /* ============================================================
      ADVENTURE COVER
      ============================================================ */
-  function adventureCanvas(adv, names) {
+  function adventureCanvas(adv, names, art) {
     names = names || {};
     var key = Object.keys(BEAT_STYLE_BY_ID).find(function (k) { return adv.id && adv.id.indexOf(k) !== -1; });
     var pal = BEAT_STYLES[BEAT_STYLE_BY_ID[key]] || BEAT_STYLES.painterly;
     return make(function (ctx) {
-      var g = ctx.createLinearGradient(0, 0, W, H);
-      g.addColorStop(0, pal.bg[0]); g.addColorStop(1, pal.bg[1]);
-      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = pal.accent; ctx.globalAlpha = 0.14; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.font = '600px ' + SERIF; ctx.fillText(pal.motif, W / 2, H / 2);
-      ctx.globalAlpha = 1; ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+      if (art) {
+        coverDraw(ctx, art, 0, 0, W, H);
+        ctx.fillStyle = 'rgba(0,0,0,.28)'; ctx.fillRect(0, 0, W, H);
+      } else {
+        var g = ctx.createLinearGradient(0, 0, W, H);
+        g.addColorStop(0, pal.bg[0]); g.addColorStop(1, pal.bg[1]);
+        ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+        ctx.fillStyle = pal.accent; ctx.globalAlpha = 0.14; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.font = '600px ' + SERIF; ctx.fillText(pal.motif, W / 2, H / 2);
+        ctx.globalAlpha = 1; ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+      }
       // title banner
       ctx.fillStyle = 'rgba(0,0,0,.55)'; ctx.fillRect(40, 70, W - 80, 220);
       ctx.fillStyle = pal.accent; ctx.font = '24px ' + MONO; ctx.fillText((adv.use_category || '').toUpperCase().slice(0, 50), 70, 120);
@@ -311,10 +354,35 @@
     document.body.appendChild(ov);
   }
 
+  /* --- AI illustration (optional; /api/image via Workers AI) --- */
+  function loadImage(src) {
+    return new Promise(function (resolve, reject) {
+      var im = new Image();
+      im.onload = function () { resolve(im); };
+      im.onerror = reject;
+      im.src = src;
+    });
+  }
+  // POST a prompt to /api/image; resolve to a loaded <img>, or null on any failure.
+  function fetchArt(prompt) {
+    return fetch('./api/image', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: String(prompt || '').slice(0, 1400) }),
+    }).then(function (r) {
+      if (!r.ok) throw new Error(String(r.status));
+      return r.json();
+    }).then(function (d) {
+      return (d && d.image) ? loadImage(d.image) : null;
+    }).catch(function () { return null; });
+  }
+
   window.CardRender = {
     characterCanvas: characterCanvas,
     adventureCanvas: adventureCanvas,
     beatCanvas: beatCanvas,
+    beatPrompt: beatPrompt,
+    stylePrompt: STYLE_PROMPT,
+    loadImage: loadImage, fetchArt: fetchArt,
     download: download, saveButton: saveButton, lightbox: lightbox,
   };
 })();

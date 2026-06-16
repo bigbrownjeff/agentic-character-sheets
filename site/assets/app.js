@@ -739,14 +739,30 @@ function initAdventuresPage(characters, adventures) {
           npcs: (adv.npcs || []).map(id => charMap[id] && charMap[id].name).filter(Boolean),
           bestiary: (adv.bestiary || []).map(id => charMap[id] && charMap[id].name).filter(Boolean),
         };
-        const cv = window.CardRender.adventureCanvas(adv, advNames);
-        cv.className = 'adv-cover-img';
-        coverImg.replaceWith(cv);
+        let coverCanvas = window.CardRender.adventureCanvas(adv, advNames);
+        coverCanvas.className = 'adv-cover-img';
+        coverImg.replaceWith(coverCanvas);
         styleToggleBar.style.display = 'none';
         coverWrap.style.display = '';
         const act = document.createElement('div');
         act.className = 'cr-actions';
-        act.appendChild(window.CardRender.saveButton('⬇ Save cover', () => window.CardRender.adventureCanvas(adv, advNames), (adv.id || 'adventure') + '.png'));
+        act.appendChild(window.CardRender.saveButton('⬇ Save cover', () => coverCanvas, (adv.id || 'adventure') + '.png'));
+        const illoBtn = document.createElement('button');
+        illoBtn.type = 'button'; illoBtn.className = 'cr-save-btn ghost'; illoBtn.textContent = '✨ Illustrate';
+        illoBtn.addEventListener('click', () => {
+          illoBtn.disabled = true; illoBtn.textContent = '✨ illustrating…';
+          const prompt = window.CardRender.stylePrompt.painterly + (adv.name || '') + '. ' + (adv.quest || '') + ' Epic D&D module cover illustration, no text, no words.';
+          window.CardRender.fetchArt(prompt).then((img) => {
+            if (img) {
+              const n = window.CardRender.adventureCanvas(adv, advNames, img);
+              n.className = 'adv-cover-img';
+              coverCanvas.replaceWith(n); coverCanvas = n;
+              illoBtn.textContent = '✨ re-illustrate';
+            } else { illoBtn.textContent = 'AI art not enabled'; }
+            illoBtn.disabled = false;
+          });
+        });
+        act.appendChild(illoBtn);
         coverWrap.appendChild(act);
       } else {
         styleErrors[currentCoverStyle] = true;

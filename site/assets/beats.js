@@ -117,14 +117,14 @@ function buildCarousel(beat, beatIndex) {
   const reduced = prefersReducedMotion();
 
   /* Render a beat card as a real image (CardRender) into a slide. */
-  function renderBeatSlide(slide, i, styleKey) {
+  function renderBeatSlide(slide, i, styleKey, art) {
     if (!window.CardRender) return false;
     const img = slide.querySelector('.carousel-img');
     const textCard = slide.querySelector('.carousel-text-card');
     const banner = slide.querySelector('.carousel-caption-banner');
     const prev = slide.querySelector('canvas.cr-incard');
     if (prev) prev.remove();
-    const cv = window.CardRender.beatCanvas(beat, i, styleKey);
+    const cv = window.CardRender.beatCanvas(beat, i, styleKey, art);
     cv.className = 'cr-incard';
     cv.setAttribute('role', 'img');
     cv.setAttribute('aria-label', (beat.title || '') + ' — card ' + (i + 1));
@@ -190,6 +190,17 @@ function buildCarousel(beat, beatIndex) {
     saveBar.appendChild(window.CardRender.saveButton('⬇ Save this card',
       () => window.CardRender.beatCanvas(beat, current, currentStyle),
       beat.id + '-' + (current + 1) + '.png'));
+    const illoBtn = document.createElement('button');
+    illoBtn.type = 'button'; illoBtn.className = 'cr-save-btn ghost'; illoBtn.textContent = '✨ Illustrate this card';
+    illoBtn.addEventListener('click', () => {
+      illoBtn.disabled = true; illoBtn.textContent = '✨ illustrating…';
+      window.CardRender.fetchArt(window.CardRender.beatPrompt(beat, current, currentStyle)).then((img) => {
+        if (img) { renderBeatSlide(slides[current], current, currentStyle, img); illoBtn.textContent = '✨ re-illustrate'; }
+        else { illoBtn.textContent = 'AI art not enabled'; }
+        illoBtn.disabled = false;
+      });
+    });
+    saveBar.appendChild(illoBtn);
     section.appendChild(saveBar);
   }
 

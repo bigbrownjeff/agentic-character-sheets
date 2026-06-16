@@ -284,19 +284,53 @@ function renderOutput() {
   $('#forge-restart').addEventListener('click', () => { state.mode = null; state.people = []; state.personIdx = 0; state.qIdx = 0; render(); });
   $('#forge-generate').addEventListener('click', () => generateHere(prompt));
 
-  // Downloadable hero card(s) — rendered from the answers, no backend needed.
+  // Inline card image(s) — visible immediately, then upgraded with AI art.
   if (window.CardRender) {
-    const cardBar = document.createElement('div');
-    cardBar.className = 'forge-actions';
+    const gallery = document.createElement('div');
+    gallery.className = 'forge-gallery';
     state.people.forEach((p, idx) => {
       const ch = liteChar(p);
-      cardBar.appendChild(window.CardRender.saveButton(
-        '🖼 ' + (ch.name || ('Hero ' + (idx + 1))) + ' card',
-        () => window.CardRender.characterCanvas(ch),
-        (ch.id || 'hero') + '.png'));
+      const item = document.createElement('div');
+      item.className = 'forge-card-item';
+      let cv = window.CardRender.characterCanvas(ch);
+      cv.className = 'forge-card-img';
+      item.appendChild(cv);
+
+      const row = document.createElement('div');
+      row.className = 'forge-actions';
+      row.appendChild(window.CardRender.saveButton('⬇ Save card', () => cv, (ch.id || 'hero') + '.png'));
+      const illo = document.createElement('button');
+      illo.type = 'button'; illo.className = 'cr-save-btn ghost'; illo.textContent = '✨ Add AI art';
+      row.appendChild(illo);
+      item.appendChild(row);
+      gallery.appendChild(item);
+
+      function portraitPrompt() {
+        const great = a(p, 'great'), others = a(p, 'others');
+        return window.CardRender.stylePrompt.painterly +
+          'Heroic, warm fantasy character portrait of ' + (ch.name || 'a hero') +
+          (great ? ', who is great at ' + great : '') + (others ? '. ' + others : '') +
+          '. Single dignified figure, friendly, no text, no words.';
+      }
+      function illustrate() {
+        illo.disabled = true; illo.textContent = '✨ illustrating…';
+        window.CardRender.fetchArt(portraitPrompt()).then((img) => {
+          if (img) {
+            const ncv = window.CardRender.characterCanvas(ch, img);
+            ncv.className = 'forge-card-img';
+            cv.replaceWith(ncv); cv = ncv;
+            illo.textContent = '✨ re-illustrate';
+          } else {
+            illo.textContent = 'AI art not enabled';
+          }
+          illo.disabled = false;
+        });
+      }
+      illo.addEventListener('click', illustrate);
+      illustrate(); // auto-attempt: the user wanted to SEE images after answering
     });
     const resultEl = $('#forge-result');
-    resultEl.parentNode.insertBefore(cardBar, resultEl);
+    resultEl.parentNode.insertBefore(gallery, resultEl);
   }
 }
 

@@ -1,16 +1,21 @@
-# site/cards/ — committed default images
+# site/cards/ — media lives in Cloudflare R2, not git
 
-These are the **default** illustrations the site shows. They're committed to the repo
-(not gitignored) so the CI deploy ships them — the GitHub Action deploys only what's in
-git, so anything not committed here will NOT appear on the live site.
+The card/cover/beat images (and beat videos, future audio) are the site's **default**
+illustrations. They are **NOT committed to git** — binary media grows forever and doesn't
+belong in history. They live in a **Cloudflare R2 bucket** (durable, cheap, zero-egress)
+and the site loads them from the R2 public URL.
 
-The site loads each image by a fixed path and **falls back to a drawn Canvas card** if the
-file is missing. The in-page **🖼 Make image** buttons add AI-generated versions on top of
-these defaults (they never overwrite the files here).
+- **Bucket / base URL:** see `site/data/media.json` (`base`). The browser reads the same
+  value from `site/assets/media.js` (`window.MEDIA_BASE`).
+- The site loads each image by a fixed path under `<MEDIA_BASE>/cards/...` and **falls back
+  to a drawn Canvas card** on 404 (so a missing image degrades gracefully).
+- The in-page **🖼 Make image** buttons add AI-generated versions on top of these defaults.
+- The PNGs under `site/cards/**` are **gitignored**; this README and `manifest.json` are the
+  only tracked things here.
 
 ## Where each file goes
 
-| Content | Path | Example |
+| Content | Local path (and R2 key under `cards/`) | Example |
 |---|---|---|
 | Character | `site/cards/sheets/<character-id>.png` | `sheets/ponytail.png` |
 | Adventure cover | `site/cards/covers/<adventure-id>-<A\|B\|C>.png` | `covers/the-orange-menace-A.png` |
@@ -22,14 +27,25 @@ these defaults (they never overwrite the files here).
 - Beat `<n>` is the 1-based card index within the beat.
 - Portrait 4:5 PNGs (the cards are designed for ~1080×1350).
 
-## To restore / update the live defaults
+## Sync media with R2
 
-From a local clone that has your generated images:
+A fresh clone — **local or a cloud session** — has no images. Restore them from R2:
 
 ```bash
-git pull
-# copy your images into site/cards/{sheets,covers,beats}/ using the names above
-git add site/cards
-git commit -m "art: default card images"
-git push        # the deploy workflow publishes them on merge to main
+npm run media:pull          # download every default from the R2 public URL (no auth needed)
 ```
+
+After generating or updating art locally, publish it:
+
+```bash
+# write the file to site/cards/{sheets,covers,beats}/ using the names above, then:
+npm run media:push          # upload to R2 + refresh manifest.json   (needs `wrangler login`)
+```
+
+`media:pull` is credential-free (public URL + `manifest.json` index), so any environment can
+restore the media. `media:push` writes to R2 via `wrangler r2 object put --remote`.
+
+> The CI deploy ships the site **code** from git; images are served from R2 at runtime, so
+> they don't need to be in the deploy. To repoint to a custom domain (e.g.
+> `media.jeffpinto.com`), change `base` in `site/data/media.json` **and** `MEDIA_BASE` in
+> `site/assets/media.js`.

@@ -188,7 +188,7 @@ function renderCard(char) {
     <img
       id="${sheetImgId}"
       class="card-sheet-img"
-      src="./cards/sheets/${escAttr(char.id)}.png"
+      src="${window.MEDIA_BASE || '.'}/cards/sheets/${escAttr(char.id)}.png"
       loading="lazy"
       alt="${escAttr(char.name)} character sheet"
     >
@@ -199,7 +199,7 @@ function renderCard(char) {
     <div class="card-badges">${badges.join('')}</div>
   `;
 
-  // Default visual = the committed PNG; on error, the stylized Canvas card.
+  // Default visual = the R2 image; on error (404/offline), the stylized Canvas card.
   el._char = char;
   const _fb = el.querySelector('.card-stat-fallback');
   function attachDefaultErr(im) {
@@ -230,7 +230,7 @@ function renderCard(char) {
         next = document.createElement('img');
         next.className = 'card-sheet-img'; next.setAttribute('loading', 'lazy');
         next.alt = (char.name || '') + ' character sheet';
-        next.src = './cards/sheets/' + char.id + '.png';
+        next.src = (window.MEDIA_BASE || '.') + '/cards/sheets/' + char.id + '.png';
         attachDefaultErr(next);
       }
       if (cur) cur.replaceWith(next);
@@ -396,7 +396,7 @@ function renderModal(char) {
     <button class="modal-close" id="modal-close-btn" aria-label="Close character sheet">[ESC] CLOSE</button>
     <img
       class="modal-sheet-img"
-      src="./cards/sheets/${escAttr(char.id)}.png"
+      src="${window.MEDIA_BASE || '.'}/cards/sheets/${escAttr(char.id)}.png"
       alt="${escAttr(char.name)} character sheet"
       onerror="this.style.display='none';"
     >
@@ -733,7 +733,7 @@ function initAdventuresPage(characters, adventures) {
     // Cover image
     const coverImg = document.createElement('img');
     coverImg.className = 'adv-cover-img';
-    coverImg.src = `./cards/covers/${escAttr(adv.id)}-A.png`;
+    coverImg.src = `${window.MEDIA_BASE || '.'}/cards/covers/${escAttr(adv.id)}-A.png`;
     coverImg.alt = `${escAttr(adv.name)} module cover`;
     coverImg.setAttribute('loading', 'lazy');
 
@@ -754,7 +754,7 @@ function initAdventuresPage(characters, adventures) {
       // Reset img visibility optimistically; error handler will hide again if needed
       coverImg.style.display = '';
       coverWrap.style.display = '';
-      coverImg.src = `./cards/covers/${escAttr(adv.id)}-${key}.png`;
+      coverImg.src = `${window.MEDIA_BASE || '.'}/cards/covers/${escAttr(adv.id)}-${key}.png`;
     }
 
     let coverRendered = false;

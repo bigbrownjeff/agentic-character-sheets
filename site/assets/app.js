@@ -698,7 +698,7 @@ async function fetchAdvStyleCName(advId) {
   }
 }
 
-function initAdventuresPage(characters, adventures) {
+function initAdventuresPage(characters, adventures, beats) {
   _characters = characters;
 
   const container = document.getElementById('adventures-container');
@@ -707,6 +707,16 @@ function initAdventuresPage(characters, adventures) {
   // Eyebrow count is data-driven so it can't drift when adventures are added.
   const eyebrowEl = document.querySelector('.page-eyebrow');
   if (eyebrowEl) eyebrowEl.textContent = `${adventures.length} Adventures`;
+
+  // Group beats under the adventure they belong to (matched by name), so each
+  // adventure can carry 0-n illustrated beats. A running index keeps the
+  // per-beat persistence ids stable.
+  const beatsByAdventure = {};
+  let _beatSeq = 0;
+  (beats || []).forEach(b => {
+    const key = b.adventure;
+    (beatsByAdventure[key] = beatsByAdventure[key] || []).push(b);
+  });
 
   const charMap = {};
   characters.forEach(c => { charMap[c.id] = c; });
@@ -862,6 +872,20 @@ function initAdventuresPage(characters, adventures) {
     if (npcSec) block.appendChild(npcSec);
     if (bestiarySec) block.appendChild(bestiarySec);
 
+    // Nested beats — the illustrated/animated sequences for THIS adventure.
+    // 0-n per adventure; rendered only when the adventure has beats and the
+    // beats module is present.
+    const advBeats = beatsByAdventure[adv.name] || [];
+    if (advBeats.length && window.Beats && window.Beats.buildCarousel) {
+      const beatsSec = document.createElement('div');
+      beatsSec.className = 'adventure-section adventure-beats';
+      beatsSec.innerHTML = `<div class="adventure-section-label">Beats</div>`;
+      advBeats.forEach(beat => {
+        beatsSec.appendChild(window.Beats.buildCarousel(beat, _beatSeq++));
+      });
+      block.appendChild(beatsSec);
+    }
+
     container.appendChild(block);
 
     // Comment widget per adventure
@@ -901,7 +925,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (isCharacters) {
       initCharactersPage(characters, adventures);
     } else if (isAdventures) {
-      initAdventuresPage(characters, adventures);
+      const beats = (window.Beats && window.Beats.loadBeats) ? await window.Beats.loadBeats() : [];
+      initAdventuresPage(characters, adventures, beats);
     }
 
     syncFromHash();

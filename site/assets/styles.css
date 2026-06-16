@@ -1377,3 +1377,281 @@ img {
   border-radius: 8px;
 }
 .essay-cta-link:hover { background: var(--accent); color: var(--paper); }
+
+/* ============================================================
+   HOME — calm front page (hero · three paths · add your take)
+   ============================================================ */
+
+.home {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* --- HERO: one line, what is this ------------------------ */
+
+.home-hero {
+  padding: 56px 0 44px;
+  border-bottom: 1px solid var(--ruleSoft);
+  margin-bottom: 48px;
+}
+
+.home-hero .page-eyebrow {
+  margin-bottom: 16px;
+}
+
+.home-hero h1 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  color: var(--ink);
+  line-height: 1.12;
+  max-width: 24ch;
+  text-wrap: balance;
+  margin-bottom: 18px;
+}
+
+.home-dek {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  color: var(--muted);
+  line-height: 1.5;
+  max-width: 56ch;
+}
+
+/* --- THREE PRIMARY PATHS --------------------------------- */
+
+.home-paths {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+  margin-bottom: 72px;
+}
+
+.path-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 32px;
+  min-height: 340px;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+}
+
+.path-card:hover {
+  background: #FAFAF8;
+}
+
+/* role-keyed top accent hairline, reusing the deck's palette */
+.path-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.path-card[data-path="forge"]::before { background: var(--accent); }
+.path-card[data-path="adventures"]::before { background: var(--role-party); }
+.path-card[data-path="characters"]::before { background: var(--role-npc); }
+
+.path-index {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--ruleSoft);
+  line-height: 1;
+}
+
+.path-kind {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: -6px;
+}
+
+.path-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--ink);
+  line-height: 1.15;
+}
+
+.path-desc {
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  color: var(--body);
+  line-height: 1.55;
+}
+
+.path-go {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.path-arrow {
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.path-card:hover .path-go { color: var(--accent); }
+.path-card:hover .path-arrow { transform: translateX(4px); }
+
+/* --- ADD YOUR TAKE --------------------------------------- */
+
+.home-take {
+  border-top: 2px solid var(--rule);
+  padding-top: 44px;
+  margin-bottom: 72px;
+}
+
+.home-take-head {
+  margin-bottom: 32px;
+}
+
+.home-take-head .page-eyebrow {
+  margin-bottom: 12px;
+}
+
+.home-take-lede {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  color: var(--muted);
+  line-height: 1.5;
+  max-width: 60ch;
+}
+
+.home-take-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.take-way {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ruleSoft);
+}
+
+.take-way-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.take-way-desc {
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  color: var(--body);
+  line-height: 1.6;
+}
+
+.take-way-link {
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  align-self: flex-start;
+}
+
+.take-way-link:hover { color: var(--accent); }
+.take-way-link:hover .path-arrow { transform: translateX(4px); }
+
+/* --- QUIET FOOTER ---------------------------------------- */
+
+.home-footer {
+  border-top: 1px solid var(--ruleSoft);
+  padding-top: 24px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.home-footer-blurb {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 42ch;
+}
+
+.home-footer-nav {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.home-footer-nav a {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.home-footer-nav a:hover { color: var(--ink); }
+
+@media (max-width: 760px) {
+  .home-paths { grid-template-columns: 1fr; }
+  .path-card { min-height: 0; }
+  .home-take-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+
+/* ============================================================
+   CALMER A/B/C STYLE TOGGLES — a leading label so the row reads
+   as a quiet "pick a look", not three competing buttons.
+   ============================================================ */
+
+.adv-style-toggle,
+.beat-style-toggle {
+  align-items: center;
+}
+
+.adv-style-toggle::before,
+.beat-style-toggle::before {
+  content: 'Cover style';
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 4px;
+}
+
+.beat-style-toggle::before {
+  content: 'Art style';
+}

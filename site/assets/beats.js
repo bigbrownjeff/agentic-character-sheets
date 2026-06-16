@@ -153,6 +153,27 @@ function buildCarousel(beat, beatIndex) {
   `;
   section.appendChild(header);
 
+  // The stitched MOMENT: one ~20s captioned vertical cut of this beat, at
+  // R2 key videos/<beat.id>-A-full.mp4. Sits above the frame carousel; it does
+  // not replace it. Most beats have no moment yet, so the block starts hidden,
+  // reveals only once metadata loads, and removes itself on error/404 so that
+  // nothing broken ever shows.
+  const moment = document.createElement('div');
+  moment.className = 'beat-moment';
+  moment.style.display = 'none';
+  const momentVideo = document.createElement('video');
+  momentVideo.className = 'beat-moment-video';
+  momentVideo.controls = true;
+  momentVideo.playsInline = true;
+  momentVideo.preload = 'metadata';
+  momentVideo.setAttribute('aria-label', (beat.title || 'Beat') + ': the moment');
+  momentVideo.addEventListener('loadedmetadata', () => { moment.style.display = ''; });
+  momentVideo.addEventListener('error', () => { moment.remove(); });
+  momentVideo.src = (window.MEDIA_BASE || '.') + '/videos/' + beat.id + '-A-full.mp4';
+  moment.innerHTML = '<span class="beat-moment-label">Watch the moment</span>';
+  moment.appendChild(momentVideo);
+  section.appendChild(moment);
+
   // Style toggle bar
   const styleToggleBar = document.createElement('div');
   styleToggleBar.className = 'beat-style-toggle';

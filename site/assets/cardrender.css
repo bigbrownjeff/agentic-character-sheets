@@ -36,4 +36,15 @@ canvas.card-sheet-img, canvas.adv-cover-img, canvas.cr-incard {
 .cr-bar { display: flex; gap: 0.6rem; }
 
 /* a small save control row under content */
-.cr-actions { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; }
+.cr-actions { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; align-items: center; }
+
+/* art-engine picker */
+.cr-provider {
+  font-family: var(--sans, sans-serif); font-size: 0.82rem; font-weight: 600;
+  color: var(--ink, #0E1116); display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.cr-provider select {
+  font-family: var(--sans, sans-serif); font-size: 0.82rem;
+  padding: 0.35rem 0.5rem; border-radius: 8px; border: 1px solid var(--rule, #231F1A);
+  background: var(--paper, #FAF6EC); color: var(--ink, #0E1116); cursor: pointer;
+}

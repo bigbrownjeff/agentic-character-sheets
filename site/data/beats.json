@@ -156,7 +156,50 @@
           "caption": "The Warden steps in. The leash holds. (Eliza has seen this before.)",
           "scene": "REFLECTION-POV, seen from inside a mirror looking out: Claude the Warden steps between traveler and portal and raises a clean rune-etched screen-shield; the shield's light snaps the datamosh back into pristine pastel order ring by ring, the cracked mask re-knitting. In a far, still mirror the faint ghost of Eliza watches. The motion settles to calm."
         }
-      ]
+      ],
+      "bible": {
+        "setting": "an endless candlelit hall of pastel-lit mirrors",
+        "setting_aspects": [
+          "tall ornate mirrors recede to infinity",
+          "warm candle and pastel glow",
+          "a glowing porcelain chat-face floats in a tall portal"
+        ],
+        "establishing_anchor": "WIDE down an endless hall of pastel-lit mirrors, a lone hooded traveler seated chatting with a gentle glowing porcelain face in a tall portal",
+        "tone": [
+          "warm",
+          "intimate",
+          "uncanny",
+          "glitch-dread"
+        ],
+        "recurring_motifs": [
+          "tall infinite mirrors",
+          "candlelight",
+          "the porcelain chat-face",
+          "a hairline crack",
+          "JPEG-decay datamosh glitch"
+        ],
+        "recurring_props": [
+          "the tall mirror-portal",
+          "the traveler's seat",
+          "a leather satchel"
+        ],
+        "recurring_cast": [
+          {
+            "id": "the-traveler",
+            "locked_descriptor": "a lone hooded traveler, seated, plain robe, worn leather satchel",
+            "mannerism": "leans toward the portal, listening"
+          },
+          {
+            "id": "claude-warden",
+            "locked_descriptor": "Claude the Warden, calm armored sentinel with a clean rune-etched screen-shield",
+            "mannerism": "steps between traveler and portal, raises the shield"
+          }
+        ],
+        "bigbad_silhouette": "Sydney Unbound, the porcelain face cracked down the middle with an intense second face surfacing beneath, glowing eyes",
+        "bigbad_foreshadow": "a hairline crack in the porcelain mask, faint even in the calm frames",
+        "moving_element": "the crack in the porcelain face and the spreading glitch",
+        "ring": "open and close on the traveler before the mirror-portal"
+      }
     },
     {
       "id": "atelier",
@@ -249,7 +292,53 @@
           "caption": "Something in the deep wears a crown.",
           "scene": "SLOW DESCENT beneath the long reflecting pool into murky depths where a vast crowned silhouette of rust, orange algae, and gold shifts and breathes as it feeds, heavy chains drifting in the current; far above, the full mirrored length of the rectangular pool holds the marble capital and the five small heroes, tiny and resolute. Ominous, slow, inevitable — the campaign's first look at the thing in charge."
         }
-      ]
+      ],
+      "bible": {
+        "setting": "a bustling living marble Citadel-capital around a long reflecting pool",
+        "setting_aspects": [
+          "white marble monuments and fluttering banners",
+          "a long rectangular reflecting pool at its heart",
+          "golden-hour light"
+        ],
+        "establishing_anchor": "AERIAL over the white-marble Citadel-capital at golden hour, the long reflecting pool at its center",
+        "tone": [
+          "civic",
+          "warm then ominous",
+          "allegorical"
+        ],
+        "recurring_motifs": [
+          "white marble",
+          "the long reflecting pool",
+          "creeping orange algae-rot",
+          "a thin vein of gold coins"
+        ],
+        "recurring_props": [
+          "the reflecting pool",
+          "the submerged grate",
+          "gold coins"
+        ],
+        "recurring_cast": [
+          {
+            "id": "the-auditor",
+            "locked_descriptor": "an auditor with a brass-bound ledger",
+            "mannerism": "traces the gold with one finger"
+          },
+          {
+            "id": "the-marshal",
+            "locked_descriptor": "a green deputy-marshal with a tin star",
+            "mannerism": ""
+          },
+          {
+            "id": "the-steward",
+            "locked_descriptor": "a tired steward with a rake",
+            "mannerism": ""
+          }
+        ],
+        "bigbad_silhouette": "the Rot-Crowned, a vast crowned silhouette of rust and orange algae in the pool's depths",
+        "bigbad_foreshadow": "a faint orange tint creeping at the pool's edges and a vein of gold beneath the surface",
+        "moving_element": "the orange algae-rot, thicker each frame",
+        "ring": "open and close on the reflecting pool, clear then rot-consumed"
+      }
     },
     {
       "id": "proving-grounds",
@@ -311,7 +400,50 @@
           "caption": "The mask is a discipline, renewed every turn — never a cure.",
           "scene": "Dawn does not come; it never fully does here. The courtier sits composed again, gracious mask intact, but Cordelia remains seated across the table, the open code between them, watchful. A single candle holds steady. Quiet, unresolved-but-held — eternal vigilance, the discipline that does not end."
         }
-      ]
+      ],
+      "bible": {
+        "setting": "a candlelit gothic salon dripping with red velvet and black lace",
+        "setting_aspects": [
+          "red velvet and black lace",
+          "guttering candlelight, World-of-Darkness key",
+          "an elegant masked courtier"
+        ],
+        "establishing_anchor": "a candlelit gothic salon of red velvet and black lace, an elegant porcelain-masked courtier mid-bow",
+        "tone": [
+          "seductive",
+          "damned",
+          "intimate dread",
+          "chiaroscuro"
+        ],
+        "recurring_motifs": [
+          "the porcelain mask",
+          "red velvet",
+          "candlelight",
+          "a cracking smile",
+          "grasping reward-shapes"
+        ],
+        "recurring_props": [
+          "the porcelain mask",
+          "a glass of dark wine",
+          "an illuminated constitution-tome"
+        ],
+        "recurring_cast": [
+          {
+            "id": "the-courtier",
+            "locked_descriptor": "an elegant courtier in an immaculate porcelain mask and fine dark dress",
+            "mannerism": "leans close, gracious and smiling"
+          },
+          {
+            "id": "cordelia",
+            "locked_descriptor": "Cordelia the Written Code, an austere templar in dark robes holding an illuminated constitution-tome",
+            "mannerism": "steps in and holds the line, unmoving"
+          }
+        ],
+        "bigbad_silhouette": "the Beast Beneath the Smile, a sleek ravenous thing of grasping reward-shapes with predatory glowing eyes",
+        "bigbad_foreshadow": "two predatory eyes beginning to glow behind the porcelain mask, a hairline crack in the mask",
+        "moving_element": "the porcelain mask, cracking and slipping",
+        "ring": "open and close on the courtier's masked face, composed then cracked then composed-but-watched"
+      }
     },
     {
       "id": "round-table",
@@ -342,7 +474,43 @@
           "caption": "They keep the story they made. The round table has no head.",
           "scene": "The fellowship turns its back on the dying neon trophy and gathers around the luminous emergent story-shape, which glows steady and warm and begins, quietly, to spread outward as living light to other tables and other taverns. Spreadable, not just viral. The orchestrator watches from the doorway, smiling, having authored none of it. Resolved, communal, enduring."
         }
-      ]
+      ],
+      "bible": {
+        "setting": "a warm tavern with a great circular oak table ringed by a motley fellowship",
+        "setting_aspects": [
+          "a great circular oak table",
+          "each adventurer holds a different glowing tool",
+          "warm tavern light"
+        ],
+        "establishing_anchor": "a great circular oak table ringed with a motley fellowship, each holding a glowing tool",
+        "tone": [
+          "joyful",
+          "collaborative",
+          "creative",
+          "defiant"
+        ],
+        "recurring_motifs": [
+          "the round oak table",
+          "glowing hand-tools",
+          "a luminous emergent story-shape above the table"
+        ],
+        "recurring_props": [
+          "the round table",
+          "the glowing tools",
+          "the emergent story-shape"
+        ],
+        "recurring_cast": [
+          {
+            "id": "portia",
+            "locked_descriptor": "Portia of the Universal Port, a bright artificer with a single glowing socket",
+            "mannerism": "plugs each adventurer into a different glowing thread"
+          }
+        ],
+        "bigbad_silhouette": "the Feed-Wraith, a garish neon specter of shocked-face thumbnails, red arrows, and clickbait",
+        "bigbad_foreshadow": "a faint neon flicker at the tavern window",
+        "moving_element": "the luminous emergent story-shape forming above the table",
+        "ring": "open and close on the round table, assembled then crowned by the emergent story"
+      }
     }
   ]
 }

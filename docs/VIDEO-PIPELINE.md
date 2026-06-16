@@ -28,16 +28,18 @@
   "character bible" (the `visual` one-liners for that beat's cast) into the image **and** video
   prompts, so Gemini/Veo render the same characters every frame.
 
-### Phase 3 — Stitch + music (post-process)
-- **Stitch** a beat's per-frame clips → one full video. *Recommended:* a local
-  `scripts/beat-video.mjs` (Node + ffmpeg) — reliable, fast, high quality, handles uploads;
-  Cloudflare Pages Functions can't run ffmpeg. (In-browser ffmpeg.wasm is the fallback if we
-  want in-app stitching later.) Output → R2 `videos/<beat>-<style>-full.mp4`; the site plays it.
-- **Music** over the (silent) stitched video, in priority order:
-  1. **Upload** a track (simplest; personal use — Jeff owns copyright responsibility).
-  2. **Prompt → music-gen** if a Gemini music model (Lyria) is reachable.
-  3. None.
-  Mixed under the stitched video by the stitch script.
+### Phase 3 — Stitch → a portable social "moment" (post-process)
+A local `scripts/beat-video.mjs` (Node + ffmpeg; Pages Functions can't run ffmpeg, in-browser
+ffmpeg.wasm is a later fallback) turns a beat's per-frame clips into ONE self-contained,
+social-ready vertical video → R2 `videos/<beat>-<style>-full.mp4`, played on the site:
+1. **Concat** the frame clips; **strip** Veo's native audio (clean bed, since per-frame audio isn't controllable).
+2. **Music** under everything: upload a track (personal use — Jeff owns copyright), prompt→music-gen
+   if a Gemini music model (Lyria) is reachable, or none.
+3. **Limited, well-timed narration / dialogue / FX** — sparse TTS narration + character dialogue
+   (from beat captions/lines) and a few timed SFX, mixed low so they punctuate, not crowd.
+4. **Burn-in captions** (beat caption + any dialogue) so it reads on silent autoplay.
+5. **Export** a clean 9:16 mp4 sized for social — downloadable / postable as a finished moment.
+Audio sources: TTS (Gemini / Cloud TTS or similar) + a small SFX set + music; all layered by ffmpeg.
 
 ## Data-model additions
 - `data/characters.json` → per character: `visual: { appearance, garb, signature, palette }`

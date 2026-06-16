@@ -112,6 +112,7 @@ function buildCarousel(beat, beatIndex) {
   const total = cards.length;
   let current = 0;
   let currentStyle = 'A';
+  let syncVideo = function () {}; // per-frame video refresh; assigned below when CardRender is present
   let timer = null;
   const INTERVAL = 3000;
   const reduced = prefersReducedMotion();
@@ -177,6 +178,7 @@ function buildCarousel(beat, beatIndex) {
       if (window.CardRender) {
         slides.forEach((sl, idx) => renderBeatSlide(sl, idx, key));
       } else { applyStyleToSlides(slides, cards, beat.id, key); }
+      syncVideo(); // load this frame's clip in the new style
     });
     styleButtons[key] = btn;
     styleToggleBar.appendChild(btn);
@@ -187,13 +189,36 @@ function buildCarousel(beat, beatIndex) {
   // Maker controls — explicit only, no auto-generation. The note steers the
   // NEXT image/video for the CURRENT card. Video = one 3–5s clip per card.
   if (window.CardRender) {
-    let videoEl = null, videoStatus = null;
-    function poll(op, n) {
+    let videoEl = null, videoStatus = null, videoBtn = null;
+
+    // One persisted clip per (beat, style, frame); the key doubles as the R2 object name.
+    function videoKey() { return beat.id + '-' + currentStyle + '-' + (current + 1); }
+    function videoUrlFor(key) { return (window.MEDIA_BASE || '.') + '/videos/' + key + '.mp4'; }
+    function ensureVideoEls() {
+      if (!videoEl) {
+        videoEl = document.createElement('video');
+        videoEl.className = 'beat-video'; videoEl.controls = true; videoEl.playsInline = true;
+        videoEl.loop = true; videoEl.style.display = 'none';
+        section.appendChild(videoEl);
+      }
+      if (!videoStatus) { videoStatus = document.createElement('p'); videoStatus.className = 'beat-video-status'; section.appendChild(videoStatus); }
+    }
+    // Load THIS frame+style's persisted clip if one exists, and set the button to Make/Remake
+    // accordingly — fixes the cross-frame "Remake" leak and pages videos alongside images.
+    syncVideo = function () {
+      ensureVideoEls();
+      videoStatus.textContent = '';
+      videoEl.onloadeddata = function () { videoEl.style.display = ''; if (videoBtn) videoBtn.textContent = '🎬 Remake video'; };
+      videoEl.onerror = function () { videoEl.style.display = 'none'; if (videoBtn) videoBtn.textContent = '🎬 Make video'; };
+      videoEl.src = videoUrlFor(videoKey());
+    };
+
+    function poll(op, n, key) {
       return new Promise((resolve, reject) => {
         const tick = () => {
-          fetch('./api/video?op=' + encodeURIComponent(op)).then(r => r.json()).then(d => {
+          fetch('./api/video?op=' + encodeURIComponent(op) + (key ? '&key=' + encodeURIComponent(key) : '')).then(r => r.json()).then(d => {
             if (d.error) return reject(d);
-            if (d.done && d.video) return resolve(d.video);
+            if (d.done && d.video) return resolve(d.persisted ? ((window.MEDIA_BASE || '') + '/' + d.video) : d.video);
             if (n++ > 36) return reject({ error: 'timed out' });
             if (videoStatus) videoStatus.textContent = 'Rendering clip… (' + (n * 5) + 's)';
             setTimeout(tick, 5000);
@@ -202,6 +227,7 @@ function buildCarousel(beat, beatIndex) {
         tick();
       });
     }
+
     const saveBtn = window.CardRender.saveButton('⬇ Save card',
       () => window.CardRender.beatCanvas(beat, current, currentStyle),
       beat.id + '.png');
@@ -221,26 +247,30 @@ function buildCarousel(beat, beatIndex) {
         },
         {
           label: '🎬 Make video', busy: '🎬 generating…', done: '🎬 Remake video', fail: '⚠ video failed', ghost: true,
-          title: 'Render THIS card as a 3–5s clip in the selected style',
+          title: 'Render THIS card as a silent 3–5s clip; saves to this frame',
           run: (note) => {
-            if (!videoStatus) { videoStatus = document.createElement('p'); videoStatus.className = 'beat-video-status'; section.appendChild(videoStatus); }
+            ensureVideoEls();
+            const key = videoKey();
             videoStatus.textContent = 'Sending this card to the video model…';
             const prompt = window.CardRender.videoPrompt(beat, current, currentStyle, note);
-            return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: prompt, aspectRatio: '9:16', durationSeconds: 4 }) })
+            return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: prompt, aspectRatio: '9:16', durationSeconds: 4, key: key }) })
               .then(r => r.json().then(d => r.ok ? d : Promise.reject(d)))
-              .then(d => { if (!d.op) return Promise.reject(d); return poll(d.op, 0); })
+              .then(d => { if (!d.op) return Promise.reject(d); return poll(d.op, 0, key); })
               .then(videoUrl => {
-                if (!videoEl) { videoEl = document.createElement('video'); videoEl.className = 'beat-video'; videoEl.controls = true; videoEl.playsInline = true; videoEl.loop = true; section.appendChild(videoEl); }
-                videoEl.src = videoUrl; videoStatus.textContent = 'Card clip (right-click to save):';
+                videoEl.src = videoUrl; videoEl.style.display = '';
+                videoStatus.textContent = 'Saved to this frame ✓';
+                if (videoBtn) videoBtn.textContent = '🎬 Remake video';
                 return true;
               })
-              .catch(err => { videoStatus.textContent = (err && err.error) ? ('Video unavailable: ' + err.error) : 'Video isn’t enabled yet (needs GEMINI_API_KEY + Veo).'; return false; });
+              .catch(err => { videoStatus.textContent = (err && err.error) ? ('Video unavailable: ' + err.error) : 'Video failed.'; return false; });
           },
         },
       ],
       extra: [saveBtn],
     });
+    videoBtn = bar.querySelectorAll('.cr-actions .cr-save-btn')[1] || null;
     section.appendChild(bar);
+    syncVideo(); // initialize for the opening frame / style A
   }
 
   // Async: update style-C button label if a JSON name is available
@@ -397,6 +427,7 @@ function buildCarousel(beat, beatIndex) {
   function goTo(index) {
     current = ((index % total) + total) % total; // wrap
     updateUI();
+    syncVideo(); // page the per-frame clip alongside the image
   }
 
   function next() { goTo(current + 1); }

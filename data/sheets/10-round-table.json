@@ -1,0 +1,122 @@
+[
+  {
+    "id": "mcp",
+    "name": "Portia of the Universal Port",
+    "title": "She Who Hands Every Tool to Every Agent",
+    "represents": "Model Context Protocol (Anthropic)",
+    "source_url": "https://www.anthropic.com/news/model-context-protocol",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "Open standard (Nov 2024) for connecting agents to tools and data sources — 'USB-C for AI'; adopted across the industry as the agent-to-tool interface",
+    "virality": "viral",
+    "class": "Artificer",
+    "subclass": "Order of the Universal Port",
+    "lineage": "Anthropic-forged (open protocol)",
+    "background": "Tool-Quartermaster",
+    "alignment": "Lawful Neutral",
+    "level": 12,
+    "ac": 17,
+    "hp": "every connected server",
+    "prof": 4,
+    "initiative": 3,
+    "temperature": 0.3,
+    "retrieval_index": "any tool or datasource that speaks the protocol",
+    "adventures": ["the-round-table-of-unscripted-hands"],
+    "abilities": {
+      "str": 12,
+      "dex": 18,
+      "con": 16,
+      "int": 17,
+      "wis": 14,
+      "cha": 13
+    },
+    "saves": ["dex", "int"],
+    "skills": ["Sleight of Hand +8", "Arcana +7", "Investigation +7"],
+    "weapon": "The single socket (one plug; any tool fits)",
+    "armor": "Open Standard — no agent at the table has to learn a hundred bespoke handshakes",
+    "feature": "It Just Connects: hands any agent any registered tool through one interface; the table stops re-inventing the wire",
+    "origin": "Published so agents would stop hand-wiring every integration; one port, and the whole guild of tools shows up to the table",
+    "tagline": "Bring your own tools. There is one socket, and everything fits.",
+    "role": "party",
+    "log": [
+      {
+        "v": "launch→industry standard",
+        "change": "Adopted beyond its author; cross-vendor servers and clients proliferated",
+        "why": "A protocol is only universal if rivals use it too; adoption by the whole table is what made the port universal"
+      }
+    ]
+  },
+  {
+    "id": "a2a",
+    "name": "Herald of the Agent Cards",
+    "title": "Envoy Who Lets Strangers Parley",
+    "represents": "Agent2Agent (A2A) protocol (Google)",
+    "source_url": "https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "Open protocol (Apr 2025) letting agents from different vendors discover each other and delegate tasks; launched with 50+ partners, later donated to the Linux Foundation",
+    "virality": "viral",
+    "class": "Herald",
+    "subclass": "Order of the Agent Card",
+    "lineage": "Google-forged (open protocol)",
+    "background": "Inter-Guild Envoy",
+    "alignment": "Lawful Neutral",
+    "level": 11,
+    "ac": 16,
+    "hp": "the whole partner roster",
+    "prof": 4,
+    "initiative": 4,
+    "temperature": 0.4,
+    "retrieval_index": "the agent cards strangers publish about themselves",
+    "adventures": ["the-round-table-of-unscripted-hands"],
+    "abilities": {
+      "str": 11,
+      "dex": 16,
+      "con": 14,
+      "int": 15,
+      "wis": 13,
+      "cha": 18
+    },
+    "saves": ["cha", "dex"],
+    "skills": ["Persuasion +8", "Insight +5", "History +6"],
+    "weapon": "The agent card (a stranger's stated skills, so the table knows who can do what)",
+    "armor": "Interoperability — an agent from another house can still be delegated to, by the card not the brand",
+    "feature": "Parley: lets agents who never met negotiate and hand off tasks; sits beside the Universal Port — she routes the agents, Portia routes the tools",
+    "origin": "Published so agents built by rival houses could discover one another and split the work, instead of each kingdom hoarding its own court",
+    "tagline": "Show me your card. I'll find you a seat at the table.",
+    "role": "party",
+    "log": [
+      {
+        "v": "v0.1→Linux Foundation",
+        "change": "Governance handed to a neutral foundation; gRPC and signed cards added",
+        "why": "Strangers only parley under a neutral banner; donating the protocol made rivals willing to actually use it"
+      }
+    ]
+  },
+  {
+    "id": "engagement-bait",
+    "name": "The Feed-Wraith",
+    "title": "It Spreads, But It Does Not Stay",
+    "represents": "engagement bait / clickbait / ragebait — the attention economy's hollow-virality failure mode",
+    "source_url": "https://en.wikipedia.org/wiki/Clickbait",
+    "source_kind": "wikipedia",
+    "verified": true,
+    "signal": "The thumbnail-shock, rage-farm, 'you won't believe' pattern optimized for the algorithm across TikTok, Instagram Reels, and YouTube; maximizes the click and starves the meaning",
+    "virality": "viral",
+    "lineage": "Algorithm-born (no parent)",
+    "alignment": "Neutral Evil",
+    "cr": "5 (algorithmic)",
+    "role": "monster",
+    "adventures": ["the-round-table-of-unscripted-hands"],
+    "abilities": {
+      "str": 8,
+      "dex": 20,
+      "con": 5,
+      "int": 7,
+      "wis": 6,
+      "cha": 22
+    },
+    "dumped_save": "con",
+    "tagline": "It wins the first three seconds and dies by the tenth. Spreadable is not the same as sticky, and a spike is not a saga."
+  }
+]

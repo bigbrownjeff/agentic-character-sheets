@@ -1,0 +1,39 @@
+/* ============================================================
+   CARDRENDER — UI for save buttons, previews, in-card canvases
+   ============================================================ */
+
+.cr-save-btn {
+  font-family: var(--sans, sans-serif);
+  font-size: 0.82rem; font-weight: 600;
+  cursor: pointer; border-radius: 8px;
+  border: 1px solid var(--rule, #231F1A);
+  background: var(--ink, #0E1116); color: var(--paper, #FAF6EC);
+  padding: 0.45rem 0.85rem;
+}
+.cr-save-btn:hover { background: var(--accent, #C84B31); border-color: var(--accent, #C84B31); }
+.cr-save-btn.ghost { background: transparent; color: var(--ink, #0E1116); }
+.cr-save-btn.ghost:hover { background: var(--ink, #0E1116); color: var(--paper, #FAF6EC); }
+
+/* a canvas rendered in place of a missing PNG */
+canvas.card-sheet-img, canvas.adv-cover-img, canvas.cr-incard {
+  display: block; width: 100%; height: auto; border-radius: 8px;
+}
+
+/* lightbox preview */
+.cr-lightbox {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(14,17,22,0.82);
+  display: flex; align-items: center; justify-content: center; padding: 1.2rem;
+}
+.cr-lightbox-inner {
+  display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+  max-height: 92vh;
+}
+.cr-preview {
+  max-width: min(78vw, 460px); max-height: 78vh; width: auto; height: auto;
+  border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+.cr-bar { display: flex; gap: 0.6rem; }
+
+/* a small save control row under content */
+.cr-actions { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; }

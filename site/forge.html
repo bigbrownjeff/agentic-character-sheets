@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forge an Adventure — Character Sheets</title>
+  <meta name="description" content="Answer a few warm questions — by text or voice — and turn yourself, a friend, or your whole crew into a heroic, illustrated D&D-style character.">
+  <link rel="stylesheet" href="./assets/styles.css">
+  <link rel="stylesheet" href="./assets/forge.css">
+  <link rel="stylesheet" href="./assets/cardrender.css">
+</head>
+<body>
+
+  <!-- MASTHEAD NAV -->
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="site-name" href="./index.html">Character Sheets</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-list">
+        <li><a href="./characters.html">Characters</a></li>
+        <li><a href="./adventures.html">Adventures</a></li>
+        <li><a href="./beats.html">Beats</a></li>
+        <li><a href="./forge.html" aria-current="page">Forge</a></li>
+        <li><a href="https://github.com/bigbrownjeff/agentic-character-sheets" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="wrap forge-wrap">
+
+    <div class="page-hero">
+      <span class="page-eyebrow">Make someone a hero</span>
+      <h1>Forge an Adventure</h1>
+      <p class="forge-lede">Answer a few warm questions — type or talk — and we'll turn you, a friend,
+      or your whole crew into a heroic, illustrated character. It takes about three minutes, and
+      everyone comes out the other side as their best self.</p>
+    </div>
+
+    <!-- The whole experience renders here -->
+    <section id="forge-app" class="forge-app" aria-live="polite"></section>
+
+    <p class="forge-fineprint">
+      This is a story toy, not therapy or advice. We keep it kind: it gently leans everyone toward
+      their strengths, and it won't make cruel, hateful, or sexual content about real people. Be
+      good to each other. ✦
+    </p>
+
+  </main>
+
+  <script src="./assets/cardrender.js"></script>
+  <script src="./assets/forge.js"></script>
+</body>
+</html>

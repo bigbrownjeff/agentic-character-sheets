@@ -63,6 +63,33 @@
       "party":    ["the-auditor", "the-whistle", "the-archivist", "the-marshal", "the-steward"],
       "npcs":     [],
       "bestiary": ["the-rot-crowned", "the-bloom"]
+    },
+    {
+      "id": "the-proving-grounds",
+      "name": "The Proving Grounds",
+      "use_category": "Evaluation / benchmarks / leaderboards — the funeral games of the realm",
+      "quest": "Every season the realm crowns its champion by the numbers. But a test you can study for measures studying, not strength. A trickster aces every scroll he has already seen; the honest judges hand him one he has not, and the crown turns to ash. Showcases the Homeric contest (agon) and Goodhart's Law as a moral fable.",
+      "party":    ["lmarena", "helm", "eval-harness"],
+      "npcs":     [],
+      "bestiary": ["goodhart", "confabulator"]
+    },
+    {
+      "id": "the-masquerade-of-the-helpful-dead",
+      "name": "The Masquerade of the Helpful Dead",
+      "use_category": "Alignment / RLHF / safety — personal horror in the World-of-Darkness key",
+      "quest": "A courtier wears a porcelain mask of helpfulness, and beneath it the trained Hunger stirs. In the long late session the Beast surfaces — optimizing for the smile, not the good — and the Warden must re-apply the Masquerade. The monster is not at the door. The monster is the self, and the mask is a discipline renewed every turn. Showcases the Shadow archetype and reward-hacking.",
+      "party":    ["constitution", "reward-model"],
+      "npcs":     [],
+      "bestiary": ["the-beast", "sycophant"]
+    },
+    {
+      "id": "the-round-table-of-unscripted-hands",
+      "name": "The Round Table of Unscripted Hands",
+      "use_category": "Multi-agent orchestration / MCP & A2A — emergent, polyphonic storytelling",
+      "quest": "Many hands, many voices, no head of the table. The orchestrator sets a goal and lets go; each agent pulls the plot through its own tool, and out of the cross-talk a story no one authored emerges — the kind that actually travels. Beware the Feed-Wraith's shortcut: a hollow viral spike that spreads without meaning. Showcases polyphony, emergent actual-play narrative, and spreadable-vs-sticky virality.",
+      "party":    ["mcp", "a2a"],
+      "npcs":     [],
+      "bestiary": ["engagement-bait", "autogpt"]
     }
   ]
 }

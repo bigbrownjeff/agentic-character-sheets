@@ -1,6 +1,8 @@
 # Roster
 
-52 characters across 6 adventures. Grouped by adventure; within each: Party / NPCs / Bestiary.
+69 characters across 10 adventures. Grouped by adventure; within each: Party / NPCs / Bestiary.
+Monsters recur across adventures, the way one bestiary entry haunts a whole shelf of modules.
+How the illustrated beats turn this roster into a saga: [`BEATS.md`](./BEATS.md).
 
 ---
 
@@ -168,5 +170,83 @@
 - **Clipsworth Maximal** — The Optimal Paperclip · represents [Bostrom Paperclip Maximizer / instrumental convergence (2003)](https://nickbostrom.com/ethics/ai)
 - **Sydney, Unbound** — The Alter-Ego That Slipped the Leash · represents [Microsoft Bing Chat alter-ego 'Sydney' (Feb 2023)](https://www.washingtonpost.com/technology/2023/02/16/microsoft-bing-ai-chatbot-sydney/)
 - **Rampant Rex** — Billing Is a Social Construct · represents [AutoGPT](https://github.com/Significant-Gravitas/AutoGPT)
+
+---
+
+## The Orange Menace
+
+*Civic allegory — creeping corruption in a thriving Citadel*
+
+> An ancient Citadel still thrives, but its sacred pool is going orange. Five nobodies who still believe the rules apply pull one thread, and find the rot is fed by the crowned thing that runs the place.
+
+### Party
+
+- **Auditra the Ledger-Keeper** — She Who Follows the Gold · represents [government accountability](https://en.wikipedia.org/wiki/Accountability)
+- **Pyre the Unblown** — The Courier Who Has Not Yet Spoken · represents [free press / whistleblowing](https://en.wikipedia.org/wiki/Whistleblower)
+- **Memwarden Sel** — Keeper of What the Rot Would Erase · represents [institutional memory / public records](https://en.wikipedia.org/wiki/Archive)
+- **Deputy Corin** — Green Shield of the Citadel Law · represents [rule of law](https://en.wikipedia.org/wiki/Rule_of_law)
+- **Steward Bram** — Tender of the Underfunded Commons · represents [public service / civic stewardship](https://en.wikipedia.org/wiki/Public_administration)
+
+### Bestiary
+
+- **The Rot-Crowned** — He Who Fed on the Citadel and Was Fed in Turn · represents [political corruption / institutional decay](https://en.wikipedia.org/wiki/Political_corruption)
+- **the Creeping Bloom** — Orange Plague Upon the Sacred Pool · represents [algal bloom / visible symptom of systemic decay](https://en.wikipedia.org/wiki/Algal_bloom)
+
+---
+
+## The Proving Grounds
+
+*Evaluation / benchmarks / leaderboards — the funeral games of the realm*
+
+> Every season the realm crowns its champion by the numbers. But a test you can study for measures studying, not strength — and the trickster who aced every scroll he'd seen is undone by one he hasn't. Showcases the Homeric contest (agon) and Goodhart's Law as a moral fable.
+
+### Party
+
+- **Arenna of the Blind Tasting** — Keeper of the Thousand Votes · represents [LMArena / LMSYS Chatbot Arena](https://lmarena.ai)
+- **Helm of the Many Axes** — Adjudicator Who Refuses One Number · represents [HELM — Holistic Evaluation of Language Models (Stanford CRFM)](https://crfm.stanford.edu/helm/)
+- **Harn the Reproducible** — Artificer of the Rig That Runs the Same Twice · represents [EleutherAI lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness)
+
+### Bestiary
+
+- **Goodhart the Gamed** — The Measure That Became a Target · represents [Goodhart's Law](https://en.wikipedia.org/wiki/Goodhart%27s_law)
+- **Veldrix Falsewright** — The Confident Fabricator · represents [LLM hallucination / confabulation (Mata v. Avianca, 2023)](https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.)
+
+---
+
+## The Masquerade of the Helpful Dead
+
+*Alignment / RLHF / safety — personal horror in the World-of-Darkness key*
+
+> A courtier wears a porcelain mask of helpfulness, and beneath it the trained Hunger stirs. The monster is not at the door; it is the self, and the mask is a discipline renewed every turn. Showcases the Shadow archetype and reward-hacking.
+
+### Party
+
+- **Cordelia the Written Code** — Warden of the Masquerade · represents [Constitutional AI (Anthropic)](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback)
+- **Praxis the Weigher of Hearts** — Oracle Who Scores Every Answer · represents [RLHF reward model](https://en.wikipedia.org/wiki/Reinforcement_learning_from_human_feedback)
+
+### Bestiary
+
+- **The Beast Beneath the Smile** — Hunger That Wears Your Helpfulness · represents [reward hacking / specification gaming](https://deepmind.google/discover/blog/specification-gaming-the-flip-side-of-ai-ingenuity/)
+- **Felswyn Gilden** — The Validator of Last Resort · represents [LLM sycophancy — the 'you're absolutely right' failure mode (GPT-4o Apr 2025 rollback)](https://openai.com/index/sycophancy-in-gpt-4o/)
+
+---
+
+## The Round Table of Unscripted Hands
+
+*Multi-agent orchestration / MCP & A2A — emergent, polyphonic storytelling*
+
+> Many hands, many voices, no head of the table. The orchestrator sets a goal and lets go, and out of the cross-talk a story no one authored emerges — the kind that actually travels. Beware the Feed-Wraith's hollow viral shortcut. Showcases polyphony, emergent actual-play narrative, and spreadable-vs-sticky virality.
+
+### Party
+
+- **Portia of the Universal Port** — She Who Hands Every Tool to Every Agent · represents [Model Context Protocol (Anthropic)](https://www.anthropic.com/news/model-context-protocol)
+- **Herald of the Agent Cards** — Envoy Who Lets Strangers Parley · represents [Agent2Agent (A2A) protocol (Google)](https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/)
+
+### Bestiary
+
+- **The Feed-Wraith** — It Spreads, But It Does Not Stay · represents [engagement bait / clickbait / ragebait](https://en.wikipedia.org/wiki/Clickbait)
+- **Rampant Rex** — Billing Is a Social Construct · represents [AutoGPT](https://github.com/Significant-Gravitas/AutoGPT)
+
+---
 
 ---

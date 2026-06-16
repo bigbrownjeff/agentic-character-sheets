@@ -220,13 +220,13 @@ function buildCarousel(beat, beatIndex) {
           },
         },
         {
-          label: '🎬 Make video', busy: '🎬 generating…', done: '🎬 Remake video', fail: 'video not enabled', ghost: true,
+          label: '🎬 Make video', busy: '🎬 generating…', done: '🎬 Remake video', fail: '⚠ video failed', ghost: true,
           title: 'Render THIS card as a 3–5s clip in the selected style',
           run: (note) => {
             if (!videoStatus) { videoStatus = document.createElement('p'); videoStatus.className = 'beat-video-status'; section.appendChild(videoStatus); }
             videoStatus.textContent = 'Sending this card to the video model…';
             const prompt = window.CardRender.videoPrompt(beat, current, currentStyle, note);
-            return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: prompt, aspectRatio: '9:16', durationSeconds: 5 }) })
+            return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: prompt, aspectRatio: '9:16', durationSeconds: 4 }) })
               .then(r => r.json().then(d => r.ok ? d : Promise.reject(d)))
               .then(d => { if (!d.op) return Promise.reject(d); return poll(d.op, 0); })
               .then(videoUrl => {

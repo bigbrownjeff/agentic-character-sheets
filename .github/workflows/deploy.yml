@@ -37,11 +37,21 @@ jobs:
       - name: Build & validate
         run: node scripts/build.mjs
 
+      # Accept either a bare account id or a pasted dashboard URL — extract the 32-hex id.
+      - name: Resolve Cloudflare account id
+        id: cf
+        env:
+          RAW_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          id=$(printf '%s' "$RAW_ACCOUNT" | grep -oE '[0-9a-f]{32}' | head -n1)
+          if [ -z "$id" ]; then echo "::error::CLOUDFLARE_ACCOUNT_ID has no 32-char hex id"; exit 1; fi
+          echo "account_id=$id" >> "$GITHUB_OUTPUT"
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          accountId: ${{ steps.cf.outputs.account_id }}
           # --branch=main marks this a Production deploy (the project's production
           # branch is "main"), so it updates character-sheet.jeffpinto.com.
           command: pages deploy site --project-name=agentic-character-sheets --branch=main --commit-dirty=true

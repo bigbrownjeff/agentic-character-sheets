@@ -57,8 +57,8 @@
 /* --- CSS VARIABLES ---------------------------------------- */
 
 :root {
-  --bg: #F1ECE2;
-  --paper: #FAF6EC;
+  --bg: #FFFFFF;
+  --paper: #FFFFFF;
   --ink: #0E1116;
   --body: #2A2A2A;
   --muted: #6B6B6B;
@@ -361,10 +361,10 @@ img {
 
 /* Ancestor tint */
 .char-card[data-ancestor="true"] {
-  background: #F5F0E4;
+  background: #F7F7F7;
 }
 .char-card[data-ancestor="true"]:hover {
-  background: #F0EBD9;
+  background: #F0F0F0;
 }
 
 /* Card header */

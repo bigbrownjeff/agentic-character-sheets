@@ -15,6 +15,7 @@
  *   GEMINI_API_KEY  = <your key>                  (same key as image gen)
  *   VEO_MODEL       = veo-3.1-generate-preview     (default; Veo 3.1)
  *   VEO_DURATION    = 5                            (optional; seconds per cell, clamped 3–8)
+ *   VEO_PERSON_GENERATION = allow_all              (optional; default; 'dont_allow' or 'omit')
  *
  * One clip = one beat cell/keyframe (3–5s). A whole beat is the sequence of its
  * per-cell clips (~15–30s across 5–6 cards). VEO_MODEL / VEO_DURATION are
@@ -26,6 +27,7 @@ interface Env {
   GEMINI_API_KEY?: string;
   VEO_MODEL?: string;
   VEO_DURATION?: string;
+  VEO_PERSON_GENERATION?: string; // 'allow_all' (default) | 'dont_allow' | 'omit'
 }
 
 const BASE = 'https://generativelanguage.googleapis.com/v1beta';
@@ -101,12 +103,19 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
       if (!Number.isFinite(duration)) duration = 5;
       duration = Math.max(3, Math.min(8, duration)); // 3–5s per cell/keyframe (one clip per card)
 
+      // personGeneration: Veo rejects 'allow_adult' (INVALID_ARGUMENT); 'allow_all' is the
+      // supported "people allowed" value. Env-overridable ('dont_allow', or 'omit' to drop it).
+      const personGen = (env.VEO_PERSON_GENERATION || 'allow_all').trim();
       const r = await fetch(`${BASE}/models/${model}:predictLongRunning?key=${key}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           instances: [{ prompt: prompt }],
-          parameters: { aspectRatio: aspectRatio, durationSeconds: duration, personGeneration: 'allow_adult' },
+          parameters: {
+            aspectRatio: aspectRatio,
+            durationSeconds: duration,
+            ...(personGen && personGen.toLowerCase() !== 'omit' ? { personGeneration: personGen } : {}),
+          },
         }),
       });
       if (!r.ok) return json({ error: `Start ${r.status}: ${(await r.text()).slice(0, 300)}` }, 502);

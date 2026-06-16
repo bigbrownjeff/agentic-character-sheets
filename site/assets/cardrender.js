@@ -217,18 +217,48 @@
     terminal: 'Retro phosphor-green CRT terminal / pixel art, 4:5 portrait. ',
     glitch: 'Digital glitch art: pastel porcelain gradients (blush, mint, pale gold) corrupted by JPEG datamosh, scanline tears and violent cyan/magenta chromatic aberration, 4:5 portrait. ',
   };
+  // The per-adventure "consistency bible" (style-INDEPENDENT world/cast), built from beat.bible
+  // and prepended to every frame's prompt so Veo/Gemini re-render the same place, cast, motifs,
+  // and threat across frames. Per docs/research/dm-consistency-craft.md (the DM "fixed world").
+  function buildBible(beat) {
+    var b = beat && beat.bible;
+    if (!b) return '';
+    var cast = (b.recurring_cast || []).map(function (c) {
+      return c.locked_descriptor + (c.mannerism ? ' (' + c.mannerism + ')' : '');
+    }).join('; ');
+    var p = [];
+    p.push('[WORLD] ' + b.setting + (b.setting_aspects && b.setting_aspects.length ? ', ' + b.setting_aspects.join(', ') : '') + '. Establishing anchor: ' + b.establishing_anchor + '.');
+    if (b.recurring_motifs && b.recurring_motifs.length) p.push('[MOTIFS] recurring, show at least one: ' + b.recurring_motifs.join(', ') + '.');
+    if (cast) p.push('[CAST] keep identical across frames: ' + cast + '.');
+    if (b.bigbad_silhouette) p.push('[THREAT] antagonist silhouette: ' + b.bigbad_silhouette + (b.bigbad_foreshadow ? '; foreshadow ' + b.bigbad_foreshadow : '') + '.');
+    if (b.tone && b.tone.length) p.push('[TONE] ' + b.tone.join(', ') + '.');
+    p.push('[RULE] re-render this exact place and cast; only ' + (b.moving_element || 'the action') + ' changes between frames.');
+    return ' ' + p.join(' ') + ' ';
+  }
+  // The small per-card "moving set" — only what changes this frame (the DM "moving clock").
+  function frameCues(card) {
+    if (!card) return '';
+    var p = [];
+    if (card.arc_position) p.push('arc ' + card.arc_position);
+    if (card.time_marker) p.push('time: ' + card.time_marker);
+    if (card.escalation_cue) p.push('escalation: ' + card.escalation_cue);
+    if (card.callbacks && card.callbacks.length) p.push('reuse from earlier frames: ' + card.callbacks.join(', '));
+    if (card.is_ring_close) p.push('closing frame: resolve the opening establishing image, transformed by the outcome');
+    return p.length ? '[FRAME] ' + p.join('. ') + '. ' : '';
+  }
   function beatPrompt(beat, index, styleKey) {
     var card = (beat.cards || [])[index] || {};
-    return (STYLE_PROMPT[styleNameFor(beat.id, styleKey)] || STYLE_PROMPT.painterly) + (card.scene || beat.title || '');
+    return (STYLE_PROMPT[styleNameFor(beat.id, styleKey)] || STYLE_PROMPT.painterly) +
+      buildBible(beat) + frameCues(card) + (card.scene || beat.title || '');
   }
   // Per-cell video prompt: animate ONE keyframe (one card) into a 3–5s shot.
   // The whole beat = the sequence of these per-cell clips (~15–30s across 5–6 cards).
   function videoPrompt(beat, index, styleKey, note) {
     var card = (beat.cards || [])[index] || {};
     var pre = STYLE_PROMPT[styleNameFor(beat.id, styleKey)] || STYLE_PROMPT.painterly;
-    return pre +
+    return pre + buildBible(beat) +
       'Animate THIS single keyframe into a 3-5 second cinematic shot in this exact art style: ' +
-      (card.scene || beat.title || '') +
+      frameCues(card) + (card.scene || beat.title || '') +
       ' Bring it to life with motion and a moving camera (slow push-in, parallax, drifting elements), but stay on this one scene — do NOT cut to other scenes. No on-screen text or captions.' +
       (note ? ' Art-director note: ' + note : '');
   }

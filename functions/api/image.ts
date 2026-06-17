@@ -101,18 +101,25 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
   if (!prompt) return json({ error: 'Missing prompt' }, 400);
   if (BLOCK.test(prompt)) return json({ error: 'Prompt rejected' }, 422);
 
-  // Resolve "auto" → a concrete provider.
-  if (provider === 'auto') {
-    provider = (env.IMAGE_PROVIDER || (env.GEMINI_API_KEY ? 'gemini' : 'cloudflare')).toLowerCase();
+  // Resolve the provider, then fall back to whichever engine IS configured so no
+  // choice in the UI's engine picker is ever a dead end. (The picker offers
+  // Auto / Gemini / Cloudflare; if a site has only one backend wired, picking the
+  // other must still return art instead of a 503 that reads as "button broken".)
+  const hasGemini = !!env.GEMINI_API_KEY;
+  const hasCF = !!env.AI;
+  if (!hasGemini && !hasCF) {
+    return json({ error: 'No image engine configured. Set GEMINI_API_KEY or add a Workers AI binding named "AI".' }, 503);
   }
+  if (provider === 'auto') {
+    provider = (env.IMAGE_PROVIDER || (hasGemini ? 'gemini' : 'cloudflare')).toLowerCase();
+  }
+  if (provider === 'gemini' && !hasGemini) provider = 'cloudflare';
+  if (provider === 'cloudflare' && !hasCF) provider = 'gemini';
 
   try {
     if (provider === 'gemini') {
-      if (!env.GEMINI_API_KEY) return json({ error: 'Gemini not enabled. Set GEMINI_API_KEY.' }, 503);
       return json({ image: await viaGemini(prompt, env), provider: 'gemini' });
     }
-    // default: cloudflare
-    if (!env.AI) return json({ error: 'Workers AI not enabled. Add a binding named "AI".' }, 503);
     return json({ image: await viaCloudflare(prompt, env), provider: 'cloudflare' });
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'Unknown error';

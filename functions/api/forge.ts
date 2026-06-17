@@ -10,7 +10,8 @@
  * Env vars (Pages → Settings → Variables and Secrets):
  *   GEMINI_API_KEY  — required; without it the endpoint 503s and the form
  *                     falls back to its copy-the-prompt path. (Same key as the image/video/dm Functions.)
- *   FORGE_MODEL     — optional; default "gemini-2.5-pro".
+ *   FORGE_MODEL     — optional; default "gemini-2.5-flash" (fast; set to
+ *                     "gemini-2.5-pro" for richer output at ~4x the latency).
  *
  * This endpoint is OPTIONAL. The form works fully without it. If you expose it
  * publicly, put Cloudflare rate-limiting / Turnstile in front — it spends your
@@ -93,7 +94,10 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
   if (!prompt.trim()) return json({ error: 'Missing prompt' }, 400);
 
   try {
-    const model = env.FORGE_MODEL || 'gemini-2.5-pro';
+    // Default to flash: ~5s vs ~23s for pro. The forge is the first thing a play-tester
+    // hits, and a 20s+ wait under a "few seconds" label reads as a hang. Quality on a
+    // 3-variation stat block is plenty at flash. Set FORGE_MODEL=gemini-2.5-pro to upgrade.
+    const model = env.FORGE_MODEL || 'gemini-2.5-flash';
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${env.GEMINI_API_KEY}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

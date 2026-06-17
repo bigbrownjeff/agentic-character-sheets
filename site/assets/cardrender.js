@@ -622,9 +622,13 @@
         window.CardRender.fetchArt(v.prompt, undefined, { refImages: refImages() }).then((img) => { if (img) { v.img = img; if (active === i) opts.show(img); } });
       }
     }
-    // Identity anchors for every generation in this maker (e.g. a locked portrait),
-    // resolved lazily so an anchor produced after this maker mounts is still used.
-    function refImages() { return opts.getRefImages ? opts.getRefImages() : undefined; }
+    // Reference images for every generation here: a lazy identity anchor (e.g. a locked
+    // portrait) PLUS any inspiration the user attached below (files / inspo URLs). Max 3.
+    var attached = [];
+    function refImages() {
+      var base = (opts.getRefImages ? (opts.getRefImages() || []) : []);
+      return base.concat(attached).slice(0, 3);
+    }
     function updateTakeLabel() {
       if (!take) return;
       var n = versions.filter(function (v) { return !v.isDefault; }).length;
@@ -674,6 +678,39 @@
         });
       },
     };
+    // Inspiration attachments: image files and/or pasted image URLs (inspo boards, external
+    // refs) ride along as refImages, so the next generation is conditioned on them. Max 3.
+    var attachWrap = document.createElement('div'); attachWrap.className = 'cr-attach';
+    var chips = document.createElement('div'); chips.className = 'cr-attach-chips';
+    function renderAttach() {
+      chips.innerHTML = '';
+      attached.forEach(function (ref, i) {
+        var c = document.createElement('span'); c.className = 'cr-attach-chip';
+        c.textContent = (ref.indexOf('data:') === 0 ? 'image' : ref.replace(/^https?:\/\//, '').slice(0, 22)) + ' ×';
+        c.title = 'remove'; c.addEventListener('click', function (e) { e.stopPropagation(); attached.splice(i, 1); renderAttach(); });
+        chips.appendChild(c);
+      });
+    }
+    var fileInput = document.createElement('input');
+    fileInput.type = 'file'; fileInput.accept = 'image/*'; fileInput.multiple = true; fileInput.className = 'cr-attach-file'; fileInput.id = itemId + '-attach';
+    fileInput.addEventListener('change', function (e) {
+      e.stopPropagation();
+      Array.prototype.slice.call(fileInput.files).forEach(function (f) {
+        if (attached.length >= 3) return;
+        var r = new FileReader(); r.onload = function () { if (attached.length < 3) { attached.push(r.result); renderAttach(); } }; r.readAsDataURL(f);
+      });
+      fileInput.value = '';
+    });
+    var fileLbl = document.createElement('label'); fileLbl.className = 'cr-attach-btn'; fileLbl.setAttribute('for', fileInput.id); fileLbl.textContent = '📎 Attach image';
+    var urlInput = document.createElement('input'); urlInput.type = 'url'; urlInput.placeholder = 'or paste an inspo image URL ↵'; urlInput.className = 'cr-attach-url';
+    urlInput.addEventListener('click', function (e) { e.stopPropagation(); });
+    urlInput.addEventListener('keydown', function (e) {
+      e.stopPropagation();
+      if (e.key === 'Enter') { e.preventDefault(); var v = urlInput.value.trim(); if (v && attached.length < 3) { attached.push(v); urlInput.value = ''; renderAttach(); } }
+    });
+    attachWrap.appendChild(fileLbl); attachWrap.appendChild(fileInput); attachWrap.appendChild(urlInput); attachWrap.appendChild(chips);
+    wrap.appendChild(attachWrap);
+
     const extras = [];
     if (opts.makeSaveCanvas) extras.push(window.CardRender.saveButton('⬇ Save', opts.makeSaveCanvas, itemId + '.png'));
     wrap.appendChild(makerControls({

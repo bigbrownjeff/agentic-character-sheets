@@ -53,9 +53,10 @@
       border-radius: 2px; padding: 2px 6px; white-space: nowrap; display: inline-block;
     }
     /* Type accents: keep flat, just a left tick of colour */
-    .cell-type[data-group="media"] { border-left: 2px solid var(--accent); }
-    .cell-type[data-group="text"]  { border-left: 2px solid var(--role-npc); }
-    .cell-type[data-group="page"]  { border-left: 2px solid var(--role-party); }
+    .cell-type[data-group="media"]   { border-left: 2px solid var(--accent); }
+    .cell-type[data-group="text"]    { border-left: 2px solid var(--role-npc); }
+    .cell-type[data-group="page"]    { border-left: 2px solid var(--role-party); }
+    .cell-type[data-group="session"] { border-left: 2px solid var(--role-monster); }
 
     .cell-name { font-family: var(--serif); color: var(--ink); }
     .cell-key  { font-family: var(--mono); font-size: 11px; color: var(--body); word-break: break-all; }
@@ -116,9 +117,9 @@
     <div class="admin-head">
       <h1>Content browser</h1>
       <p class="admin-note">
-        Every piece of content in one table: pages, character and beat text, and all R2 media
-        (sheets, covers, beat images, video clips and moments). Search, filter by type, sort any
-        column, and click a row to preview it inline.
+        Every piece of content in one table: pages, character and beat text, saved Forge
+        sessions, and all R2 media (sheets, covers, beat images, video clips and moments).
+        Search, filter by type, sort any column, and click a row to preview it inline.
         <br><strong>Owner-only / unlisted.</strong> Not linked from the public nav and tagged
         <code>noindex</code>; no auth in v1 (the R2 media is already public via its r2.dev URL).
       </p>

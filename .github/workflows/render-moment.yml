@@ -14,10 +14,6 @@ on:
         description: 'JSON payload: { outKey, title, tone?, style?, genre?, clipKeys:[...], beats:[{caption,scene}] }'
         required: true
 
-concurrency:
-  group: render-${{ github.event.client_payload.outKey || github.event.inputs.payload }}
-  cancel-in-progress: true
-
 jobs:
   render:
     runs-on: ubuntu-latest

@@ -252,6 +252,7 @@ function renderCard(char) {
 /* --- MODAL ----------------------------------------------- */
 
 let _characters = [];
+let _adventures = [];
 let _focusTrapEl = null;
 
 function renderModal(char) {
@@ -387,6 +388,15 @@ function renderModal(char) {
     ? `<div class="modal-source"><span class="modal-source-label">Inspired by</span> ${sourcePill(char)} <span class="modal-source-rep">${escHtml(char.represents || '')}</span></div>`
     : '';
 
+  // Adventures this character appears in — jump to the adventure to see its beats, images, videos.
+  const advMap = {}; _adventures.forEach(a => { advMap[a.id] = a.name; });
+  const advList = (char.adventures || []).filter(id => advMap[id]);
+  const adventuresHtml = advList.length ? `<div class="modal-adventures">
+      <div class="modal-adventures-label">Appears in</div>
+      <div class="modal-adventures-links">${advList.map(id =>
+        `<a class="modal-adventure-link" href="./adventures.html#${escAttr(id)}">${escHtml(advMap[id])} →</a>`).join('')}</div>
+    </div>` : '';
+
   // Ancestor note
   const ancestorNote = ANCESTOR_IDS.has(char.id)
     ? `<div style="font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Ancestor persona — reverently statted</div>`
@@ -414,6 +424,7 @@ function renderModal(char) {
       ${featuresHtml}
       ${logHtml}
       ${taglineHtml}
+      ${adventuresHtml}
       ${sourceHtml}
     </div>
   `;
@@ -566,6 +577,7 @@ function initHamburger() {
 
 function initCharactersPage(characters, adventures) {
   _characters = characters;
+  _adventures = adventures || [];
 
   const grid = document.getElementById('char-grid');
   const countEl = document.getElementById('count-display');
@@ -724,6 +736,7 @@ function initAdventuresPage(characters, adventures, beats) {
   adventures.forEach(adv => {
     const block = document.createElement('div');
     block.className = 'adventure-block';
+    block.id = adv.id; // anchor target for character -> adventure deep links
 
     /* --- Cover image + style toggle ------------------------- */
 
@@ -893,6 +906,13 @@ function initAdventuresPage(characters, adventures, beats) {
       window.CS.mountAdvComments(block, adv.id);
     }
   });
+
+  // Deep link from a character's "Appears in" link (adventures.html#<adv-id>): the blocks
+  // render async, so the browser's initial hash jump misses them — scroll once they exist.
+  if (location.hash) {
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (target) requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  }
 }
 
 /* ============================================================

@@ -126,7 +126,12 @@ if (narr || music) {
   execFileSync('ffmpeg', ['-y', '-i', silent, '-i', wav, '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-shortest', final], { stdio: 'ignore' });
 }
 
-/* 5) upload to R2 */
-execFileSync('npx', ['--yes', 'wrangler', 'r2', 'object', 'put', `${BUCKET}/${outKey}`, '--file', final, '--remote'], { stdio: 'inherit' });
+/* 5) upload to R2 — via the authed Function (CI has no R2-scoped token), else wrangler (local OAuth). */
+const upUrl = process.env.RENDER_UPLOAD_URL, upTok = process.env.RENDER_UPLOAD_TOKEN;
+if (upUrl && upTok) {
+  execFileSync('curl', ['--fail-with-body', '-sS', '-X', 'PUT', `${upUrl}?key=${encodeURIComponent(outKey)}`, '-H', `x-render-token: ${upTok}`, '-H', 'Content-Type: video/mp4', '--data-binary', `@${final}`, '-w', 'upload http=%{http_code}\n'], { stdio: 'inherit' });
+} else {
+  execFileSync('npx', ['--yes', 'wrangler', 'r2', 'object', 'put', `${BUCKET}/${outKey}`, '--file', final, '--remote'], { stdio: 'inherit' });
+}
 const mb = (readFileSync(final).length / 1048576).toFixed(1);
 console.log(`DONE -> ${R2}/${outKey} (${parts.length} clips, ${narr ? 'voiced' : 'silent'}${music ? '+music' : ''}, ${mb} MB)`);

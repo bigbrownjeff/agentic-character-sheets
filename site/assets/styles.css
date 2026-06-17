@@ -1655,3 +1655,17 @@ img {
 .beat-style-toggle::before {
   content: 'Art style';
 }
+
+/* Character modal: "Appears in" adventure links (jump to the adventure's beats/media). */
+.modal-adventures { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--ruleSoft); }
+.modal-adventures-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+}
+.modal-adventures-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.modal-adventure-link {
+  font-family: var(--sans); font-size: 13px; color: var(--accent);
+  text-decoration: none; border: 1px solid var(--ruleSoft); border-radius: 2px;
+  padding: 5px 10px; transition: border-color 0.12s, color 0.12s;
+}
+.modal-adventure-link:hover { border-color: var(--accent); }

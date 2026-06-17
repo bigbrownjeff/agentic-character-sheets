@@ -8,9 +8,9 @@
  * tampered with (defense in depth).
  *
  * Env vars (Pages → Settings → Variables and Secrets):
- *   ANTHROPIC_API_KEY  — required; without it the endpoint 503s and the form
- *                        falls back to its copy-the-prompt path.
- *   FORGE_MODEL        — optional; default "claude-sonnet-4-6".
+ *   GEMINI_API_KEY  — required; without it the endpoint 503s and the form
+ *                     falls back to its copy-the-prompt path. (Same key as the image/video/dm Functions.)
+ *   FORGE_MODEL     — optional; default "gemini-2.5-pro".
  *
  * This endpoint is OPTIONAL. The form works fully without it. If you expose it
  * publicly, put Cloudflare rate-limiting / Turnstile in front — it spends your
@@ -18,7 +18,7 @@
  */
 
 interface Env {
-  ANTHROPIC_API_KEY?: string;
+  GEMINI_API_KEY?: string;
   FORGE_MODEL?: string;
 }
 
@@ -79,8 +79,8 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
 
   // No key configured → tell the client to use its copy-the-prompt fallback.
-  if (!env.ANTHROPIC_API_KEY) {
-    return json({ error: 'Generation not enabled. Add ANTHROPIC_API_KEY to enable /api/forge.' }, 503);
+  if (!env.GEMINI_API_KEY) {
+    return json({ error: 'Generation not enabled. Add GEMINI_API_KEY to enable /api/forge.' }, 503);
   }
 
   let prompt = '';
@@ -93,18 +93,14 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
   if (!prompt.trim()) return json({ error: 'Missing prompt' }, 400);
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const model = env.FORGE_MODEL || 'gemini-2.5-pro';
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${env.GEMINI_API_KEY}`, {
       method: 'POST',
-      headers: {
-        'x-api-key': env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: env.FORGE_MODEL || 'claude-sonnet-4-6',
-        max_tokens: 3200,
-        system: SYSTEM,
-        messages: [{ role: 'user', content: prompt }],
+        systemInstruction: { parts: [{ text: SYSTEM }] },
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { temperature: 0.9, responseMimeType: 'application/json' },
       }),
     });
 
@@ -113,8 +109,8 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
       return json({ error: `Upstream ${res.status}`, detail: detail.slice(0, 500) }, 502);
     }
 
-    const data = await res.json() as { content?: Array<{ type: string; text?: string }> };
-    const text = (data.content || []).filter((b) => b.type === 'text').map((b) => b.text || '').join('\n').trim();
+    const data = await res.json() as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
+    const text = (data.candidates?.[0]?.content?.parts || []).map((p) => p.text || '').join('').trim();
     // The model is asked for a single JSON object; parse it (tolerating stray fences/prose).
     // On any parse miss, fall back to returning the raw text so the client still shows something.
     try {

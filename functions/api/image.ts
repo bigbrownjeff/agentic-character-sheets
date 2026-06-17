@@ -154,7 +154,12 @@ async function generateBestGemini(prompt: string, intent: string, env: Env, refs
   const c1 = await critique(first, intent, env);
   if (!c1 || c1.verdict === 'keep') return { image: first, passes: 1, score: c1 ? c1.score : null };
   const fix = (c1.tweak ? ' ' + c1.tweak : '') + (c1.flaws.length ? ' Avoid: ' + c1.flaws.slice(0, 3).join('; ') + '.' : '');
-  const second = await viaGemini((prompt + fix).slice(0, REDO_PROMPT_MAX), env, refs);
+  // The redo is a SECOND upstream call on an already-long request (HQ + reference can be ~40s);
+  // if it blips, ship the good first pass instead of 500-ing the whole thing (which read to the
+  // user as a dead "image not enabled" button). Pass 1 is always a valid image.
+  let second: string;
+  try { second = await viaGemini((prompt + fix).slice(0, REDO_PROMPT_MAX), env, refs); }
+  catch { return { image: first, passes: 1, score: c1.score }; }
   const c2 = await critique(second, intent, env);
   const keepSecond = !c2 || c2.score >= c1.score;
   return { image: keepSecond ? second : first, passes: 2, score: keepSecond ? (c2 ? c2.score : null) : c1.score };

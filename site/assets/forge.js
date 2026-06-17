@@ -365,6 +365,7 @@ function renderForgedVariations(out, data) {
   data.variations.slice(0, 3).forEach((v, i) => {
     const ch = normalizeForged(v, i);
     const item = document.createElement('div'); item.className = 'forge-card-item';
+    item.dataset.hero = (ch.name || 'A hero') + (ch['class'] ? ' · ' + ch['class'] : ''); // WIP-rail label
     if (v.variation_note) { const n = document.createElement('div'); n.className = 'forge-step-eyebrow forge-card-eyebrow'; n.textContent = v.variation_note; item.appendChild(n); }
     let cv = window.CardRender.characterCanvas(ch); cv.className = 'forge-card-img';
     const show = (img) => { const ncv = window.CardRender.characterCanvas(ch, img || null); ncv.className = 'forge-card-img'; cv.replaceWith(ncv); cv = ncv; };
@@ -615,6 +616,7 @@ function renderStory(mount, ch, adv, beats, restored) {
   }
 
   const head = document.createElement('div'); head.className = 'forge-story-head';
+  head.dataset.adventure = adv.name || 'Your story'; // WIP-rail label
   head.innerHTML =
     '<div class="forge-step-eyebrow">Your story · ' + esc(adv.name) + (restored ? ' · saved' : '') + '</div>' +
     '<div class="forge-story-title">' + esc(ch.name || 'Your hero') + ' plays ' + esc(adv.name) + '</div>' +
@@ -945,6 +947,7 @@ function renderPlayView(v) {
   if (window.CardRender) {
     const item = document.createElement('div');
     item.className = 'forge-card-item';
+    item.dataset.hero = (ch.name || 'A hero') + (ch['class'] ? ' · ' + ch['class'] : ''); // WIP-rail label
     let cv = window.CardRender.characterCanvas(ch);
     cv.className = 'forge-card-img';
     item.appendChild(cv);
@@ -1026,19 +1029,22 @@ const WipRail = (function () {
       any = true; listEl.appendChild(sect(cards.length > 1 ? 'Heroes' : 'Hero'));
       cards.forEach((c, i) => {
         const nm = c.querySelector('.forge-card-eyebrow, .forge-step-eyebrow');
-        listEl.appendChild(link('• ' + ((nm && nm.textContent) ? nm.textContent.slice(0, 26) : 'Build ' + (i + 1)), c));
+        const label = c.dataset.hero || ((nm && nm.textContent) ? nm.textContent.slice(0, 26) : 'Build ' + (i + 1));
+        listEl.appendChild(link('• ' + label, c));
       });
     }
     const headEl = scope.querySelector('.forge-story-head');
     const beats = scope.querySelectorAll('.forge-beat');
     if (headEl || beats.length) {
       any = true;
-      const advT = headEl ? (headEl.querySelector('.forge-story-title') || headEl).textContent : 'Your story';
+      const advT = headEl ? (headEl.dataset.adventure || (headEl.querySelector('.forge-story-title') || headEl).textContent) : 'Your story';
       listEl.appendChild(sect('Story'));
       listEl.appendChild(link((advT || 'Your story').slice(0, 28), headEl || beats[0], 'wip-adv'));
       beats.forEach((b, i) => {
         const row = document.createElement('div'); row.className = 'wip-beat';
-        row.appendChild(link('Beat ' + (i + 1), b));
+        const cap = b.querySelector('.forge-beat-caption');
+        const capText = (cap && cap.textContent.trim()) ? cap.textContent.trim() : '';
+        row.appendChild(link((i + 1) + '. ' + (capText ? capText.slice(0, 22) : 'Beat ' + (i + 1)), b));
         const bd = document.createElement('span'); bd.className = 'wip-badges';
         bd.appendChild(badge(true, '📝'));
         bd.appendChild(badge(!!b.querySelector('.forge-beat-img'), '🖼'));

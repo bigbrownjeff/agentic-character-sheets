@@ -62,13 +62,13 @@ async function viaGemini(prompt: string, env: Env, refs?: ImagePart[]): Promise<
   const model = env.GEMINI_IMAGE_MODEL || 'gemini-2.5-flash-image';
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${env.GEMINI_API_KEY}`;
   const hasRefs = !!(refs && refs.length);
-  const parts: Array<{ text?: string } | ImagePart> = [{ text: (hasRefs ? IDENTITY_LOCK : '') + prompt }];
-  if (hasRefs) for (const r of refs!) parts.push(r);
+  const reqParts: Array<{ text?: string } | ImagePart> = [{ text: (hasRefs ? IDENTITY_LOCK : '') + prompt }];
+  if (hasRefs) for (const r of refs!) reqParts.push(r);
   const res = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      contents: [{ parts }],
+      contents: [{ parts: reqParts }],
       generationConfig: { responseModalities: ['TEXT', 'IMAGE'] },
     }),
   });

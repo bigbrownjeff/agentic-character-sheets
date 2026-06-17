@@ -105,21 +105,26 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
 
     /* --- POST: start a generation --- */
     if (request.method === 'POST') {
-      let prompt = '', aspectRatio = '9:16', imageUrl = '';
+      let prompt = '', aspectRatio = '9:16', imageUrl = '', inlineImage = '';
       let duration = parseInt(env.VEO_DURATION || '4', 10);
       try {
-        const body = await request.json() as { prompt?: string; aspectRatio?: string; durationSeconds?: number; imageUrl?: string };
+        const body = await request.json() as { prompt?: string; aspectRatio?: string; durationSeconds?: number; imageUrl?: string; image?: string };
         prompt = String(body.prompt || '').slice(0, MAX_PROMPT).trim();
         if (body.aspectRatio) aspectRatio = String(body.aspectRatio);
         if (body.durationSeconds) duration = Number(body.durationSeconds);
         if (body.imageUrl) imageUrl = String(body.imageUrl);
+        if (body.image) inlineImage = String(body.image); // data URL keyframe, passed directly
       } catch { return json({ error: 'Invalid JSON body' }, 400); }
 
-      // Image-to-video: if a keyframe URL is given, fetch it and use it as Veo's FIRST FRAME, so
-      // Veo animates that exact (already-consistent) painted card instead of re-imagining the scene.
-      // This is THE consistency fix — condition on our locked stills, not text alone.
+      // Image-to-video: use a keyframe as Veo's FIRST FRAME so it animates that exact
+      // (already-consistent) still instead of re-imagining the scene. THE consistency fix.
+      // Two ways in: an inline data-URL keyframe (e.g. a freshly generated, identity-locked
+      // beat image) takes precedence; otherwise an imageUrl we fetch (e.g. an R2 card).
       let imagePart: { bytesBase64Encoded: string; mimeType: string } | null = null;
-      if (imageUrl) {
+      const dm = /^data:([^;]+);base64,(.+)$/.exec(inlineImage);
+      if (dm) {
+        imagePart = { bytesBase64Encoded: dm[2], mimeType: dm[1] };
+      } else if (imageUrl) {
         try {
           const ir = await fetch(imageUrl);
           if (ir.ok) {

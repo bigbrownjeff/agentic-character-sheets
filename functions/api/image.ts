@@ -53,14 +53,22 @@ function json(data: unknown, status = 200): Response {
 }
 
 /* --- Gemini (best quality) ------------------------------- */
-async function viaGemini(prompt: string, env: Env): Promise<string> {
+interface ImagePart { inlineData: { mimeType: string; data: string }; }
+// When reference images are supplied (e.g. a locked character portrait), Gemini copies
+// identity from the PIXELS, not the words — this is the keyframe-identity lock. Prepend a
+// short instruction so it knows the refs are the subject to preserve, not scenery.
+const IDENTITY_LOCK = 'Preserve the EXACT appearance of the character(s) shown in the reference image(s): same face, hair, build, age, and signature clothing. Keep them identical; only the scene, pose, and action change. ';
+async function viaGemini(prompt: string, env: Env, refs?: ImagePart[]): Promise<string> {
   const model = env.GEMINI_IMAGE_MODEL || 'gemini-2.5-flash-image';
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${env.GEMINI_API_KEY}`;
+  const hasRefs = !!(refs && refs.length);
+  const parts: Array<{ text?: string } | ImagePart> = [{ text: (hasRefs ? IDENTITY_LOCK : '') + prompt }];
+  if (hasRefs) for (const r of refs!) parts.push(r);
   const res = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
+      contents: [{ parts }],
       generationConfig: { responseModalities: ['TEXT', 'IMAGE'] },
     }),
   });
@@ -141,12 +149,12 @@ async function critique(imageDataUrl: string, intent: string, env: Env): Promise
 
 // HQ generate: gen -> critique -> (one targeted redo if weak) -> ship the higher score.
 // Always at most two generations. Hidden from the caller except for {passes, score}.
-async function generateBestGemini(prompt: string, intent: string, env: Env): Promise<{ image: string; passes: number; score: number | null }> {
-  const first = await viaGemini(prompt, env);
+async function generateBestGemini(prompt: string, intent: string, env: Env, refs?: ImagePart[]): Promise<{ image: string; passes: number; score: number | null }> {
+  const first = await viaGemini(prompt, env, refs);
   const c1 = await critique(first, intent, env);
   if (!c1 || c1.verdict === 'keep') return { image: first, passes: 1, score: c1 ? c1.score : null };
   const fix = (c1.tweak ? ' ' + c1.tweak : '') + (c1.flaws.length ? ' Avoid: ' + c1.flaws.slice(0, 3).join('; ') + '.' : '');
-  const second = await viaGemini((prompt + fix).slice(0, REDO_PROMPT_MAX), env);
+  const second = await viaGemini((prompt + fix).slice(0, REDO_PROMPT_MAX), env, refs);
   const c2 = await critique(second, intent, env);
   const keepSecond = !c2 || c2.score >= c1.score;
   return { image: keepSecond ? second : first, passes: 2, score: keepSecond ? (c2 ? c2.score : null) : c1.score };
@@ -158,17 +166,41 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
 
   let prompt = '', provider = 'auto', quality = 'std', intent = '';
+  let rawRefs: string[] = [];
   try {
-    const body = await request.json() as { prompt?: string; provider?: string; quality?: string; intent?: string };
+    const body = await request.json() as { prompt?: string; provider?: string; quality?: string; intent?: string; refImages?: unknown };
     prompt = String(body.prompt || '').slice(0, MAX_PROMPT).trim();
     provider = String(body.provider || 'auto').toLowerCase();
     quality = String(body.quality || 'std').toLowerCase();
     intent = String(body.intent || '').slice(0, MAX_PROMPT).trim();
+    if (Array.isArray(body.refImages)) rawRefs = body.refImages.filter((x) => typeof x === 'string').slice(0, 3) as string[];
   } catch {
     return json({ error: 'Invalid JSON body' }, 400);
   }
   if (!prompt) return json({ error: 'Missing prompt' }, 400);
   if (BLOCK.test(prompt)) return json({ error: 'Prompt rejected' }, 422);
+
+  // Resolve reference images (data URLs or fetchable URLs, e.g. a locked portrait in R2)
+  // into inline parts. These are the identity anchor — see IDENTITY_LOCK / viaGemini.
+  const refs: ImagePart[] = [];
+  for (const ref of rawRefs) {
+    const dm = /^data:([^;]+);base64,(.+)$/.exec(ref);
+    if (dm) { refs.push({ inlineData: { mimeType: dm[1], data: dm[2] } }); continue; }
+    if (/^https?:\/\//.test(ref)) {
+      try {
+        const rr = await fetch(ref);
+        if (rr.ok) {
+          const buf = await rr.arrayBuffer();
+          if (buf.byteLength <= 8 * 1024 * 1024) {
+            const bytes = new Uint8Array(buf);
+            let bin = '';
+            for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, Array.from(bytes.subarray(i, i + 0x8000)));
+            refs.push({ inlineData: { mimeType: rr.headers.get('Content-Type') || 'image/png', data: btoa(bin) } });
+          }
+        }
+      } catch { /* skip an unfetchable ref — degrade to no-anchor gen */ }
+    }
+  }
 
   // Resolve the provider, then fall back to whichever engine IS configured so no
   // choice in the UI's engine picker is ever a dead end. (The picker offers
@@ -188,10 +220,10 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
   try {
     if (provider === 'gemini') {
       if (quality === 'hq') {
-        const r = await generateBestGemini(prompt, intent || prompt, env);
-        return json({ image: r.image, provider: 'gemini', passes: r.passes, score: r.score });
+        const r = await generateBestGemini(prompt, intent || prompt, env, refs);
+        return json({ image: r.image, provider: 'gemini', passes: r.passes, score: r.score, refs: refs.length });
       }
-      return json({ image: await viaGemini(prompt, env), provider: 'gemini', passes: 1 });
+      return json({ image: await viaGemini(prompt, env, refs), provider: 'gemini', passes: 1, refs: refs.length });
     }
     return json({ image: await viaCloudflare(prompt, env), provider: 'cloudflare' });
   } catch (e) {

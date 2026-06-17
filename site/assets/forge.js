@@ -430,10 +430,12 @@ function autoIllustrate(item, ch, show) {
   badge.className = 'forge-illustrating';
   badge.textContent = '✦ illustrating ' + (ch.name || 'your hero') + '…';
   item.appendChild(badge);
+  const gate = window.CardRender.GenGate;
+  if (gate) gate.begin(); // count toward the cap so manual Make buttons grey out meanwhile
   window.CardRender.fetchArt(forgedPortraitPrompt(ch, ''), undefined, { quality: 'std' })
     .then((img) => { if (img) show(img); })
     .catch(() => {})
-    .then(() => badge.remove());
+    .then(() => { badge.remove(); if (gate) gate.end(); });
 }
 
 /* ============================================================

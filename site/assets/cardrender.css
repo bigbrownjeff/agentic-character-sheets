@@ -13,6 +13,9 @@
   transition: border-color 0.12s, color 0.12s, background 0.12s;
 }
 .cr-save-btn:hover { background: transparent; border-color: var(--ink, #0E1116); color: var(--ink, #0E1116); }
+/* Disabled or gated (another generation is in progress): greyed, no hover, no pointer. */
+.cr-save-btn:disabled, .cr-save-btn.cr-gated { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+.cr-save-btn:disabled:hover, .cr-save-btn.cr-gated:hover { background: transparent; border-color: var(--ruleSoft, #C9C3B4); color: var(--muted, #6B6B6B); }
 .cr-save-btn.ghost { background: transparent; color: var(--muted, #6B6B6B); }
 .cr-save-btn.ghost:hover { background: transparent; border-color: var(--ink, #0E1116); color: var(--ink, #0E1116); }
 

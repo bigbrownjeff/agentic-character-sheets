@@ -337,7 +337,15 @@ function renderOutput() {
 
 async function generateHere(prompt) {
   const out = $('#forge-result');
-  out.innerHTML = `<p class="forge-busy">Forging 3 builds… this takes a few seconds.</p>`;
+  // A live elapsed counter so the wait never reads as a hang (the model can take 10-20s).
+  out.innerHTML = `<p class="forge-busy">Forging 3 builds<span class="forge-ell">…</span>
+    <span class="forge-elapsed" aria-hidden="true">0s</span><br>
+    <small>Summoning a hero takes a few seconds.</small></p>`;
+  const t0 = Date.now();
+  const tick = setInterval(() => {
+    const el = out.querySelector('.forge-elapsed');
+    if (el) el.textContent = Math.round((Date.now() - t0) / 1000) + 's';
+  }, 1000);
   try {
     const res = await fetch('./api/forge', {
       method: 'POST',
@@ -358,8 +366,10 @@ async function generateHere(prompt) {
   } catch (e) {
     out.innerHTML = `<div class="forge-gentle">One-click generation isn't switched on for this site yet.
       No problem — tap <b>Copy the prompt</b> and paste it into Claude. (To enable one-click, the owner
-      adds an <code>ANTHROPIC_API_KEY</code> secret in Cloudflare Pages — see the function at
+      adds a <code>GEMINI_API_KEY</code> secret in Cloudflare Pages — see the function at
       <code>functions/api/forge.ts</code>.)</div>`;
+  } finally {
+    clearInterval(tick);
   }
 }
 

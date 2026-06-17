@@ -35,6 +35,17 @@
   margin-bottom: 0.5rem;
 }
 
+.forge-illustrating {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-top: 0.4rem;
+  opacity: 0.85;
+  animation: forge-pulse 1.3s ease-in-out infinite;
+}
+@keyframes forge-pulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 0.9; } }
+
 .forge-q {
   font-family: var(--serif);
   font-size: 1.5rem;

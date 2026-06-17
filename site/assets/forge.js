@@ -788,6 +788,69 @@ function setupMic(field) {
 }
 
 /* ============================================================
+   DEEP LINK — land a pre-forged hero at the "choose adventure" stage
+   forge.html?play=<base64url(JSON variation)> skips the intake form and
+   drops straight into the adventure picker with the hero ready to play.
+   Used to hand someone a specific hero (e.g. a shared "play as Bridie" link).
+   ============================================================ */
+function decodePlay(s) {
+  try {
+    let b = String(s || '').replace(/-/g, '+').replace(/_/g, '/');
+    while (b.length % 4) b += '=';
+    const v = JSON.parse(decodeURIComponent(escape(atob(b))));
+    return (v && v.name) ? v : null;
+  } catch (e) { return null; }
+}
+
+function renderPlayView(v) {
+  const ch = normalizeForged(v, 0);
+  app.innerHTML = '';
+  const wrap = document.createElement('div');
+  wrap.className = 'forge-card';
+  const eyebrow = document.createElement('div');
+  eyebrow.className = 'forge-step-eyebrow';
+  eyebrow.textContent = 'Your hero is ready · choose an adventure';
+  wrap.appendChild(eyebrow);
+  const h = document.createElement('div');
+  h.className = 'forge-q';
+  h.textContent = (ch.name || 'Your hero') + ' — ' + (ch.title || ch['class'] || '');
+  wrap.appendChild(h);
+  if (v.tagline) {
+    const t = document.createElement('p');
+    t.className = 'forge-hint';
+    t.textContent = '“' + v.tagline + '”';
+    wrap.appendChild(t);
+  }
+  if (window.CardRender) {
+    const item = document.createElement('div');
+    item.className = 'forge-card-item';
+    let cv = window.CardRender.characterCanvas(ch);
+    cv.className = 'forge-card-img';
+    item.appendChild(cv);
+    item.appendChild(window.CardRender.versionedMaker({
+      itemId: 'play-' + ch.id,
+      show: (img) => { const n = window.CardRender.characterCanvas(ch, img || null); n.className = 'forge-card-img'; cv.replaceWith(n); cv = n; },
+      buildPrompt: (note) => forgedPortraitPrompt(ch, note),
+      placeholder: 'Note to steer ' + (ch.name || 'this hero') + '’s art (optional)…',
+      makeSaveCanvas: () => cv,
+    }));
+    wrap.appendChild(item);
+    const tog = document.createElement('div');
+    tog.className = 'forge-actions';
+    tog.appendChild(window.CardRender.providerToggle());
+    wrap.appendChild(tog);
+  }
+  const panel = document.createElement('div');
+  panel.className = 'forge-play-panel';
+  const story = document.createElement('div');
+  story.className = 'forge-story-mount';
+  wrap.appendChild(panel);
+  wrap.appendChild(story);
+  app.appendChild(wrap);
+  renderAdventurePicker(panel, story, ch);
+}
+
+/* ============================================================
    NAV (hamburger) + boot
    ============================================================ */
 function initHamburger() {
@@ -799,4 +862,9 @@ function initHamburger() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => { initHamburger(); render(); });
+document.addEventListener('DOMContentLoaded', () => {
+  initHamburger();
+  const hero = decodePlay(new URLSearchParams(location.search).get('play'));
+  if (hero && window.CardRender) { renderPlayView(hero); return; }
+  render();
+});

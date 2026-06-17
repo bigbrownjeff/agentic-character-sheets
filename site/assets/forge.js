@@ -403,9 +403,10 @@ function renderForgedVariations(out, data) {
     const item = document.createElement('div'); item.className = 'forge-card-item';
     if (v.variation_note) { const n = document.createElement('div'); n.className = 'forge-step-eyebrow'; n.textContent = v.variation_note; item.appendChild(n); }
     let cv = window.CardRender.characterCanvas(ch); cv.className = 'forge-card-img'; item.appendChild(cv);
+    const show = (img) => { const ncv = window.CardRender.characterCanvas(ch, img || null); ncv.className = 'forge-card-img'; cv.replaceWith(ncv); cv = ncv; };
     item.appendChild(window.CardRender.versionedMaker({
       itemId: 'forge-' + ch.id + '-' + Date.now(),
-      show: (img) => { const ncv = window.CardRender.characterCanvas(ch, img || null); ncv.className = 'forge-card-img'; cv.replaceWith(ncv); cv = ncv; },
+      show: show,
       buildPrompt: (note) => forgedPortraitPrompt(ch, note),
       placeholder: 'Note to steer ' + (ch.name || 'this hero') + '’s art (optional)…',
       makeSaveCanvas: () => cv,
@@ -413,8 +414,24 @@ function renderForgedVariations(out, data) {
     // Play THIS build through an adventure (the forge-to-story flow).
     item.appendChild(buildPlayBlock(ch));
     grid.appendChild(item);
+    autoIllustrate(item, ch, show); // show the hero, not a placeholder
   });
   out.appendChild(grid);
+}
+
+// Auto-generate a forged card's portrait so the user sees their hero immediately
+// instead of the blank stat-card. Fast (std) pass; "Make another" re-rolls at HQ.
+// A small badge marks the wait; failure just leaves the placeholder.
+function autoIllustrate(item, ch, show) {
+  if (!(window.CardRender && window.CardRender.fetchArt)) return;
+  const badge = document.createElement('div');
+  badge.className = 'forge-illustrating';
+  badge.textContent = '✦ illustrating ' + (ch.name || 'your hero') + '…';
+  item.appendChild(badge);
+  window.CardRender.fetchArt(forgedPortraitPrompt(ch, ''), undefined, { quality: 'std' })
+    .then((img) => { if (img) show(img); })
+    .catch(() => {})
+    .then(() => badge.remove());
 }
 
 /* ============================================================
@@ -872,14 +889,16 @@ function renderPlayView(v) {
     let cv = window.CardRender.characterCanvas(ch);
     cv.className = 'forge-card-img';
     item.appendChild(cv);
+    const show = (img) => { const n = window.CardRender.characterCanvas(ch, img || null); n.className = 'forge-card-img'; cv.replaceWith(n); cv = n; };
     item.appendChild(window.CardRender.versionedMaker({
       itemId: 'play-' + ch.id,
-      show: (img) => { const n = window.CardRender.characterCanvas(ch, img || null); n.className = 'forge-card-img'; cv.replaceWith(n); cv = n; },
+      show: show,
       buildPrompt: (note) => forgedPortraitPrompt(ch, note),
       placeholder: 'Note to steer ' + (ch.name || 'this hero') + '’s art (optional)…',
       makeSaveCanvas: () => cv,
     }));
     wrap.appendChild(item);
+    autoIllustrate(item, ch, show); // show Bridie immediately, not a placeholder
     const tog = document.createElement('div');
     tog.className = 'forge-actions';
     tog.appendChild(window.CardRender.providerToggle());

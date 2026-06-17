@@ -711,6 +711,17 @@ function buildBeatVideoMaker(ch, adv, beatId, bible, beat, i) {
       tick();
     });
   }
+  // One Veo cycle (start -> poll -> persisted R2 url) at the beat's key.
+  function genClip(prompt) {
+    return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: prompt, aspectRatio: '9:16', durationSeconds: 4, key: key }) })
+      .then((r) => r.json().then((d) => r.ok ? d : Promise.reject(d)))
+      .then((d) => { if (!d.op) return Promise.reject(d); return poll(d.op, 0); });
+  }
+  // Hidden adversarial pass: a video critic scores the take; null/keep on any failure.
+  function critiqueClip(url, intent) {
+    return fetch('./api/critique', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ videoUrl: url, intent: intent, kind: 'video' }) })
+      .then((r) => r.ok ? r.json() : null).catch(() => null);
+  }
   const bar = window.CardRender.makerControls({
     placeholder: 'Note to steer this beat’s video (optional)…',
     buttons: [{
@@ -718,13 +729,22 @@ function buildBeatVideoMaker(ch, adv, beatId, bible, beat, i) {
       title: 'Render THIS beat as a silent 3-5s clip',
       run: (note) => {
         ensureEls();
-        statusEl.textContent = 'Sending this beat to the video model…';
+        statusEl.textContent = 'Rendering the shot…';
         const prompt = storyVideoPrompt(beatId, bible, beat, note);
-        return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: prompt, aspectRatio: '9:16', durationSeconds: 4, key: key }) })
-          .then((r) => r.json().then((d) => r.ok ? d : Promise.reject(d)))
-          .then((d) => { if (!d.op) return Promise.reject(d); return poll(d.op, 0); })
-          .then((url) => { videoEl.src = url; videoEl.style.display = ''; statusEl.textContent = 'Saved to this beat ✓'; return true; })
-          .catch((err) => { statusEl.textContent = (err && err.error) ? ('Video unavailable: ' + err.error) : 'Video failed.'; return false; });
+        const intent = beat.scene || beat.caption || beat.title || '';
+        // Pass 1, then a hidden critic decides if a single targeted redo is worth it.
+        return genClip(prompt).then((url1) => {
+          statusEl.textContent = 'Reviewing the take…';
+          return critiqueClip(url1, intent).then((c) => {
+            if (!c || c.verdict !== 'redo') return url1;
+            statusEl.textContent = 'Refining the shot (final pass)…';
+            var fix = prompt + (c.tweak ? ' ' + c.tweak : '') + (c.flaws && c.flaws.length ? ' Avoid: ' + c.flaws.slice(0, 2).join('; ') + '.' : '');
+            return genClip(fix.slice(0, 1900)).catch(() => url1); // redo failed (e.g. quota) -> keep pass 1
+          });
+        }).then((url) => {
+          videoEl.src = url + (url.indexOf('?') < 0 ? '?t=' : '&t=') + Date.now(); // bust cache on overwrite
+          videoEl.style.display = ''; statusEl.textContent = 'Saved to this beat ✓'; return true;
+        }).catch((err) => { statusEl.textContent = (err && err.error) ? ('Video unavailable: ' + err.error) : 'Video failed.'; return false; });
       },
     }],
   });

@@ -974,6 +974,93 @@ function renderPlayView(v) {
 }
 
 /* ============================================================
+   WIP RAIL — a floating, collapsible project outline for the forge/story page.
+   Lists the hero(es) -> story -> beats with jump links + which media each has,
+   plus a live "generating…" status, so you can edit anywhere, watch work grow,
+   and tame the long scroll. Rebuilds itself from the DOM as content appears.
+   ============================================================ */
+const WipRail = (function () {
+  let root, statusEl, listEl, observer, debounce;
+  let collapsed = false;
+  try { collapsed = localStorage.getItem('cs-wip-collapsed') === '1'; } catch (e) {}
+
+  function ensure() {
+    if (root) return;
+    root = document.createElement('aside');
+    root.className = 'wip-rail' + (collapsed ? ' collapsed' : '');
+    const head = document.createElement('div'); head.className = 'wip-head';
+    const title = document.createElement('span'); title.className = 'wip-title'; title.textContent = 'Project';
+    const tog = document.createElement('button'); tog.type = 'button'; tog.className = 'wip-tog'; tog.setAttribute('aria-label', 'Toggle project rail'); tog.textContent = collapsed ? '☰' : '×';
+    tog.addEventListener('click', () => {
+      collapsed = !collapsed; root.classList.toggle('collapsed', collapsed); tog.textContent = collapsed ? '☰' : '×';
+      try { localStorage.setItem('cs-wip-collapsed', collapsed ? '1' : '0'); } catch (e) {}
+    });
+    head.appendChild(title); head.appendChild(tog);
+    statusEl = document.createElement('div'); statusEl.className = 'wip-status'; statusEl.style.display = 'none';
+    listEl = document.createElement('div'); listEl.className = 'wip-list';
+    root.appendChild(head); root.appendChild(statusEl); root.appendChild(listEl);
+    document.body.appendChild(root);
+    const gate = window.CardRender && window.CardRender.GenGate;
+    if (gate) { gate.onChange(renderStatus); renderStatus(gate.active()); }
+  }
+  function renderStatus(n) {
+    if (!statusEl) return;
+    statusEl.textContent = n > 0 ? ('⏳ ' + n + ' generating…') : '';
+    statusEl.style.display = n > 0 ? '' : 'none';
+  }
+  function jump(target) { if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+  function link(label, target, cls) {
+    const a = document.createElement('button'); a.type = 'button'; a.className = 'wip-link' + (cls ? ' ' + cls : ''); a.textContent = label;
+    a.addEventListener('click', () => jump(target)); return a;
+  }
+  function badge(on, glyph) { const s = document.createElement('span'); s.className = 'wip-badge' + (on ? ' on' : ''); s.textContent = glyph; return s; }
+  function sect(t) { const d = document.createElement('div'); d.className = 'wip-sect-label'; d.textContent = t; return d; }
+
+  function refresh() {
+    ensure();
+    listEl.innerHTML = '';
+    const scope = document.getElementById('forge-app') || document.body;
+    let any = false;
+    const cards = scope.querySelectorAll('.forge-card-item');
+    if (cards.length) {
+      any = true; listEl.appendChild(sect(cards.length > 1 ? 'Heroes' : 'Hero'));
+      cards.forEach((c, i) => {
+        const nm = c.querySelector('.forge-card-eyebrow, .forge-step-eyebrow');
+        listEl.appendChild(link('• ' + ((nm && nm.textContent) ? nm.textContent.slice(0, 26) : 'Build ' + (i + 1)), c));
+      });
+    }
+    const headEl = scope.querySelector('.forge-story-head');
+    const beats = scope.querySelectorAll('.forge-beat');
+    if (headEl || beats.length) {
+      any = true;
+      const advT = headEl ? (headEl.querySelector('.forge-story-title') || headEl).textContent : 'Your story';
+      listEl.appendChild(sect('Story'));
+      listEl.appendChild(link((advT || 'Your story').slice(0, 28), headEl || beats[0], 'wip-adv'));
+      beats.forEach((b, i) => {
+        const row = document.createElement('div'); row.className = 'wip-beat';
+        row.appendChild(link('Beat ' + (i + 1), b));
+        const bd = document.createElement('span'); bd.className = 'wip-badges';
+        bd.appendChild(badge(true, '📝'));
+        bd.appendChild(badge(!!b.querySelector('.forge-beat-img'), '🖼'));
+        const v = b.querySelector('.forge-beat-video');
+        bd.appendChild(badge(!!(v && v.src && v.style.display !== 'none'), '🎬'));
+        row.appendChild(bd); listEl.appendChild(row);
+      });
+      const finish = scope.querySelector('.forge-finish');
+      if (finish) listEl.appendChild(link((scope.querySelector('.forge-moment-video') ? '✓ ' : '') + 'Finished video', finish, 'wip-finish'));
+    }
+    root.style.display = any ? '' : 'none'; // only show once there's something to outline
+  }
+  function watch() {
+    ensure(); refresh();
+    if (observer) return;
+    observer = new MutationObserver(() => { clearTimeout(debounce); debounce = setTimeout(refresh, 400); });
+    observer.observe(document.getElementById('forge-app') || document.body, { childList: true, subtree: true });
+  }
+  return { watch };
+})();
+
+/* ============================================================
    NAV (hamburger) + boot
    ============================================================ */
 function initHamburger() {
@@ -987,6 +1074,7 @@ function initHamburger() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   initHamburger();
+  if (window.CardRender) WipRail.watch(); // floating project outline; self-hides until there's content
   const param = new URLSearchParams(location.search).get('play');
   let hero = decodePlay(param);
   // Short alias: ?play=bridie -> look up a named hero in data/heroes.json. Keeps the

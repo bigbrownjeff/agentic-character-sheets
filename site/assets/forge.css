@@ -46,6 +46,19 @@
 }
 @keyframes forge-pulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 0.9; } }
 
+.forge-finish {
+  margin: 1.4rem 0 0.6rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--ruleSoft, #C9C3B4);
+  border-radius: 4px;
+  background: var(--paper, #fff);
+}
+.forge-finish-head { margin-bottom: 0.7rem; font-size: 0.95rem; }
+.forge-finish-head span { color: var(--muted, #6B6B6B); }
+.forge-finish-status { margin-top: 0.6rem; font-family: var(--mono, monospace); font-size: 0.78rem; color: var(--muted, #6B6B6B); }
+.forge-finish-player { margin-top: 0.7rem; }
+.forge-moment-video { width: 100%; max-width: 360px; border-radius: 4px; display: block; }
+
 .forge-q {
   font-family: var(--serif);
   font-size: 1.5rem;

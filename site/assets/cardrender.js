@@ -1,5 +1,5 @@
 /* ============================================================
-   CARDRENDER — client-side image rendering for the whole site
+   CARDRENDER · client-side image rendering for the whole site
    Draws real, downloadable PNG cards from data with Canvas 2D.
    No dependencies, no network, no cross-origin taint.
      window.CardRender.characterCanvas(char)
@@ -181,7 +181,7 @@
       ctx.fillStyle = C.ink; ctx.font = 'italic 30px ' + SERIF;
       wrap(ctx, ch.tagline ? '“' + ch.tagline + '”' : '', 70, y + 90, W - 140, 40, 3);
 
-      brand(ctx, ch.role ? ('AC ' + (ch.ac != null ? ch.ac : '—')) : '');
+      brand(ctx, ch.role ? ('AC ' + (ch.ac != null ? ch.ac : '−')) : '');
     });
   }
 
@@ -235,7 +235,7 @@
     p.push('[RULE] re-render this exact place and cast; only ' + (b.moving_element || 'the action') + ' changes between frames.');
     return ' ' + p.join(' ') + ' ';
   }
-  // The small per-card "moving set" — only what changes this frame (the DM "moving clock").
+  // The small per-card "moving set": only what changes this frame (the DM "moving clock").
   function frameCues(card) {
     if (!card) return '';
     var p = [];
@@ -251,15 +251,15 @@
     return (STYLE_PROMPT[styleNameFor(beat.id, styleKey)] || STYLE_PROMPT.painterly) +
       buildBible(beat) + frameCues(card) + (card.scene || beat.title || '');
   }
-  // Per-cell video prompt: animate ONE keyframe (one card) into a 3–5s shot.
-  // The whole beat = the sequence of these per-cell clips (~15–30s across 5–6 cards).
+  // Per-cell video prompt: animate ONE keyframe (one card) into a 3-5s shot.
+  // The whole beat = the sequence of these per-cell clips (~15-30s across 5-6 cards).
   function videoPrompt(beat, index, styleKey, note) {
     var card = (beat.cards || [])[index] || {};
     var pre = STYLE_PROMPT[styleNameFor(beat.id, styleKey)] || STYLE_PROMPT.painterly;
     return pre + buildBible(beat) +
       'Animate THIS single keyframe into a 3-5 second cinematic shot in this exact art style: ' +
       frameCues(card) + (card.scene || beat.title || '') +
-      ' Bring it to life with motion and a moving camera (slow push-in, parallax, drifting elements), but stay on this one scene — do NOT cut to other scenes. No on-screen text or captions.' +
+      ' Bring it to life with motion and a moving camera (slow push-in, parallax, drifting elements), but stay on this one scene (do NOT cut to other scenes). No on-screen text or captions.' +
       (note ? ' Art-director note: ' + note : '');
   }
 
@@ -431,7 +431,7 @@
   }
   // POST a prompt to /api/image; resolve to the image data URL, or null on any failure.
   // quality:'hq' (the default) runs the server's hidden generate->critique->redo gate.
-  // opts.refImages: [dataURL|url] are identity anchors (e.g. a locked portrait) — the
+  // opts.refImages: [dataURL|url] are identity anchors (e.g. a locked portrait); the
   // server conditions generation on them so the SAME character recurs across images.
   function postImage(prompt, provider, opts) {
     opts = opts || {};
@@ -587,8 +587,8 @@
   // replaces), so no content is lost. Pills summarize the prompt; hover shows
   // it in full; each generated pill has a delete (×). The prompt history is
   // persisted to localStorage per item id, so user input survives reloads.
-  //   opts.itemId      — stable id (persistence key)
-  //   opts.show(imgOrNull)  — caller swaps the visible image (null = default)
+  //   opts.itemId      · stable id (persistence key)
+  //   opts.show(imgOrNull)  · caller swaps the visible image (null = default)
   //   opts.buildPrompt(note) -> string
   //   opts.placeholder, opts.makeSaveCanvas (optional), opts.extraButtons (optional)
   function versionedMaker(opts) {
@@ -713,6 +713,147 @@
     attachWrap.appendChild(fileLbl); attachWrap.appendChild(fileInput); attachWrap.appendChild(urlInput); attachWrap.appendChild(chips);
     wrap.appendChild(attachWrap);
 
+    // ---- "More options" expander -------------------------------------------
+    // A second, collapsed layer under the attach row. Captures choices the maker
+    // does not yet fully wire (output type, a reference doc, an aspect ratio, a
+    // voice) but EXPOSES them on the returned node so a caller can read them.
+    // Image is the only output fully wired today; the rest are captured + ready.
+    var output = 'image';                  // 'image' | 'video' | 'audio'
+    var aspect = '9:16';                   // 9:16 | 1:1 | 16:9 (image/video)
+    var voiceId = '';                      // chosen ElevenLabs voice id (audio)
+    try { voiceId = (window.localStorage && localStorage.getItem('cs-voice')) || ''; } catch (e) {}
+    // Reference documents (PDF/txt/md) as data URLs. Separate from `attached`
+    // (images): docs ride alongside but are not pushed into refImages. Max 2.
+    var docs = [];
+
+    var more = document.createElement('details'); more.className = 'cr-more';
+    var moreSum = document.createElement('summary'); moreSum.className = 'cr-more-summary';
+    moreSum.innerHTML = '<span class="cr-more-caret" aria-hidden="true"></span><span>More options</span>';
+    moreSum.addEventListener('click', function (e) { e.stopPropagation(); });
+    more.appendChild(moreSum);
+    var moreBody = document.createElement('div'); moreBody.className = 'cr-more-body';
+    more.appendChild(moreBody);
+
+    // 1) Attach a document / PDF (data URL, max 2), shown as removable chips.
+    var docWrap = document.createElement('div'); docWrap.className = 'cr-more-row cr-doc';
+    var docChips = document.createElement('div'); docChips.className = 'cr-attach-chips';
+    function renderDocs() {
+      docChips.innerHTML = '';
+      docs.forEach(function (d, i) {
+        var c = document.createElement('span'); c.className = 'cr-attach-chip';
+        c.textContent = (d.name || 'document').slice(0, 24) + ' ×';
+        c.title = 'remove'; c.addEventListener('click', function (e) { e.stopPropagation(); docs.splice(i, 1); renderDocs(); });
+        docChips.appendChild(c);
+      });
+    }
+    var docInput = document.createElement('input');
+    docInput.type = 'file'; docInput.accept = '.pdf,.txt,.md,application/pdf'; docInput.className = 'cr-attach-file'; docInput.id = itemId + '-doc';
+    docInput.addEventListener('change', function (e) {
+      e.stopPropagation();
+      Array.prototype.slice.call(docInput.files).forEach(function (f) {
+        if (docs.length >= 2) return;
+        var r = new FileReader();
+        r.onload = function () { if (docs.length < 2) { docs.push({ name: f.name, type: f.type, data: r.result }); renderDocs(); } };
+        r.readAsDataURL(f);
+      });
+      docInput.value = '';
+    });
+    var docLbl = document.createElement('label'); docLbl.className = 'cr-attach-btn'; docLbl.setAttribute('for', docInput.id); docLbl.textContent = '📄 Attach document';
+    docWrap.appendChild(docLbl); docWrap.appendChild(docInput); docWrap.appendChild(docChips);
+    moreBody.appendChild(docWrap);
+
+    // 2) Output type: Image | Video | Audio (default Image). Toggling it shows
+    // the matching sub-controls (aspect ratio vs. voice picker).
+    var outWrap = document.createElement('div'); outWrap.className = 'cr-more-row cr-output';
+    var outLbl = document.createElement('span'); outLbl.className = 'cr-more-label'; outLbl.textContent = 'Output';
+    outWrap.appendChild(outLbl);
+    var outName = itemId + '-output';
+    [['image', 'Image'], ['video', 'Video'], ['audio', 'Audio']].forEach(function (o) {
+      var lab = document.createElement('label'); lab.className = 'cr-radio';
+      var rad = document.createElement('input'); rad.type = 'radio'; rad.name = outName; rad.value = o[0];
+      if (o[0] === output) rad.checked = true;
+      rad.addEventListener('change', function (e) { e.stopPropagation(); if (rad.checked) { output = rad.value; syncOutput(); } });
+      lab.appendChild(rad); lab.appendChild(document.createTextNode(o[1]));
+      outWrap.appendChild(lab);
+    });
+    moreBody.appendChild(outWrap);
+
+    // 4) Image / Video sub-controls: aspect ratio (kept minimal).
+    var avWrap = document.createElement('div'); avWrap.className = 'cr-more-row cr-av-opts';
+    var arLbl = document.createElement('span'); arLbl.className = 'cr-more-label'; arLbl.textContent = 'Aspect';
+    var arSel = document.createElement('select'); arSel.className = 'cr-more-select';
+    [['9:16', '9:16 · portrait'], ['1:1', '1:1 · square'], ['16:9', '16:9 · wide']].forEach(function (o) {
+      var op = document.createElement('option'); op.value = o[0]; op.textContent = o[1]; arSel.appendChild(op);
+    });
+    arSel.value = aspect;
+    arSel.addEventListener('change', function (e) { e.stopPropagation(); aspect = arSel.value; });
+    avWrap.appendChild(arLbl); avWrap.appendChild(arSel);
+    moreBody.appendChild(avWrap);
+
+    // 3) Audio sub-controls: ElevenLabs voice picker + a "preview" link that
+    // opens the selected voice's sample at the source. Voices load lazily the
+    // first time Audio is chosen; the chosen id persists to localStorage.
+    var audWrap = document.createElement('div'); audWrap.className = 'cr-more-row cr-audio-opts';
+    var voiceLbl = document.createElement('span'); voiceLbl.className = 'cr-more-label'; voiceLbl.textContent = 'Voice';
+    var voiceSel = document.createElement('select'); voiceSel.className = 'cr-more-select'; voiceSel.disabled = true;
+    var voiceOpt0 = document.createElement('option'); voiceOpt0.value = ''; voiceOpt0.textContent = 'loading voices…'; voiceSel.appendChild(voiceOpt0);
+    var voicePreview = document.createElement('a'); voicePreview.className = 'cr-voice-preview'; voicePreview.textContent = 'preview ↗';
+    voicePreview.target = '_blank'; voicePreview.rel = 'noopener'; voicePreview.href = '#'; voicePreview.style.visibility = 'hidden';
+    voicePreview.addEventListener('click', function (e) { e.stopPropagation(); if (!voicePreview.href || voicePreview.getAttribute('href') === '#') e.preventDefault(); });
+    var voicesById = {};
+    function syncPreview() {
+      var url = voicesById[voiceSel.value];
+      if (url) { voicePreview.href = url; voicePreview.style.visibility = 'visible'; }
+      else { voicePreview.setAttribute('href', '#'); voicePreview.style.visibility = 'hidden'; }
+    }
+    voiceSel.addEventListener('change', function (e) {
+      e.stopPropagation(); voiceId = voiceSel.value;
+      try { localStorage.setItem('cs-voice', voiceId); } catch (err) {}
+      syncPreview();
+    });
+    audWrap.appendChild(voiceLbl); audWrap.appendChild(voiceSel); audWrap.appendChild(voicePreview);
+    moreBody.appendChild(audWrap);
+
+    var voicesLoaded = false;
+    function loadVoices() {
+      if (voicesLoaded) return; voicesLoaded = true;
+      fetch('./api/voices', { headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          var list = (d && Array.isArray(d.voices)) ? d.voices : [];
+          voiceSel.innerHTML = '';
+          if (!list.length) {
+            var none = document.createElement('option'); none.value = ''; none.textContent = 'no voices available'; voiceSel.appendChild(none);
+            voiceSel.disabled = true; syncPreview(); return;
+          }
+          list.forEach(function (v) {
+            if (!v || !v.voice_id) return;
+            voicesById[v.voice_id] = v.preview_url || '';
+            var op = document.createElement('option'); op.value = v.voice_id;
+            op.textContent = (v.name || v.voice_id) + (v.category ? ' · ' + v.category : '');
+            voiceSel.appendChild(op);
+          });
+          voiceSel.disabled = false;
+          if (voiceId && voicesById.hasOwnProperty(voiceId)) voiceSel.value = voiceId;
+          else { voiceId = voiceSel.value; try { localStorage.setItem('cs-voice', voiceId); } catch (err) {} }
+          syncPreview();
+        })
+        .catch(function () {
+          voiceSel.innerHTML = '';
+          var none = document.createElement('option'); none.value = ''; none.textContent = 'voices unavailable'; voiceSel.appendChild(none);
+          voiceSel.disabled = true; syncPreview();
+        });
+    }
+    // Show aspect (image/video) OR voice (audio) to match the current output type.
+    function syncOutput() {
+      var audio = output === 'audio';
+      avWrap.style.display = audio ? 'none' : '';
+      audWrap.style.display = audio ? '' : 'none';
+      if (audio) loadVoices();
+    }
+    syncOutput();
+    wrap.appendChild(more);
+
     const extras = [];
     if (opts.makeSaveCanvas) extras.push(window.CardRender.saveButton('⬇ Save', opts.makeSaveCanvas, itemId + '.png'));
     wrap.appendChild(makerControls({
@@ -723,6 +864,22 @@
     var take = takeDisclosure({ label: 'Add your take' });
     take._body.appendChild(wrap);
     renderPills();
+    // Expose the "More options" selections to callers WITHOUT changing the return
+    // contract (still the <details> node). A caller reads them off the node, e.g.
+    //   maker.getOutput()  -> 'image' | 'video' | 'audio'
+    //   maker.getAspect()  -> '9:16' | '1:1' | '16:9'
+    //   maker.getVoiceId() -> ElevenLabs voice id ('' if none / not audio)
+    //   maker.getDocs()    -> [{ name, type, data:dataURL }]  (max 2)
+    //   maker.getAttached()-> [dataURL|url]  (the inspiration images, max 3)
+    //   maker.getTakeOptions() -> a snapshot object of all of the above
+    take.getOutput = function () { return output; };
+    take.getAspect = function () { return aspect; };
+    take.getVoiceId = function () { return voiceId; };
+    take.getDocs = function () { return docs.slice(); };
+    take.getAttached = function () { return attached.slice(); };
+    take.getTakeOptions = function () {
+      return { output: output, aspect: aspect, voiceId: voiceId, docs: docs.slice(), attached: attached.slice() };
+    };
     return take;
   }
 

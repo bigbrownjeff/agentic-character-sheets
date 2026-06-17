@@ -442,6 +442,7 @@
     };
     if (opts.refImages && opts.refImages.length) body.refImages = opts.refImages;
     if (opts.intent) body.intent = String(opts.intent).slice(0, 1400);
+    if (opts.saveKey) body.saveKey = String(opts.saveKey); // server persists to R2 -> d.saved
     return fetch('./api/image', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -449,15 +450,19 @@
       if (!r.ok) throw new Error(String(r.status));
       return r.json();
     }).then(function (d) {
-      return (d && d.image) ? d.image : null;
+      return (d && d.image) ? d : null; // {image, saved?, ...} or null
     }).catch(function () { return null; });
   }
-  // Resolve to a loaded <img> (most callers), or to the raw data URL (fetchArtData,
-  // used to capture a locked portrait to reuse as a reference anchor).
+  // Resolve to a loaded <img> (most callers), the raw data URL (fetchArtData, for a
+  // reference anchor), or the full {image, saved} object (fetchArtFull, when the caller
+  // needs the durable R2 url, e.g. to persist a forged portrait).
   function fetchArt(prompt, provider, opts) {
-    return postImage(prompt, provider, opts).then(function (url) { return url ? loadImage(url) : null; });
+    return postImage(prompt, provider, opts).then(function (d) { return d ? loadImage(d.image) : null; });
   }
   function fetchArtData(prompt, provider, opts) {
+    return postImage(prompt, provider, opts).then(function (d) { return d ? d.image : null; });
+  }
+  function fetchArtFull(prompt, provider, opts) {
     return postImage(prompt, provider, opts);
   }
 
@@ -689,7 +694,7 @@
     beatPrompt: beatPrompt,
     videoPrompt: videoPrompt,
     stylePrompt: STYLE_PROMPT,
-    loadImage: loadImage, fetchArt: fetchArt, fetchArtData: fetchArtData, providerToggle: providerToggle,
+    loadImage: loadImage, fetchArt: fetchArt, fetchArtData: fetchArtData, fetchArtFull: fetchArtFull, providerToggle: providerToggle,
     makerControls: makerControls, versionedMaker: versionedMaker, takeDisclosure: takeDisclosure, GenGate: GenGate,
     download: download, saveButton: saveButton, lightbox: lightbox,
   };

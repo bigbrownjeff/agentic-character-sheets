@@ -27,6 +27,7 @@
  * the dependency-free Canvas card, so users still see an image.
  */
 
+interface R2Like { put(key: string, value: ArrayBuffer, opts?: unknown): Promise<unknown>; }
 interface Env {
   AI?: { run: (model: string, inputs: Record<string, unknown>) => Promise<unknown> };
   GEMINI_API_KEY?: string;
@@ -34,9 +35,28 @@ interface Env {
   CRITIC_MODEL?: string;
   FORGE_IMAGE_MODEL?: string;
   IMAGE_PROVIDER?: string;
+  MEDIA?: R2Like;       // R2 binding; with `saveKey` the image persists to cards/forged/<key>.png
+  MEDIA_BASE?: string;
 }
 
+const MEDIA_BASE_DEFAULT = 'https://pub-92102a1a4a2e4137b3e39df163badf14.r2.dev';
 const MAX_PROMPT = 1500;
+
+// Persist a generated data-URL image to R2 so forged heroes survive a reload and show in
+// /admin. Returns the public URL, or '' (best-effort: never blocks returning the image).
+async function persistImage(dataUrl: string, saveKey: string, env: Env): Promise<string> {
+  if (!saveKey || !env.MEDIA) return '';
+  const m = /^data:([^;]+);base64,(.+)$/.exec(dataUrl);
+  if (!m) return '';
+  const key = 'cards/forged/' + saveKey.replace(/[^a-zA-Z0-9._-]/g, '') + '.png';
+  try {
+    const bin = atob(m[2]);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    await env.MEDIA.put(key, bytes.buffer, { httpMetadata: { contentType: m[1] || 'image/png' } });
+    return (env.MEDIA_BASE || MEDIA_BASE_DEFAULT).replace(/\/$/, '') + '/' + key;
+  } catch { return ''; }
+}
 const REDO_PROMPT_MAX = 2200; // the internal redo prompt carries the critic's fix, so it runs longer
 const CRITIC_THRESHOLD = 7;   // a generation scoring below this gets one redo
 const BLOCK = /\b(nude|naked|nsfw|sexual|porn|explicit|gore|child|minor)\b/i;
@@ -170,14 +190,15 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
   if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors() });
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
 
-  let prompt = '', provider = 'auto', quality = 'std', intent = '';
+  let prompt = '', provider = 'auto', quality = 'std', intent = '', saveKey = '';
   let rawRefs: string[] = [];
   try {
-    const body = await request.json() as { prompt?: string; provider?: string; quality?: string; intent?: string; refImages?: unknown };
+    const body = await request.json() as { prompt?: string; provider?: string; quality?: string; intent?: string; refImages?: unknown; saveKey?: string };
     prompt = String(body.prompt || '').slice(0, MAX_PROMPT).trim();
     provider = String(body.provider || 'auto').toLowerCase();
     quality = String(body.quality || 'std').toLowerCase();
     intent = String(body.intent || '').slice(0, MAX_PROMPT).trim();
+    saveKey = String(body.saveKey || '').slice(0, 80);
     if (Array.isArray(body.refImages)) rawRefs = body.refImages.filter((x) => typeof x === 'string').slice(0, 3) as string[];
   } catch {
     return json({ error: 'Invalid JSON body' }, 400);
@@ -223,14 +244,19 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
   if (provider === 'cloudflare' && !hasCF) provider = 'gemini';
 
   try {
+    let image: string, meta: Record<string, unknown>;
     if (provider === 'gemini') {
       if (quality === 'hq') {
         const r = await generateBestGemini(prompt, intent || prompt, env, refs);
-        return json({ image: r.image, provider: 'gemini', passes: r.passes, score: r.score, refs: refs.length });
+        image = r.image; meta = { provider: 'gemini', passes: r.passes, score: r.score, refs: refs.length };
+      } else {
+        image = await viaGemini(prompt, env, refs); meta = { provider: 'gemini', passes: 1, refs: refs.length };
       }
-      return json({ image: await viaGemini(prompt, env, refs), provider: 'gemini', passes: 1, refs: refs.length });
+    } else {
+      image = await viaCloudflare(prompt, env); meta = { provider: 'cloudflare' };
     }
-    return json({ image: await viaCloudflare(prompt, env), provider: 'cloudflare' });
+    const saved = await persistImage(image, saveKey, env); // durable copy when saveKey given
+    return json({ image, saved, ...meta });
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'Unknown error';
     return json({ error: `Image generation failed: ${msg}` }, 500);

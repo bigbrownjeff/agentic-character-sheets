@@ -63,6 +63,24 @@ canvas.card-sheet-img, canvas.adv-cover-img, canvas.cr-incard {
 .cr-take[open] .cr-take-caret::before { content: '\2013'; }
 .cr-take[open] .cr-take-summary { color: var(--ink, #0E1116); }
 .cr-take-body { padding-top: 0.2rem; }
+
+/* "Add your take" inspiration attachments: image files + pasted inspo URLs (max 3). */
+.cr-attach { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 8px; }
+.cr-attach-file { display: none; }
+.cr-attach-btn {
+  font-family: var(--mono, monospace); font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  cursor: pointer; border: 1px solid var(--ruleSoft, #C9C3B4); border-radius: 2px; padding: 0.4rem 0.6rem; color: var(--muted, #6B6B6B);
+}
+.cr-attach-btn:hover { border-color: var(--ink, #0E1116); color: var(--ink, #0E1116); }
+.cr-attach-url {
+  flex: 1; min-width: 130px; font-family: var(--sans, sans-serif); font-size: 12px;
+  border: 1px solid var(--ruleSoft, #C9C3B4); border-radius: 2px; padding: 0.4rem 0.5rem; background: transparent; color: var(--ink, #0E1116);
+}
+.cr-attach-chips { display: flex; flex-wrap: wrap; gap: 4px; width: 100%; }
+.cr-attach-chip {
+  font-family: var(--mono, monospace); font-size: 10px; cursor: pointer;
+  border: 1px solid var(--accent, #C84B31); color: var(--accent, #C84B31); border-radius: 2px; padding: 2px 6px;
+}
 .cr-note {
   width: 100%; font-family: var(--sans, sans-serif); font-size: 0.82rem;
   padding: 0.45rem 0.6rem; border-radius: 2px;

@@ -380,24 +380,43 @@ function renderForgedVariations(out, data) {
     // Play THIS build through an adventure (the forge-to-story flow).
     item.appendChild(buildPlayBlock(ch));
     grid.appendChild(item);
-    autoIllustrate(item, ch, show); // show the hero, not a placeholder
+    // Restore the SAME portrait from R2 if we saved one; else generate + capture its url.
+    if (v.portrait) {
+      window.CardRender.loadImage(v.portrait).then(show).catch(() => autoIllustrate(item, ch, show, (url) => savePortrait(data, i, url)));
+    } else {
+      autoIllustrate(item, ch, show, (url) => savePortrait(data, i, url));
+    }
   });
   out.appendChild(grid);
+  saveForge(data); // so navigating away mid-forge doesn't lose it
+}
+
+// Persist the last forge (builds + their R2 portrait urls) so /forge restores it on return.
+function saveForge(data) {
+  try { localStorage.setItem('cs-forge-last', JSON.stringify({ intro: data.intro, variations: data.variations, ts: Date.now() })); } catch (e) {}
+}
+function savePortrait(data, i, url) {
+  if (!url || !data.variations[i]) return;
+  data.variations[i].portrait = url;
+  saveForge(data);
 }
 
 // Auto-generate a forged card's portrait so the user sees their hero immediately
 // instead of the blank stat-card. Fast (std) pass; "Make another" re-rolls at HQ.
 // A small badge marks the wait; failure just leaves the placeholder.
-function autoIllustrate(item, ch, show) {
-  if (!(window.CardRender && window.CardRender.fetchArt)) return;
+function autoIllustrate(item, ch, show, onPortrait) {
+  if (!(window.CardRender && window.CardRender.fetchArtFull)) return;
   const badge = document.createElement('div');
   badge.className = 'forge-illustrating';
   badge.textContent = '✦ illustrating ' + (ch.name || 'your hero') + '…';
   item.appendChild(badge);
   const gate = window.CardRender.GenGate;
   if (gate) gate.begin(); // count toward the cap so manual Make buttons grey out meanwhile
-  window.CardRender.fetchArt(forgedPortraitPrompt(ch, ''), undefined, { quality: 'std' })
-    .then((img) => { if (img) show(img); })
+  // saveKey persists the portrait to R2 so the SAME hero returns on reload (and shows in /admin).
+  window.CardRender.fetchArtFull(forgedPortraitPrompt(ch, ''), undefined, { quality: 'std', saveKey: ch.id })
+    .then((d) => {
+      if (d && d.image) { window.CardRender.loadImage(d.image).then(show).catch(() => {}); if (onPortrait) onPortrait(d.saved || ''); }
+    })
     .catch(() => {})
     .then(() => { badge.remove(); if (gate) gate.end(); });
 }
@@ -981,5 +1000,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (e) { /* no such named hero -> fall through to the intake form */ }
   }
   if (hero && window.CardRender) { renderPlayView(hero); return; }
+  // Restore the last forge so navigating away (then back) doesn't lose the heroes.
+  if (!param && window.CardRender) {
+    let last = null;
+    try { last = JSON.parse(localStorage.getItem('cs-forge-last') || 'null'); } catch (e) {}
+    if (last && Array.isArray(last.variations) && last.variations.length) { renderRestoredForge(last); return; }
+  }
   render();
 });
+
+// Pick up where you left off: re-render the last forge's builds (portraits load from R2).
+function renderRestoredForge(data) {
+  app.innerHTML = `
+    <div class="forge-card forge-output">
+      <div class="forge-step-eyebrow">Picked up where you left off ✦</div>
+      <p class="forge-hint">Your last forged heroes are saved here.
+        <button class="ghost" id="forge-new">Forge someone new</button></p>
+      <div id="forge-result"></div>
+    </div>
+    <div class="forge-toast" id="forge-toast"></div>`;
+  $('#forge-new').addEventListener('click', () => {
+    try { localStorage.removeItem('cs-forge-last'); } catch (e) {}
+    state.mode = null; state.people = []; state.personIdx = 0; state.qIdx = 0; render();
+  });
+  renderForgedVariations($('#forge-result'), data);
+}

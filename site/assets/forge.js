@@ -422,6 +422,42 @@ function autoIllustrate(item, ch, show, onPortrait) {
     .then(() => { badge.remove(); if (gate) gate.end(); });
 }
 
+// Craft (or restore) the FULL ornate gemini-3-pro-image sheet for a chosen hero into `mount`.
+// This is the heavyweight render (~30s), done only on the hero you pick to play. Restores
+// instantly from R2 (cards/forged-sheets/<id>.png) on a re-visit; a stat-card stands in while
+// it renders or if it fails.
+function craftOrnateSheet(mount, ch) {
+  if (!(window.CardRender && window.CardRender.characterCanvas)) return;
+  const heroId = ch.id || slug(ch.name);
+  let placeholder = window.CardRender.characterCanvas(ch); placeholder.className = 'forge-card-img';
+  const status = document.createElement('div'); status.className = 'forge-illustrating';
+  status.textContent = '✦ crafting ' + (ch.name || 'the hero') + '’s ornate sheet (about 30s)…';
+  mount.appendChild(placeholder); mount.appendChild(status);
+
+  function place(url) {
+    const img = document.createElement('img'); img.className = 'forge-ornate-sheet'; img.alt = (ch.name || 'hero') + ' character sheet'; img.src = url;
+    if (placeholder) { placeholder.replaceWith(img); placeholder = null; } else { mount.insertBefore(img, mount.firstChild); }
+    status.remove();
+    const re = document.createElement('button'); re.type = 'button'; re.className = 'cr-save-btn ghost forge-recraft'; re.textContent = '↻ re-craft sheet';
+    re.addEventListener('click', () => { re.remove(); placeholder = img; status.textContent = '✦ re-crafting…'; mount.appendChild(status); generate(); });
+    mount.appendChild(re);
+  }
+  function generate() {
+    const gate = window.CardRender.GenGate; if (gate) gate.begin();
+    const hero = { name: ch.name, title: ch.title, 'class': ch['class'], subclass: ch.subclass, alignment: ch.alignment, abilities: ch.abilities, saves: ch.saves, feature: ch.feature, tagline: ch.tagline, ac: ch.ac };
+    fetch('./api/sheet', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ hero, saveKey: heroId }) })
+      .then((r) => r.ok ? r.json() : null)
+      .then((d) => { if (d && d.image) place((d.saved || d.image) + (d.saved ? '?t=' + Date.now() : '')); else status.textContent = 'The ornate sheet could not be crafted; the stat card stands in.'; })
+      .catch(() => { status.textContent = 'The ornate sheet could not be crafted; the stat card stands in.'; })
+      .then(() => { if (gate) gate.end(); });
+  }
+  // Restore a previously crafted sheet (instant) before paying for a new render.
+  const probe = new Image();
+  probe.onload = () => place(probe.src);
+  probe.onerror = () => generate();
+  probe.src = (window.MEDIA_BASE || '.') + '/cards/forged-sheets/' + heroId + '.png?t=' + Date.now();
+}
+
 /* ============================================================
    FORGE → STORY  (play a forged hero through an adventure)
    Picks an adventure, calls the DM engine (/api/dm), and renders
@@ -971,23 +1007,10 @@ function renderPlayView(v) {
     const item = document.createElement('div');
     item.className = 'forge-card-item';
     item.dataset.hero = (ch.name || 'A hero') + (ch['class'] ? ' · ' + ch['class'] : ''); // WIP-rail label
-    let cv = window.CardRender.characterCanvas(ch);
-    cv.className = 'forge-card-img';
-    item.appendChild(cv);
-    const show = (img) => { const n = window.CardRender.characterCanvas(ch, img || null); n.className = 'forge-card-img'; cv.replaceWith(n); cv = n; };
-    item.appendChild(window.CardRender.versionedMaker({
-      itemId: 'play-' + ch.id,
-      show: show,
-      buildPrompt: (note) => forgedPortraitPrompt(ch, note),
-      placeholder: 'Note to steer ' + (ch.name || 'this hero') + '’s art (optional)…',
-      makeSaveCanvas: () => cv,
-    }));
+    const mount = document.createElement('div'); mount.className = 'forge-ornate-mount';
+    item.appendChild(mount);
     wrap.appendChild(item);
-    autoIllustrate(item, ch, show); // show Bridie immediately, not a placeholder
-    const tog = document.createElement('div');
-    tog.className = 'forge-actions';
-    tog.appendChild(window.CardRender.providerToggle());
-    wrap.appendChild(tog);
+    craftOrnateSheet(mount, ch); // the full ornate sheet IS the card for the hero you picked
   }
   const panel = document.createElement('div');
   panel.className = 'forge-play-panel';

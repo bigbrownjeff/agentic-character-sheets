@@ -141,7 +141,7 @@
       if (art) {
         ctx.save();
         rr(ctx, 110, 318, W - 220, 334, 18); ctx.clip();
-        coverDraw(ctx, art, 110, 318, W - 220, 334);
+        coverDraw(ctx, art, 110, 318, W - 220, 334, 0.14); // anchor high so the face isn't cropped
         ctx.restore();
         ctx.strokeStyle = rc; ctx.lineWidth = 5; rr(ctx, 110, 318, W - 220, 334, 18); ctx.stroke();
       } else {
@@ -264,11 +264,15 @@
   }
 
   // object-fit: cover for a loaded image into a rect
-  function coverDraw(ctx, img, x, y, w, h) {
+  // focusY picks the vertical crop anchor when the image is taller than the box:
+  // 0 = show the top, 0.5 = center (default), 1 = bottom. For portraits in the card's
+  // short, wide art band, anchor near the top so the FACE survives the crop (not the torso).
+  function coverDraw(ctx, img, x, y, w, h, focusY) {
     var iw = img.width || img.naturalWidth, ih = img.height || img.naturalHeight;
     if (!iw || !ih) return;
     var scale = Math.max(w / iw, h / ih), dw = iw * scale, dh = ih * scale;
-    ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+    var fy = (focusY == null) ? 0.5 : focusY;
+    ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) * fy, dw, dh);
   }
   function beatCanvas(beat, index, styleKey, art) {
     var card = beat.cards[index] || {};

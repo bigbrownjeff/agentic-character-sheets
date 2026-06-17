@@ -391,7 +391,9 @@ function forgedPortraitPrompt(ch, note) {
   return window.CardRender.stylePrompt.painterly +
     'Heroic, warm fantasy character portrait of ' + (ch.name || 'a hero') +
     (ch['class'] ? ', a ' + ch['class'] : '') + (ch.feature ? '. ' + ch.feature : '') +
-    '. Single dignified figure, friendly, no text, no words.' + (note ? ' Art-director note: ' + note : '');
+    '. Head-and-shoulders composition, face clearly visible in the upper third of the frame, ' +
+    'looking toward the viewer. Single dignified figure, friendly, no text, no words.' +
+    (note ? ' Art-director note: ' + note : '');
 }
 // Render the 3 forged builds as full, filled stat-cards, each with its own art maker.
 function renderForgedVariations(out, data) {

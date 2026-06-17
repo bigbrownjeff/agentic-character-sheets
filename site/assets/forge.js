@@ -292,47 +292,9 @@ function renderOutput() {
   $('#forge-download').addEventListener('click', () => downloadJSON());
   $('#forge-restart').addEventListener('click', () => { state.mode = null; state.people = []; state.personIdx = 0; state.qIdx = 0; render(); });
   $('#forge-generate').addEventListener('click', () => generateHere(prompt));
-
-  // Inline card(s). Images are generated only when you click Make image (no auto).
-  if (window.CardRender) {
-    const gallery = document.createElement('div');
-    gallery.className = 'forge-gallery';
-    state.people.forEach((p) => {
-      const ch = liteChar(p);
-      const item = document.createElement('div');
-      item.className = 'forge-card-item';
-      let cv = window.CardRender.characterCanvas(ch);
-      cv.className = 'forge-card-img';
-      item.appendChild(cv);
-
-      function portraitPrompt(note) {
-        const great = a(p, 'great'), others = a(p, 'others');
-        return window.CardRender.stylePrompt.painterly +
-          'Heroic, warm fantasy character portrait of ' + (ch.name || 'a hero') +
-          (great ? ', who is great at ' + great : '') + (others ? '. ' + others : '') +
-          '. Single dignified figure, friendly, no text, no words.' + (note ? ' Art-director note: ' + note : '');
-      }
-      function show(img) {
-        const ncv = window.CardRender.characterCanvas(ch, img || null);
-        ncv.className = 'forge-card-img';
-        cv.replaceWith(ncv); cv = ncv;
-      }
-      item.appendChild(window.CardRender.versionedMaker({
-        itemId: 'forge-' + (ch.id || 'hero') + '-' + sessionTs,
-        show: show,
-        buildPrompt: portraitPrompt,
-        placeholder: 'Note to steer ' + (ch.name || 'this hero') + '’s portrait (optional)…',
-        makeSaveCanvas: () => cv,
-      }));
-      gallery.appendChild(item);
-    });
-    const resultEl = $('#forge-result');
-    const tog = document.createElement('div');
-    tog.className = 'forge-actions';
-    tog.appendChild(window.CardRender.providerToggle());
-    resultEl.parentNode.insertBefore(tog, resultEl);
-    resultEl.parentNode.insertBefore(gallery, resultEl);
-  }
+  // No pre-generation "hero card" — "Generate it here" fills #forge-result with the 3
+  // built, auto-illustrated, stat-filled variations (renderForgedVariations). The old
+  // manual placeholder card (garbled, no stats, no auto-art) was dropped per feedback.
 }
 
 async function generateHere(prompt) {
@@ -403,9 +365,10 @@ function renderForgedVariations(out, data) {
   data.variations.slice(0, 3).forEach((v, i) => {
     const ch = normalizeForged(v, i);
     const item = document.createElement('div'); item.className = 'forge-card-item';
-    if (v.variation_note) { const n = document.createElement('div'); n.className = 'forge-step-eyebrow'; n.textContent = v.variation_note; item.appendChild(n); }
-    let cv = window.CardRender.characterCanvas(ch); cv.className = 'forge-card-img'; item.appendChild(cv);
+    if (v.variation_note) { const n = document.createElement('div'); n.className = 'forge-step-eyebrow forge-card-eyebrow'; n.textContent = v.variation_note; item.appendChild(n); }
+    let cv = window.CardRender.characterCanvas(ch); cv.className = 'forge-card-img';
     const show = (img) => { const ncv = window.CardRender.characterCanvas(ch, img || null); ncv.className = 'forge-card-img'; cv.replaceWith(ncv); cv = ncv; };
+    // Order per feedback: title → "Add your take" CTA → card graphic → play.
     item.appendChild(window.CardRender.versionedMaker({
       itemId: 'forge-' + ch.id + '-' + Date.now(),
       show: show,
@@ -413,6 +376,7 @@ function renderForgedVariations(out, data) {
       placeholder: 'Note to steer ' + (ch.name || 'this hero') + '’s art (optional)…',
       makeSaveCanvas: () => cv,
     }));
+    item.appendChild(cv);
     // Play THIS build through an adventure (the forge-to-story flow).
     item.appendChild(buildPlayBlock(ch));
     grid.appendChild(item);

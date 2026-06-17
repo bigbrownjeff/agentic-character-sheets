@@ -164,15 +164,29 @@ button[disabled] { opacity: 0.45; cursor: not-allowed; }
 
 /* --- inline rendered card gallery (forge result) --------- */
 .forge-gallery {
-  display: grid; gap: 1.2rem; margin: 1.2rem 0;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  display: grid; gap: 1rem; margin: 1.2rem 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* three across, smaller cards */
 }
-.forge-card-item { display: flex; flex-direction: column; gap: 0.5rem; }
+@media (max-width: 720px) { .forge-gallery { grid-template-columns: 1fr; max-width: 360px; margin-inline: auto; } }
+.forge-card-item { display: flex; flex-direction: column; gap: 0.4rem; }
+.forge-card-eyebrow { min-height: 2.2em; } /* keep the 3 titles baseline-aligned */
 .forge-card-img {
   width: 100%; height: auto; display: block;
-  border-radius: 12px; border: 1px solid var(--ruleSoft);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  border-radius: 8px; border: 1px solid var(--ruleSoft);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
+
+/* "Add your take" as a prominent CTA above the card graphic (per feedback). */
+.forge-card-item .cr-take { margin: 0 0 0.1rem; }
+.forge-card-item .cr-take-summary {
+  border: 1px solid var(--accent); border-radius: 2px;
+  padding: 0.4rem 0.6rem; color: var(--accent);
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.forge-card-item .cr-take-summary:hover,
+.forge-card-item .cr-take[open] .cr-take-summary { background: var(--accent); color: #fff; }
+.forge-card-item .cr-take[open] .cr-take-caret,
+.forge-card-item .cr-take-summary:hover .cr-take-caret { color: #fff; }
 
 /* ============================================================
    FORGE → STORY  (play a forged hero through an adventure)

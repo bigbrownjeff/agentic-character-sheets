@@ -50,7 +50,7 @@ interface Hero { name?: string; title?: string; class?: string; subclass?: strin
 
 function lowestKey(a: Record<string, number>): string { return ORDER.reduce((lo, k) => ((a[k] || 10) < (a[lo] || 10) ? k : lo), 'str'); }
 function gridLines(a: Record<string, number>): string {
-  return ORDER.map((k) => `${ABBR[k]} ${a[k]} (${mod(a[k])}) — ${DESC[k][tier(a[k])]}`).join('\n');
+  return ORDER.map((k) => `${ABBR[k]} ${a[k]} (${mod(a[k])}): ${DESC[k][tier(a[k])]}`).join('\n');
 }
 function buildPrompt(h: Hero): string {
   const a = h.abilities || { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 };
@@ -60,9 +60,9 @@ function buildPrompt(h: Hero): string {
   return [
     'Use the exact same frame, layout, typography, and painting style as the attached Ponytail sheet. New character:',
     `Portrait: ${portrait}. Accent color: warm gold.`,
-    `Render this exact parchment text. For each ability render the score, modifier, AND exactly the short effect given after the dash; do NOT invent effects or copy them from the attached reference card. Circle ONLY the ${low} score in oxblood red (the lowest, dumped stat); every other score in normal ink:`,
+    `Render this exact parchment text. For each ability render the score, modifier, AND exactly the short effect given after the colon; do NOT invent effects or copy them from the attached reference card. Circle ONLY the ${low} score in oxblood red (the lowest, dumped stat); every other score in normal ink:`,
     `Name: ${h.name || 'A Hero'}   ·   Class: ${h.class || 'Adventurer'}${h.subclass ? ' (' + h.subclass + ')' : ''}`,
-    `Race: ${h.lineage || 'Forged'}   ·   Background: ${h.alignment || 'Hero'}   ·   Level ${h.level || 1}`,
+    `Race: ${h.lineage || 'Forged'}   ·   Alignment: ${h.alignment || 'Heroic'}   ·   Level ${h.level || 1}`,
     '❧ Attributes ❧',
     gridLines(a),
     `Armor Class ${h.ac != null ? h.ac : 14} · Health: ${h.hp != null ? h.hp : 'hardy'} · Saves: ${(h.saves || []).map((s) => String(s).toUpperCase()).join(', ') || 'none'}`,

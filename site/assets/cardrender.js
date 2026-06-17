@@ -425,24 +425,36 @@
     wrap.appendChild(sel);
     return wrap;
   }
-  // POST a prompt to /api/image; resolve to a loaded <img>, or null on any failure.
-  // quality:'hq' (the default) runs the server's hidden generate->critique->redo gate
-  // so the image the user sees is the better of two passes. opts.quality:'std' opts out.
-  function fetchArt(prompt, provider, opts) {
+  // POST a prompt to /api/image; resolve to the image data URL, or null on any failure.
+  // quality:'hq' (the default) runs the server's hidden generate->critique->redo gate.
+  // opts.refImages: [dataURL|url] are identity anchors (e.g. a locked portrait) — the
+  // server conditions generation on them so the SAME character recurs across images.
+  function postImage(prompt, provider, opts) {
     opts = opts || {};
+    var body = {
+      prompt: String(prompt || '').slice(0, 1400),
+      provider: provider || imageProvider(),
+      quality: opts.quality || 'hq',
+    };
+    if (opts.refImages && opts.refImages.length) body.refImages = opts.refImages;
+    if (opts.intent) body.intent = String(opts.intent).slice(0, 1400);
     return fetch('./api/image', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        prompt: String(prompt || '').slice(0, 1400),
-        provider: provider || imageProvider(),
-        quality: opts.quality || 'hq',
-      }),
+      body: JSON.stringify(body),
     }).then(function (r) {
       if (!r.ok) throw new Error(String(r.status));
       return r.json();
     }).then(function (d) {
-      return (d && d.image) ? loadImage(d.image) : null;
+      return (d && d.image) ? d.image : null;
     }).catch(function () { return null; });
+  }
+  // Resolve to a loaded <img> (most callers), or to the raw data URL (fetchArtData,
+  // used to capture a locked portrait to reuse as a reference anchor).
+  function fetchArt(prompt, provider, opts) {
+    return postImage(prompt, provider, opts).then(function (url) { return url ? loadImage(url) : null; });
+  }
+  function fetchArtData(prompt, provider, opts) {
+    return postImage(prompt, provider, opts);
   }
 
   // A reusable "maker" bar: an optional note input + action buttons.
@@ -568,9 +580,12 @@
       // persisted prompt, no in-session image → regenerate on this explicit click
       if (v.prompt) {
         opts.show(null);
-        window.CardRender.fetchArt(v.prompt).then((img) => { if (img) { v.img = img; if (active === i) opts.show(img); } });
+        window.CardRender.fetchArt(v.prompt, undefined, { refImages: refImages() }).then((img) => { if (img) { v.img = img; if (active === i) opts.show(img); } });
       }
     }
+    // Identity anchors for every generation in this maker (e.g. a locked portrait),
+    // resolved lazily so an anchor produced after this maker mounts is still used.
+    function refImages() { return opts.getRefImages ? opts.getRefImages() : undefined; }
     function updateTakeLabel() {
       if (!take) return;
       var n = versions.filter(function (v) { return !v.isDefault; }).length;
@@ -612,7 +627,7 @@
       label: '🖼 Make image', busy: '🖼 making…', done: '🖼 Make another', fail: 'image not enabled',
       run: (note, btn, provider) => {
         const prompt = opts.buildPrompt(note);
-        return window.CardRender.fetchArt(prompt, provider).then((img) => {
+        return window.CardRender.fetchArt(prompt, provider, { refImages: refImages() }).then((img) => {
           if (!img) return false;
           versions.push({ label: summarize(note, versions.filter((v) => !v.isDefault).length + 1), prompt, img, ts: Date.now() });
           active = versions.length - 1; persist(); select(active);
@@ -640,7 +655,7 @@
     beatPrompt: beatPrompt,
     videoPrompt: videoPrompt,
     stylePrompt: STYLE_PROMPT,
-    loadImage: loadImage, fetchArt: fetchArt, providerToggle: providerToggle,
+    loadImage: loadImage, fetchArt: fetchArt, fetchArtData: fetchArtData, providerToggle: providerToggle,
     makerControls: makerControls, versionedMaker: versionedMaker, takeDisclosure: takeDisclosure,
     download: download, saveButton: saveButton, lightbox: lightbox,
   };

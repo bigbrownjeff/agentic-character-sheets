@@ -599,6 +599,17 @@ function renderStory(mount, ch, adv, beats, restored) {
   const bible = cBeat ? cBeat.bible : null;
   const beatId = cBeat ? cBeat.id : adv.id;
 
+  // Identity anchor (keyframe lock): generate the hero's portrait ONCE up front, then every
+  // beat image references it so the SAME character recurs across beats instead of being
+  // re-imagined each time. Fire-and-forget at std quality; beats that fire before it lands
+  // just generate un-anchored (graceful). getRefImages() reads it lazily.
+  let heroRef = null;
+  if (window.CardRender && window.CardRender.fetchArtData) {
+    window.CardRender.fetchArtData(forgedPortraitPrompt(ch, ''), undefined, { quality: 'std' })
+      .then((dataUrl) => { if (dataUrl) heroRef = dataUrl; })
+      .catch(() => {});
+  }
+
   const head = document.createElement('div'); head.className = 'forge-story-head';
   head.innerHTML =
     '<div class="forge-step-eyebrow">Your story · ' + esc(adv.name) + (restored ? ' · saved' : '') + '</div>' +
@@ -641,21 +652,27 @@ function renderStory(mount, ch, adv, beats, restored) {
     if (window.CardRender && window.CardRender.versionedMaker) {
       const artWrap = document.createElement('div'); artWrap.className = 'forge-beat-art';
       let imgEl = null;
+      // The current beat keyframe (data URL), shared with the video maker so a generated
+      // (identity-locked) beat image becomes the video's first frame — the full keyframe lock.
+      const art = { src: null };
       const maker = window.CardRender.versionedMaker({
         itemId: 'storyimg:' + (ch.id || slug(ch.name)) + ':' + adv.id + ':' + i,
         show: (img) => {
+          art.src = img ? img.src : null;
           if (img) {
             if (!imgEl) { imgEl = document.createElement('img'); imgEl.className = 'forge-beat-img'; imgEl.alt = beat.scene || ''; artWrap.insertBefore(imgEl, artWrap.firstChild); }
             imgEl.src = img.src;
           } else if (imgEl) { imgEl.remove(); imgEl = null; }
         },
         buildPrompt: (note) => storyBeatPrompt(beatId, bible, beat, note),
+        getRefImages: () => (heroRef ? [heroRef] : []),
         placeholder: 'Note to steer this beat’s image (optional)…',
       });
       node.appendChild(artWrap);
       node.appendChild(maker);
-      // Optional video maker for the beat (posts to ./api/video like the Adventures page).
-      node.appendChild(buildBeatVideoMaker(ch, adv, beatId, bible, beat, i));
+      // Optional video maker for the beat. Passes `art` so that if the user has made a beat
+      // image, that locked still is animated as the clip's first frame (image-to-video).
+      node.appendChild(buildBeatVideoMaker(ch, adv, beatId, bible, beat, i, art));
     }
 
     list.appendChild(node);
@@ -682,7 +699,7 @@ function renderStory(mount, ch, adv, beats, restored) {
 
 // One collapsed video maker per beat. Renders THIS DM scene as a silent 3-5s clip
 // and persists it to its own R2 key so a reload finds it (same scheme as beats.js).
-function buildBeatVideoMaker(ch, adv, beatId, bible, beat, i) {
+function buildBeatVideoMaker(ch, adv, beatId, bible, beat, i, art) {
   const take = window.CardRender.takeDisclosure
     ? window.CardRender.takeDisclosure({ label: 'Make a video of this beat' })
     : document.createElement('div');
@@ -711,9 +728,12 @@ function buildBeatVideoMaker(ch, adv, beatId, bible, beat, i) {
       tick();
     });
   }
-  // One Veo cycle (start -> poll -> persisted R2 url) at the beat's key.
+  // One Veo cycle (start -> poll -> persisted R2 url) at the beat's key. If the user has
+  // made a beat image, that locked still rides along as the FIRST FRAME (image-to-video).
   function genClip(prompt) {
-    return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: prompt, aspectRatio: '9:16', durationSeconds: 4, key: key }) })
+    const payload = { prompt: prompt, aspectRatio: '9:16', durationSeconds: 4, key: key };
+    if (art && art.src) payload.image = art.src;
+    return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
       .then((r) => r.json().then((d) => r.ok ? d : Promise.reject(d)))
       .then((d) => { if (!d.op) return Promise.reject(d); return poll(d.op, 0); });
   }
@@ -729,8 +749,13 @@ function buildBeatVideoMaker(ch, adv, beatId, bible, beat, i) {
       title: 'Render THIS beat as a silent 3-5s clip',
       run: (note) => {
         ensureEls();
-        statusEl.textContent = 'Rendering the shot…';
-        const prompt = storyVideoPrompt(beatId, bible, beat, note);
+        const hasKey = !!(art && art.src);
+        statusEl.textContent = hasKey ? 'Animating your beat image…' : 'Rendering the shot…';
+        // With a locked keyframe the prompt is motion-only (Veo animates the still); without
+        // one it falls back to the full scene prompt (text-to-video).
+        const prompt = hasKey
+          ? ('Animate this exact image into a 3-5 second cinematic shot: keep the composition, every character, and the color palette IDENTICAL; add only subtle ambient motion (living light, gentle drift) and a slow camera move.' + (note ? ' ' + note : '') + ' Add no new people or objects, no scene change, no on-screen text.')
+          : storyVideoPrompt(beatId, bible, beat, note);
         const intent = beat.scene || beat.caption || beat.title || '';
         // Pass 1, then a hidden critic decides if a single targeted redo is worth it.
         return genClip(prompt).then((url1) => {

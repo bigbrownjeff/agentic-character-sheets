@@ -149,3 +149,88 @@ button[disabled] { opacity: 0.45; cursor: not-allowed; }
   border-radius: 12px; border: 1px solid var(--ruleSoft);
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
+
+/* ============================================================
+   FORGE → STORY  (play a forged hero through an adventure)
+   ============================================================ */
+.forge-play { margin-top: 0.5rem; }
+.forge-play-btn {
+  width: 100%; background: var(--paper); color: var(--ink);
+  border: 1px solid var(--rule); font-weight: 600; font-size: 0.92rem;
+}
+.forge-play-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.forge-play-panel { margin-top: 0.8rem; }
+.forge-adv-chips { display: grid; gap: 0.5rem; margin-top: 0.5rem; }
+.forge-adv-chip {
+  background: #fff; color: var(--ink); border: 1px solid var(--ruleSoft);
+  text-align: left; font-weight: 500; padding: 0.6rem 0.8rem; border-radius: 10px;
+}
+.forge-adv-chip:hover { border-color: var(--accent); background: #fff; }
+.forge-adv-chip.active { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.forge-adv-chip b { display: block; font-family: var(--serif); font-size: 1rem; }
+.forge-adv-chip small { display: block; color: var(--muted); font-weight: 400; margin-top: 0.15rem; }
+
+/* Loading + spinner */
+.forge-story-mount { margin-top: 1rem; }
+.forge-story-busy {
+  display: flex; align-items: center; gap: 0.6rem;
+  color: var(--body); font-size: 0.95rem;
+  background: #fff; border: 1px solid var(--ruleSoft); border-radius: 10px; padding: 0.9rem 1rem;
+}
+.forge-spinner {
+  width: 1.05rem; height: 1.05rem; flex: 0 0 auto; border-radius: 50%;
+  border: 2px solid var(--ruleSoft); border-top-color: var(--accent);
+  animation: forge-spin 0.8s linear infinite;
+}
+@keyframes forge-spin { to { transform: rotate(360deg); } }
+
+/* Your Story */
+.forge-story-head { margin-bottom: 1rem; }
+.forge-story-title {
+  font-family: var(--serif); font-size: 1.3rem; line-height: 1.2;
+  color: var(--ink); margin: 0.25rem 0 0.4rem;
+}
+.forge-story-list { display: grid; gap: 1rem; }
+.forge-beat {
+  background: #fff; border: 1px solid var(--ruleSoft); border-radius: 12px;
+  padding: 1rem 1.1rem; border-left: 3px solid var(--accent);
+}
+.forge-beat-num {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem;
+}
+.forge-beat-caption {
+  font-family: var(--serif); font-size: 1.12rem; line-height: 1.3;
+  color: var(--ink); margin-bottom: 0.4rem;
+}
+.forge-beat-decision { font-size: 0.95rem; color: var(--body); margin-bottom: 0.4rem; }
+.forge-beat-scene {
+  font-size: 0.88rem; color: var(--muted); font-style: italic;
+  line-height: 1.45; margin-bottom: 0.6rem;
+}
+.forge-beat-why { margin: 0.3rem 0 0.6rem; }
+.forge-beat-why > summary {
+  cursor: pointer; list-style: none; display: inline-block;
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent);
+  border: 1px solid var(--ruleSoft); border-radius: 999px; padding: 0.25rem 0.7rem;
+}
+.forge-beat-why > summary::-webkit-details-marker { display: none; }
+.forge-beat-why[open] > summary { border-color: var(--accent); }
+.forge-beat-why-body {
+  margin-top: 0.5rem; font-size: 0.9rem; color: var(--body); line-height: 1.5;
+  background: #faf6ec; border: 1px solid var(--ruleSoft); border-radius: 8px; padding: 0.6rem 0.75rem;
+}
+.forge-beat-art { margin-top: 0.5rem; }
+.forge-beat-img, .forge-beat-video {
+  width: 100%; height: auto; display: block; border-radius: 10px;
+  border: 1px solid var(--ruleSoft); margin-bottom: 0.5rem;
+}
+
+.forge-story-compare {
+  margin-top: 1rem; padding: 0.8rem 1rem;
+  background: #faf6ec; border: 1px solid var(--ruleSoft); border-radius: 10px;
+  font-size: 0.95rem; color: var(--body);
+}
+.forge-story-compare a { color: var(--accent); font-weight: 600; }

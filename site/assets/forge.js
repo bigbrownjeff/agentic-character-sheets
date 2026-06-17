@@ -400,9 +400,331 @@ function renderForgedVariations(out, data) {
       placeholder: 'Note to steer ' + (ch.name || 'this hero') + '’s art (optional)…',
       makeSaveCanvas: () => cv,
     }));
+    // Play THIS build through an adventure (the forge-to-story flow).
+    item.appendChild(buildPlayBlock(ch));
     grid.appendChild(item);
   });
   out.appendChild(grid);
+}
+
+/* ============================================================
+   FORGE → STORY  (play a forged hero through an adventure)
+   Picks an adventure, calls the DM engine (/api/dm), and renders
+   the returned emergent beats as a personalized "Your Story" view
+   beneath the stat-card. Persisted to localStorage per hero+adventure.
+   ============================================================ */
+
+// A stable persistence key for one hero's run of one adventure.
+function storyKey(ch, advId) { return 'cs-story:' + (ch.id || slug(ch.name)) + ':' + advId; }
+
+// Lazily load the two data files the flow needs (adventures + beats), cached.
+let _advCache = null, _beatCache = null;
+async function loadAdventures() {
+  if (_advCache) return _advCache;
+  const res = await fetch('./data/adventures.json');
+  if (!res.ok) throw new Error('adventures ' + res.status);
+  const data = await res.json();
+  _advCache = (data && Array.isArray(data.adventures)) ? data.adventures : [];
+  return _advCache;
+}
+async function loadBeats() {
+  if (_beatCache) return _beatCache;
+  const res = await fetch('./data/beats.json');
+  if (!res.ok) throw new Error('beats ' + res.status);
+  const data = await res.json();
+  _beatCache = (data && Array.isArray(data.beats)) ? data.beats : [];
+  return _beatCache;
+}
+// Match an adventure to its beat by name first, then id (both are present in beats.json).
+function beatForAdventure(beats, adv) {
+  return beats.find((b) => b.adventure === adv.name) ||
+    beats.find((b) => b.id && (adv.id === b.id || adv.id.indexOf(b.id) !== -1)) || null;
+}
+
+// The collapsed "Play this hero in an adventure" control on each build card.
+function buildPlayBlock(ch) {
+  const block = document.createElement('div');
+  block.className = 'forge-play';
+  const btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'forge-play-btn';
+  btn.textContent = '▶ Play ' + (ch.name || 'this hero') + ' in an adventure';
+  const panel = document.createElement('div'); panel.className = 'forge-play-panel'; panel.hidden = true;
+  const story = document.createElement('div'); story.className = 'forge-story-mount';
+  block.appendChild(btn); block.appendChild(panel); block.appendChild(story);
+
+  let built = false;
+  btn.addEventListener('click', () => {
+    panel.hidden = !panel.hidden;
+    if (!panel.hidden && !built) { built = true; renderAdventurePicker(panel, story, ch); }
+  });
+  return block;
+}
+
+// The adventure chooser. On pick, runs (or restores) the story into `mount`.
+async function renderAdventurePicker(panel, mount, ch) {
+  panel.innerHTML = '<p class="forge-hint">Loading adventures…</p>';
+  let advs;
+  try { advs = await loadAdventures(); }
+  catch (e) {
+    panel.innerHTML = '<div class="forge-gentle">Could not load the adventure list. Reload and try again.</div>';
+    return;
+  }
+  panel.innerHTML = '';
+  const label = document.createElement('div');
+  label.className = 'forge-step-eyebrow';
+  label.textContent = 'Pick an adventure to drop ' + (ch.name || 'this hero') + ' into';
+  panel.appendChild(label);
+  const chips = document.createElement('div'); chips.className = 'forge-adv-chips';
+  advs.forEach((adv) => {
+    const chip = document.createElement('button');
+    chip.type = 'button'; chip.className = 'forge-adv-chip';
+    chip.innerHTML = '<b>' + esc(adv.name) + '</b><small>' + esc(adv.use_category || '') + '</small>';
+    chip.addEventListener('click', () => {
+      panel.querySelectorAll('.forge-adv-chip').forEach((c) => c.classList.remove('active'));
+      chip.classList.add('active');
+      playAdventure(mount, ch, adv);
+    });
+    chips.appendChild(chip);
+  });
+  panel.appendChild(chips);
+}
+
+// Run one adventure for one hero: restore from localStorage if present, else call /api/dm.
+async function playAdventure(mount, ch, adv) {
+  const key = storyKey(ch, adv.id);
+  // Restore a previously generated run so a refresh keeps it.
+  try {
+    const saved = JSON.parse(localStorage.getItem(key) || 'null');
+    if (saved && Array.isArray(saved.beats) && saved.beats.length) {
+      renderStory(mount, ch, adv, saved.beats, true);
+      return;
+    }
+  } catch (e) {}
+
+  mount.innerHTML = '';
+  const busy = document.createElement('div'); busy.className = 'forge-story-busy';
+  busy.innerHTML = '<span class="forge-spinner" aria-hidden="true"></span>' +
+    '<span>The DM is running your story through <b>' + esc(adv.name) + '</b>… this takes about 10 to 20 seconds.</span>';
+  mount.appendChild(busy);
+
+  let beats;
+  try { beats = await loadBeats(); }
+  catch (e) {
+    mount.innerHTML = '<div class="forge-gentle">Could not load the adventure beats. Reload and try again.</div>';
+    return;
+  }
+  const beat = beatForAdventure(beats, adv);
+  if (!beat || !Array.isArray(beat.cards) || !beat.cards.length) {
+    mount.innerHTML = '<div class="forge-gentle">This adventure has no beats to play yet. Try another one.</div>';
+    return;
+  }
+
+  const payload = {
+    hero: ch,
+    adventure: { title: beat.title, adventure: adv.name, bible: beat.bible, cards: beat.cards },
+  };
+  try {
+    const res = await fetch('./api/dm', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (res.status === 503) {
+      mount.innerHTML = '<div class="forge-gentle">DM generation isn’t switched on for this site yet. ' +
+        'No problem; the canonical adventure still plays at <a href="./adventures.html">Adventures</a>.</div>';
+      return;
+    }
+    if (!res.ok) throw new Error(String(res.status));
+    const data = await res.json();
+    if (!data || !Array.isArray(data.beats) || !data.beats.length) throw new Error('no beats');
+    // Persist with everything renderStory needs to redraw on reload.
+    try { localStorage.setItem(key, JSON.stringify({ beats: data.beats, beatId: beat.id, ts: Date.now() })); } catch (e) {}
+    renderStory(mount, ch, adv, data.beats, false);
+    toast('Your story is ready ✦');
+  } catch (e) {
+    mount.innerHTML = '<div class="forge-gentle">The DM couldn’t run this one just now. ' +
+      'Reload to try again, or read the canonical version at <a href="./adventures.html">Adventures</a>.</div>';
+  }
+}
+
+// Build the per-beat image/video prompt from the DM scene + the canonical bible,
+// mirroring CardRender.beatPrompt (style preamble + [WORLD]/[CAST]/[TONE] bible) but
+// keyed off the DM's emergent scene rather than the canonical card.
+function storyBeatPrompt(beatId, bible, beat, note) {
+  const pre = (window.CardRender.stylePrompt[storyStyleName(beatId)] || window.CardRender.stylePrompt.painterly);
+  const world = bibleToPrompt(bible);
+  return pre + world + (beat.scene || beat.caption || '') + (note ? ' Art-director note: ' + note : '');
+}
+function storyVideoPrompt(beatId, bible, beat, note) {
+  const pre = (window.CardRender.stylePrompt[storyStyleName(beatId)] || window.CardRender.stylePrompt.painterly);
+  return pre + bibleToPrompt(bible) +
+    'Animate this single keyframe into a 3-5 second cinematic shot in this exact art style: ' +
+    (beat.scene || beat.caption || '') +
+    ' Bring it to life with motion and a moving camera (slow push-in, parallax, drifting elements), but stay on this one scene; do NOT cut to other scenes. No on-screen text or captions.' +
+    (note ? ' Art-director note: ' + note : '');
+}
+// Map a beat id to the same default illustration style the Adventures page uses.
+function storyStyleName(beatId) {
+  const byId = { masquerade: 'gothic', 'round-table': 'feedbait', 'proving-grounds': 'telecast', forge: 'terminal', echoes: 'glitch' };
+  return byId[beatId] || 'painterly';
+}
+// Compose the style-independent world/cast/tone bible into a prompt fragment
+// (same shape CardRender.buildBible emits, kept local so forge.js stays additive).
+function bibleToPrompt(b) {
+  if (!b) return '';
+  const cast = (b.recurring_cast || []).map((c) => c.locked_descriptor + (c.mannerism ? ' (' + c.mannerism + ')' : '')).join('; ');
+  const p = [];
+  p.push('[WORLD] ' + (b.setting || '') + (b.setting_aspects && b.setting_aspects.length ? ', ' + b.setting_aspects.join(', ') : '') + (b.establishing_anchor ? '. Establishing anchor: ' + b.establishing_anchor : '') + '.');
+  if (b.recurring_motifs && b.recurring_motifs.length) p.push('[MOTIFS] recurring, show at least one: ' + b.recurring_motifs.join(', ') + '.');
+  if (cast) p.push('[CAST] keep identical across frames: ' + cast + '.');
+  if (b.bigbad_silhouette) p.push('[THREAT] antagonist silhouette: ' + b.bigbad_silhouette + '.');
+  if (b.tone && b.tone.length) p.push('[TONE] ' + b.tone.join(', ') + '.');
+  return ' ' + p.join(' ') + ' ';
+}
+
+// Render the DM's emergent beats as a vertical "Your Story" sequence.
+function renderStory(mount, ch, adv, beats, restored) {
+  mount.innerHTML = '';
+  // Resolve the canonical beat (for its bible + id) so per-beat art stays in-world.
+  const cBeat = (_beatCache && beatForAdventure(_beatCache, adv)) || null;
+  const bible = cBeat ? cBeat.bible : null;
+  const beatId = cBeat ? cBeat.id : adv.id;
+
+  const head = document.createElement('div'); head.className = 'forge-story-head';
+  head.innerHTML =
+    '<div class="forge-step-eyebrow">Your story · ' + esc(adv.name) + (restored ? ' · saved' : '') + '</div>' +
+    '<div class="forge-story-title">' + esc(ch.name || 'Your hero') + ' plays ' + esc(adv.name) + '</div>' +
+    '<p class="forge-hint">' + beats.length + ' beats, branched off ' + esc(ch.name || 'your hero') +
+      '’s stats. Their strongest ability shines; their dumped one causes the turn. ' +
+      'Reveal “why this happened” under any beat to see the DM’s hidden logic.</p>';
+  mount.appendChild(head);
+
+  const list = document.createElement('div'); list.className = 'forge-story-list';
+  beats.forEach((beat, i) => {
+    const node = document.createElement('div'); node.className = 'forge-beat';
+
+    const num = document.createElement('div'); num.className = 'forge-beat-num'; num.textContent = (i + 1) + ' / ' + beats.length;
+    node.appendChild(num);
+
+    if (beat.caption) {
+      const cap = document.createElement('div'); cap.className = 'forge-beat-caption'; cap.textContent = beat.caption;
+      node.appendChild(cap);
+    }
+    if (beat.decision) {
+      const dec = document.createElement('div'); dec.className = 'forge-beat-decision'; dec.textContent = beat.decision;
+      node.appendChild(dec);
+    }
+    if (beat.scene) {
+      const scn = document.createElement('div'); scn.className = 'forge-beat-scene'; scn.textContent = beat.scene;
+      node.appendChild(scn);
+    }
+    // "why this happened": the hidden stat-logic (dm_note), collapsed.
+    if (beat.dm_note) {
+      const why = document.createElement('details'); why.className = 'forge-beat-why';
+      const sum = document.createElement('summary'); sum.textContent = 'Why this happened';
+      sum.addEventListener('click', (e) => e.stopPropagation());
+      const body = document.createElement('div'); body.className = 'forge-beat-why-body'; body.textContent = beat.dm_note;
+      why.appendChild(sum); why.appendChild(body);
+      node.appendChild(why);
+    }
+
+    // Per-beat art maker: prompt = style + bible + the DM's emergent scene.
+    if (window.CardRender && window.CardRender.versionedMaker) {
+      const artWrap = document.createElement('div'); artWrap.className = 'forge-beat-art';
+      let imgEl = null;
+      const maker = window.CardRender.versionedMaker({
+        itemId: 'storyimg:' + (ch.id || slug(ch.name)) + ':' + adv.id + ':' + i,
+        show: (img) => {
+          if (img) {
+            if (!imgEl) { imgEl = document.createElement('img'); imgEl.className = 'forge-beat-img'; imgEl.alt = beat.scene || ''; artWrap.insertBefore(imgEl, artWrap.firstChild); }
+            imgEl.src = img.src;
+          } else if (imgEl) { imgEl.remove(); imgEl = null; }
+        },
+        buildPrompt: (note) => storyBeatPrompt(beatId, bible, beat, note),
+        placeholder: 'Note to steer this beat’s image (optional)…',
+      });
+      node.appendChild(artWrap);
+      node.appendChild(maker);
+      // Optional video maker for the beat (posts to ./api/video like the Adventures page).
+      node.appendChild(buildBeatVideoMaker(ch, adv, beatId, bible, beat, i));
+    }
+
+    list.appendChild(node);
+  });
+  mount.appendChild(list);
+
+  // The whole point: your version vs. the canonical one.
+  const compare = document.createElement('div'); compare.className = 'forge-story-compare';
+  compare.innerHTML = 'This is <b>your</b> version. Compare it to the canonical <a href="./adventures.html">' +
+    esc(adv.name) + ' →</a>';
+  mount.appendChild(compare);
+
+  // Replay / clear controls.
+  const actions = document.createElement('div'); actions.className = 'forge-actions';
+  const again = document.createElement('button'); again.type = 'button'; again.className = 'cr-save-btn ghost';
+  again.textContent = '↻ Re-run this story';
+  again.addEventListener('click', () => {
+    try { localStorage.removeItem(storyKey(ch, adv.id)); } catch (e) {}
+    playAdventure(mount, ch, adv);
+  });
+  actions.appendChild(again);
+  mount.appendChild(actions);
+}
+
+// One collapsed video maker per beat. Renders THIS DM scene as a silent 3-5s clip
+// and persists it to its own R2 key so a reload finds it (same scheme as beats.js).
+function buildBeatVideoMaker(ch, adv, beatId, bible, beat, i) {
+  const take = window.CardRender.takeDisclosure
+    ? window.CardRender.takeDisclosure({ label: 'Make a video of this beat' })
+    : document.createElement('div');
+  const body = take._body || take;
+  let videoEl = null, statusEl = null;
+  const key = 'story-' + (ch.id || slug(ch.name)) + '-' + adv.id + '-' + (i + 1);
+  function ensureEls() {
+    if (!videoEl) {
+      videoEl = document.createElement('video');
+      videoEl.className = 'forge-beat-video'; videoEl.controls = true; videoEl.playsInline = true; videoEl.loop = true; videoEl.style.display = 'none';
+      body.appendChild(videoEl);
+    }
+    if (!statusEl) { statusEl = document.createElement('p'); statusEl.className = 'beat-video-status'; body.appendChild(statusEl); }
+  }
+  function poll(op, n) {
+    return new Promise((resolve, reject) => {
+      const tick = () => {
+        fetch('./api/video?op=' + encodeURIComponent(op) + '&key=' + encodeURIComponent(key)).then((r) => r.json()).then((d) => {
+          if (d.error) return reject(d);
+          if (d.done && d.video) return resolve(d.persisted ? ((window.MEDIA_BASE || '') + '/' + d.video) : d.video);
+          if (n++ > 36) return reject({ error: 'timed out' });
+          if (statusEl) statusEl.textContent = 'Rendering clip… (' + (n * 5) + 's)';
+          setTimeout(tick, 5000);
+        }).catch(reject);
+      };
+      tick();
+    });
+  }
+  const bar = window.CardRender.makerControls({
+    placeholder: 'Note to steer this beat’s video (optional)…',
+    buttons: [{
+      label: '🎬 Make video', busy: '🎬 generating…', done: '🎬 Remake video', fail: '⚠ video failed', ghost: true,
+      title: 'Render THIS beat as a silent 3-5s clip',
+      run: (note) => {
+        ensureEls();
+        statusEl.textContent = 'Sending this beat to the video model…';
+        const prompt = storyVideoPrompt(beatId, bible, beat, note);
+        return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: prompt, aspectRatio: '9:16', durationSeconds: 4, key: key }) })
+          .then((r) => r.json().then((d) => r.ok ? d : Promise.reject(d)))
+          .then((d) => { if (!d.op) return Promise.reject(d); return poll(d.op, 0); })
+          .then((url) => { videoEl.src = url; videoEl.style.display = ''; statusEl.textContent = 'Saved to this beat ✓'; return true; })
+          .catch((err) => { statusEl.textContent = (err && err.error) ? ('Video unavailable: ' + err.error) : 'Video failed.'; return false; });
+      },
+    }],
+  });
+  body.appendChild(bar);
+  // Restore a previously rendered clip for this beat, if any.
+  ensureEls();
+  videoEl.onloadeddata = function () { videoEl.style.display = ''; };
+  videoEl.onerror = function () { videoEl.style.display = 'none'; };
+  videoEl.src = (window.MEDIA_BASE || '.') + '/videos/' + key + '.mp4';
+  return take;
 }
 
 function downloadJSON() {

@@ -426,10 +426,17 @@
     return wrap;
   }
   // POST a prompt to /api/image; resolve to a loaded <img>, or null on any failure.
-  function fetchArt(prompt, provider) {
+  // quality:'hq' (the default) runs the server's hidden generate->critique->redo gate
+  // so the image the user sees is the better of two passes. opts.quality:'std' opts out.
+  function fetchArt(prompt, provider, opts) {
+    opts = opts || {};
     return fetch('./api/image', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt: String(prompt || '').slice(0, 1400), provider: provider || imageProvider() }),
+      body: JSON.stringify({
+        prompt: String(prompt || '').slice(0, 1400),
+        provider: provider || imageProvider(),
+        quality: opts.quality || 'hq',
+      }),
     }).then(function (r) {
       if (!r.ok) throw new Error(String(r.status));
       return r.json();

@@ -6,12 +6,19 @@
  *   - "cloudflare" → Cloudflare Workers AI (flux-1-schnell). Fast/free, lower fidelity.
  *   - "auto"       → IMAGE_PROVIDER env, else Gemini if a key exists, else Cloudflare.
  *
- * Request:  { prompt: string, provider?: "auto"|"gemini"|"cloudflare" }
- * Response: { image: "data:image/...;base64,…", provider: "gemini"|"cloudflare" }
+ * Request:  { prompt: string, provider?: "auto"|"gemini"|"cloudflare", quality?: "hq"|"std", intent?: string }
+ * Response: { image: "data:image/...;base64,…", provider, passes?, score? }
+ *
+ * quality:"hq" (Gemini only) runs a HIDDEN adversarial pass: generate -> a vision
+ * critic scores it against the intent and, if it's weak, we regenerate ONCE with a
+ * targeted fix, then ship the better of the two. Two passes, one quality output —
+ * the caller never sees the reject. `intent` overrides what the critic judges
+ * against (defaults to the prompt).
  *
  * Setup (Cloudflare → Pages → your project → Settings):
  *   Gemini:     Variables and Secrets → GEMINI_API_KEY = <your key>
  *               (optional) GEMINI_IMAGE_MODEL  (default "gemini-2.5-flash-image")
+ *               (optional) CRITIC_MODEL        (default "gemini-2.5-flash")
  *   Cloudflare: Functions → Bindings → add Workers AI binding named  AI
  *               (optional) FORGE_IMAGE_MODEL   (default flux-1-schnell)
  *   (optional)  IMAGE_PROVIDER = gemini | cloudflare   (default for "auto")
@@ -24,11 +31,14 @@ interface Env {
   AI?: { run: (model: string, inputs: Record<string, unknown>) => Promise<unknown> };
   GEMINI_API_KEY?: string;
   GEMINI_IMAGE_MODEL?: string;
+  CRITIC_MODEL?: string;
   FORGE_IMAGE_MODEL?: string;
   IMAGE_PROVIDER?: string;
 }
 
 const MAX_PROMPT = 1500;
+const REDO_PROMPT_MAX = 2200; // the internal redo prompt carries the critic's fix, so it runs longer
+const CRITIC_THRESHOLD = 7;   // a generation scoring below this gets one redo
 const BLOCK = /\b(nude|naked|nsfw|sexual|porn|explicit|gore|child|minor)\b/i;
 
 function cors(): Record<string, string> {
@@ -85,16 +95,75 @@ async function viaCloudflare(prompt: string, env: Env): Promise<string> {
   throw new Error('Unexpected Workers AI output');
 }
 
+/* --- Adversarial critic (hidden quality gate) ------------ */
+interface Critique { score: number; verdict: 'keep' | 'redo'; flaws: string[]; tweak: string; }
+
+// Score a generated image against its intent with a vision model. Returns null on
+// any failure (so the gate degrades to "ship what we have", never blocks output).
+async function critique(imageDataUrl: string, intent: string, env: Env): Promise<Critique | null> {
+  const m = /^data:([^;]+);base64,(.+)$/.exec(imageDataUrl);
+  if (!m || !env.GEMINI_API_KEY) return null;
+  const model = env.CRITIC_MODEL || 'gemini-2.5-flash';
+  const sys = [
+    'You are a ruthless art director reviewing an AI-generated illustration before it ships.',
+    'Judge it ONLY against the stated INTENT. Score 1-10 on, in order of weight:',
+    '1) does it depict the intended scene/subject; 2) anatomy — hands, fingers, faces, eyes, limb counts;',
+    '3) composition and focal clarity; 4) NO garbled text, watermarks, logos, or artifacts; 5) tonal fit.',
+    'Be harsh. 7+ is genuinely shippable; 9-10 is rare. Any real flaw => verdict "redo".',
+    'Output ONLY JSON: {"score":<int 1-10>,"verdict":"keep"|"redo","flaws":["short specifics"],',
+    '"tweak":"<one concrete prompt addition that fixes the biggest flaw, e.g. \'render the left hand with exactly five fingers; remove the floating text\'>"}',
+  ].join('\n');
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${env.GEMINI_API_KEY}`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: sys }] },
+        contents: [{ parts: [{ text: 'INTENT: ' + intent }, { inlineData: { mimeType: m[1], data: m[2] } }] }],
+        generationConfig: { temperature: 0.2, responseMimeType: 'application/json' },
+      }),
+    });
+    if (!res.ok) return null;
+    const d = await res.json() as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
+    const text = (d.candidates?.[0]?.content?.parts || []).map((p) => p.text || '').join('').trim();
+    const mm = text.match(/\{[\s\S]*\}/);
+    if (!mm) return null;
+    const c = JSON.parse(mm[0]) as Partial<Critique>;
+    if (typeof c.score !== 'number') return null;
+    const flaws = Array.isArray(c.flaws) ? c.flaws.map(String) : [];
+    return {
+      score: c.score,
+      verdict: (c.verdict === 'redo' || c.score < CRITIC_THRESHOLD) ? 'redo' : 'keep',
+      flaws,
+      tweak: String(c.tweak || ''),
+    };
+  } catch { return null; }
+}
+
+// HQ generate: gen -> critique -> (one targeted redo if weak) -> ship the higher score.
+// Always at most two generations. Hidden from the caller except for {passes, score}.
+async function generateBestGemini(prompt: string, intent: string, env: Env): Promise<{ image: string; passes: number; score: number | null }> {
+  const first = await viaGemini(prompt, env);
+  const c1 = await critique(first, intent, env);
+  if (!c1 || c1.verdict === 'keep') return { image: first, passes: 1, score: c1 ? c1.score : null };
+  const fix = (c1.tweak ? ' ' + c1.tweak : '') + (c1.flaws.length ? ' Avoid: ' + c1.flaws.slice(0, 3).join('; ') + '.' : '');
+  const second = await viaGemini((prompt + fix).slice(0, REDO_PROMPT_MAX), env);
+  const c2 = await critique(second, intent, env);
+  const keepSecond = !c2 || c2.score >= c1.score;
+  return { image: keepSecond ? second : first, passes: 2, score: keepSecond ? (c2 ? c2.score : null) : c1.score };
+}
+
 export async function onRequest(context: { request: Request; env: Env }): Promise<Response> {
   const { request, env } = context;
   if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors() });
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
 
-  let prompt = '', provider = 'auto';
+  let prompt = '', provider = 'auto', quality = 'std', intent = '';
   try {
-    const body = await request.json() as { prompt?: string; provider?: string };
+    const body = await request.json() as { prompt?: string; provider?: string; quality?: string; intent?: string };
     prompt = String(body.prompt || '').slice(0, MAX_PROMPT).trim();
     provider = String(body.provider || 'auto').toLowerCase();
+    quality = String(body.quality || 'std').toLowerCase();
+    intent = String(body.intent || '').slice(0, MAX_PROMPT).trim();
   } catch {
     return json({ error: 'Invalid JSON body' }, 400);
   }
@@ -118,7 +187,11 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
 
   try {
     if (provider === 'gemini') {
-      return json({ image: await viaGemini(prompt, env), provider: 'gemini' });
+      if (quality === 'hq') {
+        const r = await generateBestGemini(prompt, intent || prompt, env);
+        return json({ image: r.image, provider: 'gemini', passes: r.passes, score: r.score });
+      }
+      return json({ image: await viaGemini(prompt, env), provider: 'gemini', passes: 1 });
     }
     return json({ image: await viaCloudflare(prompt, env), provider: 'cloudflare' });
   } catch (e) {

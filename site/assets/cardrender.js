@@ -461,6 +461,33 @@
     return postImage(prompt, provider, opts);
   }
 
+  // UX concurrency cap. Generations are slow and costly, so at most CAP run at once
+  // across the whole page; while at the cap, every other Make button greys out so a
+  // user can't pile a stack of jobs onto the queue (or double-fire one). Every maker
+  // button registers here; auto-illustrate counts too (see forge.js). CAP=1 by default
+  // → strictly one generation at a time, which is what "grey out if one's in progress"
+  // means; setCap() can loosen it.
+  var GenGate = (function () {
+    var active = 0, cap = 1, btns = [];
+    function refresh() {
+      var blocked = active >= cap;
+      for (var i = 0; i < btns.length; i++) {
+        var b = btns[i];
+        if (b._running) continue;        // the running button manages its own busy label
+        b.disabled = blocked;
+        if (b.classList) b.classList.toggle('cr-gated', blocked);
+      }
+    }
+    return {
+      register: function (btn) { if (btns.indexOf(btn) < 0) btns.push(btn); refresh(); },
+      gated: function () { return active >= cap; },
+      begin: function (btn) { active++; if (btn) btn._running = true; refresh(); },
+      end: function (btn) { active = Math.max(0, active - 1); if (btn) btn._running = false; refresh(); },
+      setCap: function (n) { cap = Math.max(1, n | 0); refresh(); },
+      active: function () { return active; },
+    };
+  })();
+
   // A reusable "maker" bar: an optional note input + action buttons.
   // The note text is passed to each button's run(note) so the user can steer
   // the NEXT image/video before it generates. Nothing auto-fires.
@@ -500,17 +527,20 @@
       btn.className = 'cr-save-btn' + (b.ghost ? ' ghost' : '');
       btn.textContent = b.label;
       if (b.title) btn.title = b.title;
+      GenGate.register(btn);
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
+        if (btn.disabled || btn._running || GenGate.gated()) return; // gated or already running
         var note = noteEl ? noteEl.value.trim() : '';
         var provider = engineSelect ? engineSelect.value : undefined;
         var orig = b.label;
+        GenGate.begin(btn);            // greys every other make button while this runs
         btn.disabled = true;
         btn.textContent = b.busy || '…working…';
         Promise.resolve(b.run(note, btn, provider)).then(function (ok) {
-          btn.disabled = false;
           btn.textContent = (ok === false) ? (b.fail || orig) : (b.done || orig);
-        }).catch(function () { btn.disabled = false; btn.textContent = b.fail || orig; });
+        }).catch(function () { btn.textContent = b.fail || orig; })
+          .then(function () { GenGate.end(btn); }); // re-enables the others (or stays gated if another is running)
       });
       row.appendChild(btn);
     });
@@ -660,7 +690,7 @@
     videoPrompt: videoPrompt,
     stylePrompt: STYLE_PROMPT,
     loadImage: loadImage, fetchArt: fetchArt, fetchArtData: fetchArtData, providerToggle: providerToggle,
-    makerControls: makerControls, versionedMaker: versionedMaker, takeDisclosure: takeDisclosure,
+    makerControls: makerControls, versionedMaker: versionedMaker, takeDisclosure: takeDisclosure, GenGate: GenGate,
     download: download, saveButton: saveButton, lightbox: lightbox,
   };
 })();

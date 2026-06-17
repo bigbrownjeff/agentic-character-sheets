@@ -519,14 +519,21 @@ function buildPlayBlock(ch) {
   const btn = document.createElement('button');
   btn.type = 'button'; btn.className = 'forge-play-btn';
   btn.textContent = '▶ Play ' + (ch.name || 'this hero') + ' in an adventure';
+  // The ornate sheet lives in its OWN sibling mount above the picker, so the picker's
+  // panel.innerHTML rewrite never wipes it. Crafted once on first open (the `built` guard).
+  const sheetMount = document.createElement('div'); sheetMount.className = 'forge-ornate-mount';
   const panel = document.createElement('div'); panel.className = 'forge-play-panel'; panel.hidden = true;
   const story = document.createElement('div'); story.className = 'forge-story-mount';
-  block.appendChild(btn); block.appendChild(panel); block.appendChild(story);
+  block.appendChild(btn); block.appendChild(sheetMount); block.appendChild(panel); block.appendChild(story);
 
   let built = false;
   btn.addEventListener('click', () => {
     panel.hidden = !panel.hidden;
-    if (!panel.hidden && !built) { built = true; renderAdventurePicker(panel, story, ch); }
+    if (!panel.hidden && !built) {
+      built = true;
+      craftOrnateSheet(sheetMount, ch); // full ornate /api/sheet card, above the picker
+      renderAdventurePicker(panel, story, ch);
+    }
   });
   return block;
 }

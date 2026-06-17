@@ -13,7 +13,8 @@
  *
  * Setup (Cloudflare → Pages → Settings → Variables and Secrets):
  *   GEMINI_API_KEY  = <your key>                  (same key as image gen)
- *   VEO_MODEL       = veo-3.1-generate-preview     (default; Veo 3.1)
+ *   VEO_MODEL       = veo-3.1-fast-generate-preview  (default; cheap+fast, own quota). Tiers:
+ *                     veo-3.1-lite-generate-preview (cheapest/draft) · veo-3.1-generate-preview (hero/final).
  *   VEO_DURATION    = 5                            (optional; seconds per cell, clamped 3–8)
  *   VEO_PERSON_GENERATION = allow_all              (optional; default; 'dont_allow' or 'omit')
  *
@@ -68,7 +69,7 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
   if (!env.GEMINI_API_KEY) return json({ error: 'Video not enabled. Set GEMINI_API_KEY.' }, 503);
 
   const key = env.GEMINI_API_KEY;
-  const model = env.VEO_MODEL || 'veo-3.1-generate-preview';
+  const model = env.VEO_MODEL || 'veo-3.1-fast-generate-preview';
   const url = new URL(request.url);
 
   try {

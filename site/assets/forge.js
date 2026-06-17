@@ -862,9 +862,20 @@ function initHamburger() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   initHamburger();
-  const hero = decodePlay(new URLSearchParams(location.search).get('play'));
+  const param = new URLSearchParams(location.search).get('play');
+  let hero = decodePlay(param);
+  // Short alias: ?play=bridie -> look up a named hero in data/heroes.json. Keeps the
+  // shareable link tiny and unbreakable (the base64 form is ~850 chars and gets
+  // truncated in SMS/iMessage, which silently drops back to the intake form).
+  if (!hero && param && param.length <= 40 && /^[a-z0-9_-]+$/i.test(param)) {
+    try {
+      const res = await fetch('./data/heroes.json');
+      const d = await res.json(); // throws on the HTML 404-fallback -> caught below
+      hero = (d && d[param.toLowerCase()]) || null;
+    } catch (e) { /* no such named hero -> fall through to the intake form */ }
+  }
   if (hero && window.CardRender) { renderPlayView(hero); return; }
   render();
 });

@@ -1,0 +1,31 @@
+{
+  "bridie": {
+    "name": "Bridie",
+    "title": "The Hearth Keeper",
+    "class": "Cleric",
+    "subclass": "Life Domain",
+    "alignment": "Neutral Good",
+    "role": "party",
+    "abilities": {
+      "str": 8,
+      "dex": 12,
+      "con": 14,
+      "int": 10,
+      "wis": 18,
+      "cha": 13
+    },
+    "saves": [
+      "wis",
+      "con"
+    ],
+    "feature": "Disciple of Life: Your healing spells are more potent, always bringing comfort and courage.",
+    "tagline": "The oven always gets hot, but so do I when my family needs me to show up.",
+    "log": [
+      {
+        "v": "Steadfast Courage",
+        "change": "Acted despite the 'Whispers of Doubt' that often clouded her judgment under pressure.",
+        "why": "To be the beacon of hope and healing her loved ones desperately needed in a dark moment."
+      }
+    ]
+  }
+}

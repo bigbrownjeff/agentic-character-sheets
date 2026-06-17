@@ -700,6 +700,9 @@ function renderStory(mount, ch, adv, beats, restored) {
   });
   mount.appendChild(list);
 
+  // "Finish this story -> video": stitch the per-beat clips into one polished moment (CI render).
+  mount.appendChild(buildFinishMoment(ch, adv, beats, beatId, bible));
+
   // The whole point: your version vs. the canonical one.
   const compare = document.createElement('div'); compare.className = 'forge-story-compare';
   compare.innerHTML = 'This is <b>your</b> version. Compare it to the canonical <a href="./adventures.html">' +
@@ -716,6 +719,75 @@ function renderStory(mount, ch, adv, beats, restored) {
   });
   actions.appendChild(again);
   mount.appendChild(actions);
+}
+
+// Map an adventure to a fitting music genre for its finished moment.
+function storyGenre(beatId) {
+  const m = { masquerade: 'noir', 'round-table': 'americana', 'proving-grounds': 'trailer', forge: 'synthwave', echoes: 'synthwave', 'orange-menace': 'trailer' };
+  return m[beatId] || 'orchestral';
+}
+
+// "Finish this story -> video": gate on every beat having a clip (so the moment isn't gappy),
+// then POST /api/render (kicks the CI stitcher) and poll R2 for the finished, narrated, scored clip.
+function buildFinishMoment(ch, adv, beats, beatId, bible) {
+  const wrap = document.createElement('div'); wrap.className = 'forge-finish';
+  const heroId = ch.id || slug(ch.name);
+  const outKey = 'videos/story-' + heroId + '-' + adv.id + '-FULL.mp4';
+  const clipKeys = beats.map((b, i) => 'videos/story-' + heroId + '-' + adv.id + '-' + (i + 1) + '.mp4');
+  const title = (ch.name || 'Your hero') + ' · ' + adv.name;
+  const tone = (bible && Array.isArray(bible.tone) && bible.tone.join(', ')) || 'cinematic';
+  const genre = storyGenre(beatId);
+
+  const head = document.createElement('div'); head.className = 'forge-finish-head';
+  head.innerHTML = '<b>Finish this story → video</b> <span>one polished clip: your beats, narrated and scored.</span>';
+  const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'cr-save-btn forge-finish-btn'; btn.textContent = '🎬 Finish this story → video';
+  const status = document.createElement('div'); status.className = 'forge-finish-status';
+  const player = document.createElement('div'); player.className = 'forge-finish-player';
+  wrap.appendChild(head); wrap.appendChild(btn); wrap.appendChild(status); wrap.appendChild(player);
+
+  function showVideo(url) {
+    const v = document.createElement('video'); v.className = 'forge-moment-video'; v.controls = true; v.playsInline = true;
+    v.src = url; player.innerHTML = ''; player.appendChild(v);
+  }
+  // Restore an already-finished moment if one exists in R2.
+  (function restore() {
+    const probe = document.createElement('video');
+    probe.onloadeddata = function () { showVideo(probe.src); btn.textContent = '🎬 Re-finish'; if (!status.textContent) status.textContent = 'Your finished moment:'; };
+    probe.src = (window.MEDIA_BASE || '.') + '/' + outKey;
+  })();
+
+  btn.addEventListener('click', async () => {
+    btn.disabled = true; player.innerHTML = ''; status.textContent = 'Checking your beats…';
+    let have;
+    try { have = await Promise.all(clipKeys.map((k) => fetch('./api/render?key=' + encodeURIComponent(k)).then((r) => r.json()).then((d) => !!d.ready).catch(() => false))); }
+    catch (e) { status.textContent = 'Could not check your beats. Reload and retry.'; btn.disabled = false; return; }
+    const missing = []; have.forEach((ok, i) => { if (!ok) missing.push(i + 1); });
+    if (missing.length) {
+      status.innerHTML = 'Make a video for beat' + (missing.length > 1 ? 's ' : ' ') + missing.join(', ') +
+        ' first — open “Make a video of this beat” under each, then finish. (The look stays consistent across beats unless you steer one with a note.)';
+      btn.disabled = false; return;
+    }
+    status.textContent = 'Sending to the renderer…';
+    const payload = { outKey, title, tone, genre, clipKeys, beats: beats.map((b) => ({ caption: b.caption || '', scene: b.scene || '' })) };
+    let started;
+    try { started = await fetch('./api/render', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).then((r) => r.json()); }
+    catch (e) { status.textContent = 'Could not start the render.'; btn.disabled = false; return; }
+    if (!started || started.error) {
+      status.textContent = (started && /not enabled/.test(started.error || '')) ? 'The finished-video renderer isn’t switched on for this site yet.' : ('Render error: ' + ((started && started.error) || 'unknown'));
+      btn.disabled = false; return;
+    }
+    status.textContent = 'Rendering your moment… ~1 to 2 minutes (it saves to this page).';
+    let tries = 0;
+    const poll = () => {
+      fetch('./api/render?key=' + encodeURIComponent(outKey) + '&t=' + Date.now()).then((r) => r.json()).then((d) => {
+        if (d.ready && d.url) { showVideo(d.url + '?t=' + Date.now()); status.textContent = 'Done ✓ your finished moment:'; btn.textContent = '🎬 Re-finish'; btn.disabled = false; return; }
+        if (tries++ > 30) { status.textContent = 'Still rendering — check back shortly; it saves here when done.'; btn.disabled = false; return; }
+        setTimeout(poll, 5000);
+      }).catch(() => { if (tries++ <= 30) setTimeout(poll, 5000); else { btn.disabled = false; } });
+    };
+    setTimeout(poll, 35000); // the stitch takes ~30s; wait past it so we don't catch a stale FULL
+  });
+  return wrap;
 }
 
 // One collapsed video maker per beat. Renders THIS DM scene as a silent 3-5s clip

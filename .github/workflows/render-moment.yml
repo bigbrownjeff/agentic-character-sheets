@@ -37,6 +37,7 @@ jobs:
           RENDER_PAYLOAD: /tmp/payload.json
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # Upload via the authed Function (R2 binding) — the deploy token lacks R2 scope.
+          RENDER_UPLOAD_URL: https://character-sheet.jeffpinto.com/api/r2-put
+          RENDER_UPLOAD_TOKEN: ${{ secrets.RENDER_UPLOAD_TOKEN }}
         run: node scripts/render-moment.mjs

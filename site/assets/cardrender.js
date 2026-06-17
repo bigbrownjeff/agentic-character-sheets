@@ -473,7 +473,7 @@
   // → strictly one generation at a time, which is what "grey out if one's in progress"
   // means; setCap() can loosen it.
   var GenGate = (function () {
-    var active = 0, cap = 1, btns = [];
+    var active = 0, cap = 1, btns = [], subs = [];
     function refresh() {
       var blocked = active >= cap;
       for (var i = 0; i < btns.length; i++) {
@@ -482,6 +482,7 @@
         b.disabled = blocked;
         if (b.classList) b.classList.toggle('cr-gated', blocked);
       }
+      for (var j = 0; j < subs.length; j++) { try { subs[j](active); } catch (e) {} } // notify the WIP rail
     }
     return {
       register: function (btn) { if (btns.indexOf(btn) < 0) btns.push(btn); refresh(); },
@@ -490,6 +491,7 @@
       end: function (btn) { active = Math.max(0, active - 1); if (btn) btn._running = false; refresh(); },
       setCap: function (n) { cap = Math.max(1, n | 0); refresh(); },
       active: function () { return active; },
+      onChange: function (fn) { if (typeof fn === 'function') subs.push(fn); },
     };
   })();
 

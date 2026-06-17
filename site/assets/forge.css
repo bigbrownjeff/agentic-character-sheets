@@ -3,6 +3,34 @@
    Reuses the site design tokens (styles.css). Editorial, warm.
    ============================================================ */
 
+/* WIP project rail — floating outline of hero -> story -> beats + live status. */
+.wip-rail {
+  position: fixed; top: 88px; right: 16px; width: 214px; max-height: 74vh;
+  display: flex; flex-direction: column; z-index: 40;
+  background: var(--paper, #fff); border: 1px solid var(--ruleSoft, #C9C3B4); border-radius: 4px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.10); font-family: var(--sans, sans-serif);
+}
+.wip-rail.collapsed { width: auto; }
+.wip-rail.collapsed .wip-status, .wip-rail.collapsed .wip-list, .wip-rail.collapsed .wip-title { display: none; }
+.wip-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 10px; border-bottom: 1px solid var(--ruleSoft, #C9C3B4); }
+.wip-rail.collapsed .wip-head { border-bottom: 0; }
+.wip-title { font-family: var(--mono, monospace); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted, #6B6B6B); }
+.wip-tog { border: 0; background: transparent; cursor: pointer; font-size: 15px; line-height: 1; color: var(--muted, #6B6B6B); padding: 0 2px; }
+.wip-tog:hover { color: var(--ink, #0E1116); }
+.wip-status { padding: 6px 10px; font-family: var(--mono, monospace); font-size: 11px; color: var(--accent, #C84B31); border-bottom: 1px solid var(--ruleSoft, #C9C3B4); }
+.wip-list { overflow-y: auto; padding: 4px 6px 8px; }
+.wip-sect-label { font-family: var(--mono, monospace); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted, #6B6B6B); margin: 9px 4px 3px; }
+.wip-link { display: block; width: 100%; text-align: left; border: 0; background: transparent; cursor: pointer; font-size: 12.5px; color: var(--ink, #0E1116); padding: 3px 4px; border-radius: 2px; }
+.wip-link:hover { background: rgba(0, 0, 0, 0.05); color: var(--accent, #C84B31); }
+.wip-adv { font-weight: 600; }
+.wip-finish { color: var(--accent, #C84B31); font-weight: 600; }
+.wip-beat { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+.wip-beat .wip-link { width: auto; flex: 1; }
+.wip-badges { display: inline-flex; gap: 1px; padding-right: 4px; }
+.wip-badge { font-size: 11px; opacity: 0.22; filter: grayscale(1); }
+.wip-badge.on { opacity: 1; filter: none; }
+@media (max-width: 1100px) { .wip-rail { display: none !important; } }
+
 .forge-wrap { padding-bottom: 5rem; }
 
 .forge-lede {

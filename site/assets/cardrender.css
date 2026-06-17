@@ -1,5 +1,5 @@
 /* ============================================================
-   CARDRENDER — UI for save buttons, previews, in-card canvases
+   CARDRENDER · UI for save buttons, previews, in-card canvases
    ============================================================ */
 
 .cr-save-btn {
@@ -47,7 +47,7 @@ canvas.card-sheet-img, canvas.adv-cover-img, canvas.cr-incard {
 .cr-maker { margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.4rem; }
 .cr-maker .cr-actions { margin-top: 0; }
 
-/* "Add your take" disclosure — collapses the maker behind one quiet summary */
+/* "Add your take" disclosure: collapses the maker behind one quiet summary */
 .cr-take { margin-top: 0.7rem; }
 .cr-take-summary {
   list-style: none; cursor: pointer; user-select: none;
@@ -81,6 +81,50 @@ canvas.card-sheet-img, canvas.adv-cover-img, canvas.cr-incard {
   font-family: var(--mono, monospace); font-size: 10px; cursor: pointer;
   border: 1px solid var(--accent, #C84B31); color: var(--accent, #C84B31); border-radius: 2px; padding: 2px 6px;
 }
+
+/* "More options": a second collapsed layer under the attach row (doc attach,
+   output type, aspect ratio, voice picker). Mirrors the .cr-take disclosure. */
+.cr-more { margin-bottom: 8px; }
+.cr-more-summary {
+  list-style: none; cursor: pointer; user-select: none;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--mono, monospace); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted, #6B6B6B);
+  padding: 0.3rem 0;
+}
+.cr-more-summary::-webkit-details-marker { display: none; }
+.cr-more-summary:hover { color: var(--ink, #0E1116); }
+.cr-more-caret { display: inline-block; width: 0.8em; text-align: center; color: var(--ruleSoft, #C9C3B4); }
+.cr-more-caret::before { content: '+'; }
+.cr-more[open] .cr-more-caret::before { content: '\2013'; }
+.cr-more[open] .cr-more-summary { color: var(--ink, #0E1116); }
+.cr-more-body {
+  display: flex; flex-direction: column; gap: 0.5rem;
+  padding: 0.45rem 0 0.2rem 0.6rem; border-left: 2px solid var(--ruleSoft, #C9C3B4); margin-top: 0.1rem;
+}
+.cr-more-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.cr-more-label {
+  font-family: var(--mono, monospace); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted, #6B6B6B);
+}
+.cr-radio {
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  font-family: var(--sans, sans-serif); font-size: 0.78rem; color: var(--ink, #0E1116); cursor: pointer;
+}
+.cr-radio input { cursor: pointer; margin: 0; }
+.cr-more-select {
+  font-family: var(--mono, monospace); font-size: 10px; letter-spacing: 0.04em;
+  padding: 0.4rem 0.5rem; border-radius: 2px; border: 1px solid var(--ruleSoft, #C9C3B4);
+  background: var(--paper, #fff); color: var(--ink, #0E1116); cursor: pointer;
+}
+.cr-more-select:hover:not(:disabled) { border-color: var(--ink, #0E1116); }
+.cr-more-select:disabled { opacity: 0.5; cursor: default; }
+.cr-voice-preview {
+  font-family: var(--mono, monospace); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent, #C84B31); text-decoration: none;
+}
+.cr-voice-preview:hover { text-decoration: underline; }
+
 .cr-note {
   width: 100%; font-family: var(--sans, sans-serif); font-size: 0.82rem;
   padding: 0.45rem 0.6rem; border-radius: 2px;
@@ -107,7 +151,7 @@ canvas.card-sheet-img, canvas.adv-cover-img, canvas.cr-incard {
 }
 .cr-pill-del:hover { color: var(--accent, #C84B31); }
 
-/* art-engine picker — calm, scoped to each "Add your take" maker */
+/* art-engine picker · calm, scoped to each "Add your take" maker */
 .cr-provider {
   font-family: var(--mono, monospace); font-size: 9px; font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase;

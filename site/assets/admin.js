@@ -37,6 +37,7 @@
 
   /* ---- type metadata: label + group (drives the colour tick + filters) - */
   var TYPE_GROUP = {
+    'session':        'session',
     'page':           'page',
     'character-text': 'text',
     'beat-text':      'text',
@@ -47,7 +48,7 @@
     'moment':         'media'
   };
   // Order the filter pills appear in.
-  var TYPE_ORDER = ['page', 'character-text', 'beat-text', 'sheet', 'cover', 'beat-image', 'clip', 'moment'];
+  var TYPE_ORDER = ['session', 'page', 'character-text', 'beat-text', 'sheet', 'cover', 'beat-image', 'clip', 'moment'];
 
   /* ---- helpers --------------------------------------------------------- */
   function el(tag, cls, text) {
@@ -198,6 +199,24 @@
     });
   }
 
+  // Forge story sessions persisted to R2 (GET ./api/session -> { sessions:[...] }).
+  // Each opens the saved story in the Forge via ?session=<id>.
+  function rowsFromSessions(data) {
+    return (data.sessions || []).map(function (s) {
+      var title = s.title || s.id;
+      return {
+        type: 'session',
+        name: title,
+        key: s.id,
+        size: null,
+        updated: s.updated,
+        search: (s.id + ' ' + title).toLowerCase(),
+        previewKind: 'session',
+        href: './forge.html?session=' + encodeURIComponent(s.id)
+      };
+    });
+  }
+
   /* ---- state ----------------------------------------------------------- */
   var ALL = [];          // every row
   var BASE = null;       // media base URL
@@ -249,6 +268,11 @@
     var box = el('div', 'preview-box');
     if (row.previewKind === 'media') buildMediaPreview(box, row, BASE);
     else if (row.previewKind === 'text') buildTextPreview(box, row);
+    else if (row.previewKind === 'session') {
+      box.appendChild(el('p', 'preview-meta', 'Forge session: ' + row.key +
+        (row.updated ? '  ·  updated ' + row.updated.slice(0, 10) : '')));
+      box.appendChild(openLink(row.href, 'Open session ↗'));
+    }
     else if (row.previewKind === 'page') {
       box.appendChild(el('p', 'preview-meta', 'Static page: ' + row.key));
       box.appendChild(openLink(row.href, 'Open page ↗'));
@@ -392,11 +416,12 @@
       .catch(function (e) { mediaErr = e.message; return []; });
     var charsP = fetchJSON('./data/characters.json').then(rowsFromCharacters).catch(function () { return []; });
     var beatsP = fetchJSON('./data/beats.json').then(rowsFromBeats).catch(function () { return []; });
+    var sessionsP = fetchJSON('./api/session').then(rowsFromSessions).catch(function () { return []; });
     var pagesRows = rowsFromPages();
 
-    Promise.all([baseP, mediaP, charsP, beatsP]).then(function (res) {
+    Promise.all([baseP, mediaP, charsP, beatsP, sessionsP]).then(function (res) {
       BASE = res[0];
-      ALL = pagesRows.concat(res[1], res[2], res[3]);
+      ALL = pagesRows.concat(res[1], res[2], res[3], res[4]);
       buildFilters();
       render();
       if (mediaErr) {

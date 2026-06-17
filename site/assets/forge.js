@@ -432,6 +432,26 @@ function autoIllustrate(item, ch, show, onPortrait) {
 // A stable persistence key for one hero's run of one adventure.
 function storyKey(ch, advId) { return 'cs-story:' + (ch.id || slug(ch.name)) + ':' + advId; }
 
+// Server-side session id: same stable shape as storyKey, but sanitized for an R2
+// path + a shareable URL. Identical (hero, adventure) overwrites the same session.
+function sessionId(ch, adv) { return slug(ch.name) + '-' + adv.id; }
+
+// Fire-and-forget: persist this run server-side so it's shareable + listable in /admin.
+// localStorage still holds the per-device copy; this never blocks the UI and swallows
+// every error (the feature is purely additive; a forge with no backend still works).
+function saveSession(ch, adv, beats) {
+  try {
+    fetch('./api/session', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: sessionId(ch, adv),
+        title: (ch.name || 'Your hero') + ' · ' + (adv.name || 'an adventure'),
+        hero: ch, adventure: adv, beats: beats,
+      }),
+    }).catch(() => {});
+  } catch (e) { /* never let persistence break the story view */ }
+}
+
 // Lazily load the two data files the flow needs (adventures + beats), cached.
 let _advCache = null, _beatCache = null;
 async function loadAdventures() {
@@ -599,6 +619,9 @@ function bibleToPrompt(b) {
 // Render the DM's emergent beats as a vertical "Your Story" sequence.
 function renderStory(mount, ch, adv, beats, restored) {
   mount.innerHTML = '';
+  // Persist this run server-side (shareable + listable in /admin). Fire-and-forget;
+  // a story is on screen the moment we render, regardless of whether the POST lands.
+  saveSession(ch, adv, beats);
   // Resolve the canonical beat (for its bible + id) so per-beat art stays in-world.
   const cBeat = (_beatCache && beatForAdventure(_beatCache, adv)) || null;
   const bible = cBeat ? cBeat.bible : null;
@@ -977,6 +1000,58 @@ function renderPlayView(v) {
 }
 
 /* ============================================================
+   DEEP LINK: jump straight into a saved/shared session
+   forge.html?session=<id> fetches the stored { hero, adventure, beats } from
+   /api/session and re-renders that exact story WITHOUT re-calling the DM (the
+   beats are already decided; replaying them through the model would change them).
+   Reuses renderStory; the only extra work is loading beats.json first so the
+   per-beat art keeps the canonical bible / style in-world.
+   ============================================================ */
+// Render a loaded session ({ hero, adventure, beats }) as a "Your story" view.
+// `restored=true` so the head reads "· saved", matching a localStorage restore.
+async function renderSessionStory(sess) {
+  const ch = sess.hero;
+  const adv = sess.adventure;
+  const beats = sess.beats;
+  // Populate _beatCache so renderStory resolves the canonical bible + beat id; it
+  // degrades gracefully to adv.id if the load fails, so don't block the story on it.
+  try { await loadBeats(); } catch (e) { /* art falls back to un-bibled prompts */ }
+
+  app.innerHTML = '';
+  const wrap = document.createElement('div');
+  wrap.className = 'forge-card';
+  const eyebrow = document.createElement('div');
+  eyebrow.className = 'forge-step-eyebrow';
+  eyebrow.textContent = 'A shared session ✦';
+  wrap.appendChild(eyebrow);
+  const h = document.createElement('div');
+  h.className = 'forge-q';
+  h.textContent = (ch.name || 'A hero') + ' plays ' + (adv.name || 'an adventure');
+  wrap.appendChild(h);
+
+  // The hero's stat-card up top, portrait auto-loading (mirrors renderPlayView).
+  if (window.CardRender) {
+    const item = document.createElement('div');
+    item.className = 'forge-card-item';
+    item.dataset.hero = (ch.name || 'A hero') + (ch['class'] ? ' · ' + ch['class'] : ''); // WIP-rail label
+    let cv = window.CardRender.characterCanvas(ch);
+    cv.className = 'forge-card-img';
+    item.appendChild(cv);
+    const show = (img) => { const n = window.CardRender.characterCanvas(ch, img || null); n.className = 'forge-card-img'; cv.replaceWith(n); cv = n; };
+    wrap.appendChild(item);
+    autoIllustrate(item, ch, show); // load the saved portrait from R2, not a placeholder
+  }
+
+  const story = document.createElement('div');
+  story.className = 'forge-story-mount';
+  wrap.appendChild(story);
+  app.appendChild(wrap);
+  // Render the saved beats directly. `restored=true`; renderStory also re-saves the
+  // session (idempotent; same stable id), so a viewed share stays fresh in /admin.
+  renderStory(story, ch, adv, beats, true);
+}
+
+/* ============================================================
    WIP RAIL — a floating, collapsible project outline for the forge/story page.
    Lists the hero(es) -> story -> beats with jump links + which media each has,
    plus a live "generating…" status, so you can edit anywhere, watch work grow,
@@ -1081,7 +1156,23 @@ function initHamburger() {
 document.addEventListener('DOMContentLoaded', async () => {
   initHamburger();
   if (window.CardRender) WipRail.watch(); // floating project outline; self-hides until there's content
-  const param = new URLSearchParams(location.search).get('play');
+  const qs = new URLSearchParams(location.search);
+  // ?session=<id>: jump straight into a saved/shared story. Most specific intent,
+  // so it wins over ?play / the localStorage restore. A failed fetch (stale or deleted
+  // link) falls through to the normal flow rather than dead-ending the page.
+  const sessionParam = qs.get('session');
+  if (sessionParam && window.CardRender) {
+    try {
+      const res = await fetch('./api/session?id=' + encodeURIComponent(sessionParam));
+      if (res.ok) {
+        const sess = await res.json();
+        if (sess && sess.hero && sess.adventure && Array.isArray(sess.beats) && sess.beats.length) {
+          renderSessionStory(sess); return;
+        }
+      }
+    } catch (e) { /* no such session / backend off -> fall through to the intake form */ }
+  }
+  const param = qs.get('play');
   let hero = decodePlay(param);
   // Short alias: ?play=bridie -> look up a named hero in data/heroes.json. Keeps the
   // shareable link tiny and unbreakable (the base64 form is ~850 chars and gets
@@ -1095,7 +1186,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   if (hero && window.CardRender) { renderPlayView(hero); return; }
   // Restore the last forge so navigating away (then back) doesn't lose the heroes.
-  if (!param && window.CardRender) {
+  if (!param && !sessionParam && window.CardRender) {
     let last = null;
     try { last = JSON.parse(localStorage.getItem('cs-forge-last') || 'null'); } catch (e) {}
     if (last && Array.isArray(last.variations) && last.variations.length) { renderRestoredForge(last); return; }

@@ -433,6 +433,9 @@
   // quality:'hq' (the default) runs the server's hidden generate->critique->redo gate.
   // opts.refImages: [dataURL|url] are identity anchors (e.g. a locked portrait); the
   // server conditions generation on them so the SAME character recurs across images.
+  // opts.aspect ('9:16'|'1:1'|'16:9') sets the gemini aspect ratio (ignored by Cloudflare).
+  // opts.docs: [{ mimeType, data }] are reference documents (base64-stripped) the server
+  // appends as inlineData parts so the model can read an attached brief.
   function postImage(prompt, provider, opts) {
     opts = opts || {};
     var body = {
@@ -443,6 +446,8 @@
     if (opts.refImages && opts.refImages.length) body.refImages = opts.refImages;
     if (opts.intent) body.intent = String(opts.intent).slice(0, 1400);
     if (opts.saveKey) body.saveKey = String(opts.saveKey); // server persists to R2 -> d.saved
+    if (opts.aspect) body.aspect = String(opts.aspect);
+    if (opts.docs && opts.docs.length) body.docs = opts.docs;
     return fetch('./api/image', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -464,6 +469,59 @@
   }
   function fetchArtFull(prompt, provider, opts) {
     return postImage(prompt, provider, opts);
+  }
+
+  // POST a prompt to /api/video, then poll the long-running Veo op to completion.
+  // Resolves to a PLAYABLE video URL (the server's streaming proxy, './api/video?file=…'),
+  // or null on any failure / timeout. Self-contained: no external poll loop needed.
+  //   opts.aspectRatio ('9:16'|'1:1'|'16:9'), opts.image (data-URL first frame, optional)
+  // Veo is ~1-2 min; we poll every POLL_MS up to MAX_POLLS (≈4 min ceiling) then give up.
+  function postVideo(prompt, opts) {
+    opts = opts || {};
+    var POLL_MS = 5000, MAX_POLLS = 48;
+    var body = { prompt: String(prompt || '').slice(0, 1900) };
+    if (opts.aspectRatio) body.aspectRatio = String(opts.aspectRatio);
+    if (opts.image) body.image = String(opts.image);
+    return fetch('./api/video', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }).then(function (r) {
+      if (!r.ok) throw new Error(String(r.status));
+      return r.json();
+    }).then(function (d) {
+      if (!d || !d.op) return null;
+      var op = d.op;
+      return new Promise(function (resolve) {
+        var tries = 0;
+        function poll() {
+          tries++;
+          if (tries > MAX_POLLS) return resolve(null);
+          fetch('./api/video?op=' + encodeURIComponent(op), { headers: { 'Accept': 'application/json' } })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (p) {
+              if (!p) return resolve(null);
+              if (!p.done) { setTimeout(poll, POLL_MS); return; }
+              if (p.error || !p.video) return resolve(null);
+              resolve(p.video); // './api/video?file=…' (proxy); a usable <video src>
+            })
+            .catch(function () { resolve(null); });
+        }
+        setTimeout(poll, POLL_MS);
+      });
+    }).catch(function () { return null; });
+  }
+
+  // POST text + a voice id to /api/tts; resolve to an audio data URL, or null on failure.
+  function postTTS(text, voiceId) {
+    if (!text || !voiceId) return Promise.resolve(null);
+    return fetch('./api/tts', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: String(text).slice(0, 2400), voiceId: String(voiceId) }),
+    }).then(function (r) {
+      if (!r.ok) throw new Error(String(r.status));
+      return r.json();
+    }).then(function (d) { return (d && d.audio) ? d.audio : null; })
+      .catch(function () { return null; });
   }
 
   // UX concurrency cap. Generations are slow and costly, so at most CAP run at once
@@ -604,6 +662,7 @@
     const wrap = document.createElement('div'); wrap.className = 'cr-versions';
     const pills = document.createElement('div'); pills.className = 'cr-pills';
     wrap.appendChild(pills);
+    // mediaMount (video/audio results) is created below and inserted here after pills.
 
     function persist() {
       try {
@@ -630,6 +689,25 @@
     function refImages() {
       var base = (opts.getRefImages ? (opts.getRefImages() || []) : []);
       return base.concat(attached).slice(0, 3);
+    }
+    // Attached docs ride as {name,type,data:dataURL}; the image API wants {mimeType,data}
+    // with bare base64 (no data-URL prefix). Convert + drop anything malformed. Max 2.
+    function docsForApi() {
+      var out = [];
+      docs.forEach(function (d) {
+        var m = /^data:([^;]+);base64,(.+)$/.exec(d && d.data || '');
+        if (m) out.push({ mimeType: d.type || m[1] || 'application/octet-stream', data: m[2] });
+      });
+      return out.slice(0, 2);
+    }
+    // Where a generated video/audio renders (latest only; the image path keeps its pills).
+    // Lives just under the pills, inside the maker, so it never routes through opts.show()
+    // (which expects an <img> and re-renders a Canvas card).
+    var mediaMount = document.createElement('div'); mediaMount.className = 'cr-media';
+    wrap.insertBefore(mediaMount, pills.nextSibling);
+    function showMedia(node) {
+      mediaMount.innerHTML = '';
+      if (node) mediaMount.appendChild(node);
     }
     function updateTakeLabel() {
       if (!take) return;
@@ -668,11 +746,46 @@
       return t.length > 28 ? t.slice(0, 28) + '…' : t;
     }
 
+    // Per-output Make handler. IMAGE is the default and the only versioned path (keeps the
+    // pill history); VIDEO and AUDIO replace the single latest result in mediaMount and never
+    // touch the pills. The selections from "More options" (aspect, docs, voice, output) flow
+    // in here off the closure vars set by the sub-controls below.
     const makeBtn = {
       label: '🖼 Make image', busy: '🖼 making…', done: '🖼 Make another', fail: 'image not enabled',
       run: (note, btn, provider) => {
         const prompt = opts.buildPrompt(note);
-        return window.CardRender.fetchArt(prompt, provider, { refImages: refImages() }).then((img) => {
+        if (output === 'video') {
+          // First frame: prefer the active version's in-session image so the clip animates the
+          // exact still the user is looking at (image-to-video lock); else text-to-video.
+          var firstFrame = (versions[active] && versions[active].img && versions[active].img.src) || null;
+          return window.CardRender.postVideo(prompt, { aspectRatio: aspect, image: firstFrame }).then((src) => {
+            if (!src) return false;
+            var vid = document.createElement('video');
+            vid.className = 'cr-media-video'; vid.controls = true; vid.playsInline = true;
+            vid.style.maxWidth = '100%'; vid.src = src;
+            showMedia(vid);
+            return true;
+          });
+        }
+        if (output === 'audio') {
+          // Speak the note if given, else the built prompt (whatever the user typed to steer).
+          var text = (note && note.trim()) || prompt;
+          return window.CardRender.postTTS(text, voiceId).then((audioUrl) => {
+            if (!audioUrl) return false;
+            var au = document.createElement('audio');
+            au.className = 'cr-media-audio'; au.controls = true;
+            au.style.maxWidth = '100%'; au.src = audioUrl;
+            showMedia(au);
+            return true;
+          });
+        }
+        // IMAGE (default): aspect + docs flow to the gen. To keep the default path BYTE-FOR-BYTE
+        // identical to today, '9:16' (the default + the card's native portrait) is treated as
+        // "unspecified" and NOT sent; only an explicit 1:1/16:9 and/or attached docs change the
+        // request. docsForApi() is [] when nothing is attached, so the body is unchanged then too.
+        var imgAspect = (aspect && aspect !== '9:16') ? aspect : undefined;
+        var imgDocs = docsForApi();
+        return window.CardRender.fetchArt(prompt, provider, { refImages: refImages(), aspect: imgAspect, docs: imgDocs.length ? imgDocs : undefined }).then((img) => {
           if (!img) return false;
           versions.push({ label: summarize(note, versions.filter((v) => !v.isDefault).length + 1), prompt, img, ts: Date.now() });
           active = versions.length - 1; persist(); select(active);
@@ -844,23 +957,49 @@
           voiceSel.disabled = true; syncPreview();
         });
     }
-    // Show aspect (image/video) OR voice (audio) to match the current output type.
+    // The live Make <button>, captured after makerControls builds (below). Used to relabel
+    // it per output type. Null until then; syncOutput()'s first call (above the build) no-ops
+    // the relabel.
+    var makeBtnEl = null;
+    // Per-output Make-button copy. The handler reads label/busy/done/fail off makeBtn (the same
+    // object) at click time, so mutating those keys + the resting textContent keeps the button
+    // honest for whichever output is selected.
+    var MAKE_COPY = {
+      image: { label: '🖼 Make image', busy: '🖼 making…', done: '🖼 Make another', fail: 'image not enabled' },
+      video: { label: '🎬 Make video', busy: '🎬 rendering…', done: '🎬 Make another', fail: 'video not enabled' },
+      audio: { label: '🔊 Make audio', busy: '🔊 speaking…', done: '🔊 Make another', fail: 'audio not enabled' },
+    };
+    function relabelMake() {
+      var c = MAKE_COPY[output] || MAKE_COPY.image;
+      makeBtn.label = c.label; makeBtn.busy = c.busy; makeBtn.done = c.done; makeBtn.fail = c.fail;
+      // Only repaint the resting label; never stomp a button mid-run (it owns its busy text).
+      if (makeBtnEl && !makeBtnEl._running) makeBtnEl.textContent = c.label;
+    }
+    // Show aspect (image/video) OR voice (audio) to match the current output type, and relabel
+    // the Make button (Make image / Make video / Make audio).
     function syncOutput() {
       var audio = output === 'audio';
       avWrap.style.display = audio ? 'none' : '';
       audWrap.style.display = audio ? '' : 'none';
       if (audio) loadVoices();
+      relabelMake();
     }
     syncOutput();
     wrap.appendChild(more);
 
     const extras = [];
     if (opts.makeSaveCanvas) extras.push(window.CardRender.saveButton('⬇ Save', opts.makeSaveCanvas, itemId + '.png'));
-    wrap.appendChild(makerControls({
+    var makerEl = makerControls({
       placeholder: opts.placeholder,
       buttons: [makeBtn].concat(opts.extraButtons || []),
       extra: extras,
-    }));
+    });
+    // The Make button is the FIRST action button (makeBtn is first in the buttons[]); grab it
+    // so syncOutput()/relabelMake() can retitle it per output. The engine picker is a <label>,
+    // not a .cr-save-btn, so the first .cr-save-btn in the row is ours.
+    makeBtnEl = makerEl.querySelector('.cr-actions .cr-save-btn');
+    relabelMake(); // apply the initial output's label now that the button exists
+    wrap.appendChild(makerEl);
     var take = takeDisclosure({ label: 'Add your take' });
     take._body.appendChild(wrap);
     renderPills();
@@ -891,6 +1030,7 @@
     videoPrompt: videoPrompt,
     stylePrompt: STYLE_PROMPT,
     loadImage: loadImage, fetchArt: fetchArt, fetchArtData: fetchArtData, fetchArtFull: fetchArtFull, providerToggle: providerToggle,
+    postVideo: postVideo, postTTS: postTTS,
     makerControls: makerControls, versionedMaker: versionedMaker, takeDisclosure: takeDisclosure, GenGate: GenGate,
     download: download, saveButton: saveButton, lightbox: lightbox,
   };

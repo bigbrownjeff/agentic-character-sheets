@@ -79,6 +79,12 @@ function json(data: unknown, status = 200): Response {
 }
 
 /* --- Gemini (best quality) ------------------------------- */
+// Shared request shape (canonical here; also used verbatim by the sibling project):
+//   jeffpinto-site: scripts/gen-note-image.sh — the bash script that generates 4:1 editorial
+//   note banners. If you change the model default, the endpoint path, the responseModalities
+//   array, or the inlineData extraction idiom below, mirror the change in that script too.
+//   Divergence to watch: gen-note-image.sh always requests aspectRatio "16:9" and then crops
+//   locally; this function passes through the caller-supplied aspect (9:16/1:1/16:9) unchanged.
 interface ImagePart { inlineData: { mimeType: string; data: string }; }
 // When reference images are supplied (e.g. a locked character portrait), Gemini copies
 // identity from the PIXELS, not the words; this is the keyframe-identity lock. Prepend a

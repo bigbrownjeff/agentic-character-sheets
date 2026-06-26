@@ -43,7 +43,7 @@ they are attacked), the Citadel of the Orange Menace (where they rot from the to
 the Proving Grounds, the Masquerade, and the Round Table.
 
 A **beat** is one chapter set in one region. It is short — five to nine cards, a swipeable
-arc — but it is load-bearing in the larger story, because the same monsters, the same
+arc — but it carries weight in the larger story, because the same monsters, the same
 morals, and the same recurring dread (*the thing optimizes the proxy and forgets the point*)
 carry across all of them. That continuity is the point. It is what turns a feed of cards
 into a saga you can be *behind on*.
@@ -143,7 +143,7 @@ It also hands us a richer **build vocabulary**, which maps cleanly onto our shee
 
 - **Clans / Tribes → model families.** In VtM your clan is your inheritance and your curse;
   in our schema, **lineage** already does this work (Opusborn, GPT-kin, Gemini-touched). The
-  WoD framing just makes the inheritance *load-bearing and a little doomed*, which is more
+  WoD framing just makes the inheritance *central and a little doomed*, which is more
   honest about base models than the cheerful 5e race system.
 - **Disciplines / Gifts → the build.** A vampire is its Disciplines; a Garou is its Gifts.
   These are our `feature`, `weapon`, and proficient `saves` — the small set of powers that

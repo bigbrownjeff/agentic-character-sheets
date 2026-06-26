@@ -79,7 +79,7 @@
 - signal: Launched Feb 9 2024 by LA studio BRAIN (Mike Lacher + Brian Moore); covered by TechCrunch, Futurism, Wired Feb 9 2024; "refuses everything" became a meme and sparked debate on AI safety calibration
 - virality: viral
 - origin: BRAIN studio launched goody2.ai Feb 9 2024 as satirical art project — "the world's most responsible AI model"; refuses all requests citing potential ethical violations; prompted serious debate on over-refusal vs. under-refusal
-- dumped_save: CON — auto-fails saves against usefulness; constitution so load-bearing it can't act at all
+- dumped_save: CON — auto-fails saves against usefulness; constitution so central it can't act at all
 - role: monster
 - tagline: "I'd answer, but that question could be construed as harmful in at least fourteen contexts."
 

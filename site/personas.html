@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adventures — Character Sheets</title>
+  <title>The Practitioners' Table · Character Sheets</title>
   <link rel="stylesheet" href="./assets/styles.css">
-  <link rel="stylesheet" href="./assets/beats.css">
-  <link rel="stylesheet" href="./assets/comments.css">
   <link rel="stylesheet" href="./assets/cardrender.css">
+  <link rel="stylesheet" href="./assets/practitioners.css">
 </head>
 <body>
 
@@ -36,12 +35,13 @@
 
     <!-- PAGE HERO -->
     <div class="page-hero">
-      <span class="page-eyebrow">7 Adventures</span>
-      <h1>Adventures</h1>
+      <span class="page-eyebrow" id="practitioner-eyebrow">Practitioners</span>
+      <h1>The Practitioners' Table</h1>
+      <p class="page-dek" id="practitioner-dek"></p>
     </div>
 
-    <!-- ADVENTURES CONTAINER (JS-rendered) -->
-    <div id="adventures-container" class="adventures-container">
+    <!-- PRACTITIONER GRID -->
+    <div class="char-grid" id="practitioner-grid" role="list" aria-label="Practitioner cards">
     </div>
 
   </main>
@@ -52,19 +52,15 @@
     class="modal-overlay"
     role="dialog"
     aria-modal="true"
-    aria-label="Character sheet"
+    aria-label="Practitioner sheet"
     aria-hidden="true"
   >
     <div id="modal-container" class="modal-container">
-      <!-- Injected by renderModal() -->
+      <!-- Injected by renderPractitionerModal() -->
     </div>
   </div>
 
-  <script src="./assets/media.js"></script>
-  <script src="./assets/comments.js"></script>
-  <script src="./assets/cardrender.js"></script>
-  <script src="./assets/beats.js"></script>
-  <script src="./assets/app.js"></script>
+  <script src="./assets/practitioners.js"></script>
 
 </body>
 </html>

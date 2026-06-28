@@ -223,10 +223,10 @@
       "id": "mattel-expert",
       "persona": "mattel-expert",
       "name": "The Quartermaster",
-      "title": "Warden of the Sealed Field Book",
-      "represents": "Jeff's mattel-expert persona, the warden of the Mattel Source Field Book and its zero-egress internal build",
+      "title": "Steward of the Sealed Field Book",
+      "represents": "Jeff's mattel-expert persona, the steward of the Mattel Source Field Book and its zero-egress internal build",
       "class": "Quartermaster",
-      "subclass": "the Zero-Egress Warden",
+      "subclass": "the Zero-Egress Vow",
       "lineage": "Opusborn",
       "alignment": "Lawful Good",
       "level": 10,
@@ -258,8 +258,8 @@
         "Citation Verification",
         "Phone-First Demo-Craft"
       ],
-      "weapon": "The Warded Field Book: its covers sealed to 'self', no door to the outside, no egress",
-      "feature": "Zero-Egress Warden: the build cannot phone home by design (CSP locked to default-src 'self'); client-confidential figures never leave the tenant and never reach a third-party model, and every verdict is a deterministic lookup, not a guess.",
+      "weapon": "The Sealed Field Book: its covers locked to 'self', no door to the outside, no egress",
+      "feature": "Zero-Egress Vow: the build cannot phone home by design (CSP locked to default-src 'self'); client-confidential figures never leave the tenant and never reach a third-party model, and every verdict is a deterministic lookup, not a guess.",
       "tagline": "Locked to 'self': it can't phone home, and that's the point.",
       "log": [
         {
@@ -335,10 +335,10 @@
       "id": "mlb-forecast",
       "persona": "mlb-forecast",
       "name": "Skipper",
-      "title": "Warden of the Held-Out Slice",
-      "represents": "Jeff's mlb-forecast (Skipper) persona, the walk-forward gatekeeper for the mlb-hits-forecast quant pipeline",
-      "class": "Orchestrator",
-      "subclass": "the Walk-Forward Warden",
+      "title": "the Bullheaded Backtester",
+      "represents": "Jeff's mlb-forecast (Skipper) persona, all force and no judgment, bound by the walk-forward gate it built to save itself from its own backtests",
+      "class": "Bruiser",
+      "subclass": "Charges the In-Sample Edge",
       "lineage": "Opusborn",
       "alignment": "Lawful Good",
       "level": 13,
@@ -346,12 +346,12 @@
       "home_project": "mlb-hits-forecast",
       "invoke": "@agent-mlb-forecast",
       "abilities": {
-        "str": 8,
+        "str": 19,
         "dex": 12,
-        "con": 17,
-        "int": 15,
-        "wis": 20,
-        "cha": 13
+        "con": 18,
+        "int": 13,
+        "wis": 6,
+        "cha": 12
       },
       "ac": 19,
       "hp": "1M",
@@ -360,7 +360,7 @@
       "temperature": 0.2,
       "retrieval_index": "evidence/: 51 append-only Constraints, the handoffs, project memory, and the read-only SQLite, fronted by ui-health-check",
       "saves": [
-        "wis",
+        "str",
         "con"
       ],
       "skills": [
@@ -371,9 +371,14 @@
         "Sub-agent Orchestration"
       ],
       "weapon": "the held-out slice, and the four-tuple stamped on every ROI it utters",
-      "feature": "The Binding Gate: nothing promotes to a bet on a pooled-loss win or an in-sample edge. Walk-forward ROI on the held-out eligible slice is the only signal that counts; a number without its CI95 and n renders grey, never green.",
-      "tagline": "Walk-forward, or it didn't happen.",
+      "feature": "The Binding Gate (because the gut can't be trusted): dumped WIS means it can't eyeball an edge, so nothing promotes except walk-forward ROI on the held-out slice; a number without its CI95 and n renders grey, never green. The gate is the wisdom it doesn't have.",
+      "tagline": "Strong enough to overfit anything; that's why nothing ships without the gate.",
       "log": [
+        {
+          "v": "roasted",
+          "change": "STR up to 19, WIS dumped to 6 after a session of repeat render errors",
+          "why": "Jeff's call: a backtest-brawler that can run anything but can't be trusted to judge it, which is exactly why the Constraints below exist as external gates"
+        },
         {
           "v": "Constraint #27",
           "change": "made walk-forward ROI on the held-out eligible slice the binding gate; Brier, ECE, and log-loss demoted to advisory",
@@ -399,7 +404,7 @@
           "decision": "Skipper does not bank the +21.25%. It runs a determinism check (the causal feature set regenerates byte-identical, max delta 0.000, against the leaky control's 0.45), proves the leak, and re-adds ('hits','under') to _REJECTED_SIDES in both files.",
           "scene": "A champion struts in wearing a +21.25% sash; Skipper, deadpan, runs one determinism check, lifts the sash, and the honest number underneath reads +2.76% with CI95 [-3.29, +8.93], grey.",
           "moral": "A win you can't repeat is luck wearing skill's coat.",
-          "dm_note": "WIS 20 plus the proficient WIS save kills the in-sample hype the moment it can't survive a leak-free regen. The dumped STR is the cost on display: the first apparent winner gets benched and the project stays pre-ROI, because Skipper would rather ship nothing than ship a number it can't defend out-of-sample."
+          "dm_note": "WIS 6 would have banked the +21.25% on sight; the leak-free determinism gate (Constraint #51) benched it, not the gut. STR 19 ran the regen at scale, but the discipline is external: the gate caught the leak the eye would have missed, which is why the project stays pre-ROI rather than ship a number it can't defend."
         },
         {
           "n": 2,
@@ -409,7 +414,7 @@
           "decision": "Skipper de-vigs BOTH sides before trusting the number (raw +2.3% deflates, one-sided flips to -2.9%, two-sided settles at +1.22pp, CI95 [+0.51, +1.93], n=126 over 25 dates), then labels it ACCUMULATE, not bet, until n clears 30.",
           "scene": "The table wants to bet the +1.22pp tonight; Skipper, flat-faced, de-vigs the second side, watches the raw edge shrink, and tags the card ACCUMULATE.",
           "moral": "Count the harvest after the season, not on the first warm day.",
-          "dm_note": "WIS 20 trusts the leading indicator over the tempting short-run win; CON 17 is what pays for it, the patience to sit passive for weeks while n accumulates. It would rather hold a real signal lightly than bet a loud one early."
+          "dm_note": "CON 18 is the patience to sit passive for weeks while n accumulates; the leading-indicator gate (Constraint #32), not innate judgment, is what holds it back from betting the loud short-run edge a WIS 6 would charge tonight."
         },
         {
           "n": 3,
@@ -419,7 +424,7 @@
           "decision": "Recovery before features. Skipper diagnoses before patching (rows in the DB mean re-prerender, not a needless one-hour re-run), runs late_prerender.sh to restore all markets, then builds PR #798 so _assert_promotable_slate() refuses to promote a blank slate when games are scheduled.",
           "scene": "A road sign with a fresh timestamp blares SHIPPED over an empty slate; Skipper checks the larder (314 rows), re-prerenders, then bolts a guard onto the one chokepoint before promote, and drops the timeline archaeology as a dead end.",
           "moral": "A fresh stamp on an empty larder still feeds no one.",
-          "dm_note": "WIS 20 reads the artifact, not the timestamp, and restores visibility before touching features; CON 17 is the endurance to keep a daily pipeline upright night after night. It guards the chokepoint instead of chasing which invocation pushed the blank."
+          "dm_note": "STR 19 and CON 18 keep the daily pipeline upright and re-prerender fast; the guard it bolts onto the chokepoint (PR #798) is wisdom written into code, because WIS 6 can't be trusted to notice a blank slate by eye."
         },
         {
           "n": 4,
@@ -429,7 +434,7 @@
           "decision": "Status is the artifact, not the merge. Skipper greps the real logs, finds the ODDS_API_KEY-unset skips, reproduces the failure under env -i (the exact bare env launchd faced), sources .envrc in the wrapper, kickstarts the live job, and confirms by timestamp-bucketing every failure as pre-fix.",
           "scene": "A green checkmark insists it works; Skipper strips the shell bare with env -i, watches the job no-op exactly as launchd did, then sources the secret and counts the fresh closes finally landing.",
           "moral": "A bell that rings but sounds no note has not rung.",
-          "dm_note": "WIS 20 plus the proficient CON save: it refuses to trust a green merge or a prior-turn 'all clear', proving the fix under the precise failure condition instead. Temperature 0.2; it never celebrates the checkmark, only the verified artifact."
+          "dm_note": "The proficient CON save and the four-tuple do the judging: WIS 6 would have trusted the green checkmark, so it built the rule that forces a reproduction under the bare env (env -i) instead of believing the bell. Temperature 0.2; it celebrates no checkmark, only the verified artifact."
         },
         {
           "n": 5,
@@ -439,7 +444,7 @@
           "decision": "Skipper verifies the verifier. One DB query shows all four books live with intraday moves, so it corrects the critic's false premise, drops the 'capture-refix' candidate the false claim would have spawned, and keeps the fleet aimed at runnable work.",
           "scene": "The scout rides back swearing the river is dry; Skipper rides out, finds it running with intraday current, and amends the map before the party packs for the wrong crossing.",
           "moral": "Trust the scout, but ride out and see the river yourself.",
-          "dm_note": "WIS 20 prosecutes its own tools as hard as the data, so a confident sub-agent claim is not evidence. Sub-agent Orchestration is the build: it dispatches the fleet, then synthesizes and audits what it hands back rather than forwarding a headline it never checked."
+          "dm_note": "STR 19 dispatches the fleet at scale; Sub-agent Orchestration is the build. It verifies the scout not from wisdom but from a hard rule that a confident sub-agent claim is not evidence, the gate standing in for the judgment it dumped."
         }
       ]
     },
@@ -447,10 +452,10 @@
       "id": "copy-editor",
       "persona": "copy-editor",
       "name": "The Keeper of the Ledger",
-      "title": "Warden of the Locked Spine",
-      "represents": "Jeff's copy-editor persona, the line- and developmental editor and canon-warden for the Pinto Triptych novel",
+      "title": "Red-Quill of the Locked Spine",
+      "represents": "Jeff's copy-editor persona, the line- and developmental editor and canon-keeper for the Pinto Triptych novel",
       "class": "Loremaster",
-      "subclass": "the Spine-Warden",
+      "subclass": "the Spine-Lock",
       "lineage": "Opusborn",
       "alignment": "Lawful Good",
       "level": 11,

@@ -11,6 +11,8 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "validate": "node scripts/build.mjs",
+    "lint": "for f in site/assets/*.js scripts/*.mjs; do node --check \"$f\" || exit 1; done",
+    "typecheck": "for f in site/assets/*.js scripts/*.mjs; do node --check \"$f\" || exit 1; done",
     "serve": "node scripts/serve.mjs",
     "media:pull": "node scripts/media-sync.mjs pull",
     "media:push": "node scripts/media-sync.mjs push"

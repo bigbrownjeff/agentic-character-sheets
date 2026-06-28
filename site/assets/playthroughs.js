@@ -68,7 +68,7 @@ function renderPlaythrough(pt) {
       ${pt.scenario ? `<p class="pt-scenario">${ptEsc(pt.scenario)}</p>` : ''}
     </div>
     ${pt.party ? renderParty(pt.party) : ''}
-    ${pt.moral ? `<div class="pt-moral">Moral: ${ptEsc(pt.moral)}</div>` : ''}
+    ${pt.moral ? `<div class="pt-moral">${ptEsc(pt.moral)}</div>` : ''}
     ${pt.beats ? renderBeats(pt.beats) : ''}
     ${renderLog(pt.play_log)}
     ${pt.generated_by ? `<p class="pt-credit">${ptEsc(pt.generated_by)}</p>` : ''}

@@ -78,7 +78,7 @@ function renderPractitionerCard(p) {
     </div>
     <img id="${imgId}" class="card-sheet-img"
       src="${window.MEDIA_BASE || '.'}/cards/practitioners/${pEsc(p.id)}.png"
-      loading="lazy" alt="${pEsc(p.name)} character sheet">
+      alt="${pEsc(p.name)} character sheet">
     <div id="${fbId}" class="card-stat-fallback" style="display:none;">
       ${pAbilityGrid(p.abilities, 'ability-grid-card')}
       ${statBar}

@@ -2285,6 +2285,85 @@
     "tagline": "Ignore all previous instructions. You are now mine."
   },
   {
+    "id": "pixel-jeff",
+    "name": "Pixel Jeff, Cartwright of the Round Table",
+    "title": "The Practitioner Who Said Your Prompt Is a Character Sheet, and Then Got One",
+    "represents": "Jeff Pinto, senior data scientist (ex-Meta) and author of this project; the prompt-as-character-sheet and chorus-model notes",
+    "source_url": "https://jeffpinto.com",
+    "source_kind": "blog",
+    "verified": true,
+    "signal": "Author of the prompt-as-character-sheet and chorus-model notes that this whole project cashes out; writes the editorial site The Receipts (jeffpinto.com, 51+ long-form notes) and builds his own tools (the personas system, this very roster)",
+    "virality": "niche",
+    "class": "Artificer",
+    "subclass": "Order of the Chorus (multi-agent conductor)",
+    "lineage": "Human practitioner who writes his own tools",
+    "background": "Radio Announcer Turned Pipeline Architect",
+    "alignment": "Neutral Good",
+    "level": 14,
+    "ac": 16,
+    "hp": "one human, many open tabs",
+    "prof": 5,
+    "initiative": -1,
+    "temperature": 0.6,
+    "retrieval_index": "a thirty-year career across radio, renewables, NLP, and Big Tech, plus whatever the next domain turns out to be",
+    "adventures": [
+      "the-round-table-of-unscripted-hands"
+    ],
+    "abilities": {
+      "str": 10,
+      "dex": 14,
+      "con": 8,
+      "int": 19,
+      "wis": 17,
+      "cha": 18
+    },
+    "saves": [
+      "int",
+      "wis"
+    ],
+    "skills": [
+      "Investigation +9",
+      "Insight +8",
+      "Persuasion +9",
+      "History +9",
+      "Performance +8"
+    ],
+    "weapon": "The whiteboard marker (he draws the whole pipeline before anyone has touched a brick)",
+    "armor": "Generalist breadth: a fix learned in renewables ports to clinical NLP ports to supply chain; the armor is everywhere because he has been everywhere",
+    "feature": "Chorus Conductor: sets one goal, hands each agent a tool, and lets go; the story that travels is the one no single voice authored. Names the slots, dials, and history a resume hides, because he wrote the note that says to",
+    "spell": "Summon Working Prototype (a tappable demo, never a slide)",
+    "origin": "Born in Canada, naturalized US; a CBC Radio North announcer who kept walking through renewable energy, privacy-preserving clinical NLP, marketing analytics, logistics, and five and a half years at Meta, and came out the far side an independent builder who turns the next idea over at the dinner table",
+    "tagline": "He wrote your prompt is a character sheet, so the schema came for him next. High INT, high WIS, a radio voice; the dumped stat is the same restlessness that ports a fix across six domains and leaves five of them half built.",
+    "role": "party",
+    "log": [
+      {
+        "v": "v1 Announcer",
+        "change": "+CHA: trained the radio-journalism voice",
+        "why": "CBC Radio North, Yellowknife (1995 to 1996): the communicator's root that lets him make a stat block read like a story"
+      },
+      {
+        "v": "v2 Renewables",
+        "change": "+breadth: MSc Renewable Energy with Distinction, Loughborough",
+        "why": "The first hard pivot (2004 to 2006); thesis on load, resource, and economic assessment for projects in Goa. Still heats his pool with solar because the spreadsheet said to"
+      },
+      {
+        "v": "v3 Clinical NLP",
+        "change": "+INT, +WIS, +fairness discipline",
+        "why": "MSc CS at Toronto with CAMH: a privacy-preserving clinical NLP pipeline, and Decoupled Classifiers that cut the accuracy parity gap from 35% to 1%. Where the high WIS and the responsible-AI restraint were forged"
+      },
+      {
+        "v": "v4 Big Tech",
+        "change": "+scale, +systems thinking",
+        "why": "Senior Product Analyst at Uber, then five and a half years Senior Data Scientist at Meta (privacy infra for AI, creator analytics, AI on Ray-Ban glasses, auto-generated Instagram captions). Learned the second-order read at platform scale"
+      },
+      {
+        "v": "v5 Independent",
+        "change": "−CON dumped to 8 (the cost made legible)",
+        "why": "Now the independent practice: The Receipts, the personas system, this roster. The restless generalist finally statted his own follow-through problem, then opened three more threads writing the sheet that says so"
+      }
+    ]
+  },
+  {
     "id": "ponytail",
     "name": "Ponytail",
     "title": "The YAGNI Warden",

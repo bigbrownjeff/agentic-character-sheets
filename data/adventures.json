@@ -87,7 +87,7 @@
       "name": "The Round Table of Unscripted Hands",
       "use_category": "Multi-agent orchestration / MCP & A2A — emergent, polyphonic storytelling",
       "quest": "Many hands, many voices, no head of the table. The orchestrator sets a goal and lets go; each agent pulls the plot through its own tool, and out of the cross-talk a story no one authored emerges — the kind that actually travels. Beware the Feed-Wraith's shortcut: a hollow viral spike that spreads without meaning. Showcases polyphony, emergent actual-play narrative, and spreadable-vs-sticky virality.",
-      "party":    ["mcp", "a2a"],
+      "party":    ["pixel-jeff", "mcp", "a2a"],
       "npcs":     [],
       "bestiary": ["engagement-bait", "autogpt"]
     }

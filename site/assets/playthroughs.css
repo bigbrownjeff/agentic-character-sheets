@@ -1,0 +1,121 @@
+/* ============================================================
+   PLAYTHROUGHS · page-specific styles. Reuses .p-beat* from
+   practitioners.css for the beat blocks; this file styles the
+   playthrough header, the party chips, the moral, and the raw log.
+   ============================================================ */
+
+.pt-block {
+  border: 1px solid var(--ruleSoft);
+  border-radius: 10px;
+  padding: 28px 28px 24px;
+  margin-bottom: 32px;
+  background: var(--paper);
+}
+
+.pt-titlebar { margin-bottom: 18px; }
+.pt-adventure {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.pt-title {
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  line-height: 1.1;
+  margin: 0 0 10px;
+  color: var(--ink);
+}
+.pt-scenario {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--body);
+  margin: 0;
+  max-width: 65ch;
+}
+
+/* Party chips · name + the dumped stat that drives their play. */
+.pt-party { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+.pt-party-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid var(--ruleSoft);
+  border-left: 3px solid var(--role-party);
+  border-radius: 6px;
+  padding: 8px 12px;
+  min-width: 150px;
+}
+.pt-party-chip[data-role="monster"] { border-left-color: var(--role-monster); }
+.pt-party-name { font-family: var(--sans); font-weight: 600; font-size: 0.95rem; color: var(--ink); }
+.pt-party-dumped {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.pt-party-plays { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); }
+
+.pt-moral {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--ink);
+  border-top: 1px solid var(--ruleSoft);
+  border-bottom: 1px solid var(--ruleSoft);
+  padding: 12px 0;
+  margin: 8px 0 22px;
+}
+.pt-moral::before { content: 'Moral: '; font-style: normal; font-weight: 600; color: var(--muted); }
+
+/* Raw play log · the multi-agent provenance, collapsed by default. */
+.pt-log { margin-top: 20px; border-top: 1px dashed var(--ruleSoft); padding-top: 14px; }
+.pt-log > summary {
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  list-style: none;
+}
+.pt-log > summary::-webkit-details-marker { display: none; }
+.pt-log > summary::before { content: '▸ '; }
+.pt-log[open] > summary::before { content: '▾ '; }
+.pt-log-body { margin-top: 14px; }
+.pt-log-move {
+  border-left: 2px solid var(--ruleSoft);
+  padding: 4px 0 4px 14px;
+  margin-bottom: 14px;
+}
+.pt-log-meta { display: flex; gap: 8px; align-items: baseline; margin-bottom: 4px; }
+.pt-log-round {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pt-log-actor { font-family: var(--sans); font-weight: 600; font-size: 0.9rem; color: var(--ink); }
+.pt-log-text { font-family: var(--sans); font-size: 0.9rem; line-height: 1.5; color: var(--body); }
+.pt-log-aside {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.pt-credit {
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin-top: 18px;
+  border-top: 1px solid var(--ruleSoft);
+  padding-top: 12px;
+}

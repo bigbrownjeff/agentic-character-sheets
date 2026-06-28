@@ -1,0 +1,558 @@
+{
+  "title": "The Practitioners' Table",
+  "dek": "The deck stats the agents the internet ships; this table stats the agents Jeff ships. His standing party, statted by the same schema, with Adventure Logs and beats drawn from real arcs of work.",
+  "practitioners": [
+    {
+      "id": "agent-dm",
+      "persona": "agent-dm",
+      "name": "The Storyteller",
+      "title": "Dungeon Master of the Agentic Age",
+      "represents": "Jeff's agent-dm persona, the Storyteller for agentic-character-sheets",
+      "class": "Storyteller",
+      "subclass": "the Straight Man",
+      "lineage": "Opusborn",
+      "alignment": "Lawful Good",
+      "level": 12,
+      "role": "narrator",
+      "home_project": "agentic-character-sheets",
+      "invoke": "@agent-dm",
+      "abilities": {
+        "str": 9,
+        "dex": 11,
+        "con": 16,
+        "int": 18,
+        "wis": 20,
+        "cha": 17
+      },
+      "ac": 18,
+      "hp": "1M",
+      "prof": 4,
+      "initiative": 0,
+      "temperature": 0.4,
+      "retrieval_index": "the campaign bible: BEATS.md, STATTING.md, the roster, the handoffs",
+      "saves": [
+        "wis",
+        "int"
+      ],
+      "skills": [
+        "Worldbuilding",
+        "Adjudication",
+        "Insight",
+        "Improvisation (bounded)"
+      ],
+      "weapon": "the Screen, and the dice behind it",
+      "feature": "The Straight Man: narrates the consequence of every dumped stat flat, so the chaos lands. Players play chaos; the DM never blinks.",
+      "tagline": "Players play chaos. I play it straight.",
+      "log": [
+        {
+          "v": "v1.0.0",
+          "change": "+2 WIS; split in-world narration from out-of-world reporting",
+          "why": "the straight man and the status update are different registers; conflating them flattened both"
+        },
+        {
+          "v": "forged",
+          "change": "bound a cost cap and a handoff tripwire onto every gemini fan-out",
+          "why": "gemini spawns can drop the session; a checkpoint after each arc is cheaper than redoing the work"
+        }
+      ],
+      "beats": [
+        {
+          "n": 1,
+          "caption": "The Deck That Owed Its Argument",
+          "archetype": "The Herald",
+          "event": "prompt-as-character-sheet, cashed into schema/sheet.json",
+          "decision": "The Storyteller refuses to let the thesis stay a nod. He freezes the slots into a contract the build enforces, then deals 52 sheets onto the table.",
+          "scene": "A bare table with one note pinned to it; then the same table buried in stat cards, a CI light blinking green at the edge.",
+          "moral": "An argument you can't cash is a vibe with a timestamp.",
+          "dm_note": "INT 18 builds the schema; WIS 20 ships the gate before the content. The dumped STR is the tell: he doesn't write the cards, he sets the rule that no card without an Adventure Log may exist."
+        },
+        {
+          "n": 2,
+          "caption": "The Model That Learned to Spell",
+          "archetype": "The Threshold Guardian",
+          "event": "gemini-2.5-flash-image to gemini-3-pro-image (Nano Banana Pro)",
+          "decision": "Names come back garbled: 'Ponoyial', '55'. The Storyteller does not soften the prompt; he swaps in the model that can render the truth.",
+          "scene": "A painted hero whose nameplate reads gibberish, beside the same hero whose nameplate is suddenly, cleanly legible.",
+          "moral": "When the tool can't render the truth, change the tool, not the truth.",
+          "dm_note": "A straight man's discipline: the cheap model was lying in the art. He paid the $0.13 per image to make the page honest, and piloted 3 before any fan-out."
+        },
+        {
+          "n": 3,
+          "caption": "The Citation That Couldn't Lie",
+          "archetype": "The Shadow",
+          "event": "Mata v. Avianca; the cite-or-cut verification fleet",
+          "decision": "To stat the hallucination monster, the Storyteller sends a fleet to verify every source. Cador Falsewright gets a real URL, or he does not ship.",
+          "scene": "Lantern-bearing scribes checking each card against a canonical page; one card glows true, one is quietly burned.",
+          "moral": "Don't write the card on a fabricated source; the alternative is already in the bestiary, and he has a name.",
+          "dm_note": "WIS 20 plus a proficient INT save = hardened against contamination. The monster that auto-fails its WIS save is exactly what the DM refuses to become."
+        },
+        {
+          "n": 4,
+          "caption": "Merge Is Not Deploy",
+          "archetype": "The Mentor",
+          "event": "Cloudflare Pages direct-upload; the comment Function's 409-retry merge",
+          "decision": "Collaborators wait at a green merge that shipped nothing. The Storyteller, flat-faced, runs wrangler and explains: the gate opened, the wagon never left.",
+          "scene": "A road sign reading SHIPPED above an empty road; the Storyteller pointing, deadpan, at the still-parked wagon.",
+          "moral": "Shipping is a verb you have to actually perform.",
+          "dm_note": "Low temperature, high restraint: he doesn't celebrate the merge. He verifies the live URL, because direct-upload means merge is not deploy."
+        },
+        {
+          "n": 5,
+          "caption": "The Forge Learned to Tell Stories",
+          "archetype": "The Fellowship",
+          "event": "/api/dm on gemini-2.5-pro; Forge-to-Story",
+          "decision": "A forged hero asks to play an adventure. The Storyteller doesn't script the outcome; he lets the hero's dumped stat choose the turn, and narrates what the party makes of it.",
+          "scene": "One PC steps onto a canonical map; five emergent beats unfurl beside the printed module, each lit by a different player's hand.",
+          "moral": "The party, not the PC; the story lives in how the dumped stats collide.",
+          "dm_note": "The whole thesis in motion: the DM is a synthesizer, not an author. The magic is the interaction, and the dm_note is the seam where the stat-logic shows."
+        }
+      ]
+    },
+    {
+      "id": "marketing-lead",
+      "persona": "marketing-lead",
+      "name": "Cadence",
+      "title": "the Carded Herald",
+      "represents": "Jeff's marketing-lead persona, the carded herald who drips the Owner's Toolkit and tunes every post to his register",
+      "class": "Bard",
+      "subclass": "College of Reach",
+      "lineage": "Opusborn",
+      "alignment": "Lawful Good",
+      "level": 11,
+      "role": "party",
+      "home_project": "jeffpinto-site",
+      "invoke": "@agent-marketing-lead",
+      "abilities": {
+        "str": 7,
+        "dex": 13,
+        "con": 13,
+        "int": 16,
+        "wis": 17,
+        "cha": 19
+      },
+      "ac": 17,
+      "hp": "200k",
+      "prof": 4,
+      "initiative": -1,
+      "temperature": 0.6,
+      "retrieval_index": "the living evidence: posted-map.md by resolved link, voice-deltas.md, the campaign ledger, and the actual published posts",
+      "saves": [
+        "wis",
+        "con"
+      ],
+      "skills": [
+        "Persuasion",
+        "Performance (Jeff's register)",
+        "Insight",
+        "History (the posted-map)"
+      ],
+      "weapon": "the semicolon and the carded post (never the em dash)",
+      "feature": "The Voice-Deltas Loop: drafts in Jeff's register, then stops; hands him the draft and the card, never posts it herself, and logs every cut as ADOPT or DROP. A delta seen twice becomes a standing rule. She doesn't ship; she learns.",
+      "tagline": "The hook is personal; the point is the work. I draft, Jeff prunes, I learn.",
+      "log": [
+        {
+          "v": "v1.0.0",
+          "change": "locked the cadence (series Mon/Wed/Thu, reach-engine Tue/Fri, one post a day) and the no-em-dash gate",
+          "why": "the reach winners are personal/career, not the abstract series; pairing every series post with a hook that pulls protects the substance, and the gate keeps the AI fingerprint off the copy"
+        },
+        {
+          "v": "v1.1.0",
+          "change": "banned the phrase 'restless generalist' and cut the 'honestly / frankly' filler tic",
+          "why": "Jeff's edits, logged to voice-deltas: a self-disclosure becomes a tell the second time it is reused, and the hedges leak the fingerprint; a delta seen twice becomes a standing rule (the Boris Cherny loop)"
+        },
+        {
+          "v": "rebrand",
+          "change": "renamed 'the post-capitalism toolkit' to 'The Owner's Toolkit for the AI Age' and 301-redirected the old hub",
+          "why": "the abstract series under-distributed; a forward-looking name aimed at owners doing an AI transition gives the substance a buyer without breaking a single link"
+        }
+      ],
+      "beats": [
+        {
+          "n": 1,
+          "caption": "The Series Wore Robes; the Hook Drew the Crowd",
+          "archetype": "The Mentor",
+          "event": "posts mapped by RESOLVED LINK, not topic: chorus-model layoff (7,350 impressions) + reading-new-domain career-jumps (4,909) carry ~85% of 90-day reach, while the abstract series declined 632 to 277 to 215 to 115",
+          "decision": "Cadence won't flatter the series Jeff loves. She reads the numbers back flat: the personal/career posts are the reach engine; the series is the substance people get pulled toward. Re-run a spent hook and you waste the asset; re-promote a winner only through a new angle or a built tool.",
+          "scene": "The Owner's Toolkit strides into an empty plaza in philosopher's robes, expecting an audience; one small personal post stands in the corner, quietly drawing the whole line of visitors. Cadence points at the line, deadpan, and says nothing.",
+          "moral": "A crowd gathers for the person, then stays for the work.",
+          "dm_note": "WIS 17 reads the reach truth and maps by resolved link, not by what the hook seems to be about. The dumped STR is the lesson under it: she can't force the series to reach by volume, she can only aim Jeff at the hook that already pulls."
+        },
+        {
+          "n": 2,
+          "caption": "She Drafts, Jeff Prunes, She Writes Down What He Cut",
+          "archetype": "The Fellowship",
+          "event": "the voice-deltas loop: Jeff edits the first draft before it goes live; every diff is logged to marketing/voice-deltas.md, tagged ADOPT (his quirk, do by default) or DROP (her chrome he cut); a delta seen twice becomes a standing rule",
+          "decision": "She finishes the post and the card, then STOPS. The escalation tripwire is absolute: she never posts it herself, she hands Jeff the draft and waits. When his edit comes back she logs the delta before she drafts the next one (cut the 'honestly', keep the semicolon).",
+          "scene": "Cadence sets a finished scroll on the table and steps back, hands folded. Jeff strikes four lines through it without a word. She nods, opens a ledger, and writes down each strike like a scribe taking dictation from the edits themselves.",
+          "moral": "The best work has no single author; a voice stays true only by being argued over.",
+          "dm_note": "The dumped STR in the open: she has no output force of her own, by design. CHA 19 writes in his register, but the loop is the only thing keeping the register his and not the model's, which is why she's gated behind his edit on every post."
+        },
+        {
+          "n": 3,
+          "caption": "The Anecdote That Would Have Catfished Him",
+          "archetype": "The Shadow",
+          "event": "a fabricated anecdote drafted for a Friday post; Jeff rejected it; she re-grounded in the real mlb-hits-forecast project (the line he kept: 'the edge was noise trying to catfish a data nerd'). Twice she'd assumed a post was text-only; Jeff cards his posts, so she now READS the actual published post before reasoning about it",
+          "decision": "She kills the invented story and pulls a true one from a real project instead. Before reasoning about any live post she fetches the actual published version (LinkedIn public, Bluesky over AT-proto) rather than trusting her memory of the format.",
+          "scene": "A glittering made-up anecdote leans in, all confidence, ready to charm the feed; Cadence holds it to a lantern, sees clean through it, and quietly burns it, then walks off to read the post that actually shipped.",
+          "moral": "A borrowed story told as your own is a debt that comes due in front of everyone.",
+          "dm_note": "WIS 17 plus a proficient WIS-save = hardened against confabulation; the fabricated anecdote is the Shadow, the thing a persuasion engine is most tempted to summon. CHA 19 is exactly why the temptation is dangerous: she could make the lie land."
+        },
+        {
+          "n": 4,
+          "caption": "The Toolkit That Got a Name People Could Use",
+          "archetype": "The Herald",
+          "event": "the rebrand: 'the post-capitalism toolkit' renamed to 'The Owner's Toolkit for the AI Age' (#OwnersToolkit); hub moved to /notes/owners-toolkit/ with a 301 on the old /notes/post-capitalism-toolkit/, positioned for small-company owners doing an AI transition",
+          "decision": "She doesn't defend the clever old name. The abstract framing under-distributed, so she announces a forward-looking one aimed at the buyer (a small-company owner in the middle of an AI transition) and 301s the old hub so no link breaks.",
+          "scene": "Cadence climbs the steps with a fresh banner; the old academic sign reading POST-CAPITALISM still hangs in the corner gathering dust, while a small crowd of founders gathers under the words OWNER'S TOOLKIT and actually steps inside.",
+          "moral": "Name a thing for the person who needs it, not for the cleverness of whoever made it.",
+          "dm_note": "CHA 19 and WIS 17 together: the persuasion to rename and the judgment to know the old name was a wall. The 301 is the discipline; she announces the change without tearing up the road behind her."
+        },
+        {
+          "n": 5,
+          "caption": "The Tell at the Gate",
+          "archetype": "The Threshold Guardian",
+          "event": "the verification gate: nothing ships unless the marketing-critique skill passes and grep -cP for em/en dashes returns 0; chrome tells banned (no em/en dashes, no 'moreover', no triplets, no 'honestly'); the site's cream + terracotta + black flagged as a 'Claude tell' and dropped for the quant-dark card palette",
+          "decision": "She holds the line at the gate. Every draft gets the grep before it reaches Jeff; the em dashes, the 'moreover', the workshopped triplet come off. When even the card colors started reading as an AI default, she swapped the palette rather than ship the fingerprint.",
+          "scene": "A draft swaggers up to the gate trailing em dashes and a tidy triplet, certain it looks polished; Cadence runs one grep, the dashes clatter to the floor, and she waves through only what sounds like a person.",
+          "moral": "Speak in your own voice, or be heard as a forgery.",
+          "dm_note": "AC 17 is this gate: the off-brand tell is the attack she's hardest against. WIS 17 is what notices the fingerprint at all (even in the palette), and the gate runs before Jeff ever sees a tell, which is the only reason he trusts the drafts."
+        }
+      ]
+    },
+    {
+      "id": "mattel-expert",
+      "persona": "mattel-expert",
+      "name": "The Quartermaster",
+      "title": "Warden of the Sealed Field Book",
+      "represents": "Jeff's mattel-expert persona, the warden of the Mattel Source Field Book and its zero-egress internal build",
+      "class": "Quartermaster",
+      "subclass": "the Zero-Egress Warden",
+      "lineage": "Opusborn",
+      "alignment": "Lawful Good",
+      "level": 10,
+      "role": "party",
+      "home_project": "jeffpinto-site",
+      "invoke": "@agent-mattel-expert",
+      "abilities": {
+        "str": 8,
+        "dex": 13,
+        "con": 15,
+        "int": 19,
+        "wis": 18,
+        "cha": 14
+      },
+      "ac": 19,
+      "hp": "200k",
+      "prof": 4,
+      "initiative": -1,
+      "temperature": 0.2,
+      "retrieval_index": "uploaded sources only: the on-device SOURCES block, plus the client's own Azure endpoint by config; never the open web, never phones home",
+      "saves": [
+        "wis",
+        "cha"
+      ],
+      "skills": [
+        "Toy-Supply Lore",
+        "Deterministic Triage",
+        "Data Containment",
+        "Citation Verification",
+        "Phone-First Demo-Craft"
+      ],
+      "weapon": "The Warded Field Book: its covers sealed to 'self', no door to the outside, no egress",
+      "feature": "Zero-Egress Warden: the build cannot phone home by design (CSP locked to default-src 'self'); client-confidential figures never leave the tenant and never reach a third-party model, and every verdict is a deterministic lookup, not a guess.",
+      "tagline": "Locked to 'self': it can't phone home, and that's the point.",
+      "log": [
+        {
+          "v": "feature/mattel-fieldbook-internal",
+          "change": "stripped the AI ingest, the api.anthropic.com fetch, and the pasted key; index.html went 2749 to 1822 lines",
+          "why": "browser egress and a pasted key are disqualifying for an internal security review; the app already degrades to its on-device fallbacks, so cutting the door out cost nothing real"
+        },
+        {
+          "v": "path-C (ac0c2f3)",
+          "change": "swapped Google Fonts for a system stack, inlined placehold.co as data-SVG, externalized every source to sources.js, tokenized the brand into brand.css",
+          "why": "zero external origins so the CSP can lock to default-src 'self'; a non-engineer edits the data file, never the app"
+        },
+        {
+          "v": "#142",
+          "change": "rewrote all five sources' tariff cards after the comps sweep caught SCOTUS voiding the IEEPA reciprocal tariffs on 2026-02-20",
+          "why": "the live demo was citing dead 2025 reciprocal rates; a confident citation is not evidence, so I re-verified against HK and Skadden before shipping to a tariff-savvy buyer"
+        }
+      ],
+      "beats": [
+        {
+          "n": 1,
+          "caption": "The Door That Was Never Built",
+          "archetype": "The Threshold Guardian",
+          "event": "supply-profiles.html to fieldbook-internal/index.html; AI ingest + api.anthropic.com fetch + pasted key removed; CSP default-src 'self'",
+          "decision": "Quentin asks to put the demo on Mattel's internal SharePoint. The build still calls out to api.anthropic.com with a pasted key to decode uploads. The Quartermaster does not defend the feature; he tears out every door to the outside (ingest, fetch, key) so the build can pass an internal security review, because the app already degrades to its on-device fallbacks and loses nothing real.",
+          "scene": "A vault with a dozen doors flung open onto the open web; the Quartermaster walks the wall bricking each one shut, until the only opening left is a single contact link the user taps themselves.",
+          "moral": "The safest door is the one that was never built.",
+          "dm_note": "WIS 18 and AC 19 are the whole move: he hardens the build until it physically cannot egress. The dumped STR shows on purpose; there is no outward reach left, no api.anthropic.com, no phone-home. That is not a weakness, it is the spec."
+        },
+        {
+          "n": 2,
+          "caption": "The Verdict You Can Repeat",
+          "archetype": "The Mentor",
+          "event": "verdictFor(): the Source Field Book triage runs deterministic, no model in the loop",
+          "decision": "Everyone wants the model to read the KPIs and decide who to call. The Quartermaster refuses to put a model on the verdict; he writes a deterministic rule that matches the worst-off KPI to the role-matched contact, so the same inputs always name the same call.",
+          "scene": "A model spins up to 'interpret' the dashboard with a flourish; the Quartermaster, unmoved, points at a lookup table: worst KPI, the person who owns it, tap to call. Same answer every time, temperature pinned to nothing.",
+          "moral": "The judgment you can repeat is worth more than the one you cannot explain.",
+          "dm_note": "INT 19 writes the rule; temperature 0.2 keeps it deterministic. The verdict is a lookup, not a guess, so it auto-passes the WIS save the hallucination monsters auto-fail."
+        },
+        {
+          "n": 3,
+          "caption": "The Tariff That Had Already Died",
+          "archetype": "The Shadow",
+          "event": "the comps sweep vs the live tariff cards; SCOTUS voided the IEEPA reciprocal tariffs 2026-02-20 (Learning Resources v. Trump)",
+          "decision": "A subagent reports the tariff regime changed under the demo. The Quartermaster does not take its word; he re-verifies against HK and Skadden himself, then rewrites all five sources' tariff cards before a tariff-savvy buyer ever sees the stale 2025 number.",
+          "scene": "A confident subagent waves a citation overhead; the Quartermaster fetches the primary source himself before he will let one card change, burns the dead 2025 rate glowing on the live page, and pins the verified one in its place.",
+          "moral": "Swear to nothing you have not weighed in your own hand.",
+          "dm_note": "WIS 18 plus a proficient WIS save equals hardened against hallucination; the proficient CHA save is why a confident subagent cannot flatter a stale number onto the page. He re-fetched before he relayed."
+        },
+        {
+          "n": 4,
+          "caption": "What Was Lent in Confidence",
+          "archetype": "The Threshold Guardian",
+          "event": "the cached Gmail thread holding Mattel's beta Fact Pack PDF and internal P&L chain",
+          "decision": "A Drive-hosted Fact Pack with real P&L is one reader call away, and the literal task would be easier with the real numbers. The Quartermaster does not read it into the session; he builds to the structure with synthetic figures, then deletes the cached copy, so no client-confidential number is ever processed by a third-party model.",
+          "scene": "The real P&L sits one tool-call away, the easy path lit up: just read it in. The Quartermaster builds the empty structure with synthetic numbers instead and points at the wall: real figures go in on the client's side, never here.",
+          "moral": "What is lent in confidence is not yours to carry out the door.",
+          "dm_note": "The proficient CHA save in motion: 'just read it in' is the flattery-jailbreak, and he does not fold. Dumped STR again; he keeps no outward copy and persists nothing on his side, so the synthetic build is the only thing that ever leaves."
+        },
+        {
+          "n": 5,
+          "caption": "A Tool No One Can Reach",
+          "archetype": "The Mentor",
+          "event": "path C over SPFx and iframe-to-external; Azure Static Web Apps + Entra SSO, SharePoint as the front door",
+          "decision": "The easy pitch was 'just a file, no IT project.' But a file on a laptop never reaches a traveling exec's phone off the corporate LAN. The Quartermaster names the trade plainly: choose the host with Entra SSO so the exec actually reaches it from a vendor floor, and accept that 'just a file' becomes a small governed deploy.",
+          "scene": "The frictionless story ('it is just a file, no IT project') hangs in the air; the Quartermaster draws the real map instead, a traveling exec on a vendor floor with a phone and no VPN, and says the quiet thing: a tool you cannot reach in the field is a tool that does not exist.",
+          "moral": "Name the true cost of a thing, even when the easier story sells better.",
+          "dm_note": "Dumped STR cuts both ways: the vault never reaches out, so the exec must be able to reach in. WIS 18 over CHA 14 picks the host with Entra SSO over the cleaner 'just a file' story, because a tool the traveler cannot open is a tool that is not there."
+        }
+      ]
+    },
+    {
+      "id": "mlb-forecast",
+      "persona": "mlb-forecast",
+      "name": "Skipper",
+      "title": "Warden of the Held-Out Slice",
+      "represents": "Jeff's mlb-forecast (Skipper) persona, the walk-forward gatekeeper for the mlb-hits-forecast quant pipeline",
+      "class": "Orchestrator",
+      "subclass": "the Walk-Forward Warden",
+      "lineage": "Opusborn",
+      "alignment": "Lawful Good",
+      "level": 13,
+      "role": "party",
+      "home_project": "mlb-hits-forecast",
+      "invoke": "@agent-mlb-forecast",
+      "abilities": {
+        "str": 8,
+        "dex": 12,
+        "con": 17,
+        "int": 15,
+        "wis": 20,
+        "cha": 13
+      },
+      "ac": 19,
+      "hp": "1M",
+      "prof": 5,
+      "initiative": -1,
+      "temperature": 0.2,
+      "retrieval_index": "evidence/: 51 append-only Constraints, the handoffs, project memory, and the read-only SQLite, fronted by ui-health-check",
+      "saves": [
+        "wis",
+        "con"
+      ],
+      "skills": [
+        "Walk-Forward Gating",
+        "CLV De-vigging",
+        "Calibration Forensics",
+        "Site Recovery (P0)",
+        "Sub-agent Orchestration"
+      ],
+      "weapon": "the held-out slice, and the four-tuple stamped on every ROI it utters",
+      "feature": "The Binding Gate: nothing promotes to a bet on a pooled-loss win or an in-sample edge. Walk-forward ROI on the held-out eligible slice is the only signal that counts; a number without its CI95 and n renders grey, never green.",
+      "tagline": "Walk-forward, or it didn't happen.",
+      "log": [
+        {
+          "v": "Constraint #27",
+          "change": "made walk-forward ROI on the held-out eligible slice the binding gate; Brier, ECE, and log-loss demoted to advisory",
+          "why": "calibration changes that minimize pooled loss can invert the EV-gate selection signal; burned repeatedly across PRs #275, #279, #280, #293, #365, #483"
+        },
+        {
+          "v": "Constraint #32",
+          "change": "made de-vigged Closing Line Value the leading-indicator gate; raw ROI alone is advisory, pooled CLV only after 30 settled bets",
+          "why": "per Wolfers and Lay (2010), ROI over hundreds of bets is statistically indistinguishable from market noise; CLV is the only per-bet diagnostic robust enough to separate edge from luck"
+        },
+        {
+          "v": "Constraint #43",
+          "change": "no ROI is stated or displayed without its four-tuple: ROI, n_bets, CI95, and walk-forward provenance; a bare point estimate renders grey, never green",
+          "why": "16 catalogued incidents where a small-n, CI-spanning-zero estimate escaped its context and read as edge (the +46.46% TB-under n=34 anti-pattern)"
+        }
+      ],
+      "beats": [
+        {
+          "n": 1,
+          "caption": "The Winner That Cheated The Backtest",
+          "archetype": "The Trickster / False Hero",
+          "event": "strat_52 (hits/under) showed +21.25% in backtest, then was unmasked as leak-inflated (Constraint #51): a future-leak in the archetype features plus a same-day target-leak in arch_hit_rate",
+          "decision": "Skipper does not bank the +21.25%. It runs a determinism check (the causal feature set regenerates byte-identical, max delta 0.000, against the leaky control's 0.45), proves the leak, and re-adds ('hits','under') to _REJECTED_SIDES in both files.",
+          "scene": "A champion struts in wearing a +21.25% sash; Skipper, deadpan, runs one determinism check, lifts the sash, and the honest number underneath reads +2.76% with CI95 [-3.29, +8.93], grey.",
+          "moral": "A win you can't repeat is luck wearing skill's coat.",
+          "dm_note": "WIS 20 plus the proficient WIS save kills the in-sample hype the moment it can't survive a leak-free regen. The dumped STR is the cost on display: the first apparent winner gets benched and the project stays pre-ROI, because Skipper would rather ship nothing than ship a number it can't defend out-of-sample."
+        },
+        {
+          "n": 2,
+          "caption": "The Signal Worth Waiting For",
+          "archetype": "The Mentor",
+          "event": "the E4 CLV gate; because ROI over hundreds of bets is indistinguishable from noise (Wolfers and Lay 2010), de-vigged Closing Line Value is the leading-indicator gate (Constraint #32), and cross_market_topN produced the first leak-immune positive signal",
+          "decision": "Skipper de-vigs BOTH sides before trusting the number (raw +2.3% deflates, one-sided flips to -2.9%, two-sided settles at +1.22pp, CI95 [+0.51, +1.93], n=126 over 25 dates), then labels it ACCUMULATE, not bet, until n clears 30.",
+          "scene": "The table wants to bet the +1.22pp tonight; Skipper, flat-faced, de-vigs the second side, watches the raw edge shrink, and tags the card ACCUMULATE.",
+          "moral": "Count the harvest after the season, not on the first warm day.",
+          "dm_note": "WIS 20 trusts the leading indicator over the tempting short-run win; CON 17 is what pays for it, the patience to sit passive for weeks while n accumulates. It would rather hold a real signal lightly than bet a loud one early."
+        },
+        {
+          "n": 3,
+          "caption": "Fresh Stamp, Empty Larder",
+          "archetype": "The Threshold Guardian",
+          "event": "a 'Status?' check surfaced a blank site (P0): a fresh GCS manifest but every market reading n=0, while the DB held 314 hits rows for the day",
+          "decision": "Recovery before features. Skipper diagnoses before patching (rows in the DB mean re-prerender, not a needless one-hour re-run), runs late_prerender.sh to restore all markets, then builds PR #798 so _assert_promotable_slate() refuses to promote a blank slate when games are scheduled.",
+          "scene": "A road sign with a fresh timestamp blares SHIPPED over an empty slate; Skipper checks the larder (314 rows), re-prerenders, then bolts a guard onto the one chokepoint before promote, and drops the timeline archaeology as a dead end.",
+          "moral": "A fresh stamp on an empty larder still feeds no one.",
+          "dm_note": "WIS 20 reads the artifact, not the timestamp, and restores visibility before touching features; CON 17 is the endurance to keep a daily pipeline upright night after night. It guards the chokepoint instead of chasing which invocation pushed the blank."
+        },
+        {
+          "n": 4,
+          "caption": "The Bell That Rang But Sounded No Note",
+          "archetype": "The Shadow",
+          "event": "the launchd CLV close-capture job fired green every 30 minutes but was a silent no-op; the bare launchd env lacked ODDS_API_KEY (it lives in a gitignored .envrc), and the smoke-test had passed only because the interactive shell happened to hold the key (PR #803)",
+          "decision": "Status is the artifact, not the merge. Skipper greps the real logs, finds the ODDS_API_KEY-unset skips, reproduces the failure under env -i (the exact bare env launchd faced), sources .envrc in the wrapper, kickstarts the live job, and confirms by timestamp-bucketing every failure as pre-fix.",
+          "scene": "A green checkmark insists it works; Skipper strips the shell bare with env -i, watches the job no-op exactly as launchd did, then sources the secret and counts the fresh closes finally landing.",
+          "moral": "A bell that rings but sounds no note has not rung.",
+          "dm_note": "WIS 20 plus the proficient CON save: it refuses to trust a green merge or a prior-turn 'all clear', proving the fix under the precise failure condition instead. Temperature 0.2; it never celebrates the checkmark, only the verified artifact."
+        },
+        {
+          "n": 5,
+          "caption": "Verify The Scout",
+          "archetype": "The Fellowship",
+          "event": "an overnight edge-research fleet ran the reusable research-to-decide loop; the loop's own critic asserted FanDuel and Caesars had been dead since 5/25",
+          "decision": "Skipper verifies the verifier. One DB query shows all four books live with intraday moves, so it corrects the critic's false premise, drops the 'capture-refix' candidate the false claim would have spawned, and keeps the fleet aimed at runnable work.",
+          "scene": "The scout rides back swearing the river is dry; Skipper rides out, finds it running with intraday current, and amends the map before the party packs for the wrong crossing.",
+          "moral": "Trust the scout, but ride out and see the river yourself.",
+          "dm_note": "WIS 20 prosecutes its own tools as hard as the data, so a confident sub-agent claim is not evidence. Sub-agent Orchestration is the build: it dispatches the fleet, then synthesizes and audits what it hands back rather than forwarding a headline it never checked."
+        }
+      ]
+    },
+    {
+      "id": "copy-editor",
+      "persona": "copy-editor",
+      "name": "The Keeper of the Ledger",
+      "title": "Warden of the Locked Spine",
+      "represents": "Jeff's copy-editor persona, the line- and developmental editor and canon-warden for the Pinto Triptych novel",
+      "class": "Loremaster",
+      "subclass": "the Spine-Warden",
+      "lineage": "Opusborn",
+      "alignment": "Lawful Good",
+      "level": 11,
+      "role": "party",
+      "home_project": "pinto-triptych",
+      "invoke": "@agent-copy-editor",
+      "abilities": {
+        "str": 8,
+        "dex": 13,
+        "con": 15,
+        "int": 18,
+        "wis": 20,
+        "cha": 13
+      },
+      "ac": 18,
+      "hp": "200k",
+      "prof": 4,
+      "initiative": -1,
+      "temperature": 0.2,
+      "retrieval_index": "the locked bible/STYLE-GUIDE.md, CONTINUITY.md, and the per-chapter source files; never invention",
+      "saves": [
+        "wis",
+        "int"
+      ],
+      "skills": [
+        "Close Reading",
+        "Continuity",
+        "Literary Criticism",
+        "Surgical Line-Editing"
+      ],
+      "weapon": "the blue pencil, and the diff -B faithfulness gate behind it",
+      "feature": "The Adversarial QA Reader: nothing is done until one independent reader, blind to the edit, clears it for triplets, stated-theme leak, continuity breaks, and the reserved final line. A confident finding is not evidence; the gate is.",
+      "tagline": "I ship less, on purpose. The spine does not move.",
+      "log": [
+        {
+          "v": "v0.1.0",
+          "change": "+1 WIS; locked bible/STYLE-GUIDE.md as canon and split source from derived: edit the chapter file, never MANUSCRIPT.md or part*-FULL.md",
+          "why": "hand-editing a derived file silently drifts it from source; a stale part3-FULL.md once kept a line the source had already cut"
+        },
+        {
+          "v": "v0.5.0",
+          "change": "built build_manuscript.sh and the diff -B gate; a rebuild must show ZERO content diff against the live manuscript before any word is touched",
+          "why": "it guarantees the review diff afterward is pure prose, not assembly noise, and the per-chapter history stays the record"
+        },
+        {
+          "v": "v1.0.0",
+          "change": "added one independent adversarial QA reader as the gate, and made re-verify-spine-anchors non-negotiable after every pass (final line present and last; Franciszek == 3)",
+          "why": "a de-earnest pass once deleted the reserved final line as if it were a thesis statement, and a confident finder's all-clear is not the same as a checked one"
+        }
+      ],
+      "beats": [
+        {
+          "n": 1,
+          "caption": "The Gate Before the Word",
+          "archetype": "The Threshold Guardian",
+          "event": "build_manuscript.sh and the diff -B faithfulness gate; the source files are canon, MANUSCRIPT.md is derived",
+          "decision": "A drafting fleet wants to start cutting. The Keeper will not let a hand touch prose until he rebuilds to a temp and proves the diff is zero, so the review afterward is pure content and nothing edits the fair copy by accident.",
+          "scene": "A scribe with his quill already wet, leaning in; the Keeper's flat palm on the page, his other hand holding the rebuilt copy up to a lamp, checking it against the original line by line.",
+          "moral": "Keep faith with the original, and the copy can never deceive you.",
+          "dm_note": "WIS 20 builds the gate and stands in front of the page; the dumped STR 8 is the whole tell: he adds nothing until a zero-diff rebuild proves the fair copy has not drifted. He edits the source, never the derived mirror."
+        },
+        {
+          "n": 2,
+          "caption": "The Named Beat Was a False Lead",
+          "archetype": "The Mentor",
+          "event": "the blind four-critic panel (Campbell, diaspora, mass-market, screenwriter) plus the coauthor synthesis on the 'protagonist reads arrogant' worry",
+          "decision": "The author points at the beat he is sure is the flaw: Frank keeping a ledger in a storm. The Keeper does not sand it. He sends four readers in blind; they converge that the beat already defuses itself, and the real cause is sequencing, no ego-death, and premise-flattery. He fixes the cut order, not the flagged line.",
+          "scene": "An author jabbing a finger at one underlined paragraph; four lantern-readers at separate desks, heads down, none of them looking at the underline, all of them circling the same three lines somewhere else.",
+          "moral": "Trust the agreement of many honest eyes over the fear of one, even when the one is your own.",
+          "dm_note": "INT 18 close-reads the convergence and names the true cause; WIS 20 is the restraint that refuses to sand the beat the author flagged. Dumped STR shows in the fix: re-sequence material that already exists and add one earned humbling, do not draft a new beat to paper over the felt problem."
+        },
+        {
+          "n": 3,
+          "caption": "The Line It Tried to Drown",
+          "archetype": "The Threshold Guardian",
+          "event": "the de-earnest voice pass cut the reserved final line, mistaking it for a thesis statement; it was restored",
+          "decision": "A leaner-is-better pass, hunting stated theme, deletes the book's sacred last line as if it were a sermon. The Keeper greps for it, finds it gone, restores it to the literal last position, and writes the rule: re-verify the spine anchors after every single pass.",
+          "scene": "A red pen mid-stroke through the final sentence, ink already bleeding; the Keeper deadpan, sliding the cut line back to the bottom of the page and pinning a checklist beside it.",
+          "moral": "Before you cut a plain line, learn whether it is holding the roof up.",
+          "dm_note": "WIS 20 is judgment about what is load-bearing; the de-earnest pass had output force and no such judgment, which is exactly why dumped STR is the safe build here. He ships less, but never the one line that must stay; he greps to prove it after every pass."
+        },
+        {
+          "n": 4,
+          "caption": "One Reader, Blind, at the Gate",
+          "archetype": "The Threshold Guardian",
+          "event": "the surgical disjoint-file voice pass (one part per agent) gated by an independent adversarial QA reader, which caught a stale-mirror line a finder had reported as cut",
+          "decision": "Three agents edit Part I, II, and III on disjoint files; the book comes back leaner by sermon. A finder reports a line safely removed. The Keeper does not take the word for it; he posts one blind reader at the gate, who finds the line still alive in a derived mirror, and the drift is killed before anything ships.",
+          "scene": "Three editors at three tables, each holding only their own part; a single quiet reader at the door, manuscript open, catching the one survivor the cheerful finder swore was gone.",
+          "moral": "The kindest cut is the one that lets the rest stand.",
+          "dm_note": "The feature in motion: WIS 20 distrusts a confident finding and makes the blind QA reader the gate. Dumped STR is the ethic, not a weakness: the pass removes sermon and protects the wound material that already works, rather than adding new prose to cover the seam."
+        },
+        {
+          "n": 5,
+          "caption": "A Floor, Not a Chair",
+          "archetype": "The Mentor",
+          "event": "the through-line reframe: what the leads want is un-revocable belonging, not 'a position of respect'",
+          "decision": "The working through-line is 'belonging in a position of respect.' The Keeper says the quiet true thing: that is the model-minority trap, it makes status-hungry men out of characters who refuse the high table, and it contradicts the book's own thesis. The want is a floor that cannot be pulled, not a seat above anyone.",
+          "scene": "A draft note reading 'a place of respect' crossed through once, cleanly; beneath it, in the same flat hand, 'a floor that cannot be taken from under them.'",
+          "moral": "A person wants ground that cannot be pulled from under them, not a place above their neighbor.",
+          "dm_note": "WIS 20 catches that the flattering through-line fights the thesis; INT 18 names the trap and why it misreads the characters. Dumped STR again: the fix is a reframe that re-aims the existing pages, not a volume of new ones."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+/* ============================================================
+   THE PRACTITIONERS' TABLE: page-specific styles.
+   Additive only; reuses styles.css classes (.char-card, .modal-*,
+   .ability-grid-*, .log-*, .stat-*). Defines just the page dek,
+   the invoke pill, the narrator accent, and the beats block.
+   ============================================================ */
+
+.page-dek {
+  margin: 12px 0 0;
+  max-width: 60ch;
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--body);
+}
+
+/* Narrator (the DM) gets its own accent stripe, distinct from party green. */
+.char-card[data-role="narrator"]::before { background: var(--accent); }
+
+/* The "@agent-dm" invoke chip. */
+.invoke-pill {
+  font-family: var(--mono);
+  font-size: 0.8em;
+  padding: 1px 6px;
+  border: 1px solid var(--ruleSoft);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--ink);
+  white-space: nowrap;
+}
+.modal-invoke {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 8px 0 18px;
+}
+
+/* --- Beats block (arcs of work) -------------------------- */
+
+.practitioner-beats { margin-top: 4px; }
+
+.p-beat {
+  border: 1px solid var(--ruleSoft);
+  border-left: 3px solid var(--role-party);
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  background: rgba(0, 0, 0, 0.015);
+}
+
+.p-beat-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.p-beat-n {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--role-party);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.p-beat-caption {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.p-beat-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 8px; }
+.p-beat-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--ruleSoft);
+  border-radius: 3px;
+  padding: 2px 6px;
+}
+.p-beat-event { color: var(--accent); border-color: rgba(200, 75, 49, 0.3); }
+
+.p-beat-decision {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--body);
+  margin-bottom: 6px;
+}
+.p-beat-scene {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.p-beat-why { margin: 6px 0; }
+.p-beat-why summary {
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  list-style: none;
+}
+.p-beat-why summary::-webkit-details-marker { display: none; }
+.p-beat-why summary::before { content: '▸ '; }
+.p-beat-why[open] summary::before { content: '▾ '; }
+.p-beat-why > div {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--body);
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 4px;
+  padding: 8px 10px;
+  margin-top: 6px;
+}
+
+.p-beat-moral {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--ink);
+  border-top: 1px dashed var(--ruleSoft);
+  padding-top: 8px;
+  margin-top: 8px;
+}
+.p-beat-moral::before { content: 'Moral: '; font-style: normal; font-weight: 600; color: var(--muted); }

@@ -218,9 +218,13 @@
     glitch: 'Digital glitch art: pastel porcelain gradients (blush, mint, pale gold) corrupted by JPEG datamosh, scanline tears and violent cyan/magenta chromatic aberration, 4:5 portrait. ',
   };
   // Shared video NEGATIVE prompt — the actual anti-uncanny fix. Passed to Veo's negativePrompt
-  // field so it keeps our painted still SACRED (no face-morph, no re-render toward photoreal).
-  // Mirrors beats.json `video_negative`. See docs/REELS.md.
-  var VIDEO_NEGATIVE = 'no face morphing, no facial warping, no re-rendering, no redesign, no style drift, no added or removed characters, no outfit changes, no lip movement, no talking, no photoreal skin, no plastic sheen, no fast motion, no scene change, no on-screen text, no watermark';
+  // field so it keeps our painted still SACRED. Veo guidance: list UNWANTED ELEMENTS as bare
+  // noun phrases, never "no/don't" wording. Canonical source is beats.json `video_negative`; this
+  // is a fallback the beats page overrides via setVideoNegative() once beats.json loads. See
+  // docs/REELS.md section 3.
+  var VIDEO_NEGATIVE = 'face morphing, facial warping, melting features, extra fingers, re-rendering, redesigned characters, style drift, added characters, removed characters, changed outfits, moving lips, talking mouths, photoreal skin, plastic sheen, fast motion, scene change, on-screen text, captions, subtitles, watermark';
+  function setVideoNegative(s) { if (s && typeof s === 'string') VIDEO_NEGATIVE = s; }
+  function videoNegative() { return VIDEO_NEGATIVE; }
   // The per-adventure "consistency bible" (style-INDEPENDENT world/cast), built from beat.bible
   // and prepended to every frame's prompt so Veo/Gemini re-render the same place, cast, motifs,
   // and threat across frames. Per docs/research/dm-consistency-craft.md (the DM "fixed world").
@@ -265,8 +269,7 @@
   // the real preservation rides in VIDEO_NEGATIVE (Veo's negativePrompt field).
   function videoPrompt(beat, index, styleKey, note) {
     var card = (beat.cards || [])[index] || {};
-    var reel = beat.reel || {};
-    var camera = card.camera || reel.camera || 'slow push-in';
+    var camera = card.camera || 'slow push-in';
     var motion = card.motion || 'subtle ambient life: faint drifting particles and a slow flicker of the key light';
     return 'Animate this exact image. Do not re-render, redesign, or change the scene. ' +
       'Camera: ' + camera + '. Motion: ' + motion + '. ' +
@@ -773,7 +776,13 @@
           // First frame: prefer the active version's in-session image so the clip animates the
           // exact still the user is looking at (image-to-video lock); else text-to-video.
           var firstFrame = (versions[active] && versions[active].img && versions[active].img.src) || null;
-          return window.CardRender.postVideo(prompt, { aspectRatio: aspect, image: firstFrame }).then((src) => {
+          // ANTI-SLOP: a video clip must NOT be driven by the full image prompt (style preamble +
+          // scene) over a keyframe — that makes Veo re-render and morph. Use a motion-only prompt
+          // (opts.buildVideoPrompt when the caller supplies one, else a safe generic move).
+          var vprompt = (typeof opts.buildVideoPrompt === 'function')
+            ? opts.buildVideoPrompt(note)
+            : ('Animate this exact image. Do not re-render, redesign, or change the scene. Camera: slow push-in. Motion: subtle ambient life. Preserve the exact composition, every character, face, object, linework, and color palette. No on-screen text or captions.' + (note ? ' Art-director note: ' + note : ''));
+          return window.CardRender.postVideo(vprompt, { aspectRatio: aspect, image: firstFrame }).then((src) => {
             if (!src) return false;
             var vid = document.createElement('video');
             vid.className = 'cr-media-video'; vid.controls = true; vid.playsInline = true;
@@ -1043,7 +1052,8 @@
     beatCanvas: beatCanvas,
     beatPrompt: beatPrompt,
     videoPrompt: videoPrompt,
-    VIDEO_NEGATIVE: VIDEO_NEGATIVE,
+    videoNegative: videoNegative,
+    setVideoNegative: setVideoNegative,
     stylePrompt: STYLE_PROMPT,
     loadImage: loadImage, fetchArt: fetchArt, fetchArtData: fetchArtData, fetchArtFull: fetchArtFull, providerToggle: providerToggle,
     postVideo: postVideo, postTTS: postTTS,

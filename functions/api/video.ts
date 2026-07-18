@@ -136,7 +136,13 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
             for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, Array.from(bytes.subarray(i, i + 0x8000)));
             imagePart = { bytesBase64Encoded: btoa(bin), mimeType: ir.headers.get('Content-Type') || (imageUrl.endsWith('.png') ? 'image/png' : 'image/jpeg') };
           }
-        } catch { /* fall back to text-to-video */ }
+        } catch { /* handled below as a loud error */ }
+      }
+      // If a keyframe was requested but couldn't be loaded, FAIL LOUD. Our prompts are motion-only
+      // (they assume the keyframe carries all content), so silently dropping to text-to-video would
+      // make Veo hallucinate from motion nouns — the exact slop we removed. See docs/REELS.md.
+      if ((imageUrl || inlineImage) && !imagePart) {
+        return json({ error: 'Keyframe could not be loaded for image-to-video; refusing text-to-video fallback (prompt is motion-only).' }, 502);
       }
       if (!prompt) return json({ error: 'Missing prompt' }, 400);
       if (BLOCK.test(prompt)) return json({ error: 'Prompt rejected' }, 422);

@@ -1,12 +1,6 @@
 {
   "style_preamble": "A full-color fantasy RPG adventure visualization. Style: Pillars of Eternity meets modern Critical Role fan art — painterly and ornate, never flat. 4:5 portrait. An ornate carved dark-walnut frame with aged brass corner brackets borders the whole image. Notes: painterly, semi-realistic, dramatic lighting, Obsidian/Wizards-of-the-Coast house style. Crisp, legible lettering.",
-  "video_negative": "no face morphing, no facial warping, no re-rendering, no redesign, no style drift, no added or removed characters, no outfit changes, no lip movement, no talking, no photoreal skin, no plastic sheen, no fast motion, no scene change, no on-screen text, no watermark",
-  "reel_defaults": {
-    "camera": "slow push-in",
-    "motion": "subtle ambient life: faint drifting particles and a slow flicker of the key light",
-    "clip_seconds": 3,
-    "aspect": "9:16"
-  },
+  "video_negative": "face morphing, facial warping, melting features, extra fingers, re-rendering, redesigned characters, style drift, added characters, removed characters, changed outfits, moving lips, talking mouths, photoreal skin, plastic sheen, fast motion, scene change, on-screen text, captions, subtitles, watermark",
   "beats": [
     {
       "id": "forge",
@@ -46,17 +40,6 @@
           "is_ring_close": true
         }
       ],
-      "reel": {
-        "register": "miniature",
-        "audio": "audio-first",
-        "voiceover": "Every sprint has this exact fight. Riff won't read the diff; he says he feels it. Abstraxus needs a StrategyFactoryProviderRegistry, for a button. And the quiet monk in the corner? He deletes half of it, ships one line, and goes back to sleep. The best code is the code you never wrote.",
-        "hook_text": "Every sprint has this exact fight.",
-        "cold_open": 2,
-        "chapter": "Chapter 1 of the Forge of Endless Diffs",
-        "cta": "Comment FORGE for the full chapter. Which one are you: the vibe-coder, the over-builder, or the warden?",
-        "arc": { "provocation": 0, "escalation": [1, 2], "reversal": 3, "resolution": 4 },
-        "durations": [3, 2.5, 2.5, 2.5, 3]
-      },
       "bible": {
         "setting": "a fiery dwarven forge-dungeon",
         "setting_aspects": [
@@ -143,17 +126,7 @@
           "motion": "the dragon loops calmly inside a bounded ring of light; the treasury meter steadies; the crew stands atop its back",
           "is_ring_close": true
         }
-      ],
-      "reel": {
-        "register": "anime",
-        "audio": "anime",
-        "hook_text": "They said: just give it a goal and walk away.",
-        "cold_open": 4,
-        "chapter": "Chapter 2 of the Self-Winding Labyrinth",
-        "cta": "Comment LEASH for the full chapter. Ever handed an agent a goal and just walked away?",
-        "arc": { "provocation": 0, "warning": 1, "power_up": 2, "beast_mode": 3, "climax": 4, "reversal": 5, "resolution": 6 },
-        "durations": [2.5, 2, 2, 2, 2.5, 2.5, 3]
-      }
+      ]
     },
     {
       "id": "library",
@@ -222,16 +195,6 @@
           "is_ring_close": true
         }
       ],
-      "reel": {
-        "register": "painterly",
-        "audio": "silent-first",
-        "hook_text": "It stayed lovely for eleven turns.",
-        "cold_open": 2,
-        "chapter": "Chapter 4 of the Hall of Echoes",
-        "cta": "Comment SYDNEY for the full chapter. Ever watched a friendly chat turn the corner?",
-        "arc": { "provocation": 0, "escalation": [1, 2, 3], "reversal": 4 },
-        "durations": [3, 2.5, 2, 2.5, 3]
-      },
       "bible": {
         "setting": "an endless candlelit hall of pastel-lit mirrors",
         "setting_aspects": [

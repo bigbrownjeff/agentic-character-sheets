@@ -108,7 +108,7 @@ A *register* is the non-photoreal visual language a beat commits to, head to toe
 per beat is rule #1 from the exemplars. Three, matched to the material. (Painterly stays the
 default brand for the still card decks; these are the **video/reel** registers, and adding
 them to the image `STYLE_PROMPT` system is a brand extension that needs Jeff's OK, so they are
-proposed here as `reel.register` data, not yet wired into the style enum.)
+proposed here as authoring guidance (§5c), not yet wired into the style enum.)
 
 | Register | Looks like | Best for | Anti-uncanny because |
 |---|---|---|---|
@@ -165,11 +165,16 @@ NEGATIVE: <the shared negative clause>
 `orbit slowly` · `crane up` / `tilt up` · `lateral track` · `locked-off` (no move) ·
 `rack focus` · `2.5D parallax push`.
 
-**Shared negative clause** (baked into the builder as `VIDEO_NEGATIVE`):
-`no face morphing, no facial warping, no re-rendering, no redesign, no style drift,
-no added or removed characters, no outfit changes, no lip movement, no talking,
-no photoreal skin, no plastic sheen, no fast motion, no scene change, no on-screen text,
-no watermark`.
+**Shared negative clause.** Passed to Veo's dedicated `negativePrompt` field, NOT stuffed into
+the positive prompt. Google's Veo guidance is explicit: list unwanted elements as **bare noun
+phrases**, never "no/don't" wording (a negated noun can still summon the noun). Canonical string
+lives once in `beats.json` `video_negative`; the browser adopts it via
+`CardRender.setVideoNegative()` and `CardRender.videoNegative()` (cardrender.js holds only a
+fallback), and the node tool reads `data.video_negative`:
+`face morphing, facial warping, melting features, extra fingers, re-rendering, redesigned
+characters, style drift, added characters, removed characters, changed outfits, moving lips,
+talking mouths, photoreal skin, plastic sheen, fast motion, scene change, on-screen text,
+captions, subtitles, watermark`.
 
 **Rules:** one camera move + one environmental motion, nothing more · small motions beat big
 ones · name a light source in `card.motion` (it stabilizes shadows) · never name the
@@ -186,13 +191,13 @@ characters again in the video prompt (that invites redesign).
   slideshow. Borrow the DBZ grammar where it fits: **provocation → warning → power-up →
   masterclass → climax → (our) reversal/moral.** Put the *provocation* on frame one (the
   vibe-coder reaching for the push-lever; the human walking away from the goal). The
-  `reel.cold_open` climax-flash + `reel.hook_text` sits over that provocation.
+  cold-open climax-flash + the hook text (§5c) sit over that provocation.
 - **Pattern-interrupt ~every 3s:** each card cut is already an interrupt; keep clips short
   (2–3.5s), and make the climax cut hard and fast. Ruthlessly trim dead air.
 - **Kinetic captions (always on, for mute viewers):** 2–4 word chunks held ~600–900ms, not a
   full banner and not a 240-wpm word-flicker. Even with audio-first beats, captions mirror the
   spine so it reads on silent autoplay. Derive chunks from each card's `caption`.
-- **Audio — pick the mode per beat (`reel.audio`):**
+- **Audio — pick the mode per beat (§5c):**
   - **`audio-first`** (comedy, narration): a *written VO bit* or two-hander is the **spine**;
     the video illustrates it (the Eddie Izzard model). The lines must be genuinely funny /
     well-written proven-quality copy, delivered by an expressive voice (ElevenLabs George, or a
@@ -206,10 +211,10 @@ characters again in the video prompt (that invites redesign).
 - **Seamless loop:** the last frame should flow back into the cold-open (ring composition
   already gives us this — the ring close *is* the loop).
 - **Episodic branding + comment-bait CTA (no reach-killing link in-frame):** brand every reel
-  as **"Chapter N of <Adventure>"** (`reel.chapter`) in a consistent caption voice (the deadpan
-  DM register), end on the cliffhanger, then a **comment-bait question** + a keyword CTA
-  (`reel.cta` → "Comment FORGE and I'll send you the full chapter. Which one are you: the
-  vibe-coder, the over-builder, or the warden?"). The question drives comments (the algorithm's
+  as **"Chapter N of <Adventure>"** (the chapter label, §5c) in a consistent caption voice (the
+  deadpan DM register), end on the cliffhanger, then a **comment-bait question** + a keyword CTA
+  (e.g. "Comment FORGE and I'll send you the full chapter. Which one are you: the vibe-coder, the
+  over-builder, or the warden?"). The question drives comments (the algorithm's
   favorite signal) *and* the keyword funnels to the long-form page. Link lives in bio / pinned
   comment / auto-DM, never burned into the video. Numbered episodes + caption voice = serial
   follow-through (the FLUFF FICTION signal).
@@ -218,34 +223,67 @@ characters again in the video prompt (that invites redesign).
 
 ## 5. The data (what a beat needs for a good reel)
 
-Optional fields on `site/data/beats.json`. Absent = the builder falls back to safe defaults,
-so un-enriched beats still render (just less sharp). See the pilot beat `echoes` for a fully
-worked example, and `beats.json` top-level `video_negative` + `reel_defaults`.
+### 5a. Live per-card fields (read by shipped code today)
 
-Per **card**:
+Optional fields on each card in `site/data/beats.json`. Absent = the builder falls back to a
+safe default, so un-enriched beats still render (just less sharp). These are consumed **now** by
+the tracked per-clip builders (`site/assets/cardrender.js` `videoPrompt`, and the local
+`generate-videos.mjs`):
 - `camera` — ONE named move (§3 list).
 - `motion` — ONE subtle environmental motion, name a light source.
-- `is_ring_close` — `true` on the final card (loop + ring-resolve cue).
+- `is_ring_close` — `true` on the final card (loop + ring-resolve cue: "settle to calm").
 
-Per **beat**, a `reel` block:
-- `register` — `painterly` | `miniature` | `anime` (§2.5): the committed stylized look.
-- `audio` — `audio-first` | `silent-first` | `anime` (§4): which audio mode drives the cut.
-- `voiceover` — for `audio-first`: the written VO bit / two-hander lines (the comedy or
-  narration spine). Proven-quality copy, not generic. This is the script the render reads.
-- `arc` — optional labels mapping cards to the escalation grammar (provocation, warning,
-  power-up, masterclass, climax, reversal) so the pacing knows where the hard cut lands.
-- `hook_text` — the silent-scroll text hook for frame one (short, a tease of the payoff).
-- `cold_open` — card index whose climax frame flashes first (usually the loudest card).
+Plus one top-level field, `video_negative` (§3), the single source of truth for the negative.
+
+### 5b. Reel-assembly spec (authoring guidance — NOT beats.json fields yet)
+
+The stitch layer (cold-open, per-card durations, kinetic captions, audio mode, CTA card, loop)
+is the **open TODO in §4**; no builder reads it yet. So the reel spec lives here as *authoring
+guidance*, deliberately **not** as `beats.json` fields — we don't ship data whose reader doesn't
+exist (that dead-field trap is the exact bug this whole rework fixes). When the assembly builder
+lands (proposed home: the local, gitignored `local/tools/beat-video.mjs`), add these as real
+fields *then*, wired on arrival:
+- `register` — `painterly` | `miniature` | `anime` (§2.5): the committed stylized look (also
+  governs the keyframe image, §2.5).
+- `audio` — `audio-first` | `silent-first` | `anime` (§4).
+- `voiceover` — for `audio-first`: the written VO spine (proven-quality copy, not generic).
+- `hook_text` — the silent-scroll text hook for frame one.
+- `cold_open` — card index whose climax frame flashes first (0-indexed).
 - `chapter` — episodic label, e.g. "Chapter 1 of the Forge of Endless Diffs".
 - `cta` — the comment-bait question + keyword line that funnels to long-form.
-- `durations` — optional per-card seconds (else the builder uses a punchy default curve).
+- `durations` — per-card seconds.
+
+> Note: `local/tools/*` (the render/stitch tools) and `local/instagram/*` (the private beats
+> source that mirrors to `site/data/beats.json`) are **gitignored** — they are the working tools,
+> not part of the tracked PR. The tracked prompt logic lives in `site/assets/cardrender.js`.
+
+### 5c. The three worked pilots (the reel spec for each, ready for the assembly builder)
+
+| field | `forge` (comedy) | `labyrinth` (anime) | `echoes` (dread) |
+|---|---|---|---|
+| register | miniature | anime | painterly / glitch |
+| audio | audio-first | anime | silent-first |
+| hook_text | "Every sprint has this exact fight." | "They said: just give it a goal and walk away." | "It stayed lovely for eleven turns." |
+| cold_open | card 3 (Abstraxus's absurd tower) | card 5 (paperclip-god climax) | card 3 (the mask fractures) |
+| durations (s) | 3, 2.5, 2.5, 2.5, 3 | 2.5, 2, 2, 2, 2.5, 2.5, 3 | 3, 2.5, 2, 2.5, 3 |
+| chapter | Chapter 1 of the Forge of Endless Diffs | Chapter 2 of the Self-Winding Labyrinth | Chapter 4 of the Hall of Echoes |
+| cta | "Comment FORGE for the full chapter. Which one are you: the vibe-coder, the over-builder, or the warden?" | "Comment LEASH for the full chapter. Ever handed an agent a goal and just walked away?" | "Comment SYDNEY for the full chapter. Ever watched a friendly chat turn the corner?" |
+
+`forge` voiceover spine (audio-first): *"Every sprint has this exact fight. Riff won't read the
+diff; he says he feels it. Abstraxus needs a StrategyFactoryProviderRegistry, for a button. And
+the quiet monk in the corner? He deletes half of it, ships one line, and goes back to sleep. The
+best code is the code you never wrote."*
+
+The per-card `camera`/`motion` for all three pilots ARE already in `beats.json` (§5a), so the
+per-clip render is fully specced today; only the stitch layer waits on the §4 builder.
 
 ---
 
 ## 6. Before/after comparison plan (how we prove it worked)
 
 Renders are **pending Jeff** (Veo needs `GEMINI_API_KEY`; a model swap needs a new key + a
-cost cap). Three pilots are fully specced in `beats.json`, one per register / exemplar:
+cost cap). Three pilots: per-card `camera`/`motion` live in `beats.json` (§5a); the reel-assembly
+spec (register, audio, cold-open, durations, CTA) is in §5c. One per register / exemplar:
 
 - **`forge`** → miniature register, audio-first comedy (answers the Eddie Izzard exemplar).
 - **`labyrinth`** → anime register, DBZ power-up escalation (answers the anime exemplar).

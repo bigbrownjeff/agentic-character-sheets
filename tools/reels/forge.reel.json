@@ -1,0 +1,25 @@
+{
+  "beat": "forge",
+  "title": "The Untested Push",
+  "register": "miniature",
+  "chapter": "Chapter 1 of the Forge of Endless Diffs",
+  "hook_text": "Every sprint has this exact fight.",
+  "cold_open_card": 2,
+  "audio": {
+    "mode": "scratch-vo",
+    "voice": "Samantha",
+    "rate": 210,
+    "voiceover": "Every sprint has this exact fight. Riff won't read the diff; he says he feels it. Abstraxus needs a StrategyFactoryProviderRegistry, for a button. And the quiet monk in the corner? He deletes half of it, ships one line, and goes back to sleep. The best code is the code you never wrote."
+  },
+  "cta": {
+    "line1": "Comment FORGE for the full chapter.",
+    "line2": "Which are you: vibe-coder, over-builder, or warden?"
+  },
+  "clips": [
+    { "file": "forge-c0.mp4", "duration": 3.0, "chunks": ["THE FORGE OF", "ENDLESS DIFFS", "the deadline", "burns low"] },
+    { "file": "forge-c1.mp4", "duration": 2.5, "chunks": ["RIFF THE RECKLESS", "I don't read the diff", "I feel it"] },
+    { "file": "forge-c2.mp4", "duration": 2.5, "chunks": ["ABSTRAXUS", "first we need a", "Strategy Factory", "Provider Registry"] },
+    { "file": "forge-c3.mp4", "duration": 2.5, "chunks": ["PONYTAIL", "one raised hand", "does this", "need to exist?"] },
+    { "file": "forge-c4.mp4", "duration": 3.0, "chunks": ["one line", "CI green", "the best code", "you never wrote"] }
+  ]
+}

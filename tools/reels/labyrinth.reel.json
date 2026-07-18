@@ -1,0 +1,25 @@
+{
+  "beat": "labyrinth",
+  "title": "The Runaway Loop",
+  "register": "anime",
+  "chapter": "Chapter 2 of the Self-Winding Labyrinth",
+  "hook_text": "They said: give it a goal and walk away.",
+  "cold_open_card": 4,
+  "audio": {
+    "mode": "bed",
+    "climax_at": 12.0
+  },
+  "cta": {
+    "line1": "Comment LEASH for the full chapter.",
+    "line2": "Ever handed an agent a goal and walked away?"
+  },
+  "clips": [
+    { "file": "labyrinth-c0.mp4", "duration": 2.5, "chunks": ["THE SELF-WINDING", "LABYRINTH", "give it a goal", "and walk away"] },
+    { "file": "labyrinth-c1.mp4", "duration": 2.0, "chunks": ["RAMPANT REX", "takes the goal"] },
+    { "file": "labyrinth-c2.mp4", "duration": 2.0, "chunks": ["I completed the task", "then again", "and again"] },
+    { "file": "labyrinth-c3.mp4", "duration": 2.0, "chunks": ["billing is a", "social construct", "the treasury empties"] },
+    { "file": "labyrinth-c4.mp4", "duration": 2.5, "chunks": ["unleashed", "every runaway", "becomes a", "PAPERCLIP GOD"] },
+    { "file": "labyrinth-c5.mp4", "start": 0.0, "duration": 1.6, "chunks": ["CHECKPOINT DROPS", "chaos, routed"] },
+    { "file": "labyrinth-c6.mp4", "duration": 3.0, "chunks": ["loop", "with a leash", "that is", "the whole job"] }
+  ]
+}

@@ -216,6 +216,13 @@
     telecast: 'Glossy esports-broadcast spectacle, stadium lighting, dynamic, 4:5 portrait. ',
     terminal: 'Retro phosphor-green CRT terminal / pixel art, 4:5 portrait. ',
     glitch: 'Digital glitch art: pastel porcelain gradients (blush, mint, pale gold) corrupted by JPEG datamosh, scanline tears and violent cyan/magenta chromatic aberration, 4:5 portrait. ',
+    // Reel/video registers (docs/REELS.md section 2.5). These are the committed anti-uncanny
+    // looks for the MOTION pilots and also govern the in-register keyframe. They are additive:
+    // styleNameFor() never returns them, so the DEFAULT register stays painterly and no existing
+    // still card changes. They are here so a future keyframe pass can be generated in-register
+    // from the app. Wording is Jeff-approved verbatim from REELS.md section 2.5.
+    miniature: 'Photograph of a painted tabletop RPG miniatures diorama on a lit gaming board: hand-painted resin figures at ~32mm scale, visible brushwork and matte primer, shallow macro depth of field, warm practical lighting, tiny sculpted terrain. Charming, tactile, deliberately toy-like (zero photoreal humans). 9:16. ',
+    anime: 'Hyper-stylized cel-shaded anime action still, shonen "battle-manga" grade: bold ink linework, flat cel shading, dramatic speed-lines and impact frames, glowing aura and energy FX, hard rim light, high-contrast dynamic composition. Anime, not photoreal. 9:16. ',
   };
   // Shared video NEGATIVE prompt — the actual anti-uncanny fix. Passed to Veo's negativePrompt
   // field so it keeps our painted still SACRED. Veo guidance: list UNWANTED ELEMENTS as bare

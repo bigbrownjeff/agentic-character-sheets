@@ -43,3 +43,6 @@ business/
 
 # git worktrees created by background agents
 .claude/worktrees/
+
+# Art-director render artifacts (generated media, delivered via wrangler/files, never git)
+renders/

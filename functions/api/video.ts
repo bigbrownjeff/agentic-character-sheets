@@ -105,15 +105,18 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
 
     /* --- POST: start a generation --- */
     if (request.method === 'POST') {
-      let prompt = '', aspectRatio = '9:16', imageUrl = '', inlineImage = '';
+      let prompt = '', aspectRatio = '9:16', imageUrl = '', inlineImage = '', negativePrompt = '';
       let duration = parseInt(env.VEO_DURATION || '4', 10);
       try {
-        const body = await request.json() as { prompt?: string; aspectRatio?: string; durationSeconds?: number; imageUrl?: string; image?: string };
+        const body = await request.json() as { prompt?: string; aspectRatio?: string; durationSeconds?: number; imageUrl?: string; image?: string; negativePrompt?: string };
         prompt = String(body.prompt || '').slice(0, MAX_PROMPT).trim();
         if (body.aspectRatio) aspectRatio = String(body.aspectRatio);
         if (body.durationSeconds) duration = Number(body.durationSeconds);
         if (body.imageUrl) imageUrl = String(body.imageUrl);
         if (body.image) inlineImage = String(body.image); // data URL keyframe, passed directly
+        // Anti-slop: a negative prompt is where illustration-preservation actually happens
+        // (ban face-morph / re-render / photoreal drift). See docs/REELS.md.
+        if (body.negativePrompt) negativePrompt = String(body.negativePrompt).slice(0, MAX_PROMPT).trim();
       } catch { return json({ error: 'Invalid JSON body' }, 400); }
 
       // Image-to-video: use a keyframe as Veo's FIRST FRAME so it animates that exact
@@ -157,6 +160,7 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
           parameters: {
             aspectRatio: aspectRatio,
             durationSeconds: duration,
+            ...(negativePrompt ? { negativePrompt: negativePrompt } : {}),
             ...(personGen && personGen.toLowerCase() !== 'omit' ? { personGeneration: personGen } : {}),
           },
         }),

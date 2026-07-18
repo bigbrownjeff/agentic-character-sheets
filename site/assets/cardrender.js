@@ -217,6 +217,10 @@
     terminal: 'Retro phosphor-green CRT terminal / pixel art, 4:5 portrait. ',
     glitch: 'Digital glitch art: pastel porcelain gradients (blush, mint, pale gold) corrupted by JPEG datamosh, scanline tears and violent cyan/magenta chromatic aberration, 4:5 portrait. ',
   };
+  // Shared video NEGATIVE prompt — the actual anti-uncanny fix. Passed to Veo's negativePrompt
+  // field so it keeps our painted still SACRED (no face-morph, no re-render toward photoreal).
+  // Mirrors beats.json `video_negative`. See docs/REELS.md.
+  var VIDEO_NEGATIVE = 'no face morphing, no facial warping, no re-rendering, no redesign, no style drift, no added or removed characters, no outfit changes, no lip movement, no talking, no photoreal skin, no plastic sheen, no fast motion, no scene change, no on-screen text, no watermark';
   // The per-adventure "consistency bible" (style-INDEPENDENT world/cast), built from beat.bible
   // and prepended to every frame's prompt so Veo/Gemini re-render the same place, cast, motifs,
   // and threat across frames. Per docs/research/dm-consistency-craft.md (the DM "fixed world").
@@ -253,13 +257,22 @@
   }
   // Per-cell video prompt: animate ONE keyframe (one card) into a 3-5s shot.
   // The whole beat = the sequence of these per-cell clips (~15-30s across 5-6 cards).
+  //
+  // ANTI-SLOP CONTRACT (see docs/REELS.md): the keyframe already carries 100% of the content,
+  // so this prompt is MOTION-ONLY plus prohibitions. We do NOT re-inject the style preamble or
+  // the full `scene` prose — naming people/objects/scene to a video model makes it re-render and
+  // morph faces (the uncanny valley). One camera move + one environmental motion, nothing more;
+  // the real preservation rides in VIDEO_NEGATIVE (Veo's negativePrompt field).
   function videoPrompt(beat, index, styleKey, note) {
     var card = (beat.cards || [])[index] || {};
-    var pre = STYLE_PROMPT[styleNameFor(beat.id, styleKey)] || STYLE_PROMPT.painterly;
-    return pre + buildBible(beat) +
-      'Animate THIS single keyframe into a 3-5 second cinematic shot in this exact art style: ' +
-      frameCues(card) + (card.scene || beat.title || '') +
-      ' Bring it to life with motion and a moving camera (slow push-in, parallax, drifting elements), but stay on this one scene (do NOT cut to other scenes). No on-screen text or captions.' +
+    var reel = beat.reel || {};
+    var camera = card.camera || reel.camera || 'slow push-in';
+    var motion = card.motion || 'subtle ambient life: faint drifting particles and a slow flicker of the key light';
+    return 'Animate this exact image. Do not re-render, redesign, or change the scene. ' +
+      'Camera: ' + camera + '. Motion: ' + motion + '. ' +
+      'Preserve the exact composition, every character, face, object, linework, and color palette. ' +
+      (card.is_ring_close ? 'Let the motion settle to calm on this final beat. ' : '') +
+      'No on-screen text or captions.' +
       (note ? ' Art-director note: ' + note : '');
   }
 
@@ -482,6 +495,8 @@
     var body = { prompt: String(prompt || '').slice(0, 1900) };
     if (opts.aspectRatio) body.aspectRatio = String(opts.aspectRatio);
     if (opts.image) body.image = String(opts.image);
+    // Default the negative to the shared anti-slop clause unless the caller overrides it.
+    body.negativePrompt = (opts.negative != null ? String(opts.negative) : VIDEO_NEGATIVE).slice(0, 1900);
     return fetch('./api/video', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -1028,6 +1043,7 @@
     beatCanvas: beatCanvas,
     beatPrompt: beatPrompt,
     videoPrompt: videoPrompt,
+    VIDEO_NEGATIVE: VIDEO_NEGATIVE,
     stylePrompt: STYLE_PROMPT,
     loadImage: loadImage, fetchArt: fetchArt, fetchArtData: fetchArtData, fetchArtFull: fetchArtFull, providerToggle: providerToggle,
     postVideo: postVideo, postTTS: postTTS,

@@ -874,8 +874,9 @@ function buildBeatVideoMaker(ch, adv, beatId, bible, beat, i, art) {
   }
   // One Veo cycle (start -> poll -> persisted R2 url) at the beat's key. If the user has
   // made a beat image, that locked still rides along as the FIRST FRAME (image-to-video).
-  function genClip(prompt) {
-    const payload = { prompt: prompt, aspectRatio: '9:16', durationSeconds: 4, key: key };
+  function genClip(prompt, extraNegative) {
+    var negative = window.CardRender.videoNegative() + (extraNegative ? ', ' + extraNegative : '');
+    const payload = { prompt: prompt, negativePrompt: negative.slice(0, 1900), aspectRatio: '9:16', durationSeconds: 4, key: key };
     if (art && art.src) payload.image = art.src;
     return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
       .then((r) => r.json().then((d) => r.ok ? d : Promise.reject(d)))
@@ -897,8 +898,11 @@ function buildBeatVideoMaker(ch, adv, beatId, bible, beat, i, art) {
         statusEl.textContent = hasKey ? 'Animating your beat image…' : 'Rendering the shot…';
         // With a locked keyframe the prompt is motion-only (Veo animates the still); without
         // one it falls back to the full scene prompt (text-to-video).
+        // With a keyframe the prompt is MOTION-ONLY (one camera move + one ambient motion); the
+        // preservation rides in genClip's negativePrompt, not in adjectives. Without a keyframe we
+        // fall back to the full scene prompt (text-to-video).
         const prompt = hasKey
-          ? ('Animate this exact image into a 3-5 second cinematic shot: keep the composition, every character, and the color palette IDENTICAL; add only subtle ambient motion (living light, gentle drift) and a slow camera move.' + (note ? ' ' + note : '') + ' Add no new people or objects, no scene change, no on-screen text.')
+          ? ('Animate this exact image. Do not re-render, redesign, or change the scene. Camera: slow push-in. Motion: subtle ambient life: faint drift and a slow flicker of the key light. Preserve the exact composition, every character, face, object, and color palette.' + (note ? ' Art-director note: ' + note : '') + ' No on-screen text or captions.')
           : storyVideoPrompt(beatId, bible, beat, note);
         const intent = beat.scene || beat.caption || beat.title || '';
         // Pass 1, then a hidden critic decides if a single targeted redo is worth it.
@@ -907,8 +911,11 @@ function buildBeatVideoMaker(ch, adv, beatId, bible, beat, i, art) {
           return critiqueClip(url1, intent).then((c) => {
             if (!c || c.verdict !== 'redo') return url1;
             statusEl.textContent = 'Refining the shot (final pass)…';
-            var fix = prompt + (c.tweak ? ' ' + c.tweak : '') + (c.flaws && c.flaws.length ? ' Avoid: ' + c.flaws.slice(0, 2).join('; ') + '.' : '');
-            return genClip(fix.slice(0, 1900)).catch(() => url1); // redo failed (e.g. quota) -> keep pass 1
+            // Critic flaws are things to AVOID -> they belong in the negative prompt, never appended
+            // to the positive (appending "Avoid: X" to the positive can make Veo render X).
+            var fix = prompt + (c.tweak ? ' ' + c.tweak : '');
+            var extraNeg = (c.flaws && c.flaws.length) ? c.flaws.slice(0, 3).join(', ') : '';
+            return genClip(fix.slice(0, 1900), extraNeg).catch(() => url1); // redo failed (e.g. quota) -> keep pass 1
           });
         }).then((url) => {
           videoEl.src = url + (url.indexOf('?') < 0 ? '?t=' : '&t=') + Date.now(); // bust cache on overwrite

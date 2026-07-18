@@ -278,7 +278,11 @@ function buildCarousel(beat, beatIndex) {
             const key = videoKey();
             videoStatus.textContent = 'Sending this card to the video model…';
             const prompt = window.CardRender.videoPrompt(beat, current, currentStyle, note);
-            return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: prompt, aspectRatio: '9:16', durationSeconds: 4, key: key }) })
+            // Image-to-video: the motion-only prompt animates THIS card's keyframe PNG, and the
+            // shared negative keeps the painting sacred. Both must travel together — a motion-only
+            // prompt with no keyframe makes Veo hallucinate from motion nouns (the regression).
+            const imageUrl = `${window.MEDIA_BASE || '.'}/cards/beats/${key}.png`;
+            return fetch('./api/video', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: prompt, negativePrompt: window.CardRender.videoNegative(), aspectRatio: '9:16', durationSeconds: 4, key: key, imageUrl: imageUrl }) })
               .then(r => r.json().then(d => r.ok ? d : Promise.reject(d)))
               .then(d => { if (!d.op) return Promise.reject(d); return poll(d.op, 0, key); })
               .then(videoUrl => {
@@ -544,6 +548,11 @@ window.Beats = {
       const res = await fetch('./data/beats.json');
       if (!res.ok) throw new Error('Failed to load beats.json (' + res.status + ')');
       const data = await res.json();
+      // beats.json is the single source of truth for the video negative; adopt it so the
+      // browser paths never drift from the canonical string (cardrender holds only a fallback).
+      if (data && data.video_negative && window.CardRender && window.CardRender.setVideoNegative) {
+        window.CardRender.setVideoNegative(data.video_negative);
+      }
       return (data && Array.isArray(data.beats)) ? data.beats : [];
     } catch (err) {
       console.error('Beats load error:', err);

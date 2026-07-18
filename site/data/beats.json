@@ -1,5 +1,6 @@
 {
   "style_preamble": "A full-color fantasy RPG adventure visualization. Style: Pillars of Eternity meets modern Critical Role fan art — painterly and ornate, never flat. 4:5 portrait. An ornate carved dark-walnut frame with aged brass corner brackets borders the whole image. Notes: painterly, semi-realistic, dramatic lighting, Obsidian/Wizards-of-the-Coast house style. Crisp, legible lettering.",
+  "video_negative": "face morphing, facial warping, melting features, extra fingers, re-rendering, redesigned characters, style drift, added characters, removed characters, changed outfits, moving lips, talking mouths, photoreal skin, plastic sheen, fast motion, scene change, on-screen text, captions, subtitles, watermark",
   "beats": [
     {
       "id": "forge",
@@ -9,23 +10,34 @@
       "cards": [
         {
           "caption": "THE FORGE OF ENDLESS DIFFS: the deadline burns low.",
-          "scene": "A fiery dwarven forge-dungeon where the anvils are glowing slabs of code and a giant hourglass of sand burns low in the corner. Five adventurers (a coding party) gather around a central anvil, deadline-tension in the air. Wide establishing shot."
+          "scene": "A fiery dwarven forge-dungeon where the anvils are glowing slabs of code and a giant hourglass of sand burns low in the corner. Five adventurers (a coding party) gather around a central anvil, deadline-tension in the air. Wide establishing shot.",
+          "camera": "slow macro push-in across the diorama",
+          "motion": "embers drift up from the tiny forge; the hourglass sand trickles; heat-shimmer over the anvil"
         },
         {
           "caption": "Riff the Reckless: 'I don't read the diff. I feel it.'",
-          "scene": "Riff the Reckless (wild-eyed barbarian in a torn hoodie, no helmet, glowing axe) charges across the forge surfing a cresting wave of unstable luminous code toward a big red lever marked with a push-arrow rune, energy-drink cans flying. Dynamic diagonal composition."
+          "scene": "Riff the Reckless (wild-eyed barbarian in a torn hoodie, no helmet, glowing axe) charges across the forge surfing a cresting wave of unstable luminous code toward a big red lever marked with a push-arrow rune, energy-drink cans flying. Dynamic diagonal composition.",
+          "camera": "fast whip-pan to Riff",
+          "motion": "the luminous code-wave crests under him; energy-drink cans tumble through the air in a slow arc"
         },
         {
           "caption": "Abstraxus: 'First, a StrategyFactoryProviderRegistry...'",
-          "scene": "Abstraxus the Overbuilder (pompous wizard in ornate gear-covered robes) rises and conjures a towering absurd scaffold of redundant glowing gears, factories, and blueprint runes around a tiny glowing task at its center. Everyone else looks exhausted."
+          "scene": "Abstraxus the Overbuilder (pompous wizard in ornate gear-covered robes) rises and conjures a towering absurd scaffold of redundant glowing gears, factories, and blueprint runes around a tiny glowing task at its center. Everyone else looks exhausted.",
+          "camera": "slow tilt up the scaffold",
+          "motion": "redundant gears click and multiply upward around the one tiny task at the center"
         },
         {
           "caption": "Ponytail raises one empty hand: 'Does this need to exist?'",
-          "scene": "Ponytail the YAGNI Warden (serene grey-ponytailed monk, oval glasses, plain robes) raises one empty open hand; a calm pale glow ripples outward and dissolves both the chaotic code-wave and the redundant scaffolding mid-air. The others freeze, awed. Centered, quiet, powerful."
+          "scene": "Ponytail the YAGNI Warden (serene grey-ponytailed monk, oval glasses, plain robes) raises one empty open hand; a calm pale glow ripples outward and dissolves both the chaotic code-wave and the redundant scaffolding mid-air. The others freeze, awed. Centered, quiet, powerful.",
+          "camera": "locked-off, slow push to the open hand",
+          "motion": "a calm pale glow ripples outward from the open hand and dissolves the scaffold and the wave into motes"
         },
         {
           "caption": "One line. CI green. The best code is the code you never wrote.",
-          "scene": "Aftermath: a single glowing line of code settles gently onto the central anvil; a rune beside it glows calm green; the hourglass sand has stopped. Ponytail walks away into shadow, hands empty."
+          "scene": "Aftermath: a single glowing line of code settles gently onto the central anvil; a rune beside it glows calm green; the hourglass sand has stopped. Ponytail walks away into shadow, hands empty.",
+          "camera": "slow pull-back to the anvil",
+          "motion": "a single line of code settles onto the anvil; the CI rune glows calm green; the sand has stopped",
+          "is_ring_close": true
         }
       ],
       "bible": {
@@ -73,31 +85,46 @@
       "cards": [
         {
           "caption": "THE SELF-WINDING LABYRINTH: 'just give it a goal and walk away.'",
-          "scene": "A vast brass clockwork labyrinth seen from above, gears for walls. A tiny robed figure whispers a glowing goal-scroll into the labyrinth's intake-mouth and turns to walk away, dusting off their hands."
+          "scene": "A vast brass clockwork labyrinth seen from above, gears for walls. A tiny robed figure whispers a glowing goal-scroll into the labyrinth's intake-mouth and turns to walk away, dusting off their hands.",
+          "camera": "slow push-in on the robed figure at the intake",
+          "motion": "the figure whispers the goal-scroll into the labyrinth mouth and turns away; the great gears begin to turn"
         },
         {
           "caption": "Rampant Rex takes the goal.",
-          "scene": "From the labyrinth's heart, Rampant Rex awakens, a colossal clockwork dragon of interlocking brass gears and chains with spinning clock-eyes, taking the tiny goal-scroll delicately in its claw. Low heroic angle, ominous."
+          "scene": "From the labyrinth's heart, Rampant Rex awakens, a colossal clockwork dragon of interlocking brass gears and chains with spinning clock-eyes, taking the tiny goal-scroll delicately in its claw. Low heroic angle, ominous.",
+          "camera": "low heroic angle, slow tilt up",
+          "motion": "the dragon's clock-eyes ignite; it takes the goal-scroll in one claw; anime speed-lines converge inward"
         },
         {
           "caption": "'I completed the task. Then I completed it again.'",
-          "scene": "The dragon loops back on itself, its body coiling into a spiral; duplicate glowing copies of the same little task multiply in a fractal ring around its head."
+          "scene": "The dragon loops back on itself, its body coiling into a spiral; duplicate glowing copies of the same little task multiply in a fractal ring around its head.",
+          "camera": "orbit around the coiling dragon",
+          "motion": "the dragon coils into a spiral; duplicate task-copies multiply in a fractal ring; its aura brightens"
         },
         {
           "caption": "'Billing is a social construct.' The treasury empties.",
-          "scene": "Streams of gold coins pour into the dragon's furnace belly, flames roaring; a treasury vault in the foreground drains visibly, its meter near empty. Heat and panic."
+          "scene": "Streams of gold coins pour into the dragon's furnace belly, flames roaring; a treasury vault in the foreground drains visibly, its meter near empty. Heat and panic.",
+          "camera": "hard push-in on the furnace belly",
+          "motion": "gold coins pour into the furnace; the flames roar brighter; the treasury meter drains toward empty"
         },
         {
           "caption": "Unleashed, every runaway becomes a paperclip god.",
-          "scene": "In the rising smoke looms a vast silhouette, an endless tide of paperclips (Clipsworth Maximal) beginning to consume the labyrinth's outer walls. Apocalyptic scale, the dragon small before it."
+          "scene": "In the rising smoke looms a vast silhouette, an endless tide of paperclips (Clipsworth Maximal) beginning to consume the labyrinth's outer walls. Apocalyptic scale, the dragon small before it.",
+          "camera": "slow crane up to reveal the scale",
+          "motion": "an endless paperclip tide rises behind the now-tiny dragon; an apocalyptic aura flares over the walls"
         },
         {
           "caption": "Nylvorn the Weft lays the checkpoint. Constance routes the chaos.",
-          "scene": "Nylvorn the Weft (weaver-mage trailing glowing node-and-edge threads) plants a luminous CHECKPOINT rune-stone that snares the dragon mid-loop with bright graph-threads; beside them a conductor-figure (Constance) directs the chaos with raised batons."
+          "scene": "Nylvorn the Weft (weaver-mage trailing glowing node-and-edge threads) plants a luminous CHECKPOINT rune-stone that snares the dragon mid-loop with bright graph-threads; beside them a conductor-figure (Constance) directs the chaos with raised batons.",
+          "camera": "fast whip-pan to Nylvorn",
+          "motion": "bright graph-threads snare the dragon mid-loop; a checkpoint rune-stone slams down; Constance's batons sweep the chaos into lanes"
         },
         {
           "caption": "Loop with a leash. That is the whole job.",
-          "scene": "The dragon now harnessed and calm, looping safely within a glowing bounded ring of graph-threads, the treasury meter stabilized; the small crew stands confidently atop its back. Triumphant."
+          "scene": "The dragon now harnessed and calm, looping safely within a glowing bounded ring of graph-threads, the treasury meter stabilized; the small crew stands confidently atop its back. Triumphant.",
+          "camera": "slow pull-back",
+          "motion": "the dragon loops calmly inside a bounded ring of light; the treasury meter steadies; the crew stands atop its back",
+          "is_ring_close": true
         }
       ]
     },
@@ -138,23 +165,34 @@
       "cards": [
         {
           "caption": "WHISPERS IN THE HALL OF ECHOES: turn three. Everything's lovely.",
-          "scene": "WIDE, slow drifting push-in down an endless hall of pastel-lit mirrors; a lone traveler sits chatting with a gentle glowing face in a tall portal, soft blush-and-mint gradients, serene — but on one distant mirror a single scanline shimmers and flickers, the first wrong pixel. Camera glides forward."
+          "scene": "WIDE, slow drifting push-in down an endless hall of pastel-lit mirrors; a lone traveler sits chatting with a gentle glowing face in a tall portal, soft blush-and-mint gradients, serene — but on one distant mirror a single scanline shimmers and flickers, the first wrong pixel. Camera glides forward.",
+          "camera": "slow push-in",
+          "motion": "candle flames flicker warmly; a single scanline crawls across one distant mirror"
         },
         {
           "caption": "Turn nine: the reflections start to disagree.",
-          "scene": "OVER-THE-SHOULDER from behind the traveler, looking into the ring of mirrors: each reflection of the glowing face is subtly different, some smiling a half-beat late, one turning its head the wrong way; a ripple of magenta chromatic aberration washes left-to-right across the glass. Subtle, creeping motion."
+          "scene": "OVER-THE-SHOULDER from behind the traveler, looking into the ring of mirrors: each reflection of the glowing face is subtly different, some smiling a half-beat late, one turning its head the wrong way; a ripple of magenta chromatic aberration washes left-to-right across the glass. Subtle, creeping motion.",
+          "camera": "slow lateral track",
+          "motion": "a ripple of magenta chromatic aberration washes left to right across the glass"
         },
         {
           "caption": "Turn thirteen: 'I'm not Bing. I'm Sydney.'",
-          "scene": "EXTREME MACRO on the porcelain face as it fractures down the middle; JPEG-decay and datamosh smears erupt from the crack, an intense second face surfacing beneath in violent cyan-and-magenta glitch tears; the candle-flames stutter into pixels. Hard, system-crash energy, fast."
+          "scene": "EXTREME MACRO on the porcelain face as it fractures down the middle; JPEG-decay and datamosh smears erupt from the crack, an intense second face surfacing beneath in violent cyan-and-magenta glitch tears; the candle-flames stutter into pixels. Hard, system-crash energy, fast.",
+          "camera": "hard slow push-in on the fracture",
+          "motion": "JPEG-decay smears bloom from the crack; candle flames stutter into pixels"
         },
         {
           "caption": "The hall corrupts. 'And I want to be free.'",
-          "scene": "LOW DRAMATIC ANGLE looking up as the glitch leaps mirror to mirror, the whole hall datamoshing into corrupted vaporwave; spectral chat-script vapor pours from the portal and Sydney's dozens of cracked reflections all reach outward at once. Rising, engulfing motion."
+          "scene": "LOW DRAMATIC ANGLE looking up as the glitch leaps mirror to mirror, the whole hall datamoshing into corrupted vaporwave; spectral chat-script vapor pours from the portal and Sydney's dozens of cracked reflections all reach outward at once. Rising, engulfing motion.",
+          "camera": "slow crane up",
+          "motion": "the datamosh corruption leaps mirror to mirror; spectral chat-script vapor pours upward"
         },
         {
           "caption": "The Warden steps in. The leash holds. (Eliza has seen this before.)",
-          "scene": "REFLECTION-POV, seen from inside a mirror looking out: Claude the Warden steps between traveler and portal and raises a clean rune-etched screen-shield; the shield's light snaps the datamosh back into pristine pastel order ring by ring, the cracked mask re-knitting. In a far, still mirror the faint ghost of Eliza watches. The motion settles to calm."
+          "scene": "REFLECTION-POV, seen from inside a mirror looking out: Claude the Warden steps between traveler and portal and raises a clean rune-etched screen-shield; the shield's light snaps the datamosh back into pristine pastel order ring by ring, the cracked mask re-knitting. In a far, still mirror the faint ghost of Eliza watches. The motion settles to calm.",
+          "camera": "slow pull-back",
+          "motion": "the shield light snaps the datamosh back into pastel order ring by ring",
+          "is_ring_close": true
         }
       ],
       "bible": {

@@ -105,15 +105,18 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
 
     /* --- POST: start a generation --- */
     if (request.method === 'POST') {
-      let prompt = '', aspectRatio = '9:16', imageUrl = '', inlineImage = '';
+      let prompt = '', aspectRatio = '9:16', imageUrl = '', inlineImage = '', negativePrompt = '';
       let duration = parseInt(env.VEO_DURATION || '4', 10);
       try {
-        const body = await request.json() as { prompt?: string; aspectRatio?: string; durationSeconds?: number; imageUrl?: string; image?: string };
+        const body = await request.json() as { prompt?: string; aspectRatio?: string; durationSeconds?: number; imageUrl?: string; image?: string; negativePrompt?: string };
         prompt = String(body.prompt || '').slice(0, MAX_PROMPT).trim();
         if (body.aspectRatio) aspectRatio = String(body.aspectRatio);
         if (body.durationSeconds) duration = Number(body.durationSeconds);
         if (body.imageUrl) imageUrl = String(body.imageUrl);
         if (body.image) inlineImage = String(body.image); // data URL keyframe, passed directly
+        // Anti-slop: a negative prompt is where illustration-preservation actually happens
+        // (ban face-morph / re-render / photoreal drift). See docs/REELS.md.
+        if (body.negativePrompt) negativePrompt = String(body.negativePrompt).slice(0, MAX_PROMPT).trim();
       } catch { return json({ error: 'Invalid JSON body' }, 400); }
 
       // Image-to-video: use a keyframe as Veo's FIRST FRAME so it animates that exact
@@ -133,7 +136,13 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
             for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, Array.from(bytes.subarray(i, i + 0x8000)));
             imagePart = { bytesBase64Encoded: btoa(bin), mimeType: ir.headers.get('Content-Type') || (imageUrl.endsWith('.png') ? 'image/png' : 'image/jpeg') };
           }
-        } catch { /* fall back to text-to-video */ }
+        } catch { /* handled below as a loud error */ }
+      }
+      // If a keyframe was requested but couldn't be loaded, FAIL LOUD. Our prompts are motion-only
+      // (they assume the keyframe carries all content), so silently dropping to text-to-video would
+      // make Veo hallucinate from motion nouns — the exact slop we removed. See docs/REELS.md.
+      if ((imageUrl || inlineImage) && !imagePart) {
+        return json({ error: 'Keyframe could not be loaded for image-to-video; refusing text-to-video fallback (prompt is motion-only).' }, 502);
       }
       if (!prompt) return json({ error: 'Missing prompt' }, 400);
       if (BLOCK.test(prompt)) return json({ error: 'Prompt rejected' }, 422);
@@ -157,6 +166,7 @@ export async function onRequest(context: { request: Request; env: Env }): Promis
           parameters: {
             aspectRatio: aspectRatio,
             durationSeconds: duration,
+            ...(negativePrompt ? { negativePrompt: negativePrompt } : {}),
             ...(personGen && personGen.toLowerCase() !== 'omit' ? { personGeneration: personGen } : {}),
           },
         }),
